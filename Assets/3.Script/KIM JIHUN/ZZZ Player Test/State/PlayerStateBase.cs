@@ -5,18 +5,22 @@ using UnityEngine;
 public enum EPlayerState
 {
     Idle,
+    IdleAFK,
+    Walk,
     Run,
     RunStart,
     RunEnd,
     TurnBack,
     EvadeFront,
+    EvadeFrontEnd,
     EvadeBack,
-    EvadeEnd,
+    EvadeBackEnd,
     NormalAttack,
     NormalAttakEnd,
     AttackUltStart,
     AttackUlt,
-    AttackUltEnd
+    AttackUltEnd,
+    SwitchIn
 }
 
 public class PlayerStateBase : StateBase
@@ -24,7 +28,7 @@ public class PlayerStateBase : StateBase
     protected PlayerController playerController;
     protected PlayerModel playerModel;
     protected AnimatorStateInfo stateInfo;
-    protected float animationPlayTime = 0;
+    protected float statePlayingTime = 0;
     
     public override void Init(IStateMachineOwner owner)
     {
@@ -33,7 +37,7 @@ public class PlayerStateBase : StateBase
     }
     public override void Enter()
     {
-        animationPlayTime = 0;
+        statePlayingTime = 0;
     }
 
     public override void Exit()
@@ -57,7 +61,14 @@ public class PlayerStateBase : StateBase
     {
         playerModel.characterController.Move(new Vector3(0, playerModel.gravity * Time.deltaTime, 0));
         stateInfo = playerModel.animator.GetCurrentAnimatorStateInfo(0);
-        animationPlayTime += Time.deltaTime;
+        statePlayingTime += Time.deltaTime;
+
+        //Ä³¸¯ÅÍ Switch
+        if(playerController.playerInputSystem.Player.Switch.triggered)
+        {
+            Debug.Log($"player model : {playerModel.gameObject.name} pos : {playerModel.transform.position}");
+            playerController.SwitchNextModel();
+        }
     }
 
     public bool IsAnimationEnd()

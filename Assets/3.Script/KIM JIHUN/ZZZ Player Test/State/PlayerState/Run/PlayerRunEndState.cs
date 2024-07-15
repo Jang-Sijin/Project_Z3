@@ -42,13 +42,14 @@ public class PlayerRunEndState : PlayerStateBase
 
         if (playerController.playerInputSystem.Player.Evade.triggered)
         {
+            //Debug.Log("Run End -> Evade Back");
             playerController.SwitchState(EPlayerState.EvadeBack);
             return;
         }
 
         if (playerController.inputMoveVec2 != Vector2.zero)
         {
-            playerController.SwitchState(EPlayerState.Run);
+            playerController.SwitchState(EPlayerState.Walk);
             return;
             //playerController.SwitchState(EPlayerState.RunStart);
         }

@@ -22,9 +22,9 @@ public class StateMachine
         this.owner = owner;
     }
 
-    public void EnterState<T>() where T : StateBase, new()
+    public void EnterState<T>(bool reloadState = false) where T : StateBase, new()
     {
-        if (hasState && currentState.GetType() == typeof(T))
+        if (hasState && currentState.GetType() == typeof(T) && !reloadState)
             return;
 
         if (hasState)
@@ -66,9 +66,10 @@ public class StateMachine
         MonoManager.INSTANCE.RemoveLateUpdateAction(currentState.LateUpdate);
     }
 
-    public void Stop()
+    public void Clear()
     {
         ExitCurrentState();
+        currentState = null;
         foreach (var state in stateDic.Values)
         {
             state.UnInit();
