@@ -32,24 +32,11 @@ public class PlayerUltState : PlayerStateBase
     {
         base.Update();
 
+        //애니메이션 종료
         if (IsAnimationEnd())
         {
             playerController.SwitchState(EPlayerState.AttackUltEnd);
             return;
         }
-
-        //Vector3 inputMoveVec3 = new Vector3(playerController.inputMoveVec2.x, 0, playerController.inputMoveVec2.y);
-        //
-        //float cameraAxisY = mainCamera.transform.rotation.eulerAngles.y;
-        //
-        //Vector3 targetDir = Quaternion.Euler(0, cameraAxisY, 0) * inputMoveVec3;
-        //
-        //Quaternion targetQua = Quaternion.LookRotation(targetDir);
-
-        //playerModel.transform.rotation = Quaternion.Slerp(
-        //                                            playerModel.transform.rotation,
-        //                                            targetQua,
-        //                                            Time.deltaTime * playerController.rotationSpeed
-        //                                            );
     }
 }

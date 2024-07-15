@@ -16,11 +16,13 @@ public class PlayerRunStartState : PlayerStateBase
     public override void Update()
     {
         base.Update();
+        //궁극기
         if (playerController.playerInputSystem.Player.Ult.triggered)
         {
             playerController.SwitchState(EPlayerState.AttackUltStart);
             return;
         }
+        //회피
         if (playerController.playerInputSystem.Player.Evade.triggered)
         {
             if (playerController.evadeTimer >= playerController.evadeCoolTime)
@@ -29,6 +31,7 @@ public class PlayerRunStartState : PlayerStateBase
                 return;
             }
         }
+        //이동
         if (playerController.inputMoveVec2 == Vector2.zero)
         {
             playerController.SwitchState(EPlayerState.RunEnd);
@@ -36,7 +39,6 @@ public class PlayerRunStartState : PlayerStateBase
         }
         else
         {
-
             Vector3 inputMoveVec3 = new Vector3(playerController.inputMoveVec2.x, 0, playerController.inputMoveVec2.y);
 
             float cameraAxisY = mainCamera.transform.rotation.eulerAngles.y;
@@ -50,7 +52,7 @@ public class PlayerRunStartState : PlayerStateBase
                                                         Time.deltaTime * playerController.rotationSpeed
                                                         );
         }
-
+        //애니메이션 종료
         if (IsAnimationEnd())
         {
             playerController.SwitchState(EPlayerState.Run);

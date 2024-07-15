@@ -15,11 +15,21 @@ public enum EPlayerState
     EvadeFrontEnd,
     EvadeBack,
     EvadeBackEnd,
+
     NormalAttack,
     NormalAttakEnd,
+
     AttackUltStart,
     AttackUlt,
     AttackUltEnd,
+
+    AttackSkill,
+    AttackSkillEx,
+    AttackSkillEnd,
+
+    AttackRush,
+    AttackRushEnd,
+
     SwitchIn
 }
 

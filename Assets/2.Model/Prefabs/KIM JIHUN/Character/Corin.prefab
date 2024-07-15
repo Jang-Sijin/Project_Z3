@@ -6759,6 +6759,7 @@ MonoBehaviour:
   currentNormalAttakIndex: 1
   skillUltStartShot: {fileID: 8042280424510545532}
   skillUltShot: {fileID: 0}
+  weapon: {fileID: 0}
   foot: 0
 --- !u!95 &5845205667541391071
 Animator:
@@ -6794,7 +6795,7 @@ CharacterController:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -7644,6 +7645,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5109150460431145865}
+  - component: {fileID: 7178251060447027609}
+  - component: {fileID: 4668718226086209618}
   m_Layer: 0
   m_Name: Weapon_saw
   m_TagString: Untagged
@@ -7667,6 +7670,39 @@ Transform:
   - {fileID: 742833466407655433}
   m_Father: {fileID: 2616616477385321543}
   m_LocalEulerAnglesHint: {x: -0.015595712, y: 0.011702023, z: -79.58634}
+--- !u!65 &7178251060447027609
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6240344520729638230}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5, y: 0.5, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4668718226086209618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6240344520729638230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d28b40ec30667641bf1eb0fda052878, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6327919651573672040
 GameObject:
   m_ObjectHideFlags: 0

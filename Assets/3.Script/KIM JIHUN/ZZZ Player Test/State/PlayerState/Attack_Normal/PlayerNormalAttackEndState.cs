@@ -14,18 +14,18 @@ public class PlayerNormalAttackEndState : PlayerStateBase
     public override void Update()
     {
         base.Update();
+
+        //궁극기
         if (playerController.playerInputSystem.Player.Ult.triggered)
         {
             playerController.SwitchState(EPlayerState.AttackUltStart);
             playerModel.currentNormalAttakIndex = 1;
             return;
         }
+        //평타
         if (playerController.playerInputSystem.Player.Fire.triggered)
         {
-            //Debug.Log($"Combo : {playerModel.currentNormalAttakIndex}");
-            //Debug.Log($"Before : {playerModel.skillConfig.currentNoramalAttakIndex}");
             playerModel.currentNormalAttakIndex++;
-            //Debug.Log($"After : {playerModel.skillConfig.currentNoramalAttakIndex}");
             if (playerModel.currentNormalAttakIndex
                 > playerModel.skillConfig.normalAttackDamageMultiple.Length)
             {
@@ -34,12 +34,20 @@ public class PlayerNormalAttackEndState : PlayerStateBase
             playerController.SwitchState(EPlayerState.NormalAttack);
             return;
         }
+        //스킬
+        if (playerController.playerInputSystem.Player.Skill.triggered)
+        {
+            playerController.SwitchState(EPlayerState.AttackSkill);
+            return;
+        }
+        //회피
         if (playerController.playerInputSystem.Player.Evade.triggered)
         {
             playerController.SwitchState(EPlayerState.EvadeBack);
             playerModel.currentNormalAttakIndex = 1;
             return;
         }
+        //이동
         if (playerController.inputMoveVec2 != Vector2.zero && statePlayingTime > 0.2f)
         {
             playerController.SwitchState(EPlayerState.Walk);
@@ -47,7 +55,7 @@ public class PlayerNormalAttackEndState : PlayerStateBase
             playerModel.currentNormalAttakIndex = 1;
             return;
         }
-
+        //애니메이션 종료
         if (IsAnimationEnd())
         {
             playerController.SwitchState(EPlayerState.Idle);

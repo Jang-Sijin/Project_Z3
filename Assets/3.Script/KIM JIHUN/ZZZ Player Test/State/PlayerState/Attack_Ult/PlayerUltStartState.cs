@@ -21,7 +21,7 @@ public class PlayerUltStartState : PlayerStateBase
     public override void Update()
     {
         base.Update();
-
+        //애니메이션 종료
         if (IsAnimationEnd())
             playerController.SwitchState(EPlayerState.AttackUlt);
     }

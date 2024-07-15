@@ -108,6 +108,21 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
             case EPlayerState.SwitchIn:
                 stateMachine.EnterState<PlayerSwitchInState>();
                 break;
+            case EPlayerState.AttackSkill:
+                stateMachine.EnterState<PlayerSkillState>();
+                break;
+            case EPlayerState.AttackSkillEx:
+                stateMachine.EnterState<PlayerSkillExtraState>();
+                break;
+            case EPlayerState.AttackSkillEnd:
+                stateMachine.EnterState<PlayerSkillEndState>();
+                break;
+            case EPlayerState.AttackRush:
+                stateMachine.EnterState<PlayerRushState>();
+                break;
+            case EPlayerState.AttackRushEnd:
+                stateMachine.EnterState<PlayerRushEndState>();
+                break;
         }
     }
 
@@ -153,7 +168,11 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
             //가장 가까운 몬스터 순으로 -> 레이캐스트가 가능한 개체 찾기
             closestEnemy = RaycastEnemy();
             if (closestEnemy != null)
-                directionToEnemy = (closestEnemy.transform.position - playerModel.transform.position).normalized;
+            {
+                Vector3 tmpEnemy = new Vector3(closestEnemy.transform.position.x, 0, closestEnemy.transform.position.z);
+                Vector3 tmpPlayer = new Vector3(playerModel.transform.position.x, 0, playerModel.transform.position.z);
+                directionToEnemy = (tmpEnemy - tmpPlayer).normalized;
+            }
         }
         else
         {

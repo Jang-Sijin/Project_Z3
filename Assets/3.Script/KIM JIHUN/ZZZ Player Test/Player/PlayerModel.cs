@@ -27,6 +27,7 @@ public class PlayerModel : MonoBehaviour
     private void Awake()
     {
         weapon = GetComponentInChildren<WeaponCollider>();
+        SetWeapon(false);
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
     }
@@ -75,5 +76,10 @@ public class PlayerModel : MonoBehaviour
     public void SetOutRightFoot()
     {
         foot = EModelFoot.Right;
+    }
+
+    public void SetWeapon(bool value)
+    {
+        weapon.enabled = value;
     }
 }

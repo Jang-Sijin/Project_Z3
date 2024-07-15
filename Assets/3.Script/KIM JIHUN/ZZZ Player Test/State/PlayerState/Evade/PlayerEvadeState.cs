@@ -22,26 +22,38 @@ public class PlayerEvadeState : PlayerStateBase
                 Debug.Log("Play Animation Evade Front");
                 playerController.PlayAnimation("Evade_Front");
                 break;
-            //case EPlayerState.Evade:
-            //    Debug.Log("Enter evade to evade");
-            //    if (playerController.inputMoveVec2 == Vector2.zero)
-            //        playerController.PlayAnimation("Evade_Back", 0);
-            //    else
-            //        playerController.PlayAnimation("Evade_Front", 0);
-            //    break;
         }
     }
 
     public override void Update()
     {
         base.Update();
-        //if (playerController.playerInputSystem.Player.Evade.IsPressed())
-        //{
-        //    if (playerController.evadeTimer >= playerController.evadeCoolTIme && playerModel.state == EPlayerState.Evade_Back)
-        //    {
-        //        playerController.SwitchState(EPlayerState.Evade_Back);
-        //    }
-        //}
+        //평타 or 러쉬
+        if (playerController.playerInputSystem.Player.Fire.triggered && stateInfo.normalizedTime >= 0.4f)
+        {
+            switch (playerModel.currentState)
+            {
+                case EPlayerState.EvadeFront:
+                    playerController.SwitchState(EPlayerState.NormalAttack);
+                    return;
+                case EPlayerState.EvadeBack:
+                    playerController.SwitchState(EPlayerState.AttackRush);
+                    return;
+            }
+        }
+        //궁
+        if (playerController.playerInputSystem.Player.Ult.triggered)
+        {
+            playerController.SwitchState(EPlayerState.AttackUltStart);
+            return;
+        }
+        //스킬
+        if (playerController.playerInputSystem.Player.Skill.triggered)
+        {
+            playerController.SwitchState(EPlayerState.AttackSkill);
+            return;
+        }
+        //애니메이션 종료
         if (stateInfo.normalizedTime >= 1.0f && !playerModel.animator.IsInTransition(0))
         {
             switch(playerModel.currentState)

@@ -37,28 +37,37 @@ public class PlayerRunState : PlayerStateBase
     {
         base.Update();
 
+        //궁극기
         if (playerController.playerInputSystem.Player.Ult.triggered)
         {
             playerController.SwitchState(EPlayerState.AttackUltStart);
             return;
         }
+        //평타
         if (playerController.playerInputSystem.Player.Fire.triggered)
         {
             playerController.SwitchState(EPlayerState.NormalAttack);
             return;
         }
+        //스킬
+        if (playerController.playerInputSystem.Player.Skill.triggered)
+        {
+            playerController.SwitchState(EPlayerState.AttackSkill);
+            return;
+        }
+        //회피
         if (playerController.playerInputSystem.Player.Evade.triggered)
         {
             playerController.SwitchState(EPlayerState.EvadeFront);
             return;
         }
 
+        //이동
         if (playerController.inputMoveVec2 == Vector2.zero)
         {
             playerController.SwitchState(EPlayerState.RunEnd);
             return;
         }
-
         else
         {
 
@@ -75,7 +84,7 @@ public class PlayerRunState : PlayerStateBase
                                                         Time.deltaTime * playerController.rotationSpeed
                                                         );
         }
-
+        //애니메이션 종료
         if (playerModel.currentState == EPlayerState.Walk && statePlayingTime > 3f)
         {
             playerController.SwitchState(EPlayerState.Run);

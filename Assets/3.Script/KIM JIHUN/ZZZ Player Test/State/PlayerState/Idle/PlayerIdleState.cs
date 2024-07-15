@@ -22,23 +22,33 @@ public class PlayerIdleState : PlayerStateBase
     public override void Update()
     {
         base.Update();
+        //궁극기
         if (playerController.playerInputSystem.Player.Ult.triggered)
         {
             playerController.SwitchState(EPlayerState.AttackUltStart);
             return;
         }
+        //평타
         if (playerController.playerInputSystem.Player.Fire.triggered)
         {
             //Debug.Log($"Combo : {playerModel.currentNormalAttakIndex}");
             playerController.SwitchState(EPlayerState.NormalAttack);
             return;
         }
+        //스킬
+        if(playerController.playerInputSystem.Player.Skill.triggered)
+        {
+            playerController.SwitchState(EPlayerState.AttackSkill);
+            return;
+        }
+        //회피
         if (playerController.playerInputSystem.Player.Evade.triggered)
         {
             //Debug.Log("Idle -> Evade Back");
             playerController.SwitchState(EPlayerState.EvadeBack);
             return;
         }
+        //이동
         if (playerController.inputMoveVec2 != Vector2.zero)
         {
             playerController.SwitchState(EPlayerState.Walk);
@@ -46,6 +56,7 @@ public class PlayerIdleState : PlayerStateBase
             //playerController.SwitchState(EPlayerState.RunStart);
         }
 
+        //유후 모션
         switch (playerModel.currentState)
         {
             case EPlayerState.Idle:
