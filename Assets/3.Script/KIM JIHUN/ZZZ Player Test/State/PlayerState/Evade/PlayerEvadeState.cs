@@ -8,15 +8,18 @@ public class PlayerEvadeState : PlayerStateBase
     public override void Enter()
     {
         base.Enter();
-        switch (playerModel.state)
+        switch (playerModel.currentState)
         {
             case EPlayerState.Idle:
             case EPlayerState.RunEnd:
-            case EPlayerState.EvadeEnd:
+            case EPlayerState.EvadeBackEnd:
+            case EPlayerState.EvadeBack:
             case EPlayerState.NormalAttakEnd:
+                Debug.Log("Play Animation Evade Back");
                 playerController.PlayAnimation("Evade_Back");
                 break;
-            case EPlayerState.Run:
+            case EPlayerState.EvadeFront:
+                Debug.Log("Play Animation Evade Front");
                 playerController.PlayAnimation("Evade_Front");
                 break;
             //case EPlayerState.Evade:
@@ -41,7 +44,20 @@ public class PlayerEvadeState : PlayerStateBase
         //}
         if (stateInfo.normalizedTime >= 1.0f && !playerModel.animator.IsInTransition(0))
         {
-            playerController.SwitchState(EPlayerState.EvadeEnd);
-        }
+            switch(playerModel.currentState)
+            {
+                case EPlayerState.EvadeFront:
+                    if(playerController.playerInputSystem.Player.Evade.IsPressed())
+                    {
+                        playerController.SwitchState(EPlayerState.Run);
+                        return;
+                    }
+                    playerController.SwitchState(EPlayerState.EvadeFrontEnd);
+                    break;
+                case EPlayerState.EvadeBack:
+                    playerController.SwitchState(EPlayerState.EvadeBackEnd);
+                    break;
+            }
+         }
     }
 }

@@ -12,18 +12,26 @@ public class PlayerRunState : PlayerStateBase
         base.Enter();
 
         mainCamera = Camera.main;
-
-        switch (playerModel.foot)
+        switch (playerModel.currentState)
         {
-            case EModelFoot.Right:
-                playerController.PlayAnimation("Run", 0.25f, 0.5f);
-                playerModel.foot = EModelFoot.Right;
+            case EPlayerState.Walk:
+                switch (playerModel.foot)
+                {
+                    case EModelFoot.Right:
+                        playerController.PlayAnimation("Walk", 0.25f, 0.6f);
+                        playerModel.foot = EModelFoot.Right;
+                        break;
+                    case EModelFoot.Left:
+                        playerController.PlayAnimation("Walk", 0.25f, 0f);
+                        playerModel.foot = EModelFoot.Left;
+                        break;
+                }
                 break;
-            case EModelFoot.Left:
-                playerController.PlayAnimation("Run", 0.25f, 0f);
-                playerModel.foot = EModelFoot.Left;
+            case EPlayerState.Run:
+                playerController.PlayAnimation("Run");
                 break;
         }
+
     }
     public override void Update()
     {
@@ -61,24 +69,17 @@ public class PlayerRunState : PlayerStateBase
             Vector3 targetDir = Quaternion.Euler(0, cameraAxisY, 0) * inputMoveVec3;
 
             Quaternion targetQua = Quaternion.LookRotation(targetDir);
-
-            //float angles = Mathf.Abs(targetQua.eulerAngles.y - playerModel.transform.eulerAngles.y);
-             //Debug.Log("target : " + targetQua.eulerAngles.y);
-             //Debug.Log("Player : " + playerModel.transform.eulerAngles.y);
-
-
-            //if (angles > 177.5f && angles < 182.5f)
-            //{
-            //    //playerController.SwitchState(EPlayerState.TurnBack);
-            //}
-            //else
-            //{
             playerModel.transform.rotation = Quaternion.Slerp(
                                                         playerModel.transform.rotation,
                                                         targetQua,
                                                         Time.deltaTime * playerController.rotationSpeed
                                                         );
-            //}
+        }
+
+        if (playerModel.currentState == EPlayerState.Walk && statePlayingTime > 3f)
+        {
+            playerController.SwitchState(EPlayerState.Run);
+            return;
         }
     }
 }

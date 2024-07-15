@@ -8,12 +8,12 @@ public class PlayerEvadeEndState : PlayerStateBase
     {
         base.Enter();
 
-        switch(playerModel.state)
+        switch(playerModel.currentState)
         {
-            case EPlayerState.EvadeFront:
+            case EPlayerState.EvadeFrontEnd:
                 playerController.PlayAnimation("Evade_Front_End");
                 break;
-            case EPlayerState.EvadeBack:
+            case EPlayerState.EvadeBackEnd:
                 playerController.PlayAnimation("Evade_Back_End");
                 break;
         }
@@ -35,7 +35,7 @@ public class PlayerEvadeEndState : PlayerStateBase
 
         if (playerController.inputMoveVec2 != Vector2.zero)
         {
-            playerController.SwitchState(EPlayerState.Run);
+            playerController.SwitchState(EPlayerState.Walk);
             return;
             //playerController.SwitchState(EPlayerState.RunStart);
         }
