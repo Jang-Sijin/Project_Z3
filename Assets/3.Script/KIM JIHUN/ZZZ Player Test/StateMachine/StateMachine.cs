@@ -66,9 +66,10 @@ public class StateMachine
         MonoManager.INSTANCE.RemoveLateUpdateAction(currentState.LateUpdate);
     }
 
-    public void Stop()
+    public void Clear()
     {
         ExitCurrentState();
+        currentState = null;
         foreach (var state in stateDic.Values)
         {
             state.UnInit();

@@ -44,7 +44,7 @@ public class PlayerUltEndState : PlayerStateBase
         }
         if (playerController.inputMoveVec2 != Vector2.zero)
         {
-            playerController.SwitchState(EPlayerState.Run);
+            playerController.SwitchState(EPlayerState.Walk);
             return;
             //playerController.SwitchState(EPlayerState.RunStart);
         }
