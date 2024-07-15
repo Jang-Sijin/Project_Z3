@@ -39,12 +39,12 @@ public class UnCharHpSp : MonoBehaviour
         }
     }
 
-    public void Refresh_Hpbar(float nowHealth, float maxHealth)
+    public void Refresh_Hpbar(float nowHealth, float maxHealth) // 피 업데이트
     {
         hpBar.value = nowHealth / maxHealth;
     }
 
-    public void Refresh_Spbar(float nowSp, float maxSp)
+    public void Refresh_Spbar(float nowSp, float maxSp) // Sp 업데이트
     {
         spBar.value = nowSp / maxSp;
     }
