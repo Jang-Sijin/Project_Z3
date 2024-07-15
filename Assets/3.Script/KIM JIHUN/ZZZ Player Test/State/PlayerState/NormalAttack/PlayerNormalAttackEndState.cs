@@ -41,7 +41,7 @@ public class PlayerNormalAttackEndState : PlayerStateBase
             playerModel.currentNormalAttakIndex = 1;
             return;
         }
-        if (playerController.inputMoveVec2 != Vector2.zero && animationPlayTime > 0.5f)
+        if (playerController.inputMoveVec2 != Vector2.zero && statePlayingTime > 0.2f)
         {
             playerController.SwitchState(EPlayerState.Run);
             //playerController.SwitchState(EPlayerState.RunStart);

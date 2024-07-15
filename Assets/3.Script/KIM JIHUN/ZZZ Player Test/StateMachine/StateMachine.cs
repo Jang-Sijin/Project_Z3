@@ -22,9 +22,9 @@ public class StateMachine
         this.owner = owner;
     }
 
-    public void EnterState<T>() where T : StateBase, new()
+    public void EnterState<T>(bool reloadState = false) where T : StateBase, new()
     {
-        if (hasState && currentState.GetType() == typeof(T))
+        if (hasState && currentState.GetType() == typeof(T) && !reloadState)
             return;
 
         if (hasState)

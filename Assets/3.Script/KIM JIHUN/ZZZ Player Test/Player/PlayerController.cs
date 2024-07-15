@@ -32,10 +32,12 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
 
     public void SwitchState(EPlayerState playerState)
     {
+        playerModel.currentState = playerState;
         switch (playerState)
         {
             case EPlayerState.Idle:
-                stateMachine.EnterState<PlayerIdleState>();
+            case EPlayerState.IdleAFK:
+                stateMachine.EnterState<PlayerIdleState>(true);
                 break;
             case EPlayerState.Run:
                 stateMachine.EnterState<PlayerRunState>();
