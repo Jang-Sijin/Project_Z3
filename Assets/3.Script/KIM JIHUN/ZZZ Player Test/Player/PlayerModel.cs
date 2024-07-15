@@ -11,6 +11,7 @@ public class PlayerModel : MonoBehaviour
 {
     [HideInInspector] public Animator animator;
     [HideInInspector] public EPlayerState state;
+    public EPlayerState currentState;
     [HideInInspector] public CharacterController characterController;
 
     public float gravity = -9.8f;

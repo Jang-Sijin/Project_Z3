@@ -5,6 +5,7 @@ using UnityEngine;
 public enum EPlayerState
 {
     Idle,
+    IdleAFK,
     Run,
     RunStart,
     RunEnd,
@@ -24,7 +25,7 @@ public class PlayerStateBase : StateBase
     protected PlayerController playerController;
     protected PlayerModel playerModel;
     protected AnimatorStateInfo stateInfo;
-    protected float animationPlayTime = 0;
+    protected float statePlayingTime = 0;
     
     public override void Init(IStateMachineOwner owner)
     {
@@ -33,7 +34,7 @@ public class PlayerStateBase : StateBase
     }
     public override void Enter()
     {
-        animationPlayTime = 0;
+        statePlayingTime = 0;
     }
 
     public override void Exit()
@@ -57,7 +58,7 @@ public class PlayerStateBase : StateBase
     {
         playerModel.characterController.Move(new Vector3(0, playerModel.gravity * Time.deltaTime, 0));
         stateInfo = playerModel.animator.GetCurrentAnimatorStateInfo(0);
-        animationPlayTime += Time.deltaTime;
+        statePlayingTime += Time.deltaTime;
     }
 
     public bool IsAnimationEnd()
