@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using UnityEditor;
 using UnityEngine;
-
-public enum TempChar
+using UnityEngine.UI;
+using DG.Tweening;
+public enum TempChar // 디버깅용
 { 
     ANBY = 0,
     SOUKAKU = 1,
@@ -34,12 +36,49 @@ Space 	  -  스위치
      * 캐릭터의 현재 수치를 반영하려면 아래 변수들을 불러서 사용하면 됩니다.
      */
     [SerializeField] private SelectedChar selectedChar;
-    [SerializeField] private UnCharHpSp unCharHpSp1;
-    [SerializeField] private UnCharHpSp unCharHpSp2;
+    [SerializeField] private UnCharHpSp unChar1;
+    [SerializeField] private UnCharHpSp unChar2;
+    [SerializeField] private Image[] changeEffectIMGs;
+    [SerializeField] private Animator[] changeEffectAni;
+
+    private struct CharInfo // 디버깅용
+    {
+        public TempChar name;
+        public float curHP;
+        public float maxHP;
+        public float curSP;
+        public float maxSP;
+    };
+        CharInfo[] chars = new CharInfo[3]; // 디버깅용 캐릭터 정보
+
+    private void Start() // 디버깅용
+    {
+
+        for(int i=0; i<chars.Length; i++)
+        {
+            chars[i].curHP = Random.Range(500, 1000);
+            chars[i].maxHP = Random.Range(1000, 1350);
+        }
+    }
+
+    private void OnEnable()
+    {
+        for (int i = 0; i < changeEffectAni.Length; i++)
+        {
+            changeEffectAni[i].SetBool("Run", true);
+        }
+    }
+
 
     private void Update()
     {
         OpenAndClosePause();
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            ChangeChar(TempChar.CORIN, TempChar.SOUKAKU, TempChar.ANBY);
+            Change_Effect();
+        }
     }
 
     private void OpenAndClosePause()
@@ -59,12 +98,59 @@ Space 	  -  스위치
         }
     }
 
-    public void ChangeChar(TempChar selectedChar, TempChar unselectedChar1, TempChar unselectedChar2)
+    public void ChangeChar(TempChar newselChar, TempChar newunChar1, TempChar newunChar2) // 캐릭터를 바꾸는 메소드
     {
         /*
          * 현재 캐릭터의 데이터를 갖고 와서
          */
+        Debug.Log(newunChar1.ToString());
+        Debug.Log(newunChar2.ToString());
 
+        //디버깅 용입니다.
+        Change_Profile(selectedChar.Profile, newselChar.ToString());
+        selectedChar.CurHP = chars[(int)newselChar].curHP;
+        selectedChar.MaxHP = chars[(int)newselChar].maxHP;
+        selectedChar.CurSP = chars[(int)newselChar].curSP;
+        selectedChar.MaxSP = chars[(int)newselChar].maxSP;
+        selectedChar.RefreshHealth(true);
+        Debug.Log(newselChar.ToString());
 
+        Change_Profile(unChar1.Profile, newunChar1.ToString());
+        unChar1.CurHp = chars[(int)newunChar1].curHP;
+        unChar1.MaxHp = chars[(int)newunChar1].maxHP;
+        unChar1.CurSp = chars[(int)newunChar1].curSP;
+        unChar1.MaxSp = chars[(int)newunChar1].maxSP;
+        unChar1.Refresh_Hpbar();
+        unChar1.Refresh_Spbar();
+
+        Change_Profile(unChar2.Profile, newunChar2.ToString());
+        unChar1.CurHp = chars[(int)newunChar2].curHP;
+        unChar1.MaxHp = chars[(int)newunChar2].maxHP;
+        unChar1.CurSp = chars[(int)newunChar2].curSP;
+        unChar1.MaxSp = chars[(int)newunChar2].maxSP;
+        unChar1.Refresh_Hpbar();
+        unChar2.Refresh_Spbar();
+        //디버깅용
+    }
+
+    private void Change_Profile(Image profile, string charName)
+    {
+        Debug.Log(charName);
+        profile = Resources.Load<Image>(charName); // 디버깅용입니다.
+
+        Debug.Log(Resources.Load<Image>("Resour/LEE JUNHYEONG/" + charName));
+    }
+
+    private void Change_Effect()
+    {
+        Color tempColor;
+        for (int i = 0; i < changeEffectIMGs.Length; i++)
+        {
+            tempColor = changeEffectIMGs[i].color;
+            tempColor.a = 1f;
+            changeEffectIMGs[i].color = tempColor;
+
+            changeEffectIMGs[i].DOFade(0f, 1f).SetEase(Ease.InOutQuad);
+        }
     }
 }

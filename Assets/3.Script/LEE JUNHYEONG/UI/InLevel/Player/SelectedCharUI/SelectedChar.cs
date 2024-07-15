@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,21 @@ public class SelectedChar : MonoBehaviour
     [SerializeField] private Slider realHp;
     [SerializeField] private Slider fakeHp;
     [SerializeField] private Slider sp;
+    [SerializeField] private Image profile;
+    [SerializeField] private TextMeshProUGUI playerhptext;
+
+    public Image Profile
+    {
+        get
+        {
+            return profile;
+        }
+
+        set
+        {
+            profile = value;
+        }
+    }
     private float curHP;
 
     public float CurHP
@@ -67,12 +83,14 @@ public class SelectedChar : MonoBehaviour
         }
     }
 
+
     private Coroutine timerCoroutine;
 
     private void Start()
     {
         Slider[] sliders = new Slider[3];
         sliders = GetComponentsInChildren<Slider>();
+
 
         for (int i = 0; i < sliders.Length; i++)
         {
@@ -104,6 +122,8 @@ public class SelectedChar : MonoBehaviour
         {
             fakeHp.value = curHP / maxHP;
         }
+
+        playerhptext.text = $"{curHP / maxHP}";
     }
 
     public void RefreshSp() // sp °»½Å
