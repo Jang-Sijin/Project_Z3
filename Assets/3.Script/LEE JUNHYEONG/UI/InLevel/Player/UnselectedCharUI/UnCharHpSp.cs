@@ -16,7 +16,72 @@ public class UnCharHpSp : MonoBehaviour
     private Slider hpBar;
     private Slider spBar;
     private int Amount = 2;
+    private Image profile;
+    private float curHp;
+    private float maxHp;
+    private float curSp;
+    private float maxSp;
 
+    public float CurHp
+    {
+        get
+        {
+            return curHp;
+        }
+
+        set
+        {
+            curHp = value;
+        }
+    }
+    public float MaxHp
+    {
+        get
+        {
+            return maxHp;
+        }
+
+        set
+        {
+            maxHp = value;
+        }
+    }
+    public float CurSp
+    {
+        get
+        {
+            return curSp;
+        }
+
+        set
+        {
+            value = curSp;
+        }
+    }
+    public float MaxSp
+    {
+        get
+        {
+            return maxSp;
+        }
+
+        set
+        {
+            maxHp= value;
+        }
+    }
+    public Image Profile
+    {
+        get
+        {
+            return profile;
+        }
+
+        set
+        {
+            profile = value;
+        }
+    }
     private void Start()
     {
 
@@ -38,14 +103,13 @@ public class UnCharHpSp : MonoBehaviour
             }
         }
     }
-
-    public void Refresh_Hpbar(float nowHealth, float maxHealth)
+    public void Refresh_Hpbar() // 피 업데이트
     {
-        hpBar.value = nowHealth / maxHealth;
+        hpBar.value = curHp / maxHp;
     }
 
-    public void Refresh_Spbar(float nowSp, float maxSp)
+    public void Refresh_Spbar() // Sp 업데이트
     {
-        spBar.value = nowSp / maxSp;
+        spBar.value = curSp / maxSp;
     }
 }

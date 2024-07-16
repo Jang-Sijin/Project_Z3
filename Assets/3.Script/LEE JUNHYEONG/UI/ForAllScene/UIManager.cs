@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum WhichPlace
+{
+    INTRO = 0,
+    MAINCITY = 1,
+    INGAME = 2
+};
+
 public class UIManager : MonoBehaviour
 {
     /*
@@ -10,15 +17,20 @@ public class UIManager : MonoBehaviour
     * Intro¾À¿¡¼­ IntroUI¸¦ ºÒ·¯¿È
     * MainMenu¾À¿¡¼­ MainMenuUI¸¦ ºÒ·¯¿È
     */
+
     public static UIManager instance = null;
 
-    [SerializeField] private GameObject introUI_ob;
+    [SerializeField] private IntroUI introUI;
 
-    [SerializeField] private GameObject mainMenu_ob;
+    [SerializeField] private MainMenuUI mainMenuUI;
 
-    [SerializeField] private GameObject inGameUI_ob;
+    [SerializeField] private InGameUI inGameUI;
 
-    [SerializeField] private PauseMenuUI pauseMenu;
+    //**************************************************
+    [SerializeField] public PauseMenuUI pauseMenuUI;
+    public bool isCloseOrOpen = false;
+    public bool isPause = false;
+    //**************************************************
 
     private void Awake()
     {
@@ -26,6 +38,8 @@ public class UIManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+
+            pauseMenuUI.gameObject.SetActive(true);
         }
 
         else
@@ -35,23 +49,23 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void Creat_Intro_UI()
+    private void Creat_Intro_UI()
     {
-        Instantiate(introUI_ob);
+        Instantiate(introUI);
     }
 
-    public void Creat_Lobby_UI()
+    private void Creat_Lobby_UI()
     {
-        Instantiate(mainMenu_ob);
+        Instantiate(mainMenuUI);
     }
 
-    public void Creat_InGame_UI()
+    private void Creat_InGame_UI()
     {
-        Instantiate(inGameUI_ob);
+        Instantiate(inGameUI);
     }
 
-    public void Creat_PuaseMenu_UI()
+    private void CreatPause()
     {
-        Instantiate(pauseMenu);
+        Instantiate(pauseMenuUI);
     }
 }

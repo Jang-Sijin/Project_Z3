@@ -10,15 +10,19 @@ public enum EModelFoot
 public class PlayerModel : MonoBehaviour
 {
     [HideInInspector] public Animator animator;
-    [HideInInspector] public EPlayerState state;
     public EPlayerState currentState;
     [HideInInspector] public CharacterController characterController;
 
     public float gravity = -9.8f;
     public SkillConfig skillConfig;
     public int currentNormalAttakIndex = 1;
-    public GameObject skillUltStartShot;
-    public GameObject skillUltShot;
+    
+    public GameObject skillUltStartShot; // 궁극기 시작 컷신
+    public GameObject skillUltShot; // 궁극기 컷신
+
+    private AnimatorStateInfo stateInfo;
+
+    private WeaponCollider weaponCollider;
 
     [HideInInspector] public EModelFoot foot = EModelFoot.Right;
     private void Awake()
@@ -26,12 +30,95 @@ public class PlayerModel : MonoBehaviour
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
     }
+
+    private void Start()
+    {
+        weaponCollider = GetComponentInChildren<WeaponCollider>();
+    }
+
+    private void Update()
+    {
+        stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+    }
+
+    public void Enter()
+    {
+        MonoManager.INSTANCE.RemoveUpdateAction(OnExit);
+    }
+
+    public void Exit()
+    {
+        animator.CrossFadeInFixedTime("Switch_Out_Normal", 0.1f);
+        MonoManager.INSTANCE.AddUpdateAction(OnExit);
+    }
+
+    public void OnExit()
+    {
+        if(IsAnimationEnd())
+        {
+            gameObject.SetActive(false);
+            MonoManager.INSTANCE.RemoveUpdateAction(OnExit);
+        }
+    }
+
+    public bool IsAnimationEnd()
+    {
+        return stateInfo.normalizedTime >= 1.0f && !animator.IsInTransition(0);
+    }
+
+    /// <summary>
+    /// 캐릭터 모델 왼발 해제
+    /// </summary>
     public void SetOutLeftFoot()
     {
         foot = EModelFoot.Left;
     }
+
+    /// <summary>
+    /// 캐릭터 모델 오른발 해제
+    /// </summary>
     public void SetOutRightFoot()
     {
         foot = EModelFoot.Right;
+    }
+
+    /// <summary>
+    /// 가장 가까운 Enemy 바라보기
+    /// </summary>
+    public void LookEnemy()
+    {
+        if (PlayerController.INSTANCE.closestEnemy != null)
+        {
+            Quaternion targetQua = Quaternion.LookRotation(PlayerController.INSTANCE.directionToEnemy);
+            transform.rotation = targetQua;
+        }
+    }
+
+    /// <summary>
+    /// 해당 Trigger가 ON이라면 공격 판정 ON
+    /// </summary>
+    public void WeaponTriggerOn()
+    {
+        Debug.Log("TriggerOn");
+        weaponCollider.SetShakeTrigger(true);
+    }
+
+
+    /// <summary>
+    /// 해당 Trigger가 OFF이라면 공격 판정 OFF
+    /// </summary>
+    public void WeaponTriggerOff()
+    {
+        Debug.Log("TriggerOff");
+        weaponCollider.SetShakeTrigger(false);
+    }
+
+    public void ShakeCamera()
+    {
+        PlayerController.INSTANCE.ShakeCamera(3f, 0.1f);
+    }
+    public void ShakeCameraForOneSec()
+    {
+        PlayerController.INSTANCE.ShakeCamera(1f, 1f);
     }
 }

@@ -31,23 +31,32 @@ public class PlayerUltEndState : PlayerStateBase
     public override void Update()
     {
         base.Update();
-
+        //평타
         if (playerController.playerInputSystem.Player.Fire.triggered)
         {
             playerController.SwitchState(EPlayerState.NormalAttack);
             return;
         }
+        //회피
         if (playerController.playerInputSystem.Player.Evade.triggered)
         {
             playerController.SwitchState(EPlayerState.EvadeBack);
             return;
         }
+        //스킬
+        if (playerController.playerInputSystem.Player.Skill.triggered)
+        {
+            playerController.SwitchState(EPlayerState.AttackSkill);
+            return;
+        }
+        //이동
         if (playerController.inputMoveVec2 != Vector2.zero)
         {
-            playerController.SwitchState(EPlayerState.Run);
+            playerController.SwitchState(EPlayerState.Walk);
             return;
             //playerController.SwitchState(EPlayerState.RunStart);
         }
+        //애니메이션 종료
         if (IsAnimationEnd())
         {
             playerController.SwitchState(EPlayerState.Idle);

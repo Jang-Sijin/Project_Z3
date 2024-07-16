@@ -14,4 +14,16 @@ public class TargetPoint : MonoBehaviour
         Vector3 playerPos = PlayerController.INSTANCE.playerModel.transform.position;
         transform.position = new Vector3(playerPos.x, playerPos.y + height, playerPos.z);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+            PlayerController.INSTANCE.AddEnemy(other.gameObject);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+            PlayerController.INSTANCE.RemoveEnemy(other.gameObject);
+    }
 }
