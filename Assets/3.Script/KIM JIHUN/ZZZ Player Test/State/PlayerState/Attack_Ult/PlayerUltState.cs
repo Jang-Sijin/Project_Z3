@@ -9,6 +9,7 @@ public class PlayerUltState : PlayerStateBase
     public override void Enter()
     {
         base.Enter();
+        playerModel.LookEnemy();
 
         mainCamera = Camera.main;
         //UltState에 카메라 컷신이 있다면

@@ -63,7 +63,7 @@ public class PlayerIdleState : PlayerStateBase
                 if (playerModel.currentState == EPlayerState.Idle && statePlayingTime > 4)
                 {
                     playerController.SwitchState(EPlayerState.IdleAFK);
-                    Debug.Log("IdleAFK");
+                    Debug.Log("Idle_AFK");
                 }
                 break;
             case EPlayerState.IdleAFK:

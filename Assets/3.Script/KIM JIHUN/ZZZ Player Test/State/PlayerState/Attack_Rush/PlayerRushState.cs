@@ -7,6 +7,7 @@ public class PlayerRushState : PlayerStateBase
     public override void Enter()
     {
         base.Enter();
+        playerModel.LookEnemy();
         playerController.PlayAnimation("Attack_Rush");
     }
     public override void Update()

@@ -8,15 +8,10 @@ public class PlayerNormalAttackState : PlayerStateBase
     public override void Enter()
     {
         base.Enter();
-        playerModel.SetWeapon(true);
 
         enterNextAttack = false;
 
-        if(playerController.closestEnemy != null)
-        {
-            Quaternion targetQua = Quaternion.LookRotation(playerController.directionToEnemy);
-            playerModel.transform.rotation = targetQua;
-        }
+        playerModel.LookEnemy();
 
         playerController.PlayAnimation($"Attack_Normal_{playerModel.currentNormalAttakIndex}");
     }
@@ -33,14 +28,12 @@ public class PlayerNormalAttackState : PlayerStateBase
         //±Ã±Ø±â
         if (playerController.playerInputSystem.Player.Ult.triggered)
         {
-            playerModel.SetWeapon(false);
             playerController.SwitchState(EPlayerState.AttackUltStart);
             return;
         }
         //È¸ÇÇ
         if (playerController.playerInputSystem.Player.Evade.triggered)
         {
-            playerModel.SetWeapon(false);
             playerController.SwitchState(EPlayerState.EvadeBack);
             playerModel.currentNormalAttakIndex = 1;
             return;
@@ -61,13 +54,11 @@ public class PlayerNormalAttackState : PlayerStateBase
                 {
                     playerModel.currentNormalAttakIndex = 1;
                 }
-                playerModel.SetWeapon(false);
                 playerController.SwitchState(EPlayerState.NormalAttack);
                 return;
             }
             else
             {
-                playerModel.SetWeapon(false);
                 playerController.SwitchState(EPlayerState.NormalAttakEnd);
                 return;
             }
