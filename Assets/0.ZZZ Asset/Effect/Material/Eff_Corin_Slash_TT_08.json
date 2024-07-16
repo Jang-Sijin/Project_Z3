@@ -1,0 +1,452 @@
+{
+  "m_Shader": {
+    "m_FileID": 1,
+    "m_PathID": -8861675102675100451,
+    "Name": "",
+    "IsNull": false
+  },
+  "m_SavedProperties": {
+    "m_TexEnvs": {
+      "_DTTex": {
+        "m_Texture": {
+          "m_FileID": 0,
+          "m_PathID": 0,
+          "Name": "",
+          "IsNull": true
+        },
+        "m_Scale": {
+          "X": 1.0,
+          "Y": 1.0
+        },
+        "m_Offset": {
+          "X": 0.0,
+          "Y": 0.0
+        }
+      },
+      "_DissolveTex": {
+        "m_Texture": {
+          "m_FileID": 2,
+          "m_PathID": -7311914609672175509,
+          "Name": "",
+          "IsNull": false
+        },
+        "m_Scale": {
+          "X": 0.5,
+          "Y": 1.0
+        },
+        "m_Offset": {
+          "X": -0.24,
+          "Y": -0.51
+        }
+      },
+      "_DistortionTex": {
+        "m_Texture": {
+          "m_FileID": 0,
+          "m_PathID": 0,
+          "Name": "",
+          "IsNull": true
+        },
+        "m_Scale": {
+          "X": -0.25,
+          "Y": 0.37
+        },
+        "m_Offset": {
+          "X": 0.0,
+          "Y": 0.0
+        }
+      },
+      "_MainTex": {
+        "m_Texture": {
+          "m_FileID": 3,
+          "m_PathID": 1112883158719618560,
+          "Name": "Eff_Circle_04",
+          "IsNull": false
+        },
+        "m_Scale": {
+          "X": 1.0,
+          "Y": 1.0
+        },
+        "m_Offset": {
+          "X": 0.0,
+          "Y": 0.0
+        }
+      },
+      "_MaskTex": {
+        "m_Texture": {
+          "m_FileID": 0,
+          "m_PathID": 0,
+          "Name": "",
+          "IsNull": true
+        },
+        "m_Scale": {
+          "X": 1.0,
+          "Y": 1.0
+        },
+        "m_Offset": {
+          "X": 0.0,
+          "Y": 0.0
+        }
+      },
+      "_VertexExtrusionTex": {
+        "m_Texture": {
+          "m_FileID": 0,
+          "m_PathID": 0,
+          "Name": "",
+          "IsNull": true
+        },
+        "m_Scale": {
+          "X": 1.0,
+          "Y": 1.0
+        },
+        "m_Offset": {
+          "X": 0.0,
+          "Y": 0.0
+        }
+      }
+    },
+    "m_Ints": null,
+    "m_Floats": {
+      "Vector1_31D9AE4B": 1.0,
+      "Vector1_7869302C": 0.0,
+      "Vector1_7E44C489": 0.382,
+      "Vector1_977371B8": 0.0,
+      "Vector1_BCAF78C3": 2.22,
+      "Vector1_F5F3E507": 0.362,
+      "_2ToneUsingVertexAlpha": 0.0,
+      "_AffectedByMainLightColor": 0.0,
+      "_AlphaChannelMapping": 1.0,
+      "_AlphaClip": 0.0,
+      "_AlphaCutoff": 0.0,
+      "_AlwaysOnTop": 4.0,
+      "_ApplySceneFog": 0.0,
+      "_Blend": 0.0,
+      "_BlendMode": 0.0,
+      "_BrightEdgeRange": 0.157,
+      "_BrightnessScaler": 3.4,
+      "_BumpScale": 1.0,
+      "_ClampParallaxMappedUV": 1.0,
+      "_ColorChannelMapping": 1.0,
+      "_Cull": 0.0,
+      "_Curvature": 1.0,
+      "_Cutoff": 0.5,
+      "_DTIntensity": 0.0,
+      "_DTTexClampU": 0.0,
+      "_DTTexClampV": 0.0,
+      "_DTTexClamped": 0.0,
+      "_DTTexFlip": 0.0,
+      "_DTTexRotation": 0.0,
+      "_DTTexUVMode": 0.0,
+      "_DebugGhostTrailCurve": 0.0,
+      "_DebugOctagonDistortion": 0.0,
+      "_DebugOctagonShape": 0.0,
+      "_DetailNormalMapScale": 1.0,
+      "_DissolveAffects2Tone": 1.0,
+      "_DissolveChannel": 1.0,
+      "_DissolveChannelMapping": 0.0,
+      "_DissolveDistortionIntensity": 0.0,
+      "_DissolveEdgeRange": 0.066,
+      "_DissolveRandomRange": 0.0,
+      "_DissolveRandomUV": 0.0,
+      "_DissolveTexClampU": 0.0,
+      "_DissolveTexClampV": 0.0,
+      "_DissolveTexClamped": 0.0,
+      "_DissolveTexFlip": 0.0,
+      "_DissolveTexRotation": 0.0,
+      "_DissolveTexUVMode": 0.0,
+      "_DissolveUSpeed": 0.0,
+      "_DissolveUVRandom": 0.0,
+      "_DissolveUsingCustom1z": 0.0,
+      "_DissolveVSpeed": 0.0,
+      "_Dist_Intensity_PostProcessing": 1.0,
+      "_Distortion": 0.0,
+      "_DistortionChannel": 0.0,
+      "_DistortionIntensity": 0.42,
+      "_DistortionRandomUV": 0.0,
+      "_DistortionTexClampU": 0.0,
+      "_DistortionTexClampV": 0.0,
+      "_DistortionTexClamped": 0.0,
+      "_DistortionTexFlip": 0.0,
+      "_DistortionTexRotation": 0.0,
+      "_DistortionTexUVMode": 0.0,
+      "_DistortionUSpeed": 0.0,
+      "_DistortionVSpeed": 0.0,
+      "_Dither": 0.0,
+      "_DitherAlpha": 1.0,
+      "_DstBlend": 0.0,
+      "_DstFactor": 10.0,
+      "_DtUSpeed": 1.0,
+      "_DtUvMove": 0.0,
+      "_DtVSpeed": 1.0,
+      "_Emisson": 1.0,
+      "_GhostTrail": 0.0,
+      "_GlossMapScale": 1.0,
+      "_Glossiness": 0.5,
+      "_GlossyReflections": 1.0,
+      "_HalfResDstAlphaFactor": 0.0,
+      "_HalfResDstFactor": 5.0,
+      "_HalfResSrcAlphaFactor": 7.0,
+      "_HalfResSrcFactor": 1.0,
+      "_HeightChannelMapping": 1.0,
+      "_IgnoreTimeScale": 0.0,
+      "_InvFade": 3.0,
+      "_LerpBrightness": 0.0,
+      "_MainTexClampU": 0.0,
+      "_MainTexClampV": 0.0,
+      "_MainTexClamped": 0.0,
+      "_MainTexFlip": 0.0,
+      "_MainTexRotation": 1.0,
+      "_MainTexUVMode": 0.0,
+      "_MaskAffectsDistortion": 0.0,
+      "_MaskChannelMapping": 0.0,
+      "_MaskDistortionChannelMapping": 0.0,
+      "_MaskDistortionIntensity": 0.0,
+      "_MaskTexClampU": 0.0,
+      "_MaskTexClampV": 0.0,
+      "_MaskTexClamped": 0.0,
+      "_MaskTexFlip": 0.0,
+      "_MaskTexRotation": 1.0,
+      "_MaskTexUVMode": 0.0,
+      "_Metallic": 0.0,
+      "_Mode": 1.0,
+      "_Noise": 0.0,
+      "_NoiseBrightness": 0.1,
+      "_NoiseChannelMapping": 0.0,
+      "_NoiseMapStrength": 0.0,
+      "_NoiseRandomRange": 0.0,
+      "_NoiseUSpeed": 0.0,
+      "_NoiseUVRandom": 0.0,
+      "_NoiseVSpeed": 0.0,
+      "_NormalClip": 0.568,
+      "_OcclusionStrength": 1.0,
+      "_OffsetFactor": 0.0,
+      "_OffsetUnits": 0.0,
+      "_OpaquenessFadeByScript": 1.0,
+      "_Parallax": 0.02,
+      "_ParallaxScale": 0.28,
+      "_Pivot": 0.0,
+      "_RandomUV": 0.0,
+      "_RefPlane": 0.0,
+      "_SE_Boundary": 0.3,
+      "_SE_BoundaryAspect": 1.0,
+      "_SE_Feather": 1.0,
+      "_SE_Invert": 0.0,
+      "_SE_MaxOpacity": 1.0,
+      "_SE_SquarePixels": 1.0,
+      "_SE_UVMode": 0.0,
+      "_ScreenEffects": 0.0,
+      "_SeparateRGBIntensity": 0.0,
+      "_SidewallSteps": 2.0,
+      "_SmoothnessTextureChannel": 0.0,
+      "_SoftClip": 0.602,
+      "_SoftEdge": 0.0,
+      "_SoftEdgeUsingOldFunction": 1.0,
+      "_SoftParticles": 0.0,
+      "_SoftParticlesFarFadeDistance": 1.0,
+      "_SoftParticlesNearFadeDistance": 0.0,
+      "_SoftParticlesRcpDistance": 1.0,
+      "_SoftRange": 0.0,
+      "_SoftValue": 0.0,
+      "_SpecularHighlights": 1.0,
+      "_SrcBlend": 1.0,
+      "_SrcFactor": 1.0,
+      "_StencilComp": 6.0,
+      "_Surface": 0.0,
+      "_TimeScaleSpeed": 0.0,
+      "_USpeed": 0.0,
+      "_UVDeform": 0.0,
+      "_UVMove": 1.0,
+      "_UVSec": 0.0,
+      "_UseCustomColor": 0.0,
+      "_UseDissolveTex": 0.0,
+      "_UseDistortionTexture": 0.0,
+      "_UseMask": 0.0,
+      "_UseParticleColor": 1.0,
+      "_UseUOrV": 1.0,
+      "_UseVertexColor": 1.0,
+      "_Useparticlecolor": 1.0,
+      "_VSpeed": 0.0,
+      "_VertexExtrusion": 0.0,
+      "_VertexExtrusionIntensity": 1.0,
+      "_VertexExtrusionIntensity2": -1.0,
+      "_VertexExtrusionIntensityChannel": 0.0,
+      "_VertexExtrusionIntensityChannel2": 1.0,
+      "_WorkflowMode": 1.0,
+      "_ZOffset": 0.0,
+      "_ZTest": 4.0,
+      "_ZWrite": 0.0,
+      "__dirty": 0.0
+    },
+    "m_Colors": {
+      "Color_32F27691": {
+        "r": 2.9960785,
+        "g": 1.5843138,
+        "b": 1.5843138,
+        "a": 1.0
+      },
+      "Color_3616ECC8": {
+        "r": 4.867144,
+        "g": 2.5992076,
+        "b": 0.0,
+        "a": 1.0
+      },
+      "Color_FBB625FF": {
+        "r": 1.72016,
+        "g": 0.3332247,
+        "b": 0.0,
+        "a": 1.0
+      },
+      "Vector4_43D94C22": {
+        "r": 0.31,
+        "g": 0.82,
+        "b": 3.39,
+        "a": -0.14
+      },
+      "Vector4_ECA21685": {
+        "r": 0.39,
+        "g": -0.46,
+        "b": 0.17,
+        "a": 0.65
+      },
+      "_AmbientColor": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "_Color": {
+        "r": 0.5,
+        "g": 0.5,
+        "b": 0.5,
+        "a": 1.0
+      },
+      "_ColorA": {
+        "r": 1.8443027,
+        "g": 0.384664,
+        "b": 0.09656032,
+        "a": 1.0
+      },
+      "_ColorB": {
+        "r": 11.984314,
+        "g": 2.7294116,
+        "b": 0.87843096,
+        "a": 1.0
+      },
+      "_DissolveUVSpeed": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "_DistortionUVSpeed": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "_EdgeColorOverride": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "_EmissionColor": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 1.0
+      },
+      "_MainTexUVSpeed": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "_MaskTexUVSpeed": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "_MotionOffset": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 1.0
+      },
+      "_MultiplyParticleColor": {
+        "r": 33.89676,
+        "g": 3.9043386,
+        "b": 2.1296391,
+        "a": 1.0
+      },
+      "_NoiseMapPannerSpeed": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "_NoiseMapSize": {
+        "r": 512.0,
+        "g": 512.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "_OctagonClipErrorColor": {
+        "r": 1.0,
+        "g": 0.0,
+        "b": 1.0,
+        "a": 1.0
+      },
+      "_ParallaxBrightColor": {
+        "r": 0.039215688,
+        "g": 0.019801892,
+        "b": 0.019607844,
+        "a": 1.0
+      },
+      "_ParticlesDecalParams": {
+        "r": 1.0000002,
+        "g": 1.0000002,
+        "b": 1.0000002,
+        "a": 1.5707965
+      },
+      "_RingPannerSpeed": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "_SpecColor": {
+        "r": 0.2,
+        "g": 0.2,
+        "b": 0.2,
+        "a": 1.0
+      },
+      "_Tint": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "_TintColor": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0,
+        "a": 1.0
+      },
+      "_UVSpeed": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "_VertexExtrusionUVSpeed": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 1.0
+      }
+    }
+  },
+  "m_Name": "Eff_Corin_Slash_TT_08",
+  "Name": "Eff_Corin_Slash_TT_08"
+}
