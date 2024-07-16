@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,79 @@ public class SelectedChar : MonoBehaviour
     [SerializeField] private Slider realHp;
     [SerializeField] private Slider fakeHp;
     [SerializeField] private Slider sp;
+    [SerializeField] private Image profile;
+    [SerializeField] private TextMeshProUGUI playerhptext;
+
+    public Image Profile
+    {
+        get
+        {
+            return profile;
+        }
+
+        set
+        {
+            profile = value;
+        }
+    }
+    private float curHP;
+
+    public float CurHP
+    {
+        get
+        {
+            return curHP;
+        }
+
+        set
+        {
+            curHP = value;
+        }
+    }
+
+    private float maxHP;
+
+    public float MaxHP
+    {
+        get
+        {
+            return maxHP;
+        }
+
+        set
+        {
+            maxHP = value;
+        }
+    }
+
+    private float curSP;
+    public float CurSP
+    {
+        get
+        {
+            return curHP;
+        }
+
+        set
+        {
+            curHP = value;
+        }
+    }
+
+    private float maxSP;
+
+    public float MaxSP
+    {
+        get
+        {
+            return maxSP;
+        }
+        set
+        {
+            maxSP = value;
+        }
+    }
+
 
     private Coroutine timerCoroutine;
 
@@ -16,6 +90,7 @@ public class SelectedChar : MonoBehaviour
     {
         Slider[] sliders = new Slider[3];
         sliders = GetComponentsInChildren<Slider>();
+
 
         for (int i = 0; i < sliders.Length; i++)
         {
@@ -36,15 +111,24 @@ public class SelectedChar : MonoBehaviour
         }
     }
 
-    public void RefreshHealth(float nowHealth, float maxHealth) // hp 갱신
+    public void RefreshHealth(bool isChangeChar) // hp 갱신
     {
-        realHp.value = nowHealth / maxHealth;
+        realHp.value = curHP / maxHP;
+
+        if(!isChangeChar)
         Start_CountFillFakeHp();
+
+        else
+        {
+            fakeHp.value = curHP / maxHP;
+        }
+
+        playerhptext.text = $"{curHP / maxHP}";
     }
 
-    public void RefreshSp(float nowSp, float maxSp) // sp 갱신
+    public void RefreshSp() // sp 갱신
     {
-        sp.value = nowSp / maxSp;
+        sp.value = curHP / maxSP;
     }
 
     private void Start_CountFillFakeHp() // 세는 코루틴이 실행중이면 이전 코루틴 취소 후 세기
