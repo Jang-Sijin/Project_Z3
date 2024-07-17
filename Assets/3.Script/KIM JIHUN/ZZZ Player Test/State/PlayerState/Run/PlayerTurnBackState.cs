@@ -21,7 +21,7 @@ public class PlayerTurnBackState : PlayerStateBase
             playerController.SwitchState(EPlayerState.AttackUltStart);
             return;
         }
-        if (stateInfo.normalizedTime >= 1.0f && !playerModel.animator.IsInTransition(0))
+        if (IsAnimationEnd())
         {
             playerController.SwitchState(EPlayerState.Run);
             return;

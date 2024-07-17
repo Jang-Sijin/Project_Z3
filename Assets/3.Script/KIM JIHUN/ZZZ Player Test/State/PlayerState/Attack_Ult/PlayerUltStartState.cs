@@ -9,6 +9,7 @@ public class PlayerUltStartState : PlayerStateBase
     {
         base.Enter();
 
+        playerModel.LookEnemy();
         CameraManager.INSTANCE.cmBrain.m_DefaultBlend =
             new CinemachineBlendDefinition(CinemachineBlendDefinition.Style.Cut, 0f);
         CameraManager.INSTANCE.freeLookCamera.SetActive(false);

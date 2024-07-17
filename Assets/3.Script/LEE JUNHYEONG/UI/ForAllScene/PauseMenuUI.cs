@@ -101,7 +101,7 @@ public class PauseMenuUI : MonoBehaviour
     public void OnClickClose()
 	{
 		UIManager.instance.isCloseOrOpen = true;
-		UIManager.instance.pauseMenuUI.gameObject.SetActive(true);
+		gameObject.SetActive(true);
 		StartCoroutine(ClosePauseMenu());
         UIManager.instance.isPause = false;
     }
@@ -129,7 +129,7 @@ public class PauseMenuUI : MonoBehaviour
     //*********************************************************************************************************
 
 
-    //오디오 설정
+    //슬라이더 설정
     //*********************************************************************************************************
 
     [SerializeField]private AudioMixer masterMixer;

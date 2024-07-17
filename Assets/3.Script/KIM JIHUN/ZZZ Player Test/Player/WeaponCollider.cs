@@ -4,11 +4,29 @@ using UnityEngine;
 
 public class WeaponCollider : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    [HideInInspector] public BoxCollider weaponBoxCol;
+    private bool isShakeTrigger;
+    private bool isEnemyDetect;
+    private void Awake()
     {
-        if(other.CompareTag("Enemy"))
+        weaponBoxCol = transform.GetComponent<BoxCollider>();
+        isShakeTrigger = false;
+        isEnemyDetect = false;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
         {
-            Debug.Log("Attack");
+            isEnemyDetect = true;
+            if (isShakeTrigger)
+                PlayerController.INSTANCE.ShakeCamera(1.5f, 0.1f);
         }
     }
+
+    public void SetShakeTrigger(bool value)
+    {
+        isShakeTrigger = value;
+    }
+
 }
