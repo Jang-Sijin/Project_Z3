@@ -111,7 +111,7 @@ public class SelectedChar : MonoBehaviour
         }
     }
 
-    public void RefreshHealth(bool isChangeChar) // hp 갱신
+    public void RefreshHealth(bool isChangeChar) // hp 갱신 : 불 값으로 fake의 갱신 효과 발생 여부를 판단합니다.
     {
         realHp.value = curHP / maxHP;
 
@@ -123,7 +123,7 @@ public class SelectedChar : MonoBehaviour
             fakeHp.value = curHP / maxHP;
         }
 
-        playerhptext.text = $"{curHP / maxHP}";
+        playerhptext.text = $"{(int)curHP} / {(int)maxHP}";
     }
 
     public void RefreshSp() // sp 갱신

@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +19,7 @@ public class EnemyUIController : MonoBehaviour
     [SerializeField] private Slider fakeHp;
     [SerializeField] private Slider stun;
     [SerializeField] private Collider monster;
-    [SerializeField] private Text stunText;
+    [SerializeField] private TextMeshProUGUI stunText;
     private Coroutine timerCoroutine;
     private Camera mainCamera; // 시점에 따라 UI가 따라오기 위해 카메라를 받아옵니다.
 
@@ -32,30 +33,10 @@ public class EnemyUIController : MonoBehaviour
 
     private void Start()
     {
-        Slider[] sliders = new Slider[3];
-        sliders = GetComponentsInChildren<Slider>();
-
-        for (int i = 0; i < sliders.Length; i++)
-        {
-            switch (sliders[i].name)
-            {
-                case "Fake":
-                    fakeHp = sliders[i];
-                    break;
-
-                case "Real":
-                    realHp = sliders[i];    
-                    break;
-
-                case "Stun":
-                    stun = sliders[i];
-                    break;
-            }
-        }
         monster = GetComponentInParent<Collider>();
         mainCamera = Camera.main;
 
-        transform.localPosition = new Vector3(monster.bounds.size.x * (0.5f) + 2f, monster.bounds.size.y * (0.5f), 0);
+        transform.localPosition = new Vector3(monster.bounds.size.x * (0.5f) + (monster.bounds.size.x), monster.bounds.size.y * (0.5f) + (monster.bounds.size.y*0.25f), 0);
     }
 
     private void FixedUpdate()
