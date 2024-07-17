@@ -23,8 +23,6 @@ public class Monster_Control : MonoBehaviour
         if (mon_GP <= 0f && !isGroggy)  // 그로기 상태 진입
         {
             isGroggy = true;
-            player.Attack = 10;
-            player.GroggyPoint = 0;
             StartCoroutine(EnterGroggy_co());
         }
         if (mon_HP <= 0)
@@ -36,6 +34,7 @@ public class Monster_Control : MonoBehaviour
     private IEnumerator EnterGroggy_co()
     {
         mon_ani.SetTrigger("isGroggy");
+        player.Attack = 10;
         yield return new WaitForSeconds(0.5f);
 
         mon_ani.SetBool("isGroggyLoop", true);
@@ -43,7 +42,9 @@ public class Monster_Control : MonoBehaviour
         mon_ani.SetBool("isGroggyLoop", false);
         mon_GP = 100f;
 
+        player.Attack = 1;
         isGroggy = false;
+
     }
 
    // public void OnCollisionEnter(Collision collision)

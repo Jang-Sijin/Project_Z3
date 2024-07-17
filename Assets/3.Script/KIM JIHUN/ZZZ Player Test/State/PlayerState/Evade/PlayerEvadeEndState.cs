@@ -64,7 +64,7 @@ public class PlayerEvadeEndState : PlayerStateBase
             }
         }
         //애니메이션 종료
-        if (stateInfo.normalizedTime >= 1.0f && !playerModel.animator.IsInTransition(0))
+        if (IsAnimationEnd())
         {
             playerController.SwitchState(EPlayerState.Idle);
             return;

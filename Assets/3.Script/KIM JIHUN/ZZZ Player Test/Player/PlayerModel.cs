@@ -37,14 +37,19 @@ public class PlayerModel : MonoBehaviour
         weaponCollider = GetComponentInChildren<WeaponCollider>();
     }
 
-    private void Update()
-    {
-        stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-    }
 
-    public void Enter()
+    public void Enter(Vector3 pos, Quaternion rot)
     {
         MonoManager.INSTANCE.RemoveUpdateAction(OnExit);
+
+        Vector3 rightDirection = rot * Vector3.right;
+        pos += rightDirection * 0.8f;
+
+        Vector3 backDirection = rot * Vector3.back;
+        pos += backDirection * 3f;
+
+        characterController.Move(pos - transform.position);
+        transform.rotation = rot;
     }
 
     public void Exit()
@@ -64,6 +69,7 @@ public class PlayerModel : MonoBehaviour
 
     public bool IsAnimationEnd()
     {
+        stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         return stateInfo.normalizedTime >= 1.0f && !animator.IsInTransition(0);
     }
 

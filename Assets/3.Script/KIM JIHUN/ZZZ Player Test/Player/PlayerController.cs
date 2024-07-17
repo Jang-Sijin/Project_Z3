@@ -108,9 +108,6 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
             case EPlayerState.AttackUltEnd:
                 stateMachine.EnterState<PlayerUltEndState>();
                 break;
-            case EPlayerState.SwitchIn:
-                stateMachine.EnterState<PlayerSwitchInState>();
-                break;
             case EPlayerState.AttackSkill:
                 stateMachine.EnterState<PlayerSkillState>();
                 break;
@@ -128,6 +125,9 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
                 break;
             case EPlayerState.AttackSkillLoop:
                 stateMachine.EnterState<PlayerSkilllLoopState>();
+                break;
+            case EPlayerState.SwitchInNormal:
+                stateMachine.EnterState<PlayerSwitchInNormalState>();
                 break;
         }
     }
@@ -147,13 +147,13 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
             currentModelIndex = 0;
         PlayerModel nextModel = controllableModels[currentModelIndex];
         nextModel.gameObject.SetActive(true);
-        //nextModel.gameObject.transform.position = currentPosition;
+
+        Vector3 prevPos = playerModel.transform.position;
+        Quaternion prevRot = playerModel.transform.rotation;
+
         playerModel = nextModel;
-        //nextModel.gameObject.transform.position = playerModel.transform.position;
-        //Debug.Log($"Next Model : {nextModel.transform.name}, {nextModel.gameObject.transform.position}");
-        //Debug.Log($"Player Model: {playerModel.transform.name}, {playerModel.gameObject.transform.position}");
-        playerModel.Enter();
-        SwitchState(EPlayerState.Idle);
+        playerModel.Enter(prevPos, prevRot);
+        SwitchState(EPlayerState.SwitchInNormal);
 
     }
 
