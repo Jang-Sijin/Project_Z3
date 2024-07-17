@@ -19,7 +19,7 @@ public class PlayerMove : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Enemy"))
         {
             Debug.Log("¸ÂÀ½");
         }

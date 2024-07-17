@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Monster_Rootmotion : MonoBehaviour
+public class Goblin_Attack : MonoBehaviour
 {
     public Transform target; // 플레이어 타겟
     public float walkDistance; // 걷기 시작할 거리
@@ -12,30 +12,30 @@ public class Monster_Rootmotion : MonoBehaviour
     private bool isStart = false;
     private Monster_Queue monsterManager;
     public Monster_Control monster;
-    private Collider[] weaponColliders;
-    private Rigidbody rigid;
-    private Vector3 lastPosition; // 마지막 위치 저장
+    private Collider[] Colliders;
 
     [SerializeField] private float coolTime;
 
     private void Start()
     {
         mon_ani = GetComponent<Animator>();
-        rigid = GetComponent<Rigidbody>();
-   //     mon_ani.applyRootMotion = true; // 루트 모션 사용
+        mon_ani.applyRootMotion = true; // 루트 모션 사용
         monsterManager = FindObjectOfType<Monster_Queue>();
-        monsterManager.RegisterMonster(this);
 
         monster = GetComponent<Monster_Control>();
 
         // 무기 콜라이더 설정 (모든 자식 개체에 있는 모든 Collider 찾기)
-        weaponColliders = GetComponentsInChildren<Collider>();
+        Colliders = GetComponentsInChildren<Collider>();
 
-        foreach (Collider col in weaponColliders)
+        foreach (Collider col in Colliders)
         {
-            if (col.CompareTag("MovingUI")) col.enabled = false; // 필요에 따라 콜라이더 비활성화
+            if (col.CompareTag("MovingUI"))
+            {
+                col.enabled = false;
+            }
             else col.enabled = true;
         }
+
 
         // 시작할 때 idle 코루틴 실행
         StartCoroutine(StartIdle_co());
@@ -43,19 +43,16 @@ public class Monster_Rootmotion : MonoBehaviour
 
     private void Update()
     {
-        rigid.velocity = Vector3.zero;
-        rigid.angularVelocity = Vector3.zero;
-
         if (monster.isGroggy) return; // 그로기 상태면 동작하지 않음
         if (!isStart) return; // 시작 상태가 아닐 때 동작하지 않음
 
         float distance = Vector3.Distance(transform.position, target.position);
         RotateTowards(target.position);
-        if (distance < attackDistance_3 && !isAttacking)
-        {
-            StartCoroutine(AttackType3_co());
-        }
-        else if (distance < walkDistance)
+   //     if (distance < attackDistance_3 && !isAttacking)
+   //     {
+   //         StartCoroutine(AttackType3_co());
+   //     }
+         if (distance < walkDistance)
         {
             mon_ani.SetBool("Running", false);
             mon_ani.SetBool("Walking", true);
@@ -173,45 +170,27 @@ public class Monster_Rootmotion : MonoBehaviour
         isStart = true;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            lastPosition = rigid.position;
-        }
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            rigid.MovePosition(lastPosition); // 충돌 유지 시 몬스터의 위치를 마지막 위치로 설정하여 밀리지 않도록 함
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            lastPosition = rigid.position;
-        }
-    }
-
     // 애니메이션 이벤트에서 호출할 메서드
     public void EnableWeaponCollider()
     {
-        foreach (Collider col in weaponColliders)
+        foreach (Collider col in Colliders)
         {
-            col.enabled = true;
+            if (col.CompareTag("MovingUI"))
+            {
+                col.enabled = true;
+            }
         }
     }
 
     // 애니메이션 이벤트에서 호출할 메서드
     public void DisableWeaponCollider()
     {
-        foreach (Collider col in weaponColliders)
+        foreach (Collider col in Colliders)
         {
-            col.enabled = false;
+            if(col.CompareTag("MovingUI"))
+            {
+                col.enabled = false;
+            }
         }
     }
 
