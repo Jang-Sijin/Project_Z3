@@ -16,7 +16,6 @@ public class UnCharHpSp : MonoBehaviour
     private Slider hpBar;
     private Slider spBar;
     private int Amount = 2;
-    private Image profile;
     private float curHp;
     private float maxHp;
     private float curSp;
@@ -55,7 +54,7 @@ public class UnCharHpSp : MonoBehaviour
 
         set
         {
-            value = curSp;
+            curSp = value;
         }
     }
     public float MaxSp
@@ -67,19 +66,7 @@ public class UnCharHpSp : MonoBehaviour
 
         set
         {
-            maxHp= value;
-        }
-    }
-    public Image Profile
-    {
-        get
-        {
-            return profile;
-        }
-
-        set
-        {
-            profile = value;
+            maxSp= value;
         }
     }
     private void Start()
