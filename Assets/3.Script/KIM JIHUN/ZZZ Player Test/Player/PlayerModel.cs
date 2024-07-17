@@ -122,6 +122,6 @@ public class PlayerModel : MonoBehaviour
 
     public void PlayVFX(int vfxIndex)
     {
-    //    vfxPlayer.PlayVFX(vfxIndex);
+        vfxPlayer.PlayVFX(vfxIndex);
     }
 }
