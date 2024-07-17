@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Cinemachine;
 
 public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineOwner
 {
@@ -25,6 +26,8 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     public GameObject closestEnemy;
     public Vector3 directionToEnemy { get; private set; }
 
+    [SerializeField] private CinemachineFreeLook cinemachineFreeLook; //카메라 쉐이크를 위한 시네머신
+    private float shakeTimer; //쉐이크 타이머
 
     protected override void Awake()
     {
@@ -123,6 +126,9 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
             case EPlayerState.AttackRushEnd:
                 stateMachine.EnterState<PlayerRushEndState>();
                 break;
+            case EPlayerState.AttackSkillLoop:
+                stateMachine.EnterState<PlayerSkilllLoopState>();
+                break;
         }
     }
 
@@ -163,6 +169,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
 
     private void Update()
     {
+        #region 몬스터 타겟팅
         if (enemyList.Count != 0)
         {
             //가장 가까운 몬스터 순으로 -> 레이캐스트가 가능한 개체 찾기
@@ -179,10 +186,13 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
             if (closestEnemy != null)
                 closestEnemy = null;
         }
+        #endregion
 
-
+        #region 이동 방향 입력
         inputMoveVec2 = playerInputSystem.Player.Move.ReadValue<Vector2>().normalized;
+        #endregion
 
+        #region 회피 쿨타임
         if (evadeTimer < evadeCoolTime)
         {
             evadeTimer += Time.deltaTime;
@@ -190,6 +200,20 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
             if (evadeTimer > evadeCoolTime)
                 evadeTimer = evadeCoolTime;
         }
+        #endregion
+
+        #region CameraShake
+        if (shakeTimer > 0)
+        {
+            shakeTimer -= Time.deltaTime;
+            if (shakeTimer <= 0f)
+            {
+                cinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+                cinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+                cinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+            }
+        }
+        #endregion
     }
 
     private void LockMouse()
@@ -247,6 +271,10 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         return null;
     }
 
+    /// <summary>
+    /// 인식된 몬스터들을 가까운 거리순으로 정렬하는 함수
+    /// </summary>
+    /// <returns></returns>
     public GameObject[] SortEnemyByDist()
     {
         Vector3 referencePosition = playerModel.transform.position;
@@ -256,5 +284,15 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
             .ToArray(); // 정렬된 결과를 배열로 변환
 
         return sortedGameObjects; // 정렬된 GameObject 배열 반환
+    }
+
+    public void ShakeCamera(float intensity, float time)
+    {
+        cinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = intensity;
+        cinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = intensity;
+        cinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = intensity;
+
+
+        shakeTimer = time;
     }
 }

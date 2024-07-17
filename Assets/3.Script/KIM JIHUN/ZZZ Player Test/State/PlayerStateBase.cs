@@ -24,6 +24,7 @@ public enum EPlayerState
     AttackUltEnd,
 
     AttackSkill,
+    AttackSkillLoop,
     AttackSkillEx,
     AttackSkillEnd,
 

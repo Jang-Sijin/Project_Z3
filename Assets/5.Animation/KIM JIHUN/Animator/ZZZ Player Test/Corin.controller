@@ -243,7 +243,7 @@ AnimatorStateMachine:
     m_Position: {x: 1240, y: 480, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3709796009510832403}
-    m_Position: {x: 1240, y: 430, z: 0}
+    m_Position: {x: 1240, y: 300, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1817127470997235171}
     m_Position: {x: 1190, y: 40, z: 0}
@@ -293,7 +293,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SwitchInNormal
+  m_Name: Switch_In_Normal
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -345,7 +345,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Corin_Attack_Branch_Loop
+  m_Name: Attack_Skill_Loop
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -553,7 +553,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SwitchOutNormal
+  m_Name: Switch_Out_Normal
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
