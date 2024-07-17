@@ -16,13 +16,14 @@ public class PlayerModel : MonoBehaviour
     public float gravity = -9.8f;
     public SkillConfig skillConfig;
     public int currentNormalAttakIndex = 1;
-    
+
     public GameObject skillUltStartShot; // 궁극기 시작 컷신
     public GameObject skillUltShot; // 궁극기 컷신
 
     private AnimatorStateInfo stateInfo;
 
     private WeaponCollider weaponCollider;
+    [SerializeField] private VfxPlayer vfxPlayer;
 
     [HideInInspector] public EModelFoot foot = EModelFoot.Right;
     private void Awake()
@@ -54,7 +55,7 @@ public class PlayerModel : MonoBehaviour
 
     public void OnExit()
     {
-        if(IsAnimationEnd())
+        if (IsAnimationEnd())
         {
             gameObject.SetActive(false);
             MonoManager.INSTANCE.RemoveUpdateAction(OnExit);
@@ -96,21 +97,12 @@ public class PlayerModel : MonoBehaviour
 
     /// <summary>
     /// 해당 Trigger가 ON이라면 공격 판정 ON
-    /// </summary>
-    public void WeaponTriggerOn()
-    {
-        Debug.Log("TriggerOn");
-        weaponCollider.SetShakeTrigger(true);
-    }
-
-
-    /// <summary>
     /// 해당 Trigger가 OFF이라면 공격 판정 OFF
     /// </summary>
-    public void WeaponTriggerOff()
+    public void SetWeaponTrigger(int value)
     {
-        Debug.Log("TriggerOff");
-        weaponCollider.SetShakeTrigger(false);
+        bool trigger = value == 1;
+        weaponCollider.SetShakeTrigger(trigger);
     }
 
     public void ShakeCamera()
@@ -120,5 +112,10 @@ public class PlayerModel : MonoBehaviour
     public void ShakeCameraForOneSec()
     {
         PlayerController.INSTANCE.ShakeCamera(1f, 1f);
+    }
+
+    public void PlayVFX(int vfxIndex)
+    {
+        vfxPlayer.PlayVFX(vfxIndex);
     }
 }
