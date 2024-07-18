@@ -124,4 +124,8 @@ public class PlayerModel : MonoBehaviour
     {
         vfxPlayer.PlayVFX(vfxIndex);
     }
+    public void StopVFX(int effectIndex)
+    {
+        vfxPlayer.StopVFX(effectIndex);
+    }
 }

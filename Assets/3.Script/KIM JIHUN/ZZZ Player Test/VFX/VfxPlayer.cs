@@ -5,20 +5,18 @@ using UnityEngine.VFX;
 
 public class VfxPlayer : MonoBehaviour
 {
-    private VisualEffect vfx;
-    [SerializeField] private List<VisualEffectAsset> vfxAsset;
-    [SerializeField] private GameObject referenceBone;
+    [SerializeField] private List<GameObject> effects;
 
-    private void Start()
+
+    public void PlayVFX(int effectIndex)
     {
-        vfx = GetComponent<VisualEffect>();
+        ParticleSystem particleSystem = effects[effectIndex].GetComponent<ParticleSystem>();
+        particleSystem.Play();
     }
 
-    public void PlayVFX(int vfxIndex)
+    public void StopVFX(int effectIndex)
     {
-        this.transform.position = referenceBone.transform.position;
-        this.transform.rotation = referenceBone.transform.rotation;
-        vfx.visualEffectAsset = vfxAsset[vfxIndex];
-        vfx.Play();
+        ParticleSystem particleSystem = effects[effectIndex].GetComponent<ParticleSystem>();
+        particleSystem.Stop();
     }
 }
