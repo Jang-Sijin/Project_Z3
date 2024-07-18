@@ -295,4 +295,12 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
 
         shakeTimer = time;
     }
+
+    public void StopShakeCamera()
+    {
+        cinemachineFreeLook.GetRig(0).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+        cinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+        cinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+        shakeTimer = 0f;
+    }
 }
