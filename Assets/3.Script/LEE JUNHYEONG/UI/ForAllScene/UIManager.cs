@@ -22,7 +22,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private IntroUI introUI;
 
-    [SerializeField] private MainMenuUI mainMenuUI;
+    [SerializeField] private MainCityUI mainMenuUI;
 
     [SerializeField] private InGameUI inGameUI;
 

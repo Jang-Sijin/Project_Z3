@@ -21,7 +21,7 @@ public class PlayerNormalAttackState : PlayerStateBase
         base.Update();
 
         //다음 공격 On
-        if(stateInfo.normalizedTime >= 0.5f && playerController.playerInputSystem.Player.Fire.triggered)
+        if(GetNormalizedTime() >= 0.5f && playerController.playerInputSystem.Player.Fire.triggered)
         {
             enterNextAttack = true;
         }

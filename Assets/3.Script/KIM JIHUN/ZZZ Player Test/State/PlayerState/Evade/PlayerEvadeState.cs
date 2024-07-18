@@ -29,7 +29,7 @@ public class PlayerEvadeState : PlayerStateBase
     {
         base.Update();
         //평타 or 러쉬
-        if (playerController.playerInputSystem.Player.Fire.triggered && stateInfo.normalizedTime >= 0.4f)
+        if (playerController.playerInputSystem.Player.Fire.triggered && GetNormalizedTime() >= 0.4f)
         {
             switch (playerModel.currentState)
             {
@@ -54,7 +54,7 @@ public class PlayerEvadeState : PlayerStateBase
             return;
         }
         //애니메이션 종료
-        if (stateInfo.normalizedTime >= 1.0f && !playerModel.animator.IsInTransition(0))
+        if (IsAnimationEnd())
         {
             switch(playerModel.currentState)
             {
