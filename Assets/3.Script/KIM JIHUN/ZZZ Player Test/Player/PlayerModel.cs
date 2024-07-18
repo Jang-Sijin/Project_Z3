@@ -23,7 +23,7 @@ public class PlayerModel : MonoBehaviour
     private AnimatorStateInfo stateInfo;
 
     private WeaponCollider weaponCollider;
-    [SerializeField] private VfxPlayer vfxPlayer;
+    [SerializeField] private EffectPlayer effectPlayer;
 
     [HideInInspector] public EModelFoot foot = EModelFoot.Right;
     private void Awake()
@@ -111,17 +111,31 @@ public class PlayerModel : MonoBehaviour
         weaponCollider.SetShakeTrigger(trigger);
     }
 
-    public void ShakeCamera()
+    public void ShakeCamera(float time = 0.1f)
     {
-        PlayerController.INSTANCE.ShakeCamera(3f, 0.1f);
+        PlayerController.INSTANCE.ShakeCamera(3f, time);
     }
-    public void ShakeCameraForOneSec()
+    public void StopShakeCamera()
     {
-        PlayerController.INSTANCE.ShakeCamera(1f, 1f);
+        PlayerController.INSTANCE.StopShakeCamera();
     }
 
-    public void PlayVFX(int vfxIndex)
+    public void PlayEffect(int effectIndex)
     {
-        vfxPlayer.PlayVFX(vfxIndex);
+        effectPlayer.PlayEffect(effectIndex);
     }
+    public void StopEffect(int effectIndex)
+    {
+        effectPlayer.StopEffect(effectIndex);
+    }
+
+    public void PlayParticle(int particleIndex)
+    {
+        effectPlayer.PlayParticle(particleIndex);
+    }
+
+    public void StopParticle(int particleIndex)
+    {
+        effectPlayer.StopParticle(particleIndex);
+    }    
 }
