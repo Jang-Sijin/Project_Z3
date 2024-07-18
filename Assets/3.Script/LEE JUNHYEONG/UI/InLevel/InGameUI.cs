@@ -46,7 +46,6 @@ Space 	  -  스위치
     [SerializeField] private Image[] changeEffectIMGs;
     [SerializeField] private CharIMGData_CS CharIMGData;
 
-
     private struct CharInfo // 디버깅용
     {
         public TempChar name;
@@ -71,7 +70,7 @@ Space 	  -  스위치
 
     private void Update()
     {
-        OpenAndClosePause();
+        UIManager.instance.OpenAndClosePause();
 
         if (Input.GetKeyDown(KeyCode.Space)) // 디버깅용입니다.
         {
@@ -79,7 +78,7 @@ Space 	  -  스위치
             Change_Effect();
         }
 
-        if(Input.GetMouseButtonDown(1))
+        if(Input.GetMouseButtonDown(1))// 디버깅용입니다.
         {
             RenewalMouseRight();
         }// 디버깅용입니다.
@@ -88,22 +87,10 @@ Space 	  -  스위치
         {
             PressE();
         }
-    }
 
-    private void OpenAndClosePause()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) && !UIManager.instance.isCloseOrOpen)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (UIManager.instance.isPause)
-            {
-                UIManager.instance.pauseMenuUI.OnClickClose();
-            }
-
-            else
-            {
-                UIManager.instance.pauseMenuUI.gameObject.SetActive(true);
-                StartCoroutine(UIManager.instance.pauseMenuUI.CallPauseMenu_co());
-            }
+            UIManager.instance.OpenAndClosePause();
         }
     }
 
@@ -165,11 +152,11 @@ Space 	  -  스위치
     private bool isRightClicked = false;
     [SerializeField] private TextMeshProUGUI mouseRightText;
 
-    [SerializeField] private Image chargedE;
+    [SerializeField] private Animator chargedE;
     [SerializeField] private Animator Eeffect;
-    [SerializeField] private Image Q;
+    [SerializeField] private Animator chargedQ;
 
-    public void RenewalMouseRight()
+    public void RenewalMouseRight() // 우클릭시 부르면 됩니다.
     {
         if (!isRightClicked)
         {
@@ -178,16 +165,16 @@ Space 	  -  스위치
     }
 
     private Tween mouseRightcooltween;
+    [SerializeField]private float dashCoolTime;
 
-    private float coolTime = 2f;
-    private IEnumerator RenewalMouseRight_co()
+    private IEnumerator RenewalMouseRight_co() // 쿨타임 세는 메소드
     {
         isRightClicked = true;
 
         mouseRightCool.gameObject.SetActive(true);
         mouseRightText.gameObject.SetActive(true);
 
-        mouseRightcooltween = mouseRightCool.DOFillAmount(0, coolTime).SetEase(Ease.Linear).OnUpdate(() => UpdateText());
+        mouseRightcooltween = mouseRightCool.DOFillAmount(0, dashCoolTime).SetEase(Ease.Linear).OnUpdate(() => UpdateText());
        
         yield return mouseRightcooltween.WaitForCompletion();
         mouseRightText.gameObject.SetActive(false);
@@ -198,7 +185,7 @@ Space 	  -  스위치
 
     private void UpdateText()
     {
-        mouseRightText.text = $"{mouseRightCool.fillAmount*2f:F2}";
+        mouseRightText.text = $"{mouseRightCool.fillAmount* dashCoolTime:F2}";
     }
 
     public void RenewalE(bool isCharged)
@@ -206,6 +193,7 @@ Space 	  -  스위치
         if (isCharged)
         {
             chargedE.gameObject.SetActive(true);
+            chargedE.SetTrigger("ButtonCharged");
         }
 
         else
@@ -240,6 +228,7 @@ Space 	  -  스위치
         if (isCharged)
         {
             chargedE.gameObject.SetActive(true);
+            chargedE.SetTrigger("UltCharged");
         }
 
         else
