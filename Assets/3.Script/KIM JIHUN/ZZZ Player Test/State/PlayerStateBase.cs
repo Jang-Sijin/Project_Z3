@@ -78,7 +78,7 @@ public class PlayerStateBase : StateBase
             && playerModel.currentState != EPlayerState.AttackUlt
             && playerController.playerInputSystem.Player.Switch.triggered)
         {
-            Debug.Log($"player model : {playerModel.gameObject.name} pos : {playerModel.transform.position}");
+            //Debug.Log($"player model : {playerModel.gameObject.name} pos : {playerModel.transform.position}");
             playerController.SwitchNextModel();
         }
     }

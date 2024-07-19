@@ -15,11 +15,11 @@ public class PlayerEvadeState : PlayerStateBase
             case EPlayerState.EvadeBackEnd:
             case EPlayerState.EvadeBack:
             case EPlayerState.NormalAttakEnd:
-                Debug.Log("Play Animation Evade Back");
+                //Debug.Log("Play Animation Evade Back");
                 playerController.PlayAnimation("Evade_Back");
                 break;
             case EPlayerState.EvadeFront:
-                Debug.Log("Play Animation Evade Front");
+                //Debug.Log("Play Animation Evade Front");
                 playerController.PlayAnimation("Evade_Front");
                 break;
         }

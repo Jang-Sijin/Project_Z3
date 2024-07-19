@@ -35,10 +35,12 @@ public class PlayerModel : MonoBehaviour
         characterController = GetComponent<CharacterController>();
     }
 
+
     private void Start()
     {
         weaponCollider = GetComponentInChildren<WeaponCollider>();
     }
+
 
 
     public void Enter(Vector3 pos, Quaternion rot)
@@ -51,7 +53,11 @@ public class PlayerModel : MonoBehaviour
         Vector3 backDirection = rot * Vector3.back;
         pos += backDirection * 3f;
 
+        pos.y = 0f;
+        //Debug.Log($"Prev Pos : {pos - transform.position} Rot : {rot}");
         characterController.Move(pos - transform.position);
+
+        //Debug.Log($"Post Pos : {transform.position} Rot : {transform.rotation}");
         transform.rotation = rot;
     }
 
@@ -140,5 +146,5 @@ public class PlayerModel : MonoBehaviour
     public void StopParticle(int particleIndex)
     {
         effectPlayer.StopParticle(particleIndex);
-    }    
+    }
 }

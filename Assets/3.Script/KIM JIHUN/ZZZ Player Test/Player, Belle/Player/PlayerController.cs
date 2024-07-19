@@ -42,6 +42,8 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         for (int i = 0; i < playerConfig.models.Length; i++)
         {
             GameObject model = Instantiate(playerConfig.models[i], transform);
+            //controllableModels[i].gameObject.SetActive(true);
+            //model.SetActive(true);
             controllableModels.Add(model.GetComponent<PlayerModel>());
             controllableModels[i].gameObject.SetActive(false);
         }
@@ -54,6 +56,11 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     {
         LockMouse();
         SwitchState(EPlayerState.Idle);
+
+        //for(int i = 0; i < 3; i++)
+        //{
+        //    SwitchNextModel();
+        //}
     }
 
     /// <summary>
@@ -150,6 +157,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
 
         Vector3 prevPos = playerModel.transform.position;
         Quaternion prevRot = playerModel.transform.rotation;
+        //Debug.Log($"Prev Pos : {playerModel.transform.position} Prev Rot : {playerModel.transform.rotation}");
 
         playerModel = nextModel;
         playerModel.Enter(prevPos, prevRot);
