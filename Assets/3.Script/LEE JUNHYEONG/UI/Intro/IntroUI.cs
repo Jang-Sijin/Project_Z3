@@ -26,8 +26,7 @@ public class IntroUI : MonoBehaviour
 
     private void Start()
     {
-        TV = FindObjectOfType<Intro_TVContorl>();
-        UIManager.instance.CreatPause();
+        UIManager.instance.Creat_UI(WhichUI.pauseMenuUI);
     }
     private void Update()
     {
@@ -40,8 +39,6 @@ public class IntroUI : MonoBehaviour
     }
     public void OnClickGameStart() // debug
     {
-        Debug.Log("메인 씬 전환 추가 필요");
-
         loadingBarBackGround.gameObject.SetActive(true);
 
         UIManager.instance.LoadScene("MainCity", true);

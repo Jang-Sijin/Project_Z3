@@ -41,7 +41,16 @@ public class EnemyUIController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.forward = mainCamera.transform.forward;
+        LookPlayer();
+    }
+
+    private Vector3 UIangle = new Vector3();
+    private void LookPlayer()
+    {
+        UIangle = mainCamera.transform.forward;
+        UIangle.x = 0;
+        UIangle.y = 0;
+        transform.forward = UIangle;
     }
 
     public void RefreshHealth(float nowHealth, float maxHealth) // hp °»½Å

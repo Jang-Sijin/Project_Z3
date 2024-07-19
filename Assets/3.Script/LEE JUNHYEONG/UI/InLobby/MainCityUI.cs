@@ -13,6 +13,10 @@ public class MainCityUI : MonoBehaviour
      * 누르면 메뉴화면으로 이동
      * 
      * <좌클릭>
-     * 달리기 효과 없음
+     * 달리기 효과 넣자 그냥 누르고 있으면 애니 재생되게 끔
      */
+
+    [SerializeField] private float 
+    [SerializeField]
+    [SerializeField]
 }
