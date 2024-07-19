@@ -29,8 +29,8 @@ public class LookCam : MonoBehaviour
         if (distance <= activationDistance)
         {
             nameTagUI.SetActive(true);
-            nameTagUI.transform.Rotate(0, 180, 0);
             RotateUI(nameTagUI);
+            
 
             if (distance <= arrowActivationDistance && IsPlayerLookingAtNPC())
             {
@@ -53,6 +53,7 @@ public class LookCam : MonoBehaviour
         Vector3 directionToPlayer = player.position - uiElement.transform.position;
         directionToPlayer.y = 0f;
         uiElement.transform.rotation = Quaternion.LookRotation(directionToPlayer);
+        nameTagUI.transform.Rotate(0, 180, 0);
     }
 
     bool IsPlayerLookingAtNPC()
