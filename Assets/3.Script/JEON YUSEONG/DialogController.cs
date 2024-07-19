@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DialogController : MonoBehaviour
 {
-    public GameObject talkUI;
+    
     public Text dialogText; // 대화 텍스트를 표시할 UI Text
     private bool isTyping = false; // 대화가 진행 중인지 여부
     private Queue<string> sentences; // 대화 문장들을 저장할 큐
@@ -13,7 +13,7 @@ public class DialogController : MonoBehaviour
     // Start는 처음 시작할 때 호출됩니다.
     void Start()
     {
-        talkUI.SetActive(false);
+        
         dialogText.text = ""; // 대화 텍스트를 빈 문자열로 초기화
         sentences = new Queue<string>(); // 대화 문장들을 저장할 큐 초기화
     }
@@ -34,7 +34,6 @@ public class DialogController : MonoBehaviour
     // 대화가 진행 중인지 확인하는 함수
     public bool IsTyping()
     {
-        talkUI.SetActive(true);
         return isTyping;
     }
 
