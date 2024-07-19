@@ -8,14 +8,7 @@ public class PlayerSkillExtraState : PlayerStateBase
     public override void Enter()
     {
         base.Enter();
-        try
-        {
-            playerController.PlayAnimation("Attack_Skill_Ex");
-        }
-        catch
-        {
-            playerController.SwitchState(EPlayerState.AttackSkillEnd);
-        }
+        playerController.PlayAnimation("Attack_Skill_Ex");
     }
 
     public override void Update()
