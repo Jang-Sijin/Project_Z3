@@ -44,6 +44,7 @@ Space 	  -  스위치
     [SerializeField] private UnCharHpSp unChar2;
     [SerializeField] private Image unCharIMG2;
     [SerializeField] private Image[] changeEffectIMGs;
+    private Tween[] fadeTween;
     [SerializeField] private CharIMGData_CS CharIMGData;
 
     private struct CharInfo // 디버깅용
@@ -53,6 +54,7 @@ Space 	  -  스위치
         public float maxHP;
         public float curSP;
         public float maxSP;
+        float DMG;
     };
     CharInfo[] chars = new CharInfo[3]; // 디버깅용 캐릭터 정보
 
@@ -66,11 +68,13 @@ Space 	  -  스위치
             chars[i].curSP = Random.Range(0.5f, 1f);
             chars[i].maxSP = 1f;
         }
+
+        fadeTween = new Tween[changeEffectIMGs.Length];
+        UIManager.instance.Creat_UI(WhichUI.pauseMenuUI);
     }
 
     private void Update()
     {
-        UIManager.instance.OpenAndClosePause();
 
         if (Input.GetKeyDown(KeyCode.Space)) // 디버깅용입니다.
         {
@@ -126,11 +130,12 @@ Space 	  -  스위치
         //디버깅용
     }
 
-    private void Change_Profile(Image profile, TempChar charInfo)
+    private void Change_Profile(Image profile, TempChar charInfo) // 디버깅용입니다.
     {
-        Debug.Log(CharIMGData.sprites[(int)charInfo]);
         profile.sprite = CharIMGData.sprites[(int)charInfo];
     }
+
+    
 
     private void Change_Effect()
     {
@@ -141,7 +146,12 @@ Space 	  -  스위치
             tempColor.a = 1f;
             changeEffectIMGs[i].color = tempColor;
 
-            changeEffectIMGs[i].DOFade(0f, 0.2f).SetEase(Ease.InOutQuad);
+            if (fadeTween[i] != null && fadeTween[i].IsActive())
+            {
+                fadeTween[i].Kill();
+            }
+
+            fadeTween[i] = changeEffectIMGs[i].DOFade(0f, 0.2f).SetEase(Ease.InOutQuad).SetAutoKill(true);
         }
     }
 

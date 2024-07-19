@@ -69,7 +69,7 @@ public class PauseMenuUI : MonoBehaviour
 
 	//환경설정 메뉴 종료시 효과 메소드
     //*********************************************************************************************************
-    private IEnumerator ClosePauseMenu()
+    private IEnumerator ClosePauseMenu_co()
 	{
 		yield return new WaitForSeconds(0.2f);
 
@@ -98,19 +98,19 @@ public class PauseMenuUI : MonoBehaviour
 
     //여러 버튼 함수
     //*********************************************************************************************************
-    public void OnClickClose()
+    public void OnClickClose() // pause 종료메소드
 	{
 		UIManager.instance.isCloseOrOpen = true;
 		gameObject.SetActive(true);
-		StartCoroutine(ClosePauseMenu());
+		StartCoroutine(ClosePauseMenu_co());
         UIManager.instance.isPause = false;
     }
 
-	public void OnClickIntoButton(Animator changeCur)
+	public void OnClickIntoButton(Animator changeCur)// 왼쪽 메뉴 선택 버튼 클릭시 발생하는 애니메이션입니다.
 	{
 		curInto_btn_Ani.SetBool("Selected", false);
         curInto_btn_Ani.SetTrigger("Normal");
-
+	
 		curInto_btn_Ani = changeCur;
 		curInto_btn_Ani.SetBool("Selected", true);
 	}
