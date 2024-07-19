@@ -25,64 +25,6 @@ public class SelectedChar : MonoBehaviour
             profile = value;
         }
     }
-    private float curHP;
-
-    public float CurHP
-    {
-        get
-        {
-            return curHP;
-        }
-
-        set
-        {
-            curHP = value;
-        }
-    }
-
-    private float maxHP;
-
-    public float MaxHP
-    {
-        get
-        {
-            return maxHP;
-        }
-
-        set
-        {
-            maxHP = value;
-        }
-    }
-
-    private float curSP;
-    public float CurSP
-    {
-        get
-        {
-            return curHP;
-        }
-
-        set
-        {
-            curHP = value;
-        }
-    }
-
-    private float maxSP;
-
-    public float MaxSP
-    {
-        get
-        {
-            return maxSP;
-        }
-        set
-        {
-            maxSP = value;
-        }
-    }
-
 
     private Coroutine timerCoroutine;
 
@@ -111,24 +53,24 @@ public class SelectedChar : MonoBehaviour
         }
     }
 
-    public void RefreshHealth(bool isChangeChar) // hp 갱신 : 불 값으로 fake의 갱신 효과 발생 여부를 판단합니다.
+    public void RefreshHealth(CharInfo charInfo, bool isChangeChar) // hp 갱신 : 불 값으로 fake의 갱신 효과 발생 여부를 판단합니다.
     {
-        realHp.value = curHP / maxHP;
+        realHp.value = charInfo.curHP / charInfo.maxHP;
 
         if(!isChangeChar)
         Start_CountFillFakeHp();
 
         else
         {
-            fakeHp.value = curHP / maxHP;
+            fakeHp.value = charInfo.curHP / charInfo.maxHP;
         }
 
-        playerhptext.text = $"{(int)curHP} / {(int)maxHP}";
+        playerhptext.text = $"{(int)charInfo.curHP} / {(int)charInfo.maxHP}";
     }
 
-    public void RefreshSp() // sp 갱신
+    public void RefreshSp(CharInfo charInfo) // sp 갱신
     {
-        sp.value = curHP / maxSP;
+        sp.value = charInfo.curSP / charInfo.maxSP;
     }
 
     private void Start_CountFillFakeHp() // 세는 코루틴이 실행중이면 이전 코루틴 취소 후 세기

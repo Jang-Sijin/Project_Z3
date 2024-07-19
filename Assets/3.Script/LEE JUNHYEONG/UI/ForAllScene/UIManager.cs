@@ -77,21 +77,47 @@ public class UIManager : MonoBehaviour
         {
             case WhichUI.introUI:
                 temp_ob = Instantiate(introUI_prefab);
-                introUI = temp_ob.GetComponent<IntroUI>();
+
+                if (introUI != null)
+                {
+                    Destory_UI(ui);
+                }
+
+                else
+                    introUI = temp_ob.GetComponent<IntroUI>();
+
                 break;
 
             case WhichUI.mainCityUI:
                 temp_ob = Instantiate(mainCityUI_prefab);
+
+                if (introUI != null)
+                {
+                    Destory_UI(ui);
+                }
+
                 mainCityUI = temp_ob.GetComponent<MainCityUI>();
                 break;
 
             case WhichUI.pauseMenuUI:
                 temp_ob = Instantiate(pauseMenuUI_prefab);
+
+                if (introUI != null)
+                {
+                    Destory_UI(ui);
+                }
+
                 pauseMenuUI = temp_ob.GetComponent<PauseMenuUI>();
                 break;
 
             case WhichUI.inGameUI:
                 temp_ob = Instantiate(inGameUI_prefab);
+
+                if (introUI != null)
+                {
+                    Destory_UI(ui);
+                }
+
                 inGameUI = temp_ob.GetComponent<InGameUI>();
                 break;
         }    
