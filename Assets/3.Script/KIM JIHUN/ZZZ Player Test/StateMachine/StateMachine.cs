@@ -53,7 +53,7 @@ public class StateMachine
     {
         currentState.Enter();
         MonoManager.INSTANCE.AddUpdateAction(currentState.Update);
-        MonoManager.INSTANCE.AddFixedUpdateAction(currentState.FIxedUpdate);
+        MonoManager.INSTANCE.AddFixedUpdateAction(currentState.FixedUpdate);
         MonoManager.INSTANCE.AddLateUpdateAction(currentState.LateUpdate);
     }
 
@@ -62,7 +62,7 @@ public class StateMachine
         currentState.Exit();
 
         MonoManager.INSTANCE.RemoveUpdateAction(currentState.Update);
-        MonoManager.INSTANCE.RemoveFixedUpdateAction(currentState.FIxedUpdate);
+        MonoManager.INSTANCE.RemoveFixedUpdateAction(currentState.FixedUpdate);
         MonoManager.INSTANCE.RemoveLateUpdateAction(currentState.LateUpdate);
     }
 
