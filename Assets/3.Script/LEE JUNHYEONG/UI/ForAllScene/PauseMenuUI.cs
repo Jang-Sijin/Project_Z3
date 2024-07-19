@@ -6,6 +6,8 @@ using DG.Tweening;
 using UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers;
 using UnityEngine.Audio;
 using TMPro;
+using UnityEditor;
+using UnityEngine.InputSystem;
 
 public class PauseMenuUI : MonoBehaviour
 {
