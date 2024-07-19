@@ -55,7 +55,7 @@ public class PlayerStateBase : StateBase
     {
     }
 
-    public override void FIxedUpdate()
+    public override void FixedUpdate()
     {
     }
 
