@@ -8,20 +8,22 @@ public class Idle : MonsterStateBase
     {
         base.Enter();
         monsterController.PlayAnimation("Idle");
+        monsterController.monsterModel.nmagent.isStopped = true; // Idle »óÅÂ¿¡¼­´Â ÀÌµ¿ ¸ØÃã
 
     }
     public override void Update()
     {
         base.Update();
-
+        monsterController.monsterModel.animator.SetFloat("MoveSpeed", 0);
         if (monsterController.Distance >= 5.0f)
         {
             monsterController.SwitchState(MonsterState.Run);
         }
 
-        if (monsterController.Distance < 5.0f&& monsterController.Distance > 2.0f)
+        else if (monsterController.Distance < 5.0f && monsterController.Distance > 2.0f)
         {
             monsterController.SwitchState(MonsterState.Walk);
         }
+
     }
 }

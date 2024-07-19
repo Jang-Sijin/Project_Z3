@@ -9,21 +9,26 @@ public class Run :MonsterStateBase
         base.Enter();
 
         monsterController.PlayAnimation("Run");
+        monsterController.monsterModel.nmagent.isStopped = false;
+        monsterController.monsterModel.nmagent.speed = 3f; // 워크 속도 설정
     }
     public override void Update()
     {
         base.Update();
+        monsterController.monsterModel.animator.SetFloat("MoveSpeed", monsterController.monsterModel.nmagent.velocity.magnitude);
         //뛰어가다가 워킹거리로 좁혀졌을 때
-        if(monsterController.Distance > 2.0f && monsterController.Distance<5.0f)
+        if (monsterController.Distance > 2.0f && monsterController.Distance<5.0f)
         {
-            monsterController.SwitchState(MonsterState.Walk);  // 나중에 걸어가는거로 조건 바꿀것
+            monsterController.SwitchState(MonsterState.Walk);
+            return;
         }
         
-        if(monsterController.Distance<=2.0f)
+      else if(monsterController.Distance<=2.0f)
         {
-            monsterController.SwitchState(MonsterState.AttackType_01);  // 나중에 공격하는거로 조건 바꿀것
-            Waiting_co();
-            monsterController.SwitchState(MonsterState.Idle);
+            monsterController.SwitchState(MonsterState.AttackType_02);
+            return;
+            //   Waiting_co();
+            //monsterController.SwitchState(MonsterState.Idle);
         }
 
     }

@@ -39,7 +39,7 @@ public class stateMachine
         //{
         //    ExitCurrentState();
         //}
-        //
+        //  
         //currentState = LoadState<T>();
         //EnterCurrentState();
         if (hasState && currentState.GetType() == typeof(T) && !reloadState)
@@ -69,7 +69,7 @@ public class stateMachine
     {
 
         currentState.Enter();
-        Debug.Log("엔터커랜트");
+        //Debug.Log("엔터커랜트");
             MonoManager.INSTANCE.AddUpdateAction(currentState.Update);
             MonoManager.INSTANCE.AddFixedUpdateAction(currentState.FixedUpdate);
             MonoManager.INSTANCE.AddLateUpdateAction(currentState.LateUpdate);
@@ -79,7 +79,7 @@ public class stateMachine
     private void ExitCurrentState()
     {
         currentState.Exit();
-        Debug.Log("익싯커랜트");
+      //  Debug.Log("익싯커랜트");
         MonoManager.INSTANCE.RemoveUpdateAction(currentState.Update);
         MonoManager.INSTANCE.RemoveUpdateAction(currentState.FixedUpdate);
         MonoManager.INSTANCE.RemoveUpdateAction(currentState.LateUpdate);

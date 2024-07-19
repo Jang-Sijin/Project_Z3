@@ -7,7 +7,7 @@ public class MonsterStateBase : stateBase
 
 
     protected MonsterController monsterController;
-
+    private AnimatorStateInfo NowPlaying;
     protected MonsterModel monsterModel;
 
     public override void Init(IstateMachineOwner owner)
@@ -47,9 +47,16 @@ public class MonsterStateBase : stateBase
 
     }
 
- //   public bool isStopAni()
- //   {
- //       NowPlaying = monsterModel.animator.GetCurrentAnimatorStateInfo(0);
- //       return NowPlaying.normalizedTime >= 1.0f && !monsterModel.animator.IsInTransition(0);
- //   }
+    protected void StartCoroutine(IEnumerator coroutine)
+    {
+        monsterController.StartCoroutine(coroutine);
+    }
+
+       public bool isStopAni()
+       {
+           NowPlaying = monsterModel.animator.GetCurrentAnimatorStateInfo(0);
+           return NowPlaying.normalizedTime >= 1.0f && !monsterModel.animator.IsInTransition(0);
+       }
+
+
 }
