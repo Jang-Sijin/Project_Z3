@@ -5,7 +5,10 @@ using UnityEngine;
 public enum EBelleState
 {
     Idle,
+    WalkStart,
     Walk,
+    WalkEnd,
+    RunStart,
     Run,
     RunEnd
 }

@@ -13,6 +13,8 @@ public class BelleController : SingleMonoBase<BelleController>, IStateMachineOwn
     public Vector2 inputMoveVec2;
     public float rotationSpeed = 8f;
 
+    public bool toggleWalk = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -36,14 +38,23 @@ public class BelleController : SingleMonoBase<BelleController>, IStateMachineOwn
             case EBelleState.Idle:
                 stateMachine.EnterState<BelleIdleState>();
                 break;
-            case EBelleState.Walk:
-                stateMachine.EnterState<BelleWalkState>();
-                break;
             case EBelleState.Run:
                 stateMachine.EnterState<BelleRunState>(true);
                 break;
             case EBelleState.RunEnd:
                 stateMachine.EnterState<BelleRunEndState>();
+                break;
+            case EBelleState.RunStart:
+                stateMachine.EnterState<BelleRunStartState>();
+                break;
+            case EBelleState.WalkStart:
+                stateMachine.EnterState<BelleWalkStartState>();
+                break;
+            case EBelleState.Walk:
+                stateMachine.EnterState<BelleWalkState>();
+                break;
+            case EBelleState.WalkEnd:
+                stateMachine.EnterState<BelleWalkEndState>();
                 break;
         }
     }
@@ -67,6 +78,9 @@ public class BelleController : SingleMonoBase<BelleController>, IStateMachineOwn
     private void Update()
     {
         inputMoveVec2 = playerInputSystem.Player.Move.ReadValue<Vector2>().normalized;
+        if (playerInputSystem.Player.ToggleWalk.triggered)
+            toggleWalk = !toggleWalk;
+
     }
 
     private void OnEnable()
