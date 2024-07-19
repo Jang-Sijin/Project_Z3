@@ -7,7 +7,6 @@ public class AttackType_01 : MonsterStateBase
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("어택엔터");
         monsterController.PlayAnimation("AttackType_01");
         StartCoroutine(PerformAttack());
     }
@@ -45,6 +44,6 @@ public class AttackType_01 : MonsterStateBase
     {
         base.Exit();
         // 공격이 끝난 후 다시 이동 가능하도록 설정
-        monsterController.monsterModel.nmagent.isStopped = false;
+      //  monsterController.monsterModel.nmagent.isStopped = false;
     }
 }
