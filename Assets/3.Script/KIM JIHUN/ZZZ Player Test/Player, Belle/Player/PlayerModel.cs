@@ -26,6 +26,9 @@ public class PlayerModel : MonoBehaviour
     [SerializeField] private EffectPlayer effectPlayer;
 
     [HideInInspector] public EModelFoot foot = EModelFoot.Right;
+
+    public bool hasSkillLoop = false;
+    public bool hasSkillExtra = false;
     private void Awake()
     {
         animator = GetComponent<Animator>();

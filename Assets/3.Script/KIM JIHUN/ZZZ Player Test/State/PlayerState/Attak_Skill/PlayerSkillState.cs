@@ -19,11 +19,18 @@ public class PlayerSkillState : PlayerStateBase
         {
             if (playerController.playerInputSystem.Player.Skill.IsPressed())
             {
-                playerController.SwitchState(EPlayerState.AttackSkillLoop);
+                if (playerModel.hasSkillLoop)
+                {
+                    playerController.SwitchState(EPlayerState.AttackSkillLoop);
+                    return;
+                }
+            }
+            if (playerModel.hasSkillExtra)
+            { 
+                playerController.SwitchState(EPlayerState.AttackSkillEx);
                 return;
             }
-            
-            playerController.SwitchState(EPlayerState.AttackSkillEx);
+            playerController.SwitchState(EPlayerState.AttackSkillEnd);
         }
     }
 }
