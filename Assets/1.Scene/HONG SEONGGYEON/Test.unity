@@ -458,7 +458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46874d1a536573d429b46422b974a97a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterModel: {fileID: 5488981885443036486}
+  monsterModel: {fileID: 0}
   Target: {fileID: 1369405222}
   Distance: 0
 --- !u!4 &1055226834
@@ -7990,13 +7990,13 @@ GameObject:
   m_Component:
   - component: {fileID: 5488981885443036485}
   - component: {fileID: 1931176888158326591}
-  - component: {fileID: 5488981885443036486}
-  - component: {fileID: 5488981885443036487}
-  - component: {fileID: 5488981885443036488}
   - component: {fileID: 5488981885443036489}
   - component: {fileID: 5488981885443036490}
-  - component: {fileID: 5488981885443036492}
   - component: {fileID: 5488981885443036493}
+  - component: {fileID: 5488981885443036497}
+  - component: {fileID: 5488981885443036496}
+  - component: {fileID: 5488981885443036495}
+  - component: {fileID: 5488981885443036494}
   m_Layer: 0
   m_Name: Monster_Goblin
   m_TagString: Enemy
@@ -8509,50 +8509,6 @@ Transform:
   - {fileID: 5815758390712231259}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5488981885443036486
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5145106791768690687}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d57878020310c5e4facaa9fd4d17d49b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 1931176888158326591}
-  state: 0
-  Target: {fileID: 1369405222}
-  Distance: 0
-  nmagent: {fileID: 0}
---- !u!114 &5488981885443036487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5145106791768690687}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46874d1a536573d429b46422b974a97a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  monsterModel: {fileID: 5488981885443036486}
-  Target: {fileID: 1369405222}
-  Distance: 0
---- !u!114 &5488981885443036488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5145106791768690687}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cc79f368e1bf3247ba83c83993f1996, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &5488981885443036489
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8601,19 +8557,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &5488981885443036492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5145106791768690687}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 255938b749525154fb9a50145bd092dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Target: {fileID: 1369405222}
 --- !u!195 &5488981885443036493
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -8636,6 +8579,64 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &5488981885443036494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5145106791768690687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 255938b749525154fb9a50145bd092dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 1369405222}
+  animator: {fileID: 0}
+--- !u!114 &5488981885443036495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5145106791768690687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d57878020310c5e4facaa9fd4d17d49b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1931176888158326591}
+  state: 0
+  Target: {fileID: 1369405222}
+  Distance: 0
+  nmagent: {fileID: 5488981885443036493}
+--- !u!114 &5488981885443036496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5145106791768690687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46874d1a536573d429b46422b974a97a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterModel: {fileID: 5488981885443036495}
+  Target: {fileID: 0}
+  Distance: 0
+--- !u!114 &5488981885443036497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5145106791768690687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cc79f368e1bf3247ba83c83993f1996, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5494580520377695929
 GameObject:
   m_ObjectHideFlags: 0
@@ -9764,6 +9765,8 @@ MonoBehaviour:
   skillUltShot: {fileID: 0}
   effectPlayer: {fileID: 0}
   foot: 0
+  hasSkillLoop: 0
+  hasSkillExtra: 0
 --- !u!1 &6206888039886064030
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,8 +9,8 @@ public class Run :MonsterStateBase
         base.Enter();
 
         monsterController.PlayAnimation("Run");
-        monsterController.monsterModel.nmagent.isStopped = false;
-        monsterController.monsterModel.nmagent.speed = 3f; // 况农 加档 汲沥
+      //  monsterController.monsterModel.nmagent.isStopped = false;
+     //   monsterController.monsterModel.nmagent.speed = 3f; // 况农 加档 汲沥
     }
     public override void Update()
     {
