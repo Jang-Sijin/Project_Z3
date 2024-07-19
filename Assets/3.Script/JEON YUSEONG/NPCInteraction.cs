@@ -11,6 +11,9 @@ public class NPCInteraction : MonoBehaviour
     public DialogController dialogController; // DialogController 인스턴스
     private bool isPlayerInRange = false; // 플레이어가 범위 내에 있는지 여부
     private bool isDialogueActive = false; // 대화가 활성화되었는지 여부
+    public GameObject selectup;
+    public GameObject selectdown;
+    public GameObject talkUI;
 
     public string[] dialogueLines; // NPC의 대화 내용
 
@@ -18,6 +21,9 @@ public class NPCInteraction : MonoBehaviour
     {
         mainCamera = Camera.main; // 메인 카메라를 찾음
         dialogueCamera.gameObject.SetActive(false); // 대화 카메라는 초기에는 비활성화
+        talkUI.SetActive(false);
+        selectup.SetActive(false);
+        selectdown.SetActive(false);
     }
 
     void Update()
@@ -47,7 +53,7 @@ public class NPCInteraction : MonoBehaviour
     {
         mainCamera.gameObject.SetActive(false); // 메인 카메라 비활성화
         dialogueCamera.gameObject.SetActive(true); // 대화 카메라 활성화
-
+        talkUI.SetActive(true);
         player.LookAt(transform); // 플레이어가 NPC를 바라보도록 설정
         transform.LookAt(player); // NPC가 플레이어를 바라보도록 설정
 
@@ -59,7 +65,7 @@ public class NPCInteraction : MonoBehaviour
     {
         isDialogueActive = false; // 대화가 종료되었음을 표시
         dialogController.StopTyping(); // 대화 텍스트 초기화
-
+        talkUI.SetActive(false);
         dialogueCamera.gameObject.SetActive(false); // 대화 카메라 비활성화
         mainCamera.gameObject.SetActive(true); // 메인 카메라 활성화
     }
