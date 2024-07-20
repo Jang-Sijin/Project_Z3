@@ -16,7 +16,7 @@ public class MainCityUI : MonoBehaviour
      * 달리기 효과 넣자 그냥 누르고 있으면 애니 재생되게 끔
      */
 
-    [SerializeField] private float 
-    [SerializeField]
-    [SerializeField]
+    //[SerializeField] private float 
+    //[SerializeField]
+    //[SerializeField]
 }
