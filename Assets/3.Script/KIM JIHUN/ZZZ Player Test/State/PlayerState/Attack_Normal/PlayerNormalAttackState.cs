@@ -20,37 +20,37 @@ public class PlayerNormalAttackState : PlayerStateBase
     {
         base.Update();
 
-        //´ÙÀ½ °ø°Ý On
-        if(GetNormalizedTime() >= 0.5f && playerController.playerInputSystem.Player.Fire.triggered)
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ On
+        if (GetNormalizedTime() >= 0.5f && playerController.playerInputSystem.Player.Fire.triggered)
         {
             enterNextAttack = true;
         }
-        //±Ã±Ø±â
+        //ï¿½Ã±Ø±ï¿½
         if (playerController.playerInputSystem.Player.Ult.triggered)
         {
             playerController.SwitchState(EPlayerState.AttackUltStart);
             return;
         }
-        //È¸ÇÇ
+        //È¸ï¿½ï¿½
         if (playerController.playerInputSystem.Player.Evade.triggered)
         {
             playerController.SwitchState(EPlayerState.EvadeBack);
             playerModel.currentNormalAttakIndex = 1;
             return;
         }
-        //½ºÅ³
+        //ï¿½ï¿½Å³
         if (playerController.playerInputSystem.Player.Skill.triggered)
         {
             playerController.SwitchState(EPlayerState.AttackSkill);
             return;
         }
-        //¾Ö´Ï¸ÞÀÌ¼Ç Á¾·á
+        //ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (IsAnimationEnd())
         {
             if (enterNextAttack)
             {
                 playerModel.currentNormalAttakIndex++;
-                if (playerModel.currentNormalAttakIndex > playerModel.skillConfig.normalAttackDamageMultiple.Length)
+                if (playerModel.currentNormalAttakIndex > playerModel.characterInfo.normalAttackDamageMultiple.Length)
                 {
                     playerModel.currentNormalAttakIndex = 1;
                 }
