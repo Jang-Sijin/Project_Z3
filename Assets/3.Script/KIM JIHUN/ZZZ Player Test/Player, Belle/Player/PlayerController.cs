@@ -32,6 +32,13 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         get { return currentUltPoint; }
         set { currentUltPoint = Mathf.Clamp(value, 0, maxUltPoint); }
     }
+
+    private bool canInput = true; // 대화, 컷신에 사용될 bool값. 캐릭터를 조종할 수 있는지
+    public bool CanInput
+    {
+        get { return canInput; }
+        set { canInput = value; }
+    }
     #endregion
 
     public List<GameObject> enemyList { get; private set; }
@@ -83,6 +90,11 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     /// <param name="playerState">변경할 State</param>
     public void SwitchState(EPlayerState playerState)
     {
+        if (!canInput)
+        {
+            playerModel.currentState = EPlayerState.Idle;
+            stateMachine.EnterState<PlayerIdleState>();
+        }
         playerModel.currentState = playerState;
         switch (playerState)
         {
