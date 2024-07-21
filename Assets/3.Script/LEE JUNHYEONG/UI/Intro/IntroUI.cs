@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,8 @@ public class IntroUI : MonoBehaviour
 
     [SerializeField] private Image loadingBarBackGround;
     [SerializeField] private Image loadingBarFill;
+    [SerializeField] public TextMeshProUGUI MiddleText;
+
     public Image loadingFill
     {
         get
@@ -22,8 +25,6 @@ public class IntroUI : MonoBehaviour
             loadingBarFill = value;
         }
     }
-
-
     private void Start()
     {
         UIManager.instance.Creat_UI(WhichUI.pauseMenuUI);

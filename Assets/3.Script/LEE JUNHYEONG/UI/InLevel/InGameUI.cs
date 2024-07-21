@@ -65,32 +65,32 @@ public class InGameUI : MonoBehaviour
     private void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Space)) // 디버깅용입니다.
+        if (Input.GetKeyDown(KeyCode.Space)) // 디버깅
         {
             DeBugshufflechar();
             ChangeChar(debugchars);
             Change_Effect();
-            PressSpace();
+            Pressbtn(KeyCode.Space);
         }
         
-        if(Input.GetMouseButtonDown(1))// 디버깅용입니다.
+        if(Input.GetMouseButtonDown(1))// 디버깅
         {
-            RenewalMouseRight();
+            Pressbtn(KeyCode.Mouse1);
         }// 디버깅용입니다.
         
-        if (Input.GetKeyDown(KeyCode.E)) // 디버깅용
+        if (Input.GetKeyDown(KeyCode.E)) // 디버깅
         {
-            PressE();
+            RenewalSkillbtn(KeyCode.E);
         }
         
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape)) // 디버깅
         {
             UIManager.instance.OpenAndClosePause();
         }
         
-        if(Input.GetKeyDown(KeyCode.Q))
+        if(Input.GetKeyDown(KeyCode.Q))// 디버깅
         {
-            RenewalQ(true);
+            RenewalSkillbtn(KeyCode.Q);
         }
         // 
         //************************************************************************
@@ -150,7 +150,42 @@ public class InGameUI : MonoBehaviour
     [SerializeField] private Animator QbtnAni;
     [SerializeField] private Animator SpacebtnAni;
 
-    public void RenewalMouseRight() // 우클릭시 부르면 됩니다.
+    public void Pressbtn(KeyCode keyCode) // 스킬 발동시 해당 메소드를 호출하면됩니다.
+    {
+        switch (keyCode)
+        {
+            case KeyCode.Q:
+                StartCoroutine(PressQ_co());
+                break;
+
+            case KeyCode.E:
+                StartCoroutine(PressE_co());
+                break;
+
+            case KeyCode.Space:
+                SpacebtnAni.SetTrigger("PressSpace");
+                break;
+            case KeyCode.Mouse1:
+                PressMouseRight();
+                break;
+        }
+    }
+
+    public void RenewalSkillbtn(KeyCode keyCode)// 스킬이 다 찬 effect는 해당 메소드입니다.
+    {
+        switch (keyCode)
+        {
+            case (KeyCode.Q):
+            QbtnAni.gameObject.SetActive(true);
+                break;
+
+            case (KeyCode.E):
+                EbtnAni.gameObject.SetActive(true);
+                break;
+        }
+    }
+
+    private void PressMouseRight()
     {
         if (!isRightClicked)
         {
@@ -158,8 +193,7 @@ public class InGameUI : MonoBehaviour
         }
     }
 
-    private Tween mouseRightcooltween;
-    [SerializeField]private float dashCoolTime;
+    [SerializeField]private float dashCoolTime; // 대쉬 쿨타임 변수입니다.
 
     private IEnumerator RenewalMouseRight_co() // 쿨타임 세는 메소드
     {
@@ -168,7 +202,7 @@ public class InGameUI : MonoBehaviour
         mouseRightCool.gameObject.SetActive(true);
         mouseRightText.gameObject.SetActive(true);
 
-        mouseRightcooltween = mouseRightCool.DOFillAmount(0, dashCoolTime).SetEase(Ease.Linear).OnUpdate(() => UpdateText());
+        Tween mouseRightcooltween = mouseRightCool.DOFillAmount(0, dashCoolTime).SetEase(Ease.Linear).OnUpdate(() => UpdateText());
        
         yield return mouseRightcooltween.WaitForCompletion();
         mouseRightText.gameObject.SetActive(false);
@@ -182,56 +216,24 @@ public class InGameUI : MonoBehaviour
         mouseRightText.text = $"{mouseRightCool.fillAmount* dashCoolTime:F2}";
     }
 
-    public void RenewalE(bool canUse) // 스킬 사용가능할 때 표시될 UI입니다.
-    {
-        if (canUse)
-        {
-            EbtnAni.gameObject.SetActive(true);
-            EbtnAni.SetTrigger("ChargedE");
-        }
-
-        else
-        {
-            EbtnAni.gameObject.SetActive(false);
-        }
-    }
-
-    public void PressE() // E키 사용 메소드
-    {
-        if(!EbtnAni.gameObject.activeSelf)
-        {
-            StartCoroutine(PressE_co());
-        }
-    }
-
     private IEnumerator PressE_co()
     {
         EbtnAni.gameObject.SetActive(true);
-        EbtnAni.SetTrigger("ChargedE");
+        EbtnAni.SetTrigger("PressE");
 
-        WaitForSeconds wfs = new WaitForSeconds(EbtnAni.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(EbtnAni.GetCurrentAnimatorStateInfo(0).length);
 
-        yield return wfs;
         EbtnAni.gameObject.SetActive(false);
     }
 
-    public void RenewalQ(bool canUse)
+    private IEnumerator PressQ_co()
     {
-        if (canUse)
-        {
-            QbtnAni.gameObject.SetActive(true);
-            QbtnAni.SetTrigger("UltCharged");
-        }
+        QbtnAni.gameObject.SetActive(true);
+        QbtnAni.SetTrigger("PressQ");
 
-        else
-        {
-            QbtnAni.gameObject.SetActive(false);
-        }
-    }
+        yield return new WaitForSeconds(QbtnAni.GetCurrentAnimatorStateInfo(0).length);
 
-    public void PressSpace()
-    {
-        SpacebtnAni.SetTrigger("PressSpace");
+        QbtnAni.gameObject.SetActive(false);
     }
     //**************************************************************************************************************************
 }
