@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Cinemachine;
+using Unity.VisualScripting.Dependencies.Sqlite;
 
 public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineOwner
 {
@@ -18,13 +19,32 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
 
     public Vector2 inputMoveVec2; // WASD 키보드로 입력
     public float rotationSpeed = 8f;
+
+    #region Player Active Cool Down
     [HideInInspector] public float evadeTimer { get; private set; } // 회피 타이머
-    [HideInInspector] public float evadeCoolTime { get; private set; } // 회피 쿨타임
+    [HideInInspector] private float evadeCoolTime; // 회피 쿨타임
+    [HideInInspector] public float switchTimer { get; private set; } // 캐릭터 교체 타이머
+    [HideInInspector] private float switchCoolTime; // 캐릭터 교체 쿨타임
+    private float maxUltPoint = 100f;
+    private float currentUltPoint = 0;
+    public float CurrentUltPoint
+    {
+        get { return currentUltPoint; }
+        set { currentUltPoint = Mathf.Clamp(value, 0, maxUltPoint); }
+    }
+
+    private bool canInput = true; // 대화, 컷신에 사용될 bool값. 캐릭터를 조종할 수 있는지
+    public bool CanInput
+    {
+        get { return canInput; }
+        set { canInput = value; }
+    }
+    #endregion
 
     public List<GameObject> enemyList { get; private set; }
     //public GameObject closestEnemy { get; private set; }
-    public GameObject closestEnemy;
-    public Vector3 directionToEnemy { get; private set; }
+    [HideInInspector] public GameObject closestEnemy;
+    [HideInInspector] public Vector3 directionToEnemy { get; private set; }
 
     [SerializeField] private CinemachineFreeLook cinemachineFreeLook; //카메라 쉐이크를 위한 시네머신
     private float shakeTimer; //쉐이크 타이머
@@ -36,6 +56,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
 
         playerInputSystem = new PlayerInputSystem();
         evadeCoolTime = 0.5f;
+        switchCoolTime = 1f;
         evadeTimer = evadeCoolTime;
 
         controllableModels = new List<PlayerModel>();
@@ -69,9 +90,15 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     /// <param name="playerState">변경할 State</param>
     public void SwitchState(EPlayerState playerState)
     {
+        if (!canInput)
+        {
+            playerModel.currentState = EPlayerState.Idle;
+            stateMachine.EnterState<PlayerIdleState>();
+        }
         playerModel.currentState = playerState;
         switch (playerState)
         {
+            #region Idle, Run
             case EPlayerState.Idle:
             case EPlayerState.IdleAFK:
                 stateMachine.EnterState<PlayerIdleState>(true);
@@ -89,6 +116,8 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
             case EPlayerState.TurnBack:
                 stateMachine.EnterState<PlayerTurnBackState>();
                 break;
+            #endregion
+            #region Evade
             case EPlayerState.EvadeFront:
             case EPlayerState.EvadeBack:
                 if (evadeTimer != evadeCoolTime) return;
@@ -100,14 +129,22 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
             case EPlayerState.EvadeBackEnd:
                 stateMachine.EnterState<PlayerEvadeEndState>();
                 break;
+            #endregion
+            #region Normal Attack
             case EPlayerState.NormalAttack:
                 stateMachine.EnterState<PlayerNormalAttackState>(true);
                 break;
             case EPlayerState.NormalAttakEnd:
                 stateMachine.EnterState<PlayerNormalAttackEndState>();
                 break;
+            #endregion
+            #region Ult
             case EPlayerState.AttackUltStart:
-                stateMachine.EnterState<PlayerUltStartState>();
+                if (currentUltPoint >= maxUltPoint)
+                {
+                    currentUltPoint -= maxUltPoint;
+                    stateMachine.EnterState<PlayerUltStartState>();
+                }
                 break;
             case EPlayerState.AttackUlt:
                 stateMachine.EnterState<PlayerUltState>();
@@ -115,27 +152,38 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
             case EPlayerState.AttackUltEnd:
                 stateMachine.EnterState<PlayerUltEndState>();
                 break;
+            #endregion
+            #region E Skill
             case EPlayerState.AttackSkill:
-                stateMachine.EnterState<PlayerSkillState>();
+                if (playerModel.playerStatus.CurrentSkillPoint >= 50f)
+                {
+                    playerModel.playerStatus.CurrentSkillPoint -= 50f;
+                    stateMachine.EnterState<PlayerSkillState>();
+                }
                 break;
             case EPlayerState.AttackSkillEx:
                 stateMachine.EnterState<PlayerSkillExtraState>();
                 break;
+            case EPlayerState.AttackSkillLoop:
+                stateMachine.EnterState<PlayerSkilllLoopState>();
+                break;
             case EPlayerState.AttackSkillEnd:
                 stateMachine.EnterState<PlayerSkillEndState>();
                 break;
+            #endregion
+            #region Rush
             case EPlayerState.AttackRush:
                 stateMachine.EnterState<PlayerRushState>();
                 break;
             case EPlayerState.AttackRushEnd:
                 stateMachine.EnterState<PlayerRushEndState>();
                 break;
-            case EPlayerState.AttackSkillLoop:
-                stateMachine.EnterState<PlayerSkilllLoopState>();
-                break;
+            #endregion
+            #region Switch
             case EPlayerState.SwitchInNormal:
                 stateMachine.EnterState<PlayerSwitchInNormalState>();
                 break;
+                #endregion
         }
     }
 
@@ -144,6 +192,9 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     /// </summary>
     public void SwitchNextModel()
     {
+        // 스위치 쿨타임 확인
+        if (switchTimer != switchCoolTime) return;
+        switchTimer -= switchCoolTime;
         //사용하던 StateMachine 초기화
         stateMachine.Clear();
 
@@ -210,6 +261,15 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         }
         #endregion
 
+        #region 캐릭터 교체 쿨타임
+        if (switchTimer < switchCoolTime)
+        {
+            switchTimer += Time.deltaTime;
+            if (switchTimer > switchCoolTime)
+                switchTimer = switchCoolTime;
+        }
+        #endregion
+
         #region CameraShake
         if (shakeTimer > 0)
         {
@@ -222,6 +282,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
             }
         }
         #endregion
+
     }
 
     private void LockMouse()
