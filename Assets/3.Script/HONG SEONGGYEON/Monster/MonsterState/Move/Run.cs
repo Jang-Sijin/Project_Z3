@@ -2,52 +2,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Run : MonsterStateBase  // 스킬화할것
+public class Run : MonsterStateBase
 {
-    private float RunCoolTme = 2.0f;
+    private float RunCoolTime = 2.0f;
     private float CurrentCoolTime;
+
     public override void Enter()
     {
         base.Enter();
-        CurrentCoolTime += Time.deltaTime;
+        CurrentCoolTime = 0; // 초기화
         monsterController.PlayAnimation("Run");
-        //  monsterController.monsterModel.nmagent.isStopped = false;
-        //   monsterController.monsterModel.nmagent.speed = 3f; // 워크 속도 설정
     }
+
     public override void Update()
     {
         base.Update();
-        //    monsterController.monsterModel.animator.SetFloat("MoveSpeed", monsterController.monsterModel.nmagent.velocity.magnitude);
+        CurrentCoolTime += Time.deltaTime; // 타이머 업데이트
 
-        //뛰어가다가 워킹거리로 좁혀졌을 때
-        if (CurrentCoolTime >= RunCoolTme)
+        if (monsterController.monsterModel.isGroggy)
         {
-            if (monsterController.Distance <= 2.0f)
+            monsterController.SwitchState(MonsterState.Stun_Start);
+        }
+        else
+        {
+            if (monsterController.monsterModel.Distance <= 3.0f)
             {
+                // Debug.Log($"쿨타임 다됨{CurrentCoolTime}");
                 monsterController.SwitchState(MonsterState.AttackType_01);
-                return;
-                //   Waiting_co();
-                //monsterController.SwitchState(MonsterState.Idle);
-            }
-            else
-            {
-                monsterController.SwitchState(MonsterState.Walk);
-                return;
+
             }
 
+            if (CurrentCoolTime >= RunCoolTime)
+            {
+                if (monsterController.monsterModel.Distance <= 3.0f)
+                {
+                    // Debug.Log($"쿨타임 다됨{CurrentCoolTime}");
+                    monsterController.SwitchState(MonsterState.AttackType_01);
+
+                }
+                else
+                {
+                    monsterController.SwitchState(MonsterState.Walk);
+
+                }
+            }
         }
     }
 
     public override void Exit()
     {
         base.Exit();
-        CurrentCoolTime = 0;
-
-    }
-    private IEnumerator Waiting_co()
-    {
-        Debug.Log("여긴가?");
-        yield return new WaitForSeconds(5.0f);
+        CurrentCoolTime = 0; // 상태 종료 시 타이머 초기화
+        Debug.Log($"쿨타임 초기화{CurrentCoolTime}");
     }
 
 }
