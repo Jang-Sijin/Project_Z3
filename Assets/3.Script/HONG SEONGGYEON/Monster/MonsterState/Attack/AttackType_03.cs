@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackType_01 : MonsterStateBase
+public class AttackType_03 : MonsterStateBase
 {
-
     public override void Enter()
     {
         base.Enter();
-        monsterController.PlayAnimation("AttackType_01");
+        monsterController.PlayAnimation("AttackType_03");
         monsterController.mon_CO.AttackingDisable();
 
     }
@@ -16,8 +15,7 @@ public class AttackType_01 : MonsterStateBase
     public override void Update()
     {
         base.Update();
-
-        if (monsterController.IsAnimationFinished("AttackType_01"))
+        if (monsterController.IsAnimationFinished("AttackType_03"))
 
             monsterController.SwitchState(MonsterState.Idle);
 
@@ -27,6 +25,7 @@ public class AttackType_01 : MonsterStateBase
     {
         base.Exit();
         monsterController.mon_CO.AttackingEnable();
+
     }
 
 }

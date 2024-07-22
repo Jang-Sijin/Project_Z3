@@ -4,29 +4,49 @@ using UnityEngine;
 
 public class Walk : MonsterStateBase
 {
+    private float RunningCoolTime=7.0f;
+    private float CurrentCoolTime=0f;
     public override void Enter()
     {
         base.Enter();
+        CurrentCoolTime = 0f;
         monsterController.PlayAnimation("Walk");
-      //  monsterController.monsterModel.nmagent.isStopped = false;
-        //monsterController.monsterModel.nmagent.speed = 1.0f; // 워크 속도 설정
     }
 
     public override void Update()
     {
         base.Update();
-        monsterController.monsterModel.animator.SetFloat("MoveSpeed", .05f) ;
-        if (monsterController.Distance >= 5.0f)
+        CurrentCoolTime += Time.deltaTime;
+        if (monsterController.monsterModel.isGroggy)
         {
-            monsterController.SwitchState(MonsterState.Run);
+            monsterController.SwitchState(MonsterState.Stun_Start);
+        }
+        else
+        {
+            if (monsterController.monsterModel.Distance >= 7.0f && CurrentCoolTime >= RunningCoolTime)
+            {
+                monsterController.SwitchState(MonsterState.Run);
+            }
+
+
+            else if (monsterController.monsterModel.Distance > 2 && monsterController.monsterModel.Distance < 3)
+            {
+            //    Debug.Log("워크");
+                monsterController.SwitchState(MonsterState.AttackType_02);
+            }
+
+            else if (monsterController.monsterModel.Distance > 4 && monsterController.monsterModel.Distance < 7)
+            {
+                monsterController.SwitchState(MonsterState.AttackType_03_Start);
+            }
         }
 
-       else if (monsterController.Distance <= 2.0f)
-        {
-            monsterController.SwitchState(MonsterState.AttackType_01);  // 나중에 공격하는거로 조건 바꿀것
+    }
 
-        }
-
+    public override void Exit()
+    {
+        base.Exit();
+        CurrentCoolTime = 0f;
     }
 
 

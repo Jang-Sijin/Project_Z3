@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackType_01 : MonsterStateBase
+public class Stun_End : MonsterStateBase
 {
-
     public override void Enter()
     {
         base.Enter();
-        monsterController.PlayAnimation("AttackType_01");
-        monsterController.mon_CO.AttackingDisable();
+        monsterController.PlayAnimation("Stun_End");
 
     }
 
@@ -17,16 +15,18 @@ public class AttackType_01 : MonsterStateBase
     {
         base.Update();
 
-        if (monsterController.IsAnimationFinished("AttackType_01"))
-
+        if (monsterController.IsAnimationFinished("Stun_End"))
+        {
             monsterController.SwitchState(MonsterState.Idle);
+        }
 
+        //공격 중에 피격 무효 추가할것
     }
 
     public override void Exit()
     {
         base.Exit();
-        monsterController.mon_CO.AttackingEnable();
+        monsterController.monsterModel.isGroggy = false;
+        monsterController.monsterModel.Groggypoint = 0;
     }
-
 }
