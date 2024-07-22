@@ -25,11 +25,8 @@ public class PlayerRunStartState : PlayerStateBase
         //회피
         if (playerController.playerInputSystem.Player.Evade.triggered)
         {
-            if (playerController.evadeTimer >= playerController.evadeCoolTime)
-            {
-                playerController.SwitchState(EPlayerState.EvadeBack);
-                return;
-            }
+            playerController.SwitchState(EPlayerState.EvadeBack);
+            return;
         }
         //이동
         if (playerController.inputMoveVec2 == Vector2.zero)

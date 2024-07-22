@@ -8,7 +8,7 @@ public class PlayerEvadeEndState : PlayerStateBase
     {
         base.Enter();
 
-        switch(playerModel.currentState)
+        switch (playerModel.currentState)
         {
             case EPlayerState.EvadeFrontEnd:
                 playerController.PlayAnimation("Evade_Front_End");
@@ -22,13 +22,13 @@ public class PlayerEvadeEndState : PlayerStateBase
     public override void Update()
     {
         base.Update();
-        //±Ã±Ø±â
-        if(playerController.playerInputSystem.Player.Ult.triggered)
+        //ï¿½Ã±Ø±ï¿½
+        if (playerController.playerInputSystem.Player.Ult.triggered)
         {
             playerController.SwitchState(EPlayerState.AttackUltStart);
             return;
         }
-        //ÆòÅ¸ or ·¯½¬
+        //ï¿½ï¿½Å¸ or ï¿½ï¿½ï¿½ï¿½
         if (playerController.playerInputSystem.Player.Fire.triggered)
         {
             switch (playerModel.currentState)
@@ -41,29 +41,26 @@ public class PlayerEvadeEndState : PlayerStateBase
                     return;
             }
         }
-        //½ºÅ³
+        //ï¿½ï¿½Å³
         if (playerController.playerInputSystem.Player.Skill.triggered)
         {
             playerController.SwitchState(EPlayerState.AttackSkill);
             return;
         }
-        //ÀÌµ¿
+        //ï¿½Ìµï¿½
         if (playerController.inputMoveVec2 != Vector2.zero)
         {
             playerController.SwitchState(EPlayerState.Walk);
             return;
             //playerController.SwitchState(EPlayerState.RunStart);
         }
-        //È¸ÇÇ
+        //È¸ï¿½ï¿½
         if (playerController.playerInputSystem.Player.Evade.triggered)
         {
-            if (playerController.evadeTimer >= playerController.evadeCoolTime)
-            {
-                playerController.SwitchState(EPlayerState.EvadeBack);
-                return;
-            }
+            playerController.SwitchState(EPlayerState.EvadeBack);
+            return;
         }
-        //¾Ö´Ï¸ÞÀÌ¼Ç Á¾·á
+        //ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (IsAnimationEnd())
         {
             playerController.SwitchState(EPlayerState.Idle);

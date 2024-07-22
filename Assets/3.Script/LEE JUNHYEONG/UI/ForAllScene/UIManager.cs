@@ -1,16 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public enum WhichScene
+public enum WhichUI
 {
-    INTRO = 0,
-    MAINCITY = 1,
-    INGAME = 2
+    introUI = 0,
+    mainCityUI = 1,
+    inGameUI = 2,
+    pauseMenuUI = 3,
+    commonLoadingUI =4
 };
+/*
+ * UI 메니저에서 모든 UI를 생성, 제거하는 메소드가 있습니다.
+ */
 
 public class UIManager : MonoBehaviour
 {
@@ -23,24 +29,24 @@ public class UIManager : MonoBehaviour
 
     public static UIManager instance = null;
 
-    [SerializeField] private GameObject introUI_ob;
+    [SerializeField] private GameObject introUI_prefab;
     public IntroUI introUI;
 
-    [SerializeField] private GameObject mainCityUI_ob;
+    [SerializeField] private GameObject mainCityUI_prefab;
     public MainCityUI mainCityUI;
 
-    [SerializeField] private GameObject inGameUI_ob;
+    [SerializeField] private GameObject inGameUI_prefab;
     public InGameUI inGameUI;
 
     //**************************************************
-    [SerializeField] private GameObject pauseMenuUI_ob;
-    public PauseMenuUI pauseMenuUI;
+    [SerializeField] private GameObject pauseMenuUI_prefab;
+    [SerializeField]public PauseMenuUI pauseMenuUI;
 
     public bool isCloseOrOpen = false;
     public bool isPause = false;
     //**************************************************
 
-    [SerializeField] private GameObject commonLoadingUI_ob;
+    [SerializeField] private GameObject commonLoadingUI_prefab;
     public commonLoadingUI commonLoadingUI;
 
     //**************************************************
@@ -64,31 +70,58 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void Creat_Intro_UI()
+    public void Creat_UI(WhichUI ui) // UI 생성 메소드 입니다.
     {
-        GameObject temp_ob = Instantiate(introUI_ob);
-        introUI = temp_ob.GetComponent<IntroUI>();
+        GameObject temp_ob;
+        switch (ui)
+        {
+            case WhichUI.introUI:
+                if (introUI != null)
+                {
+                    Debug.Log($"{ui}는 이미 존재합니다.");
+                    return;
+                }
+
+                temp_ob = Instantiate(introUI_prefab);
+                introUI = temp_ob.GetComponent<IntroUI>();
+                break;
+
+            case WhichUI.mainCityUI:
+                if (mainCityUI != null)
+                {
+                    Debug.Log($"{ui}는 이미 존재합니다.");
+                    return;
+                }
+
+                temp_ob = Instantiate(mainCityUI_prefab);
+                mainCityUI = temp_ob.GetComponent<MainCityUI>();
+                break;
+
+            case WhichUI.pauseMenuUI:
+                if (pauseMenuUI != null)
+                {
+                    Debug.Log($"{ui}는 이미 존재합니다.");
+                    return;
+                }
+
+                temp_ob = Instantiate(pauseMenuUI_prefab);
+                pauseMenuUI = temp_ob.GetComponent<PauseMenuUI>();
+                break;
+
+            case WhichUI.inGameUI:
+                if (inGameUI != null)
+                {
+                    Debug.Log($"{ui}는 이미 존재합니다.");
+                    Destroy(inGameUI.gameObject);
+                }
+
+                temp_ob = Instantiate(inGameUI_prefab);
+                inGameUI = temp_ob.GetComponent<InGameUI>();
+                break;
+        }    
     }
 
-    public void Creat_Lobby_UI()
-    {
-        GameObject temp_ob = Instantiate(mainCityUI_ob);
-        mainCityUI = temp_ob.GetComponent<MainCityUI>();
-    }
-
-    public void Creat_InGame_UI()
-    {
-        GameObject temp_ob = Instantiate(inGameUI_ob);
-        inGameUI = temp_ob.GetComponent<InGameUI>();
-    }
-
-    public void CreatPause()
-    {
-        GameObject temp_ob = Instantiate(pauseMenuUI_ob);
-        pauseMenuUI = temp_ob.GetComponent <PauseMenuUI>();
-    }
-
-    public void OpenAndClosePause()
+    public void OpenAndClosePause() // Pause를 열고 닫는 메소드입니다.
     {
         if (!isCloseOrOpen)
         {
@@ -118,7 +151,7 @@ public class UIManager : MonoBehaviour
         StartCoroutine(LoadScene_co(true));
     }
 
-    private IEnumerator LoadScene_co(bool isIntro)
+    private IEnumerator LoadScene_co(bool isIntro) // 디버깅용 씬 불러오는 메소드입니다.
     {
         AsyncOperation op = SceneManager.LoadSceneAsync("Intro", LoadSceneMode.Additive);
         op.allowSceneActivation = false;
@@ -127,6 +160,8 @@ public class UIManager : MonoBehaviour
         switch (isIntro)
         {
             case true: // 인트로에서 로딩
+                introUI.MiddleText.text = "로딩중";
+
                 while (!op.isDone)
                 {
                     yield return null;
@@ -143,6 +178,7 @@ public class UIManager : MonoBehaviour
 
                         if (introUI.loadingFill.fillAmount >= 1f)
                         {
+                            introUI.MiddleText.text = "로딩 완료";
                             op.allowSceneActivation = true;
                             yield break;
                         }
@@ -168,5 +204,10 @@ public class UIManager : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public void OnClickGameOff()
+    {
+        Application.Quit();
     }
 }

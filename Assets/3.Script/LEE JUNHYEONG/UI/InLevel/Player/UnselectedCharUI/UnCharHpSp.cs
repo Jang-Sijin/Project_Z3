@@ -15,60 +15,7 @@ public class UnCharHpSp : MonoBehaviour
 {
     private Slider hpBar;
     private Slider spBar;
-    private int Amount = 2;
-    private float curHp;
-    private float maxHp;
-    private float curSp;
-    private float maxSp;
 
-    public float CurHp
-    {
-        get
-        {
-            return curHp;
-        }
-
-        set
-        {
-            curHp = value;
-        }
-    }
-    public float MaxHp
-    {
-        get
-        {
-            return maxHp;
-        }
-
-        set
-        {
-            maxHp = value;
-        }
-    }
-    public float CurSp
-    {
-        get
-        {
-            return curSp;
-        }
-
-        set
-        {
-            curSp = value;
-        }
-    }
-    public float MaxSp
-    {
-        get
-        {
-            return maxSp;
-        }
-
-        set
-        {
-            maxSp= value;
-        }
-    }
     private void Start()
     {
 
@@ -76,7 +23,7 @@ public class UnCharHpSp : MonoBehaviour
             
         sliders = GetComponentsInChildren<Slider>();
         
-        for(int i=0; i < Amount;i++)
+        for(int i=0; i < 2;i++)
         {
             switch(sliders[i].name)
             {
@@ -90,13 +37,13 @@ public class UnCharHpSp : MonoBehaviour
             }
         }
     }
-    public void Refresh_Hpbar() // 피 업데이트
+    public void Refresh_Hpbar(CharInfo charInfo) // 피 업데이트
     {
-        hpBar.value = curHp / maxHp;
+        hpBar.value = charInfo.curHP / charInfo.maxHP;
     }
 
-    public void Refresh_Spbar() // Sp 업데이트
+    public void Refresh_Spbar(CharInfo charInfo) // Sp 업데이트
     {
-        spBar.value = curSp / maxSp;
+        spBar.value = charInfo.curSP / charInfo.maxSP;
     }
 }

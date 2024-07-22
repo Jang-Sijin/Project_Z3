@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,8 @@ public class IntroUI : MonoBehaviour
 
     [SerializeField] private Image loadingBarBackGround;
     [SerializeField] private Image loadingBarFill;
+    [SerializeField] public TextMeshProUGUI MiddleText;
+
     public Image loadingFill
     {
         get
@@ -22,12 +25,9 @@ public class IntroUI : MonoBehaviour
             loadingBarFill = value;
         }
     }
-
-
     private void Start()
     {
-        TV = FindObjectOfType<Intro_TVContorl>();
-        UIManager.instance.CreatPause();
+        UIManager.instance.Creat_UI(WhichUI.pauseMenuUI);
     }
     private void Update()
     {
@@ -40,8 +40,6 @@ public class IntroUI : MonoBehaviour
     }
     public void OnClickGameStart() // debug
     {
-        Debug.Log("메인 씬 전환 추가 필요");
-
         loadingBarBackGround.gameObject.SetActive(true);
 
         UIManager.instance.LoadScene("MainCity", true);
