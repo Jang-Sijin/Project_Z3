@@ -32,6 +32,7 @@ public class InGameUI : MonoBehaviour
     [SerializeField] private Image[] changeEffectIMGs; // 바꾸는 효과 이미지
     private Tween[] fadeTween; // 효과 애니 변수
     [SerializeField] private CharIMGData_CS CharIMGData;
+    [SerializeField] private TextMeshProUGUI UltStat; // 궁극기 수치입니다.
 
     CharInfo[] debugchars = new CharInfo[3]; // 디버깅용 캐릭터 정보
 
@@ -235,5 +236,25 @@ public class InGameUI : MonoBehaviour
 
         QbtnAni.gameObject.SetActive(false);
     }
+    //**************************************************************************************************************************
+
+    public void RenewalUltStat(float curUltNum) // 궁극기 카운트UI를 갱신하는 메소드입니다.
+    {
+        if (curUltNum < 10)
+        {
+            UltStat.text = "000" + (int)curUltNum;
+        }
+
+        else if (curUltNum < 100)
+        {
+            UltStat.text = "00" + (int)curUltNum;
+        }
+
+        else
+        {
+            UltStat.text = ((int)curUltNum).ToString();
+        }
+    }
+    
     //**************************************************************************************************************************
 }
