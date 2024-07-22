@@ -4,53 +4,108 @@ using UnityEngine;
 
 public class MonCol_Control : MonoBehaviour
 {
-    //   private Collider[] Weaponcolliders;
-    private Collider[] Weaponcolliders;
+    private Collider[] Colliders;
+    private bool hasHitPlayer = false; // 플레이어를 때렸는지 여부
+    private float hitCooldown = 0.5f; // 쿨다운 시간
+
+    private MonsterController monster;
+    private PlayerController player;
 
     private void Start()
     {
-               Weaponcolliders = GetComponentsInChildren<Collider>();
-        
-               foreach (Collider col in Weaponcolliders)
-               {
-                   if (col.CompareTag("EnemyWeapon")) col.enabled = false;
-                   else col.enabled = true;
-        
-               }
+        Colliders = GetComponentsInChildren<Collider>();
+
+        foreach (Collider col in Colliders)
+        {
+            if (col.CompareTag("EnemyWeapon"))
+                col.enabled = false;
+            else
+                col.enabled = true;
+        }
     }
 
     public void EnableWeaponCollider()
     {
-          foreach (Collider col in Weaponcolliders)
-          {
-              col.enabled = true;
-              Debug.Log("활성");
-          }
-       
+        foreach (Collider col in Colliders)
+        {
+            if (col.CompareTag("EnemyWeapon"))
+            {
+                col.enabled = true;
+                // Debug.Log("활성");
+            }
+        }
     }
 
     public void DisableWeaponCollider()
     {
-          foreach (Collider col in Weaponcolliders)
-          {
-              col.enabled = false;
-              Debug.Log("비활성");
-          }
+        foreach (Collider col in Colliders)
+        {
+            if (col.CompareTag("EnemyWeapon"))
+            {
+                col.enabled = false;
+                // Debug.Log("비활성");
+            }
+        }
+    }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!hasHitPlayer && other.CompareTag("Player"))
+        {
+            Debug.Log("때림");
+            hasHitPlayer = true;
+            //      PlayerController.INSTANCE.playerModel.CurrentHealth -= 10;
+            StartCoroutine(ResetHitCooldown());
+        }
     }
 
 
-    private void OnCollisionEnter(Collision collision)
+    public void AttackingDisable()
     {
-        Debug.Log("온트리거엔터");
-        foreach (Collider col in Weaponcolliders)
+        foreach (Collider col in Colliders)
         {
-            if (col.CompareTag("EnemyWeapon") && collision.gameObject.CompareTag("Player"))
+            if (col.CompareTag("Enemy"))
             {
-                Debug.Log("때림");
+                col.enabled = false;
+                Debug.Log("무적이다");
             }
         }
 
     }
+
+    public void AttackingEnable()
+    {
+        foreach (Collider col in Colliders)
+        {
+            if (col.CompareTag("Enemy"))
+            {
+                col.enabled = true;
+                Debug.Log("무적땡");
+            }
+        }
+    }
+
+
+
+    //  private void Update()
+    //  {
+    //     if (monster.monsterModel.state == MonsterState.AttackType_01 || monster.monsterModel.state == MonsterState.AttackType_02)
+    //     {
+    //         EnableWeaponCollider();
+    //     }
+    //     else
+    //     {
+    //         DisableWeaponCollider();
+    //     }
+    //  }
+
+
+
+    private IEnumerator ResetHitCooldown()
+    {
+        yield return new WaitForSeconds(hitCooldown);
+        hasHitPlayer = false;
+    }
+
 
 }

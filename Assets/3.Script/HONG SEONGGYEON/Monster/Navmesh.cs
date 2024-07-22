@@ -36,7 +36,7 @@ public class Navmesh : MonoBehaviour
             // NavMeshAgent의 위치를 애니메이션 루트 모션의 위치로 수동으로 업데이트
             nmagent.nextPosition = transform.position;
 
-            }
         }
     }
+}
 
