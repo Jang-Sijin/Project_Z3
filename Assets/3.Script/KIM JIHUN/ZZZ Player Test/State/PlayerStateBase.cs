@@ -40,7 +40,7 @@ public class PlayerStateBase : StateBase
     protected PlayerModel playerModel;
     private AnimatorStateInfo stateInfo;
     protected float statePlayingTime = 0;
-    
+
     public override void Init(IStateMachineOwner owner)
     {
         playerController = (PlayerController)owner;
@@ -73,14 +73,16 @@ public class PlayerStateBase : StateBase
         playerModel.characterController.Move(new Vector3(0, playerModel.gravity * Time.deltaTime, 0));
         statePlayingTime += Time.deltaTime;
 
+
         //Ä³¸¯ÅÍ Switch
-        if(playerModel.currentState != EPlayerState.AttackUltStart
+        if (playerModel.currentState != EPlayerState.AttackUltStart
             && playerModel.currentState != EPlayerState.AttackUlt
             && playerController.playerInputSystem.Player.Switch.triggered)
         {
             //Debug.Log($"player model : {playerModel.gameObject.name} pos : {playerModel.transform.position}");
             playerController.SwitchNextModel();
         }
+
     }
 
     /// <summary>
