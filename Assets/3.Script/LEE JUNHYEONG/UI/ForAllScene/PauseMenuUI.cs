@@ -8,6 +8,8 @@ using UnityEngine.Audio;
 using TMPro;
 using UnityEditor;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class PauseMenuUI : MonoBehaviour
 {
@@ -35,6 +37,7 @@ public class PauseMenuUI : MonoBehaviour
 
 	[SerializeField] private GameObject displayMenu;
 	[SerializeField] private GameObject soundMenu;
+    [SerializeField] Animator CamDirectionAni;
 
 	//Pause메뉴 활성화시 초기 세팅
     //*********************************************************************************************************
@@ -127,14 +130,28 @@ public class PauseMenuUI : MonoBehaviour
 	{
 		soundMenu.SetActive(false);
 		displayMenu.SetActive(true);
+        ChangeCamDirection(true);
 	}
-    //*********************************************************************************************************
+
+    public void ChangeCamDirection(bool isOn)
+    {
+        if (!isOn)
+        {
+            CamDirectionAni.SetBool("On", true);
+        }
+
+        else
+        {
+            CamDirectionAni.SetBool("On", false);
+        }
+    }
+        //*********************************************************************************************************
 
 
-    //슬라이더 설정
-    //*********************************************************************************************************
+        //슬라이더 설정
+        //*********************************************************************************************************
 
-    [SerializeField]private AudioMixer masterMixer;
+        [SerializeField]private AudioMixer masterMixer;
 	public void OnChangeSliders(Slider slider)
 	{
 		float value = slider.value;
@@ -147,7 +164,7 @@ public class PauseMenuUI : MonoBehaviour
 			//사운드 슬라이더
 			case "MasterSound":
                 numValue.text = $"{(int)((value + 40) * 2.5f)}";
-
+                slider.value = (int)slider.value;
                 if (value == -40f)
 					masterMixer.SetFloat("Master", -80f);
 
@@ -157,6 +174,7 @@ public class PauseMenuUI : MonoBehaviour
 
 			case "BGM":
                 numValue.text = $"{(int)((value + 40) * 2.5f)}";
+                slider.value = (int)slider.value;
 
                 if (value == -40f)
                     masterMixer.SetFloat("BGM", -80f);
@@ -167,6 +185,7 @@ public class PauseMenuUI : MonoBehaviour
 
 			case "SFX":
                 numValue.text = $"{(int)((value + 40) * 2.5f)}";
+                slider.value = (int)slider.value;
 
                 if (value == -40f)
                     masterMixer.SetFloat("SFX", -80f);
@@ -179,16 +198,48 @@ public class PauseMenuUI : MonoBehaviour
 				//디스플레이 슬라이더
 
 			case "CameraVertical":
+                slider.value = (int)slider.value;
                 numValue.text = $"{(int)value}";
                 Debug.Log("마우스 감도 조절 필요");
 				break;
 
 			case "CameraHorizontal":
+                slider.value = (int)slider.value;
                 numValue.text = $"{(int)value}";
                 Debug.Log("마우스 감도 조절 필요");
 				break;
 		}
-
-		//*********************************************************************************************************
 	}
+
+    //*********************************************************************************************************
+    //드롭다운 UI 메소드입니다.
+    public void ResolutionDropDown(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                Screen.SetResolution(1920, 1080, true);
+                Debug.Log("해상도를 1920x1080(전체화면)으로 바꿉니다.");
+                break;
+
+            case 1:
+                Screen.SetResolution(1280, 720, true);
+                Debug.Log("해상도를 1280x720(전체화면)으로 바꿉니다.");
+                break;
+
+            case 2:
+                Screen.SetResolution(1920, 1080, false);
+                Debug.Log("해상도를 1920x1080(창모드)으로 바꿉니다.");
+                break;
+
+            case 3:
+                Screen.SetResolution(1280, 720, false);
+                Debug.Log("해상도를 1280x720(창모드)으로 바꿉니다.");
+                break;
+        }
+    }
+    //*********************************************************************************************************
+
+
+
 }

@@ -1,22 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 
 public class MainCityUI : MonoBehaviour
 {
-    /* <F 상호작용>
-     * 상호작용키 구현 상호작용시 버튼이 빛남
-     * 가까이 가면 버튼이 점프함
-     * 누르면 아무것도 없음
-     * 
-     * <esc>
-     * 누르면 메뉴화면으로 이동
-     * 
-     * <좌클릭>
-     * 달리기 효과 넣자 그냥 누르고 있으면 애니 재생되게 끔
-     */
+    [SerializeField] private Animator FbtnAni;
+    [SerializeField] private Animator Mouse1Ani;
+    [SerializeField] private Animator MenuAni;
 
-    //[SerializeField] private float 
-    //[SerializeField]
-    //[SerializeField]
+    private void Update()
+    {
+        btnAni(KeyCode.Mouse1);
+        btnAni(KeyCode.F);
+        btnAni(KeyCode.Escape);
+    }
+    public void btnAni(KeyCode key) //다음 메소드를 불러 버튼 애니메이션을 작동하면 됩니다.
+    {
+        switch (key)
+        {
+            case (KeyCode.F):
+                btnAni(FbtnAni, key);
+                break;
+
+            case (KeyCode.Mouse1):
+                MousebtnAct();
+                break;
+
+            case (KeyCode.Escape):
+                btnAni(MenuAni, key);
+                break;
+
+            default:
+                Debug.Log("없는 키 입니다.");
+                break;
+        }
+    }
+
+    private void btnAni(Animator ani, KeyCode key)
+    {
+        if(Input.GetKeyDown(key))
+            ani.SetTrigger("Press");
+            
+        else if(Input.GetKeyUp(key))
+            ani.SetTrigger("Default");
+    }
+
+    private void MousebtnAct()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            Mouse1Ani.SetTrigger("Press");
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            Mouse1Ani.SetTrigger("Default");
+        }
+    }
 }
