@@ -15,16 +15,16 @@ FixedUpdate에서 계속 UI가 플레이어 카메라를 계속 바라봅니다.
 
 public class EnemyUIController : MonoBehaviour
 {
-    [SerializeField] private Slider realHp;
-    [SerializeField] private Slider fakeHp;
+    [SerializeField] private Slider realHp; // 바로 수치가 감소하는 hp
+    [SerializeField] private Slider fakeHp; // 일정시간 이후 수치가 감소하는 hp
     [SerializeField] private Slider stun; // 스턴 수치 슬라이더
 
     [Header ("SP origin & Repaint Color")]
-    [SerializeField] private Color originStunColor;
-    [SerializeField] private Color restunColor; // 스턴이 걸렸을 경우 바꿀 색입니다.
-    private Image spFillImage; 
+    [SerializeField] private Color originStunColor; // 원본 스턴 컬러
+    [SerializeField] private Color restunColor; // 스턴 발생 시 적용할 컬러
+    private Image spFillImage; // 컬러를 바꿀 fill 이미지
 
-    private float stunTime = 5f;
+    private float stunTime = 5f; // 스턴 시간
     public float StunTime
     {
         get
@@ -38,7 +38,7 @@ public class EnemyUIController : MonoBehaviour
         }
     }
 
-    [SerializeField] private Collider monster;
+    [SerializeField] private Collider monster; // 콜라이더의 크기 만큼 
     private Coroutine timerCoroutine; // fakehp의 다는 시간을 재기 위한 변수
     private RectTransform rect; // 캔버스의 크기 조절용
     private float originScaleX = 1.5f;
@@ -54,27 +54,20 @@ public class EnemyUIController : MonoBehaviour
         rect = GetComponentInParent<RectTransform>();
         spFillImage = stun.fillRect.GetComponent<Image>();
         originScale = new Vector3(originScaleX, originScaleY);
-
-        transform.localPosition = new Vector3(monster.bounds.size.x + (monster.bounds.size.x)*(0.5f), 
-                                              monster.bounds.size.y * (0.5f) + (monster.bounds.size.y*0.25f),
-                                              0);
-    }
-    private void FixedUpdate()
-    {
-        PosByCamera();
-        SizeByDistance();
     }
 
     private void LateUpdate()
     {
+        PosByCamera();
+        SizeByDistance();
         LookPlayer();
     }
-    private void LookPlayer()
+    private void LookPlayer() // 플레이어 바라보기
     {
         transform.LookAt(transform.position + mainCamera.transform.rotation * Vector3.forward, mainCamera.transform.rotation * Vector3.up);
     }
 
-    private void PosByCamera()
+    private void PosByCamera() // 카메라의 거리에 따라서 포지션이 정해집니다.
     {
         transform.localPosition = new Vector3(monster.bounds.size.x + (monster.bounds.size.x) * (0.5f) * Distance * (0.2f),
                                               monster.bounds.size.y * (0.5f) + (monster.bounds.size.y * 0.25f) * Distance * (0.2f),
@@ -109,7 +102,7 @@ public class EnemyUIController : MonoBehaviour
         }
     }
 
-    public bool isStunReducing = false;
+    public bool isStunReducing = false; // 스턴 여부 확인
 
 
     private void ReduceStun() // 스턴 걸려 줄어드는 메소드
@@ -119,7 +112,7 @@ public class EnemyUIController : MonoBehaviour
         stun.DOValue(0f, stunTime).SetEase(Ease.Linear).OnComplete(OnCompleteStun);
     }
 
-    private void OnCompleteStun()
+    private void OnCompleteStun() // 스턴이 끝날 시 불 값 변경 및 이미지 본 색으로 변경
     {
         isStunReducing = false;
         spFillImage.color = originStunColor;
