@@ -8,20 +8,31 @@ public class MonsterController : MonoBehaviour, IstateMachineOwner
     public MonsterModel monsterModel;
     public Transform Target;
     public float Distance;
+    private Animator ani;
+    public MonCol_Control mon_CO;
 
     private stateMachine stateMachine;
-    private NavMeshAgent nmagent;
+ //   private NavMeshAgent nmagent;
 
     private void Awake()
     {
+        ani = GetComponent<Animator>();
         stateMachine = new stateMachine(this);
-        nmagent = GetComponent<NavMeshAgent>();
+        mon_CO = GetComponent<MonCol_Control>();
+
+     //   nmagent = GetComponent<NavMeshAgent>();
     }
 
     private void Start()
     {
-        Debug.Log("들어오나?");
+     
         SwitchState(MonsterState.Idle);
+    }
+    public bool IsAnimationFinished(string animationName)
+    {
+        // 지정된 애니메이션 상태가 끝났는지 확인
+        AnimatorStateInfo stateInfo = ani.GetCurrentAnimatorStateInfo(0);
+        return stateInfo.IsName(animationName) && stateInfo.normalizedTime >= 1.0f;
     }
 
     public void SwitchState(MonsterState monsterState)
@@ -39,22 +50,32 @@ public class MonsterController : MonoBehaviour, IstateMachineOwner
                 break;
             case MonsterState.AttackType_01:
                 stateMachine.EnterState<AttackType_01>();
-                break;  
-                    case MonsterState.AttackType_02:
-                stateMachine.EnterState<AttackType_02>();
                 break;
-                
-;
+            case MonsterState.AttackType_02:
+                stateMachine.EnterState<AttackType_02>();
+                break;    
+            case MonsterState.AttackType_03_Start:
+                stateMachine.EnterState<AttackType_03_Start>();
+                break;
+            case MonsterState.AttackType_03:
+                stateMachine.EnterState<AttackType_03>();
+                break;
+            case MonsterState.Stun_Start:
+                stateMachine.EnterState<Stun_Start>();
+                break;
+            case MonsterState.Stun:
+                stateMachine.EnterState<Stun>();
+                break;
+            case MonsterState.Stun_End:
+                stateMachine.EnterState<Stun_End>();
+                break;
+            case MonsterState.Dead:
+                stateMachine.EnterState<Dead>();
+                break;
+
         }
         monsterModel.state = monsterState;
 
-        // 공격 상태로 전환 시 NavMeshAgent 멈추기
-        //if (monsterState == MonsterState.AttackType_01)
-        //{
-        //    nmagent.isStopped = true;
-        //    nmagent.updatePosition = false;
-        //    nmagent.updateRotation = false;
-        //}
     }
 
     public void PlayAnimation(string animationName, float fixedTransitionDuration = 0.25f)
@@ -64,11 +85,10 @@ public class MonsterController : MonoBehaviour, IstateMachineOwner
 
     private void Update()
     {
-        Distance = Vector3.Distance(transform.position, Target.position);
-        //    monsterModel.nmagent.SetDestination(Target.position);
+     
         
-
     }
 
     private void OnEnable() { }
+
 }

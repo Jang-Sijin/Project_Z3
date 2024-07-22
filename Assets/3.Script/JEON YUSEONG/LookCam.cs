@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class LookCam : MonoBehaviour
 {
-
     public string npcName;
     public GameObject nameTagUI;
     public GameObject arrowUI;
@@ -17,7 +16,13 @@ public class LookCam : MonoBehaviour
 
     void Start()
     {
-        player = Camera.main.transform;
+        // 플레이어 카메라가 설정되지 않은 경우 메인 카메라를 사용
+        if (playerCamera == null)
+        {
+            playerCamera = Camera.main;
+        }
+
+        player = playerCamera.transform;
         nameTagUI.SetActive(false);
         arrowUI.SetActive(false);
     }
@@ -30,7 +35,6 @@ public class LookCam : MonoBehaviour
         {
             nameTagUI.SetActive(true);
             RotateUI(nameTagUI);
-            
 
             if (distance <= arrowActivationDistance && IsPlayerLookingAtNPC())
             {
@@ -53,7 +57,7 @@ public class LookCam : MonoBehaviour
         Vector3 directionToPlayer = player.position - uiElement.transform.position;
         directionToPlayer.y = 0f;
         uiElement.transform.rotation = Quaternion.LookRotation(directionToPlayer);
-        nameTagUI.transform.Rotate(0, 180, 0);
+        uiElement.transform.Rotate(0, 180, 0); // 이 줄을 추가하여 UI가 정방향으로 보이도록
     }
 
     bool IsPlayerLookingAtNPC()
