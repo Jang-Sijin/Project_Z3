@@ -9,7 +9,12 @@ public enum MonsterState
     Run,
     Walk,
     AttackType_01,
-    AttackType_02
+    AttackType_02,
+    AttackType_03_Start,
+    AttackType_03,
+    Stun_Start,
+    Stun, Stun_End,
+    Dead
 }
 
 public class MonsterModel : MonoBehaviour
@@ -18,12 +23,17 @@ public class MonsterModel : MonoBehaviour
     public MonsterState state;
     [SerializeField] Transform Target;
     public float Distance;
+    private float CurrentHealth = 100f;
+    private float MaxHealth = 100f;
+    public float Groggypoint = 0f;
+    public bool isGroggy = false;
+    public bool isDead = false;
 
-    public NavMeshAgent nmagent;
+ //   public NavMeshAgent nmagent;
 
     private void Start()
     {
-        nmagent = GetComponent<NavMeshAgent>();
+   //     nmagent = GetComponent<NavMeshAgent>();
         animator.applyRootMotion = true; // 루트 모션 적용
     }
 
@@ -34,19 +44,41 @@ public class MonsterModel : MonoBehaviour
         if (direction != Vector3.zero)
         {
             Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5.0f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 3.0f);
         }
     }
 
     private void Update()
     {
+        Distance = Vector3.Distance(transform.position, Target.position);
 
-        if (state != MonsterState.AttackType_01)
+        if (state != MonsterState.AttackType_01 && state != MonsterState.Idle
+            && state != MonsterState.Stun && state != MonsterState.Dead)
         {
             RotateTowards(Target.position);
         }
 
-     //   animator.SetFloat("MoveSpeed", nmagent.velocity.magnitude);
+        if (Groggypoint >= 100f)
+        {
+            isGroggy = true;
+        }
+
+        if (CurrentHealth <= 0)
+        {
+            isDead = true;
+        }
+
+      //   if(Input.GetKeyDown(KeyCode.K))
+      //   {
+      //       CurrentHealth = 0;
+      //   }
+      //
+      //  if (Input.GetKeyDown(KeyCode.L))
+      //  {
+      //      Groggypoint = 100;
+      //  }
+
+
 
     }
 }
