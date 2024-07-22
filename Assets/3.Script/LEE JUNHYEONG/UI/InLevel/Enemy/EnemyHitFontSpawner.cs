@@ -9,18 +9,23 @@ using UnityEditor.ShaderGraph.Internal;
 using UnityEngine.Experimental.AI;
 using System.Globalization;
 using Unity.VisualScripting;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class EnemyHitFontSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject hitText;
+    [SerializeField] private GameObject player; // Debugging
     private List<GameObject> hitAniList;
     private List<TextMeshProUGUI> textList;
     private List<RectTransform> hitRect;
 
     private RectTransform canvasRect;
+    private float distance = 2f; // 부모와의 거리
+    private float height = 0f;
+    [SerializeField] private Camera mainCamera;
+
     private int hitAniIndex = 0;
     [SerializeField] private int hitFontMax = 10;
-
     private void Awake()
     { 
         hitAniList = new List<GameObject>();
@@ -42,8 +47,18 @@ public class EnemyHitFontSpawner : MonoBehaviour
      * 애니메이션이 끝날 때
      */
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
+        // 플레이어 방향 벡터 계산
+        Vector3 directionToPlayer = (player.transform.position - transform.parent.position).normalized;
+
+        // 부모 객체로부터 플레이어 방향으로 일정 거리만큼 떨어진 위치 계산
+        Vector3 targetPosition = transform.parent.position + directionToPlayer * distance;
+        targetPosition.y = transform.parent.position.y + height; // 고정된 높이 설정
+
+        transform.position = targetPosition;
+        LookPlayer();
+
         /*
          * 플레이어가 바라보는 쪽으로 캔버스 위치 바꾸기
          * 
@@ -75,5 +90,10 @@ public class EnemyHitFontSpawner : MonoBehaviour
     private void turnOffFont(int index)
     {
         hitAniList[index].gameObject.SetActive(false);
+    }
+
+    private void LookPlayer()
+    {
+        transform.LookAt(transform.position + mainCamera.transform.rotation * Vector3.forward, mainCamera.transform.rotation * Vector3.up);
     }
 }

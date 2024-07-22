@@ -382,8 +382,11 @@ MonoBehaviour:
   realHp: {fileID: 6276562763472090537}
   fakeHp: {fileID: 5797191782079429450}
   stun: {fileID: 5303209929364223774}
+  originStunColor: {r: 1, g: 0.8627451, b: 0, a: 1}
+  restunColor: {r: 0, g: 0.362041, b: 1, a: 1}
   monster: {fileID: 0}
   mainCamera: {fileID: 0}
+  isStunReducing: 0
 --- !u!1 &4901428100346858861
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,7 +457,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -619,7 +622,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
