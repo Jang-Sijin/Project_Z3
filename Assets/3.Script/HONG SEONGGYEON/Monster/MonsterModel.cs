@@ -68,15 +68,15 @@ public class MonsterModel : MonoBehaviour
             isDead = true;
         }
 
-         if(Input.GetKeyDown(KeyCode.K))
-         {
-             CurrentHealth = 0;
-         }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            Groggypoint = 100;
-        }
+      //   if(Input.GetKeyDown(KeyCode.K))
+      //   {
+      //       CurrentHealth = 0;
+      //   }
+      //
+      //  if (Input.GetKeyDown(KeyCode.L))
+      //  {
+      //      Groggypoint = 100;
+      //  }
 
 
 

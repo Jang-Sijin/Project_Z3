@@ -7,7 +7,7 @@ public class MonCol_Control : MonoBehaviour
     private Collider[] Colliders;
     private bool hasHitPlayer = false; // 플레이어를 때렸는지 여부
     private float hitCooldown = 0.5f; // 쿨다운 시간
-
+    private bool isAttacking = false;  //  공격중에  무적판정하기 위해 만든 변수
     private MonsterController monster;
     private PlayerController player;
 
@@ -54,7 +54,7 @@ public class MonCol_Control : MonoBehaviour
         {
             Debug.Log("때림");
             hasHitPlayer = true;
-            //      PlayerController.INSTANCE.playerModel.CurrentHealth -= 10;
+
             StartCoroutine(ResetHitCooldown());
         }
     }
@@ -62,27 +62,13 @@ public class MonCol_Control : MonoBehaviour
 
     public void AttackingDisable()
     {
-        foreach (Collider col in Colliders)
-        {
-            if (col.CompareTag("Enemy"))
-            {
-                col.enabled = false;
-                Debug.Log("무적이다");
-            }
-        }
 
+        isAttacking = true;
     }
 
     public void AttackingEnable()
     {
-        foreach (Collider col in Colliders)
-        {
-            if (col.CompareTag("Enemy"))
-            {
-                col.enabled = true;
-                Debug.Log("무적땡");
-            }
-        }
+        isAttacking = false;
     }
 
 
