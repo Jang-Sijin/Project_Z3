@@ -10,6 +10,7 @@ public class SelectedChar : MonoBehaviour
     [SerializeField] private Slider realHp;
     [SerializeField] private Slider fakeHp;
     [SerializeField] private Slider sp;
+    [SerializeField] private Slider spPointer;
     [SerializeField] private Image profile;
     [SerializeField] private TextMeshProUGUI playerhptext;
 
@@ -30,7 +31,7 @@ public class SelectedChar : MonoBehaviour
 
     private void Start()
     {
-        Slider[] sliders = new Slider[3];
+        Slider[] sliders = new Slider[4];
         sliders = GetComponentsInChildren<Slider>();
 
 
@@ -49,8 +50,15 @@ public class SelectedChar : MonoBehaviour
                 case "Sp":
                     sp = sliders[i];
                     break;
+                case "SpPointer":
+                    spPointer = sliders[i];
+                    break;
             }
         }
+    }
+    public void InitSpPointer(float minumForSkill, CharInfo charInfo) // 스킬 필요 sp 포인터 초기화 함수입니다.
+    {
+        spPointer.value = minumForSkill / charInfo.maxSP;
     }
 
     public void RefreshHealth(CharInfo charInfo, bool isChangeChar) // hp 갱신 : 불 값으로 fake의 갱신 효과 발생 여부를 판단합니다.

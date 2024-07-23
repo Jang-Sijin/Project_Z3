@@ -10,6 +10,7 @@ using UnityEditor;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuUI : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class PauseMenuUI : MonoBehaviour
 
 	[SerializeField] private GameObject displayMenu;
 	[SerializeField] private GameObject soundMenu;
+    [SerializeField] private GameObject quitMenu;
     [SerializeField] Animator CamDirectionAni;
 
 	//Pause메뉴 활성화시 초기 세팅
@@ -120,18 +122,38 @@ public class PauseMenuUI : MonoBehaviour
 		curInto_btn_Ani.SetBool("Selected", true);
 	}
 
-	public void OnclickSoundMenu()
+	public void OnclickSound_Menu() // 사운드 메뉴 보기
 	{
 		displayMenu.SetActive(false);
 		soundMenu.SetActive(true);
 	}
 
-	public void OnClickDisplayMenu()
+	public void OnClickDisplay_Menu() // 디스플레이 메뉴 보기
 	{
 		soundMenu.SetActive(false);
 		displayMenu.SetActive(true);
         ChangeCamDirection(true);
 	}
+
+    public void OnClickQuit_Menu() // 그만두기 메뉴 불러오기
+    {
+        quitMenu.SetActive(true);
+    }
+
+    public void OnClickQuit() // 레벨에서
+    {
+        SceneManager.LoadScene("LoadingScene"); // 디버깅
+    }
+
+    public void OnClickCancelQuit() // 그만두기 메뉴 나가기
+    {
+        quitMenu.SetActive(false); 
+    }
+
+    public void OnClickExitGame() // 마을에서
+    {
+        Application.Quit();
+    }
 
     public void ChangeCamDirection(bool isOn)
     {
