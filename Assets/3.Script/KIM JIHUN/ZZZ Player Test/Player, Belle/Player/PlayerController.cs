@@ -37,7 +37,11 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     public bool CanInput
     {
         get { return canInput; }
-        set { canInput = value; }
+        set
+        {
+            canInput = value;
+            //SwitchState(EPlayerState.Idle);
+        }
     }
     #endregion
 
@@ -92,8 +96,12 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     {
         if (!canInput)
         {
-            playerModel.currentState = EPlayerState.Idle;
-            stateMachine.EnterState<PlayerIdleState>();
+            if (playerModel.currentState != EPlayerState.Idle)
+            {
+                playerModel.currentState = EPlayerState.Idle;
+                stateMachine.EnterState<PlayerIdleState>();
+            }
+            return;
         }
         playerModel.currentState = playerState;
         switch (playerState)
@@ -285,10 +293,15 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
 
     }
 
-    private void LockMouse()
+    public void LockMouse()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+    public void UnlockMouse()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     private void OnEnable()
@@ -371,5 +384,11 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         cinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
         cinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
         shakeTimer = 0f;
+    }
+
+    public void SetSpawnPoint(Vector3 spawnPoint)
+    {
+        this.transform.position = spawnPoint;
+        playerModel.transform.position = spawnPoint;
     }
 }

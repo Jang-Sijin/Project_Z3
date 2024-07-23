@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class BelleController : SingleMonoBase<BelleController>, IStateMachineOwner
 {
@@ -14,6 +15,17 @@ public class BelleController : SingleMonoBase<BelleController>, IStateMachineOwn
     public float rotationSpeed = 8f;
 
     public bool toggleWalk = false;
+
+    private bool canInput = true; // 대화, 컷신에 사용될 bool값. 캐릭터를 조종할 수 있는지
+    public bool CanInput
+    {
+        get { return canInput; }
+        set
+        {
+            canInput = value;
+            //SwitchState(EBelleState.Idle);
+        }
+    }
 
     protected override void Awake()
     {
@@ -31,6 +43,16 @@ public class BelleController : SingleMonoBase<BelleController>, IStateMachineOwn
 
     public void SwitchState(EBelleState belleState)
     {
+        if (!canInput)
+        {
+            if (belleModel.currentState != EBelleState.Idle)
+            {
+                belleModel.currentState = EBelleState.Idle;
+                stateMachine.EnterState<BelleIdleState>();
+            }
+            return;
+        }
+        belleModel.currentState = belleState;
         belleModel.currentState = belleState;
 
         switch (belleState)
@@ -59,10 +81,16 @@ public class BelleController : SingleMonoBase<BelleController>, IStateMachineOwn
         }
     }
 
-    private void LockMouse()
+    public void LockMouse()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    public void UnlockMouse()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void PlayAnimation(string animationName, float fixedTransitionDuration = 0.25f)
@@ -77,8 +105,15 @@ public class BelleController : SingleMonoBase<BelleController>, IStateMachineOwn
 
     private void Update()
     {
+        if (playerInputSystem.Player.Escape.triggered)
+        {
+            if (Build_UIManager.instance != null)
+            {
+                Build_UIManager.instance.TogglePause();
+            }
+        }
         inputMoveVec2 = playerInputSystem.Player.Move.ReadValue<Vector2>().normalized;
-        if (playerInputSystem.Player.ToggleWalk.triggered)
+        if (playerInputSystem.Player.Evade.triggered)
             toggleWalk = !toggleWalk;
 
     }
@@ -91,5 +126,11 @@ public class BelleController : SingleMonoBase<BelleController>, IStateMachineOwn
     private void OnDisable()
     {
         playerInputSystem.Disable();
+    }
+
+    public void SetSpawnPoint(Vector3 spawnPoint)
+    {
+        this.transform.position = spawnPoint;
+        belleModel.transform.position = spawnPoint;
     }
 }
