@@ -62,7 +62,6 @@ public class MonCol_Control : MonoBehaviour
 
     public void AttackingDisable()
     {
-
         isAttacking = true;
     }
 
