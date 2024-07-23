@@ -15,11 +15,12 @@ public class UnCharHpSp : MonoBehaviour
 {
     private Slider hpBar;
     private Slider spBar;
+    private Slider spPointer;
 
     private void Start()
     {
 
-        Slider[] sliders = new Slider[2];
+        Slider[] sliders = new Slider[3];
             
         sliders = GetComponentsInChildren<Slider>();
         
@@ -34,9 +35,18 @@ public class UnCharHpSp : MonoBehaviour
                 case "Sp":
                     spBar = sliders[i];
                     break;
+
+                case "SpPointer":
+                    spPointer = sliders[i];
+                    break;
             }
         }
     }
+    public void InitSpPointer(float minimumForSkill, CharInfo charInfo)
+    {
+        spPointer.value = minimumForSkill / charInfo.maxSP;
+    }
+
     public void Refresh_Hpbar(CharInfo charInfo) // 피 업데이트
     {
         hpBar.value = charInfo.curHP / charInfo.maxHP;
