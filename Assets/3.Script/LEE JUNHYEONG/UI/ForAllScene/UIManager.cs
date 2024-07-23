@@ -119,7 +119,7 @@ public class UIManager : MonoBehaviour
                 inGameUI = temp_ob.GetComponent<InGameUI>();
                 break;
         }    
-    }
+    } 
 
     public void OpenAndClosePause() // Pause를 열고 닫는 메소드입니다.
     {
