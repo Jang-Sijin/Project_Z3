@@ -15,8 +15,10 @@ public class AttackType_03_Start : MonsterStateBase
     {
         base.Update();
 
+        var attributes = monsterController.monsterModel.monster;
+        var distance = monsterController.monsterModel.Distance;
 
-        if(monsterController.monsterModel.Distance < 4.0f)
+        if (distance < attributes.attackRangeType3)
         {
             monsterController.SwitchState(MonsterState.AttackType_03);
         }
