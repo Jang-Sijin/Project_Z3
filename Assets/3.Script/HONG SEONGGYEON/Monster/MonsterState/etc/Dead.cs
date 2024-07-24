@@ -17,4 +17,10 @@ public class Dead :MonsterStateBase
         base.Update();
 
     }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+    }
 }

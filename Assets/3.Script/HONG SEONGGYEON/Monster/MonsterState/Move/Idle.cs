@@ -11,7 +11,7 @@ public class Idle : MonsterStateBase
     {
         base.Enter();
         monsterController.PlayAnimation("Idle");
-     //   monsterController.monsterModel.nmagent.isStopped = true; // Idle 상태에서는 이동 멈춤
+        //   monsterController.monsterModel.nmagent.isStopped = true; // Idle 상태에서는 이동 멈춤
         currentIdleTime = 0.0f; // 타이머 초기화
     }
 
@@ -19,7 +19,7 @@ public class Idle : MonsterStateBase
     {
         base.Update();
         currentIdleTime += Time.deltaTime;
-        if(monsterController.monsterModel.isDead)
+        if (monsterController.monsterModel.isDead)
         {
             monsterController.SwitchState(MonsterState.Dead);
         }
@@ -32,25 +32,27 @@ public class Idle : MonsterStateBase
             // Idle 상태를 2초간 유지한 후 상태 전환을 시작
             if (currentIdleTime >= idleTime)
             {
-                if (monsterController.monsterModel.Distance >= 7.0f)
+                var attributes = monsterController.monsterModel.monster;
+                var distance = monsterController.monsterModel.Distance;
+                if (distance >= attributes.runRange)
                 {
                     monsterController.SwitchState(MonsterState.Run);
                 }
-                else if (monsterController.monsterModel.Distance > 3.0f&&monsterController.monsterModel.Distance < 7.0f)
+                else if (attributes.walkRange < distance && distance < attributes.runRange)
                 {
                     monsterController.SwitchState(MonsterState.Walk);
                 }
-                else if (monsterController.monsterModel.Distance > 2 && monsterController.monsterModel.Distance < 3)
+                else if (attributes.attackRangeType1 < distance && distance < attributes.attackRangeType3_Start)
                 {
                     //Debug.Log("아이들");
                     monsterController.SwitchState(MonsterState.AttackType_02);
                 }
 
-                else if (monsterController.monsterModel.Distance > 4.0f && monsterController.monsterModel.Distance < 7.0f)
+                else if (attributes.attackRangeType2 < distance && distance < attributes.runRange)
                 {
                     monsterController.SwitchState(MonsterState.AttackType_03_Start);
                 }
-                else if (monsterController.monsterModel.Distance < 2.0f)
+                else if (distance < attributes.attackRangeType1)
                 {
                     monsterController.SwitchState(MonsterState.AttackType_01);
                 }

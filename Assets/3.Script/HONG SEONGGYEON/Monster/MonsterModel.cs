@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public enum MonsterState
 {
+    Born,
     Idle,
     Run,
     Walk,
@@ -13,7 +13,8 @@ public enum MonsterState
     AttackType_03_Start,
     AttackType_03,
     Stun_Start,
-    Stun, Stun_End,
+    Stun,
+    Stun_End,
     Dead
 }
 
@@ -21,19 +22,18 @@ public class MonsterModel : MonoBehaviour
 {
     public Animator animator;
     public MonsterState state;
-    [SerializeField] Transform Target;
+    [SerializeField] public Transform Target;
     public float Distance;
-    private float CurrentHealth = 100f;
-    private float MaxHealth = 100f;
+    [SerializeField] private float CurrentHealth = 100f;
+    [SerializeField] private float MaxHealth = 100f;
     public float Groggypoint = 0f;
     public bool isGroggy = false;
     public bool isDead = false;
 
- //   public NavMeshAgent nmagent;
+    [SerializeField] public MonsterAttributes monster; // 몬스터 속성 추가
 
     private void Start()
     {
-   //     nmagent = GetComponent<NavMeshAgent>();
         animator.applyRootMotion = true; // 루트 모션 적용
     }
 
@@ -53,7 +53,8 @@ public class MonsterModel : MonoBehaviour
         Distance = Vector3.Distance(transform.position, Target.position);
 
         if (state != MonsterState.AttackType_01 && state != MonsterState.Idle
-            && state != MonsterState.Stun && state != MonsterState.Dead)
+            && state != MonsterState.Stun && state != MonsterState.Dead
+            && state != MonsterState.Born) ;
         {
             RotateTowards(Target.position);
         }
@@ -67,18 +68,7 @@ public class MonsterModel : MonoBehaviour
         {
             isDead = true;
         }
-
-      //   if(Input.GetKeyDown(KeyCode.K))
-      //   {
-      //       CurrentHealth = 0;
-      //   }
-      //
-      //  if (Input.GetKeyDown(KeyCode.L))
-      //  {
-      //      Groggypoint = 100;
-      //  }
-
-
-
     }
+
+    public MonsterAttributes Attributes => monster; // 속성 접근자 추가
 }

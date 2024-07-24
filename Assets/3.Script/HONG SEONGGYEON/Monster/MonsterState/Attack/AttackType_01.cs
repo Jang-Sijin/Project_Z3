@@ -10,6 +10,7 @@ public class AttackType_01 : MonsterStateBase
         base.Enter();
         monsterController.PlayAnimation("AttackType_01");
         monsterController.mon_CO.AttackingDisable();
+        monsterController.monsterModel.RotateTowards(monsterController.monsterModel.Target.position);
 
     }
 

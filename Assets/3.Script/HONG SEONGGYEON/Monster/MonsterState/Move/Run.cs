@@ -25,7 +25,9 @@ public class Run : MonsterStateBase
         }
         else
         {
-            if (monsterController.monsterModel.Distance <= 3.0f)
+            var attributes = monsterController.monsterModel.monster;
+            var distance = monsterController.monsterModel.Distance;
+            if (distance <= attributes.attackRangeType1)     // 2
             {
                 // Debug.Log($"쿨타임 다됨{CurrentCoolTime}");
                 monsterController.SwitchState(MonsterState.AttackType_01);
@@ -34,7 +36,7 @@ public class Run : MonsterStateBase
 
             if (CurrentCoolTime >= RunCoolTime)
             {
-                if (monsterController.monsterModel.Distance <= 3.0f)
+                if (distance <= attributes.attackRangeType1)    //2
                 {
                     // Debug.Log($"쿨타임 다됨{CurrentCoolTime}");
                     monsterController.SwitchState(MonsterState.AttackType_01);
@@ -42,6 +44,7 @@ public class Run : MonsterStateBase
                 }
                 else
                 {
+                    Debug.Log("넘어와");
                     monsterController.SwitchState(MonsterState.Walk);
 
                 }
@@ -53,7 +56,7 @@ public class Run : MonsterStateBase
     {
         base.Exit();
         CurrentCoolTime = 0; // 상태 종료 시 타이머 초기화
-        Debug.Log($"쿨타임 초기화{CurrentCoolTime}");
+     //   Debug.Log($"쿨타임 초기화{CurrentCoolTime}");
     }
 
 }

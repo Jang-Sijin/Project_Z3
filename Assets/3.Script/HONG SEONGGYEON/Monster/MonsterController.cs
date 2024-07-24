@@ -6,27 +6,27 @@ using UnityEngine.AI;
 public class MonsterController : MonoBehaviour, IstateMachineOwner
 {
     public MonsterModel monsterModel;
-    public Transform Target;
-    public float Distance;
-    private Animator ani;
+    protected Transform Target;
+    protected float Distance;
+    protected Animator ani;
     public MonCol_Control mon_CO;
 
-    private stateMachine stateMachine;
- //   private NavMeshAgent nmagent;
+    protected stateMachine statemachine;
+    protected NavMeshAgent nmagent;
 
     private void Awake()
     {
         ani = GetComponent<Animator>();
-        stateMachine = new stateMachine(this);
+        statemachine = new stateMachine(this);
         mon_CO = GetComponent<MonCol_Control>();
 
-     //   nmagent = GetComponent<NavMeshAgent>();
+        nmagent = GetComponent<NavMeshAgent>();
     }
 
     private void Start()
     {
      
-        SwitchState(MonsterState.Idle);
+        SwitchState(MonsterState.Born);
     }
     public bool IsAnimationFinished(string animationName)
     {
@@ -39,38 +39,41 @@ public class MonsterController : MonoBehaviour, IstateMachineOwner
     {
         switch (monsterState)
         {
+            case MonsterState.Born:
+                statemachine.EnterState<Born>();
+                break;
             case MonsterState.Idle:
-                stateMachine.EnterState<Idle>();
+                statemachine.EnterState<Idle>();
                 break;
             case MonsterState.Run:
-                stateMachine.EnterState<Run>();
+                statemachine.EnterState<Run>();
                 break;
             case MonsterState.Walk:
-                stateMachine.EnterState<Walk>();
+                statemachine.EnterState<Walk>();
                 break;
             case MonsterState.AttackType_01:
-                stateMachine.EnterState<AttackType_01>();
+                statemachine.EnterState<AttackType_01>();
                 break;
             case MonsterState.AttackType_02:
-                stateMachine.EnterState<AttackType_02>();
+                statemachine.EnterState<AttackType_02>();
                 break;    
             case MonsterState.AttackType_03_Start:
-                stateMachine.EnterState<AttackType_03_Start>();
+                statemachine.EnterState<AttackType_03_Start>();
                 break;
             case MonsterState.AttackType_03:
-                stateMachine.EnterState<AttackType_03>();
+                statemachine.EnterState<AttackType_03>();
                 break;
             case MonsterState.Stun_Start:
-                stateMachine.EnterState<Stun_Start>();
+                statemachine.EnterState<Stun_Start>();
                 break;
             case MonsterState.Stun:
-                stateMachine.EnterState<Stun>();
+                statemachine.EnterState<Stun>();
                 break;
             case MonsterState.Stun_End:
-                stateMachine.EnterState<Stun_End>();
+                statemachine.EnterState<Stun_End>();
                 break;
             case MonsterState.Dead:
-                stateMachine.EnterState<Dead>();
+                statemachine.EnterState<Dead>();
                 break;
 
         }
