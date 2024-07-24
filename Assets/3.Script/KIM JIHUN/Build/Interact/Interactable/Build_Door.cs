@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Build_Door : Build_Interact
 {
-    [SerializeField] private string nextSceneName;
+    [SerializeField] private Define.SceneType sceneType;
 
     public override void Interact()
     {
-        Build_UIManager.instance.LoadScene(nextSceneName);
+        Build_UIManager.Instance.LoadScene(sceneType);
     }
 }

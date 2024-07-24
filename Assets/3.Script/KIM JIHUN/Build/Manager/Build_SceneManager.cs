@@ -18,14 +18,15 @@ public class Build_SceneManager : SingleMonoBase<Build_SceneManager>
         DontDestroyOnLoad(INSTANCE);
     }
 
-    public void LoadScene(string sceneName, Vector3 spawnPoint, bool isMainCity)
+    public void LoadScene(Define.SceneType sceneType, Vector3 spawnPoint, bool isMainCity)
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         this.spawnPoint = spawnPoint;
         this.isMainCity = isMainCity;
 
-        Build_UIManager.instance.LoadScene(sceneName);
+        Build_UIManager.Instance.LoadScene(sceneType);
+        GameManager.Instance.ChangeSceneInit(sceneType);
         //SceneManager.LoadScene(sceneName);
     }
 

@@ -42,6 +42,6 @@ public class IntroUI : MonoBehaviour
     {
         loadingBarBackGround.gameObject.SetActive(true);
 
-        UIManager.instance.LoadScene("MainCity", true);
+        UIManager.instance.LoadScene(Define.SceneType.Town, false);
     }
 }

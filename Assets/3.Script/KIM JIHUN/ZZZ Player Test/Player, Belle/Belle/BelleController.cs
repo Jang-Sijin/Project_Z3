@@ -109,9 +109,9 @@ public class BelleController : SingleMonoBase<BelleController>, IStateMachineOwn
     {
         if (playerInputSystem.Player.Escape.triggered)
         {
-            if (Build_UIManager.instance != null)
+            if (Build_UIManager.Instance != null)
             {
-                Build_UIManager.instance.TogglePause();
+                Build_UIManager.Instance.OptionUIOpenClose();
             }
         }
         inputMoveVec2 = playerInputSystem.Player.Move.ReadValue<Vector2>().normalized;
