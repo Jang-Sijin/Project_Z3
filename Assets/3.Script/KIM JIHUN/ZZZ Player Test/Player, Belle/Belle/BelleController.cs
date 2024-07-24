@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class BelleController : SingleMonoBase<BelleController>, IStateMachineOwn
     public float rotationSpeed = 8f;
 
     public bool toggleWalk = false;
+    [SerializeField]private CinemachineFreeLook cinemachineFreeLook;
 
     private bool canInput = true; // 대화, 컷신에 사용될 bool값. 캐릭터를 조종할 수 있는지
     public bool CanInput
@@ -126,6 +128,18 @@ public class BelleController : SingleMonoBase<BelleController>, IStateMachineOwn
     private void OnDisable()
     {
         playerInputSystem.Disable();
+    }
+
+    public void LockCamera()
+    {
+        cinemachineFreeLook.m_XAxis.m_InputAxisName = "";
+        cinemachineFreeLook.m_YAxis.m_InputAxisName = "";
+    }
+
+    public void UnlockCamera()
+    {
+        cinemachineFreeLook.m_XAxis.m_InputAxisName = "Mouse X";
+        cinemachineFreeLook.m_YAxis.m_InputAxisName = "Mouse Y";
     }
 
     public void SetSpawnPoint(Vector3 spawnPoint)
