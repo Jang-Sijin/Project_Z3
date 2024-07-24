@@ -38,6 +38,8 @@ public class Build_UIManager : SingletonBase<Build_UIManager>
         {
             if (isPause)
             {
+                pauseMenuUI.OnClickCloseMainUI();
+
                 if (BelleController.INSTANCE != null)
                 {
                     BelleController.INSTANCE.LockMouse();
@@ -47,8 +49,7 @@ public class Build_UIManager : SingletonBase<Build_UIManager>
                 {
                     PlayerController.INSTANCE.LockMouse();
                     PlayerController.INSTANCE.CanInput = true;
-                }
-                pauseMenuUI.OnClickOpenMainUI();
+                }                
             }
             else
             {

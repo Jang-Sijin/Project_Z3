@@ -141,7 +141,7 @@ public class Build_OptionMenuUI : MonoBehaviour
 
     //여러 버튼 함수
     //*********************************************************************************************************
-    public void OnClickOpenMainUI() // 메인 UI 오픈 
+    public void OnClickCloseMainUI() // 메인 UI 닫기
     {
         Build_UIManager.Instance.isCloseOrOpen = true;
         gameObject.SetActive(true);

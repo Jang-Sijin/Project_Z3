@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Build_Computer : Build_Interact
-{
+{    
     [SerializeField] private GameObject stageSelectCanvas;
 
     private void Start()
@@ -34,9 +34,9 @@ public class Build_Computer : Build_Interact
         }
     }
 
-    public void SelectStage(string stageName)
-    {
+    public void SelectStage(Define.SceneType sceneType)
+    {        
         stageSelectCanvas.SetActive(false);
-        Build_UIManager.instance.LoadScene(stageName);
+        Build_UIManager.Instance.LoadScene(sceneType);
     }
 }
