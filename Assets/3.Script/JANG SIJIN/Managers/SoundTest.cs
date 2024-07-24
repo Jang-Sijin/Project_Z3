@@ -6,7 +6,7 @@ public class SoundTest : MonoBehaviour
 {    
     void Start()
     {
-        SoundManager.Instance.PlayBgm("bgm_SwordLand");
+        SoundManager.Instance.PlayBgm("Title");
     }
 
     // Update is called once per frame

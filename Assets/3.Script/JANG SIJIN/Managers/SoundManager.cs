@@ -3,25 +3,43 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.SceneManagement;
+using UnityEngine.Rendering;
 
 public class SoundManager : SingletonBase<SoundManager>
 {
+    //private AudioSource[] _audioSources = new AudioSource[(int)Define.SoundType.Max];
     private AudioSource bgmSource;
-    private AudioSource sfxSource;
+    private AudioSource effectSource;
 
     private Dictionary<string, AudioClip> bgmDictionary;
-    private Dictionary<string, AudioClip> sfxDictionary;
+    private Dictionary<string, AudioClip> effectDictionary;
+
+    private float masterVolume = 1.0f;   // 마스터 볼륨
+    private float bgmVolume = 0.5f;      // BGM 볼륨
+    private float effectVolume = 0.5f;   // 이펙트 볼륨
+
+    public float MasterVolume
+    {
+        get => masterVolume * 100;        
+    }
+    public float BgmVolume => bgmVolume * 100;
+    public float EffectVolume => effectVolume * 100;
+
+    private float audioFadeDuration = 5f;
 
     protected override void Awake()
     {
         base.Awake();
 
-        // AudioSource 컴포넌트 추가 및 설정
+        // 레거시
         bgmSource = gameObject.AddComponent<AudioSource>();
-        sfxSource = gameObject.AddComponent<AudioSource>();
+        effectSource = gameObject.AddComponent<AudioSource>();
 
         bgmSource.loop = true;
+
+        // 사운드 초기 볼륨 크기 설정
+        bgmSource.volume = bgmVolume * masterVolume;
+        effectSource.volume = effectVolume * masterVolume;
 
         // 오디오 클립 로드
         LoadAudio();
@@ -29,9 +47,18 @@ public class SoundManager : SingletonBase<SoundManager>
 
     void LoadAudio()
     {
+        // AudioSource 컴포넌트 추가 및 설정
+        //string[] soundTypeNames = System.Enum.GetNames(typeof(Define.SoundType));
+        //for (int count = 0; count < (int)Define.SoundType.Max; count++)
+        //{
+        //    GameObject go = new GameObject { name = soundTypeNames[count] };
+        //    _audioSources[count] = go.AddComponent<AudioSource>();
+        //    go.transform.parent = this.transform;
+        //}
+
         // BGM 및 SFX를 Dictionary에 추가
         bgmDictionary = new Dictionary<string, AudioClip>();
-        sfxDictionary = new Dictionary<string, AudioClip>();
+        effectDictionary = new Dictionary<string, AudioClip>();
 
         // Resources 폴더 내 bgm, sfx 경로 설정       
         AudioClip[] bgmClips = Resources.LoadAll<AudioClip>("Sounds/BGM");
@@ -45,7 +72,7 @@ public class SoundManager : SingletonBase<SoundManager>
 
         foreach (var sfx in sfxClips)
         {
-            sfxDictionary.Add(sfx.name, sfx);
+            effectDictionary.Add(sfx.name, sfx);
         }
     }
 
@@ -80,9 +107,9 @@ public class SoundManager : SingletonBase<SoundManager>
     /// <param name="sfxName"></param>
     public void PlayEffect(string sfxName)
     {
-        if (sfxDictionary.ContainsKey(sfxName))
+        if (effectDictionary.ContainsKey(sfxName))
         {
-            sfxSource.PlayOneShot(sfxDictionary[sfxName]);
+            effectSource.PlayOneShot(effectDictionary[sfxName]);
         }
         else
         {
@@ -95,6 +122,37 @@ public class SoundManager : SingletonBase<SoundManager>
     /// </summary>
     public void StopEffect()
     {
-        sfxSource.Stop();
+        effectSource.Stop();
+    }
+
+    /// <summary>
+    /// 마스터 볼륨을 설정합니다.
+    /// </summary>
+    /// <param name="volume"></param>
+    public void SetMasterVolume(float volume)
+    {
+        masterVolume = volume / 100f;  // 슬라이더 값(0~1)을 실제 볼륨 값(0~1)으로 변환
+        bgmSource.volume = bgmVolume * masterVolume;
+        effectSource.volume = effectVolume * masterVolume;
+    }
+
+    /// <summary>
+    /// BGM 볼륨을 설정합니다.
+    /// </summary>
+    /// <param name="volume"></param>
+    public void SetBgmVolume(float volume)
+    {
+        bgmVolume = volume / 100f;  // 슬라이더 값(0~1)을 실제 볼륨 값(0~1)으로 변환
+        bgmSource.volume = bgmVolume * masterVolume;
+    }
+
+    /// <summary>
+    /// 이펙트 볼륨을 설정합니다.
+    /// </summary>
+    /// <param name="volume"></param>
+    public void SetEffectVolume(float volume)
+    {
+        effectVolume = volume / 100f;  // 슬라이더 값(0~1)을 실제 볼륨 값(0~1)으로 변환
+        effectSource.volume = effectVolume * masterVolume;
     }
 }

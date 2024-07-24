@@ -32,16 +32,16 @@ public class Build_IntroUI : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-            Build_UIManager.instance.TogglePause();
+            Build_UIManager.Instance.OptionUIOpenClose();
     }
     public void OnTVClick()
     {
         TV.nextVideo(TV._player);
     }
-    public void OnClickGameStart(string sceneName) // debug
+    public void OnClickGameStart() // debug:ÁØÇü
     {
         loadingBarBackGround.gameObject.SetActive(true);
 
-        Build_UIManager.instance.LoadScene(sceneName, true);
+        Build_UIManager.Instance.LoadScene(Define.SceneType.Home, true);
     }
 }
