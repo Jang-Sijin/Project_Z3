@@ -6,6 +6,15 @@
             "id": "a618cf16-aa5e-4f28-8508-512a5be4ebaf",
             "actions": [
                 {
+                    "name": "======Common======",
+                    "type": "Button",
+                    "id": "e61b85fd-4f22-472e-a911-bbfe28b627c7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Move",
                     "type": "Value",
                     "id": "d934d765-cb01-469a-bcc5-e65b8707d3e9",
@@ -22,6 +31,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "d8ece3cd-b8f2-4d11-ae00-16f82fb08dc5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "======Combat======",
+                    "type": "Button",
+                    "id": "7e646e96-089e-4d07-bdaf-93c0c8eee8cb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Fire",
@@ -69,9 +96,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Interact",
+                    "name": "======MainCity======",
                     "type": "Button",
-                    "id": "d8ece3cd-b8f2-4d11-ae00-16f82fb08dc5",
+                    "id": "17925ac3-2bd4-48d8-bf1d-9ef50f7a34fa",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -81,6 +108,15 @@
                     "name": "ToggleWalk",
                     "type": "Button",
                     "id": "22511e1e-1bb2-4546-8138-b6ef2cea4fa7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "26abef70-6c89-4d62-a6c6-de67d1a58614",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -365,23 +401,67 @@
                 },
                 {
                     "name": "",
-                    "id": "c97fb652-d35a-4141-86d5-57a48696dbd0",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "7a3c67df-056f-4982-9103-f510ed72e8d3",
                     "path": "<Keyboard>/alt",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "ToggleWalk",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "de3bbcce-6a02-465d-be6f-a7189b6e0802",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "666bdff6-43f4-4ab6-9c9f-61e692567dd0",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "======Combat======",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "52308904-1556-4acd-800c-6560b96ddcf7",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "======Common======",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "65df9e32-99c2-4989-8140-8c24e01b8cf4",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "======MainCity======",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c97fb652-d35a-4141-86d5-57a48696dbd0",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

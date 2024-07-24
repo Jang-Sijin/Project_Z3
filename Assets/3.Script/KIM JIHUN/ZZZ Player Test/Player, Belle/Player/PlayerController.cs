@@ -27,6 +27,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     [HideInInspector] private float switchCoolTime; // 캐릭터 교체 쿨타임
     private float maxUltPoint = 100f;
     private float currentUltPoint = 0;
+
     public float CurrentUltPoint
     {
         get { return currentUltPoint; }
@@ -37,7 +38,10 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     public bool CanInput
     {
         get { return canInput; }
-        set { canInput = value; }
+        set
+        {
+            canInput = value;
+        }
     }
     #endregion
 
@@ -92,8 +96,12 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     {
         if (!canInput)
         {
-            playerModel.currentState = EPlayerState.Idle;
-            stateMachine.EnterState<PlayerIdleState>();
+            if (playerModel.currentState != EPlayerState.Idle)
+            {
+                playerModel.currentState = EPlayerState.Idle;
+                stateMachine.EnterState<PlayerIdleState>();
+            }
+            return;
         }
         playerModel.currentState = playerState;
         switch (playerState)
@@ -285,10 +293,15 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
 
     }
 
-    private void LockMouse()
+    public void LockMouse()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+    public void UnlockMouse()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     private void OnEnable()
@@ -371,5 +384,23 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         cinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
         cinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
         shakeTimer = 0f;
+    }
+
+    public void LockCamera()
+    {
+        cinemachineFreeLook.m_XAxis.m_InputAxisName = "";
+        cinemachineFreeLook.m_YAxis.m_InputAxisName = "";
+    }
+
+    public void UnlockCamera()
+    {
+        cinemachineFreeLook.m_XAxis.m_InputAxisName = "Mouse X";
+        cinemachineFreeLook.m_YAxis.m_InputAxisName = "Mouse Y";
+    }
+
+    public void SetSpawnPoint(Vector3 spawnPoint)
+    {
+        this.transform.position = spawnPoint;
+        playerModel.transform.position = spawnPoint;
     }
 }

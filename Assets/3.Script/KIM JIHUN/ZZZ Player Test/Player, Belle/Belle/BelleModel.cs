@@ -23,6 +23,7 @@ public class BelleModel : MonoBehaviour
 
     public bool IsAnimationEnd()
     {
+        //characterController = GetComponent<CharacterController>();
         stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         return stateInfo.normalizedTime >= 1.0f && !animator.IsInTransition(0);
     }

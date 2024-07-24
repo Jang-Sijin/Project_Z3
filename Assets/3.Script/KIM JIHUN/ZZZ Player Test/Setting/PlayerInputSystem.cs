@@ -28,6 +28,15 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
             ""id"": ""a618cf16-aa5e-4f28-8508-512a5be4ebaf"",
             ""actions"": [
                 {
+                    ""name"": ""======Common======"",
+                    ""type"": ""Button"",
+                    ""id"": ""e61b85fd-4f22-472e-a911-bbfe28b627c7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""d934d765-cb01-469a-bcc5-e65b8707d3e9"",
@@ -44,6 +53,24 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""d8ece3cd-b8f2-4d11-ae00-16f82fb08dc5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""======Combat======"",
+                    ""type"": ""Button"",
+                    ""id"": ""7e646e96-089e-4d07-bdaf-93c0c8eee8cb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""Fire"",
@@ -91,9 +118,9 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Interact"",
+                    ""name"": ""======MainCity======"",
                     ""type"": ""Button"",
-                    ""id"": ""d8ece3cd-b8f2-4d11-ae00-16f82fb08dc5"",
+                    ""id"": ""17925ac3-2bd4-48d8-bf1d-9ef50f7a34fa"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -103,6 +130,15 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
                     ""name"": ""ToggleWalk"",
                     ""type"": ""Button"",
                     ""id"": ""22511e1e-1bb2-4546-8138-b6ef2cea4fa7"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""26abef70-6c89-4d62-a6c6-de67d1a58614"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -387,23 +423,67 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""c97fb652-d35a-4141-86d5-57a48696dbd0"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""7a3c67df-056f-4982-9103-f510ed72e8d3"",
                     ""path"": ""<Keyboard>/alt"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""ToggleWalk"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""de3bbcce-6a02-465d-be6f-a7189b6e0802"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""666bdff6-43f4-4ab6-9c9f-61e692567dd0"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""======Combat======"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""52308904-1556-4acd-800c-6560b96ddcf7"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""======Common======"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""65df9e32-99c2-4989-8140-8c24e01b8cf4"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""======MainCity======"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c97fb652-d35a-4141-86d5-57a48696dbd0"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -991,15 +1071,19 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+        m_Player_Common = m_Player.FindAction("======Common======", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_Combat = m_Player.FindAction("======Combat======", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Evade = m_Player.FindAction("Evade", throwIfNotFound: true);
         m_Player_Ult = m_Player.FindAction("Ult", throwIfNotFound: true);
         m_Player_Switch = m_Player.FindAction("Switch", throwIfNotFound: true);
         m_Player_Skill = m_Player.FindAction("Skill", throwIfNotFound: true);
-        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_MainCity = m_Player.FindAction("======MainCity======", throwIfNotFound: true);
         m_Player_ToggleWalk = m_Player.FindAction("ToggleWalk", throwIfNotFound: true);
+        m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1073,28 +1157,36 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
+    private readonly InputAction m_Player_Common;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
+    private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_Combat;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Evade;
     private readonly InputAction m_Player_Ult;
     private readonly InputAction m_Player_Switch;
     private readonly InputAction m_Player_Skill;
-    private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_MainCity;
     private readonly InputAction m_Player_ToggleWalk;
+    private readonly InputAction m_Player_Escape;
     public struct PlayerActions
     {
         private @PlayerInputSystem m_Wrapper;
         public PlayerActions(@PlayerInputSystem wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Common => m_Wrapper.m_Player_Common;
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Look => m_Wrapper.m_Player_Look;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @Combat => m_Wrapper.m_Player_Combat;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Evade => m_Wrapper.m_Player_Evade;
         public InputAction @Ult => m_Wrapper.m_Player_Ult;
         public InputAction @Switch => m_Wrapper.m_Player_Switch;
         public InputAction @Skill => m_Wrapper.m_Player_Skill;
-        public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @MainCity => m_Wrapper.m_Player_MainCity;
         public InputAction @ToggleWalk => m_Wrapper.m_Player_ToggleWalk;
+        public InputAction @Escape => m_Wrapper.m_Player_Escape;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1104,12 +1196,21 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
+            @Common.started += instance.OnCommon;
+            @Common.performed += instance.OnCommon;
+            @Common.canceled += instance.OnCommon;
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
+            @Combat.started += instance.OnCombat;
+            @Combat.performed += instance.OnCombat;
+            @Combat.canceled += instance.OnCombat;
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
@@ -1125,22 +1226,34 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
             @Skill.started += instance.OnSkill;
             @Skill.performed += instance.OnSkill;
             @Skill.canceled += instance.OnSkill;
-            @Interact.started += instance.OnInteract;
-            @Interact.performed += instance.OnInteract;
-            @Interact.canceled += instance.OnInteract;
+            @MainCity.started += instance.OnMainCity;
+            @MainCity.performed += instance.OnMainCity;
+            @MainCity.canceled += instance.OnMainCity;
             @ToggleWalk.started += instance.OnToggleWalk;
             @ToggleWalk.performed += instance.OnToggleWalk;
             @ToggleWalk.canceled += instance.OnToggleWalk;
+            @Escape.started += instance.OnEscape;
+            @Escape.performed += instance.OnEscape;
+            @Escape.canceled += instance.OnEscape;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
         {
+            @Common.started -= instance.OnCommon;
+            @Common.performed -= instance.OnCommon;
+            @Common.canceled -= instance.OnCommon;
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
+            @Combat.started -= instance.OnCombat;
+            @Combat.performed -= instance.OnCombat;
+            @Combat.canceled -= instance.OnCombat;
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
@@ -1156,12 +1269,15 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
             @Skill.started -= instance.OnSkill;
             @Skill.performed -= instance.OnSkill;
             @Skill.canceled -= instance.OnSkill;
-            @Interact.started -= instance.OnInteract;
-            @Interact.performed -= instance.OnInteract;
-            @Interact.canceled -= instance.OnInteract;
+            @MainCity.started -= instance.OnMainCity;
+            @MainCity.performed -= instance.OnMainCity;
+            @MainCity.canceled -= instance.OnMainCity;
             @ToggleWalk.started -= instance.OnToggleWalk;
             @ToggleWalk.performed -= instance.OnToggleWalk;
             @ToggleWalk.canceled -= instance.OnToggleWalk;
+            @Escape.started -= instance.OnEscape;
+            @Escape.performed -= instance.OnEscape;
+            @Escape.canceled -= instance.OnEscape;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1344,15 +1460,19 @@ public partial class @PlayerInputSystem: IInputActionCollection2, IDisposable
     }
     public interface IPlayerActions
     {
+        void OnCommon(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
+        void OnCombat(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnEvade(InputAction.CallbackContext context);
         void OnUlt(InputAction.CallbackContext context);
         void OnSwitch(InputAction.CallbackContext context);
         void OnSkill(InputAction.CallbackContext context);
-        void OnInteract(InputAction.CallbackContext context);
+        void OnMainCity(InputAction.CallbackContext context);
         void OnToggleWalk(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

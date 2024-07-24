@@ -26,7 +26,7 @@ public class commonLoadingUI : MonoBehaviour // 로딩 씬을 제어하는 스크립트로 로
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            UIManager.instance.LoadScene("MainCity");
+            UIManager.instance.LoadScene(Define.SceneType.Town);
         }
     }
 
