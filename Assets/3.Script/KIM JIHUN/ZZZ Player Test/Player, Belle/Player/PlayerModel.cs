@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public enum EModelFoot
 {
@@ -99,12 +100,14 @@ public class PlayerModel : MonoBehaviour
 
         Vector3 rightDirection = rot * Vector3.right;
         pos += rightDirection * 0.8f;
+        //
+        //Vector3 backDirection = rot * Vector3.back;
+        //pos += backDirection * 3f;
 
-        Vector3 backDirection = rot * Vector3.back;
-        pos += backDirection * 3f;
-
-        pos.y = 0f;
         //Debug.Log($"Prev Pos : {pos - transform.position} Rot : {rot}");
+
+        //gameObject.transform.position = pos - transform.position;
+        //characterController.transform.position = pos-transform.position;
         characterController.Move(pos - transform.position);
 
         //Debug.Log($"Post Pos : {transform.position} Rot : {transform.rotation}");

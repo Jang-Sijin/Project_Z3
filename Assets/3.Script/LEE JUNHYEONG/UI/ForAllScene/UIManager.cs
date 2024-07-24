@@ -119,7 +119,7 @@ public class UIManager : MonoBehaviour
                 inGameUI = temp_ob.GetComponent<InGameUI>();
                 break;
         }    
-    }
+    } 
 
     public void OpenAndClosePause() // Pause를 열고 닫는 메소드입니다.
     {
@@ -138,16 +138,18 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void LoadScene(string sceneName) // 일반 씬 불러오는 방법입니다.
+    public void LoadScene(Define.SceneType sceneType) // 일반 씬 불러오는 방법입니다.
     {
-        nextSceneName = sceneName;
+        nextSceneName = sceneType.ToString();        
         SceneManager.LoadScene("LoadingScene");
+        GameManager.Instance.ChangeSceneInit(sceneType);
         StartCoroutine(LoadScene_co(false));
     }
 
-    public void LoadScene(string sceneName, bool isIntro) // 인트로에서 씬 불러오는 방법입니다.
+    public void LoadScene(Define.SceneType sceneType, bool isIntro) // 인트로에서 씬 불러오는 방법입니다.
     {
-        nextSceneName = sceneName;
+        nextSceneName = sceneType.ToString();
+        GameManager.Instance.ChangeSceneInit(sceneType);
         StartCoroutine(LoadScene_co(true));
     }
 
