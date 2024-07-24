@@ -23,25 +23,10 @@ public class stateMachine
     {
         this.owner = owner;
     }
-    //public void EnterState<T>() where T : stateBase, new()
+  
 
     public void EnterState<T>(bool reloadState = false) where T : stateBase, new()
     {
-        //Debug.Log("엔터스테이트");
-        //if(currentState==null)
-        //{
-        //    Debug.Log("커렌트 없다");
-        //}
-        //
-        //if (HasState && currentState.GetType() ==typeof(T))
-        //
-        //if (HasState)
-        //{
-        //    ExitCurrentState();
-        //}
-        //  
-        //currentState = LoadState<T>();
-        //EnterCurrentState();
         if (hasState && currentState.GetType() == typeof(T) && !reloadState)
             return;
 

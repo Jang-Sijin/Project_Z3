@@ -27,6 +27,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     [HideInInspector] private float switchCoolTime; // 캐릭터 교체 쿨타임
     private float maxUltPoint = 100f;
     private float currentUltPoint = 0;
+
     public float CurrentUltPoint
     {
         get { return currentUltPoint; }
@@ -40,7 +41,6 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         set
         {
             canInput = value;
-            //SwitchState(EPlayerState.Idle);
         }
     }
     #endregion
@@ -384,6 +384,18 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         cinemachineFreeLook.GetRig(1).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
         cinemachineFreeLook.GetRig(2).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
         shakeTimer = 0f;
+    }
+
+    public void LockCamera()
+    {
+        cinemachineFreeLook.m_XAxis.m_InputAxisName = "";
+        cinemachineFreeLook.m_YAxis.m_InputAxisName = "";
+    }
+
+    public void UnlockCamera()
+    {
+        cinemachineFreeLook.m_XAxis.m_InputAxisName = "Mouse X";
+        cinemachineFreeLook.m_YAxis.m_InputAxisName = "Mouse Y";
     }
 
     public void SetSpawnPoint(Vector3 spawnPoint)

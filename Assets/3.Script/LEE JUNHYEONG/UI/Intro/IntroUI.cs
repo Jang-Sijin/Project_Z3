@@ -25,10 +25,7 @@ public class IntroUI : MonoBehaviour
             loadingBarFill = value;
         }
     }
-    private void Start()
-    {
-        UIManager.instance.Creat_UI(WhichUI.pauseMenuUI);
-    }
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -42,6 +39,6 @@ public class IntroUI : MonoBehaviour
     {
         loadingBarBackGround.gameObject.SetActive(true);
 
-        UIManager.instance.LoadScene("MainCity", true);
+        UIManager.instance.LoadScene(Define.SceneType.Town, false);
     }
 }

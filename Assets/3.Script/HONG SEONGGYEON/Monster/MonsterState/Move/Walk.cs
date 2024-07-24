@@ -23,19 +23,21 @@ public class Walk : MonsterStateBase
         }
         else
         {
-            if (monsterController.monsterModel.Distance >= 7.0f && CurrentCoolTime >= RunningCoolTime)
+            var attributes = monsterController.monsterModel.monster;
+            var distance = monsterController.monsterModel.Distance;
+            if (distance >= attributes.runRange && CurrentCoolTime >= RunningCoolTime)
             {
                 monsterController.SwitchState(MonsterState.Run);
             }
 
 
-            else if (monsterController.monsterModel.Distance > 2 && monsterController.monsterModel.Distance < 3)
+            else if (attributes.attackRangeType1<distance && distance < attributes.attackRangeType2)
             {
             //    Debug.Log("¿öÅ©");
                 monsterController.SwitchState(MonsterState.AttackType_02);
             }
 
-            else if (monsterController.monsterModel.Distance > 4 && monsterController.monsterModel.Distance < 7)
+            else if (attributes.attackRangeType2 < distance && distance < attributes.attackRangeType3_Start)
             {
                 monsterController.SwitchState(MonsterState.AttackType_03_Start);
             }
