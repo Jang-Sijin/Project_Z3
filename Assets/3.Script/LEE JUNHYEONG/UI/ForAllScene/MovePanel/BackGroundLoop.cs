@@ -21,7 +21,7 @@ public class BackGroundLoop : MonoBehaviour
     {
         rectTransform.anchoredPosition += Vector2.left * speed;
 
-        if (rectTransform.Equals(endPos))
+        if (rectTransform.anchoredPosition.Equals(endPos))
         {
             rectTransform.anchoredPosition = startPos;
         }

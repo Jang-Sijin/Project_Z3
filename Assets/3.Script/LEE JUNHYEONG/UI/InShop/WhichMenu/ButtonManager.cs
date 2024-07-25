@@ -13,7 +13,9 @@ public class ButtonManager : MonoBehaviour
 
     private void Start()
     {
+        if(secondBtn != null)
         prevBtn = secondBtn;
+
         ClickBtn(firstBtn);
     }
 
