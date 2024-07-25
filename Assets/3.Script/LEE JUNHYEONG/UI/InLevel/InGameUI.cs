@@ -47,8 +47,7 @@ public class InGameUI : MonoBehaviour
             debugchars[i].maxSP = 1f;
         }
 
-        fadeTween = new Tween[changeEffectIMGs.Length];
-        UIManager.instance.Creat_UI(WhichUI.pauseMenuUI);
+        fadeTween = new Tween[changeEffectIMGs.Length];        
     }
 
     private void DeBugshufflechar() // 디버깅용 : 캐릭터 변경을 위해 이름을 바꿔주는 메소드입니다.
@@ -63,39 +62,39 @@ public class InGameUI : MonoBehaviour
         debugchars[debugchars.Length - 1] = temp;
     }
 
-    private void Update()
-    {
+    //private void Update()
+    //{
 
-        if (Input.GetKeyDown(KeyCode.Space)) // 디버깅
-        {
-            DeBugshufflechar();
-            ChangeChar(debugchars);
-            Change_Effect();
-            Pressbtn(KeyCode.Space);
-        }
+    //    if (Input.GetKeyDown(KeyCode.Space)) // 디버깅
+    //    {
+    //        DeBugshufflechar();
+    //        ChangeChar(debugchars);
+    //        Change_Effect();
+    //        Pressbtn(KeyCode.Space);
+    //    }
         
-        if(Input.GetMouseButtonDown(1))// 디버깅
-        {
-            Pressbtn(KeyCode.Mouse1);
-        }// 디버깅용입니다.
+    //    if(Input.GetMouseButtonDown(1))// 디버깅
+    //    {
+    //        Pressbtn(KeyCode.Mouse1);
+    //    }// 디버깅용입니다.
         
-        if (Input.GetKeyDown(KeyCode.E)) // 디버깅
-        {
-            RenewalSkillbtn(KeyCode.E);
-        }
+    //    if (Input.GetKeyDown(KeyCode.E)) // 디버깅
+    //    {
+    //        RenewalSkillbtn(KeyCode.E);
+    //    }
         
-        if (Input.GetKeyDown(KeyCode.Escape)) // 디버깅
-        {
-            UIManager.instance.OpenAndClosePause();
-        }
+    //    if (Input.GetKeyDown(KeyCode.Escape)) // 디버깅
+    //    {
+    //        UIManager.Instance.OpenAndClosePause();
+    //    }
         
-        if(Input.GetKeyDown(KeyCode.Q))// 디버깅
-        {
-            RenewalSkillbtn(KeyCode.Q);
-        }
-        // 
-        //************************************************************************
-    }
+    //    if(Input.GetKeyDown(KeyCode.Q))// 디버깅
+    //    {
+    //        RenewalSkillbtn(KeyCode.Q);
+    //    }
+    //    // 
+    //    //************************************************************************
+    //}
 
     public void ChangeChar(CharInfo[] tempChars) // 캐릭터를 바꾸는 메소드
     {

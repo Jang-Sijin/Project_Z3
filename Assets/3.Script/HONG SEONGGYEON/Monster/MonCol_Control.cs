@@ -8,8 +8,8 @@ public class MonCol_Control : MonoBehaviour
     private bool hasHitPlayer = false; // 플레이어를 때렸는지 여부
     private float hitCooldown = 0.5f; // 쿨다운 시간
     private bool isAttacking = false;  // 공격 중에 무적 판정을 위해 만든 변수
-    private MonsterController monster;
     private PlayerController player;
+    [SerializeField] public float AttackPoint;
 
     private void Start()
     {
@@ -57,7 +57,7 @@ public class MonCol_Control : MonoBehaviour
             float PlayerMax= PlayerController.INSTANCE.playerModel.playerStatus.MaxHealth;
             Debug.Log("때림");
             hasHitPlayer = true;
-            PlayerHealth -= PlayerMax * 0.1f;
+            PlayerHealth -= AttackPoint;
             PlayerController.INSTANCE.playerModel.playerStatus.CurrentHealth = PlayerHealth;
             Debug.Log($"{PlayerHealth}남음");
 
@@ -65,15 +65,6 @@ public class MonCol_Control : MonoBehaviour
         }
     }
 
-    public void AttackingDisable()
-    {
-        isAttacking = true;
-    }
-
-    public void AttackingEnable()
-    {
-        isAttacking = false;
-    }
 
     private IEnumerator ResetHitCooldown()
     {
