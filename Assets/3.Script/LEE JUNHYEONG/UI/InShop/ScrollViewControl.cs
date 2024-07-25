@@ -42,17 +42,20 @@ public class ScrollViewControl : MonoBehaviour
     #region ChangeInfoText
     [SerializeField] private TextMeshProUGUI WeaponNameInfo; // 클릭한 아이템의 이름 info
     [SerializeField] private TextMeshProUGUI itemTypeInfo; // 클릭한 아이템 종류 info 
-    [SerializeField] private TextMeshProUGUI DMGInfo; //클릭한 아이템의 공격력 info
+    [SerializeField] private TextMeshProUGUI statInfo; //클릭한 아이템의  스탯 info
     [SerializeField] private TextMeshProUGUI PriceInfo; //가격 Info
-    private string[] type = { "공격력", "체력" };
+    private string[] type = { "공격력", "체력" }; // 타입 Info
+    [SerializeField] private Item goods; // 들고 있는 상품
 
+    /*
+     * 라인을 생성하고 라인에
+     */
 
     protected virtual void ChangeWeaponInfo(Item item) // 무기 선택 시 info를 띄우는 메소드
     {
         WeaponNameInfo.text = item.name;
-        DMGInfo.text = ((int)item.stat).ToString();
-        PriceInfo.text = item.sellPrice.ToString();
         itemTypeInfo.text = type[(int)item.itemType];
+        statInfo.text = ((int)item.stat).ToString();
     }
     #endregion
 }

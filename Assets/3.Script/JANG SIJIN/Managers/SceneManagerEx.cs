@@ -3,13 +3,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneManagerEx : SingletonBase<SceneManagerEx>
-{
-    private string _loadingSceneName = "LoadingScene";
-
+{    
     //**************************************************
-    [SerializeField] public string nextSceneName;
-    [SerializeField] public string introLoadingScene;
-    [SerializeField] public string commonLoadingScene;
+    private string nextSceneName;
+    private string introLoadingScene;
+    private string commonLoadingScene;
     //**************************************************
 
     protected override void Awake()
@@ -35,7 +33,10 @@ public class SceneManagerEx : SingletonBase<SceneManagerEx>
 
     private IEnumerator LoadScene_co(bool isIntro) // 디버깅용 씬 불러오는 메소드입니다.
     {
-        AsyncOperation op = SceneManager.LoadSceneAsync("Intro", LoadSceneMode.Additive);
+        AsyncOperation op = SceneManager.LoadSceneAsync(nextSceneName);
+
+        //Debug.Log($"isIntro : {isIntro}");
+
         op.allowSceneActivation = false;
         float timer = 0f;
 
@@ -52,7 +53,6 @@ public class SceneManagerEx : SingletonBase<SceneManagerEx>
                     {
                         UIManager.Instance.IntroUI.loadingFill.fillAmount = op.progress;
                     }
-
                     else
                     {
                         timer += Time.unscaledDeltaTime;
@@ -62,6 +62,8 @@ public class SceneManagerEx : SingletonBase<SceneManagerEx>
                         {
                             UIManager.Instance.IntroUI.MiddleText.text = "로딩 완료";
                             op.allowSceneActivation = true;
+                            UIManager.Instance.IntroUI.gameObject.SetActive(false);
+                            UIManager.Instance.MainCityUI.gameObject.SetActive(true);
                             yield break;
                         }
                     }
@@ -71,16 +73,33 @@ public class SceneManagerEx : SingletonBase<SceneManagerEx>
                 while (!op.isDone)
                 {
                     yield return null;
+                    if (op.progress < 0.90f)
+                    {
+                        //Debug.Log("CommonLoadingScene");
+                        if (!UIManager.Instance.CommonLoadingUI.gameObject.activeSelf)
+                        {
+                            if (BelleController.INSTANCE != null)
+                                BelleController.INSTANCE.CanInput = false;
+                            else
+                                PlayerController.INSTANCE.CanInput = false;
 
+                            UIManager.Instance.CommonLoadingUI.gameObject.SetActive(true);
+                        }
+                    }
                     if (op.progress < 0.99f)
                     {
+                        op.allowSceneActivation = true;
+
+                        yield return new WaitForSeconds(2f); // 2초 대기
+
+                        if (BelleController.INSTANCE != null)
+                            BelleController.INSTANCE.CanInput = true;
+                        else
+                            PlayerController.INSTANCE.CanInput = true;
+
                         UIManager.Instance.CommonLoadingUI.ActivateEndText();
 
-                        if (Input.anyKeyDown)
-                        {
-                            op.allowSceneActivation = true;
-                            yield break;
-                        }
+                        yield break;
                     }
                 }
                 break;
