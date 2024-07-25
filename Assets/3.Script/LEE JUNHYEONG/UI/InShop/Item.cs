@@ -23,14 +23,9 @@ public class Item : ScriptableObject
     [SerializeField] private ItemType _itemType;
     public ItemType itemType { get { return _itemType; } }
 
-    private Sprite ItemIcon;
+    private Texture2D ItemIcon;
 
-    public Sprite itemIcon { get { return ItemIcon; } }
-
-    private void Wake()
-    {
-        ItemIcon = Resources.Load<Sprite>("ItemIcons/" +  Name);
-    }
+    public Texture2D itemIcon { get { return ItemIcon; } }
 
     public enum ItemType
     {
