@@ -23,13 +23,13 @@ public class Dead : MonsterStateBase
             {
                 // 아이템 종류 골라서 드롭하는거 넣어
             }
+            MonoBehaviour.Destroy(monsterController.monsterModel.gameObject);
         }
 
     }
 
     public override void Exit()
     {
-        base.Exit();
-
+        base.Exit();    
     }
 }

@@ -33,7 +33,7 @@ public class PlayerHitController : MonoBehaviour
                     if (enemy != null)
                     {
                         Debug.Log("대미지 10 줬음");
-                        enemy.TakeDamage(10);  // 예시로 데미지를 10으로 설정
+                        enemy.TakeDamage(1);  // 예시로 데미지를 10으로 설정
                     }
                 }
             })

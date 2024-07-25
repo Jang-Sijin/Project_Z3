@@ -75,6 +75,9 @@ public class MonsterController : MonoBehaviour, IstateMachineOwner
             case MonsterState.Dead:
                 statemachine.EnterState<Dead>();
                 break;
+            case MonsterState.Hit:
+                statemachine.EnterState<Hit>();
+                break;
 
         }
         monsterModel.state = monsterState;

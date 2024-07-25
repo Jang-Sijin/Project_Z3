@@ -41,8 +41,8 @@ public class EnemyUIController : MonoBehaviour
     [SerializeField] private Collider monster; // 콜라이더의 크기 만큼 
     private Coroutine timerCoroutine; // fakehp의 다는 시간을 재기 위한 변수
     private RectTransform rect; // 캔버스의 크기 조절용
-    private float originScaleX = 1.5f;
-    private float originScaleY = 1.5f;
+    private float originScaleX = 1f;
+    private float originScaleY = 1f;
     private Vector3 originScale;
     [SerializeField] private Camera mainCamera; // 시점에 따라 UI가 따라오기 위한 카메라
 

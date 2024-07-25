@@ -15,7 +15,8 @@ public enum MonsterState
     Stun_Start,
     Stun,
     Stun_End,
-    Dead
+    Dead,
+    Hit
 }
 
 public class MonsterModel : MonoBehaviour
@@ -25,7 +26,7 @@ public class MonsterModel : MonoBehaviour
     public float Attack3;
     public Transform Target;
     public float StartGroggypoint;
-
+    private EnemyUIController EnemyUIController;
 
     public Animator animator;
     [HideInInspector] public float Distance;
@@ -34,6 +35,7 @@ public class MonsterModel : MonoBehaviour
     [HideInInspector] public bool isGroggy = false;
     [HideInInspector] private float _currentHealth;
     [HideInInspector] public float CurrentGroggypoint = 0f;
+    [HideInInspector] public bool isAttacked = false;
 
     public float CurrentHealth => _currentHealth;
 
@@ -41,6 +43,7 @@ public class MonsterModel : MonoBehaviour
 
     private void Start()
     {
+        EnemyUIController = GetComponentInChildren<EnemyUIController>();
         animator.applyRootMotion = true; // 루트 모션 적용
         _currentHealth = MaxHealth;
     }
@@ -62,7 +65,7 @@ public class MonsterModel : MonoBehaviour
 
         if (state != MonsterState.AttackType_01 && state != MonsterState.Idle
             && state != MonsterState.Stun && state != MonsterState.Dead
-            && state != MonsterState.Born)
+            && state != MonsterState.Born&&state!=MonsterState.Hit)
         {
             RotateTowards(Target.position);
         }
@@ -103,12 +106,14 @@ public class MonsterModel : MonoBehaviour
     {
         Debug.Log("TakeDamage: 몬스터 대미지 피해 입음");
         _currentHealth -= playerDamage;
+        EnemyUIController.RefreshHealth(_currentHealth, MaxHealth);
 
+        isAttacked = true;
         if(_currentHealth <= 0)
         {
             Debug.Log($"{gameObject.name}: 몬스터 사망");
             isDead = true;
-            Destroy(gameObject);
+          //  Destroy(gameObject);
         }
     }
 }
