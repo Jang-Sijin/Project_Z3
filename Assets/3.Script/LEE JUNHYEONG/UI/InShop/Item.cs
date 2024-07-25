@@ -23,13 +23,25 @@ public class Item : ScriptableObject
     [SerializeField] private ItemType _itemType;
     public ItemType itemType { get { return _itemType; } }
 
-    private Texture2D ItemIcon;
+    [SerializeField] private ItemRank rank;
+    public ItemRank Rank { get { return rank; } }
 
-    public Texture2D itemIcon { get { return ItemIcon; } }
+    [SerializeField]private Sprite ItemIcon;
+    public Sprite itemIcon { get { return ItemIcon; } }
+
+    [SerializeField] private int level;
+    public int Level { get { return level; } } 
+
+    public enum ItemRank
+    {
+        S = 0,
+        A = 1,
+        B = 2
+    };
 
     public enum ItemType
     {
         DAMAGE = 0,
         HEALTH = 1
-    }
+    };
 }

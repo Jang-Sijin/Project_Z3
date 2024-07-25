@@ -18,6 +18,7 @@ public class Stun_End : MonsterStateBase
         if (monsterController.IsAnimationFinished("Stun_End"))
         {
             monsterController.SwitchState(MonsterState.Idle);
+            monsterController.monsterModel.isGroggy = false;
         }
 
         //공격 중에 피격 무효 추가할것
@@ -26,7 +27,6 @@ public class Stun_End : MonsterStateBase
     public override void Exit()
     {
         base.Exit();
-        monsterController.monsterModel.isGroggy = false;
-        monsterController.monsterModel.Groggypoint = 0;
+        monsterController.monsterModel.CurrentGroggypoint = 0;
     }
 }
