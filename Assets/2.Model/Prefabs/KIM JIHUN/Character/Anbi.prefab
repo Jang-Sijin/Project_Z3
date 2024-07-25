@@ -4860,6 +4860,7 @@ GameObject:
   - component: {fileID: 1704256013325563337}
   - component: {fileID: 2437594503674506045}
   - component: {fileID: 7146333999326198009}
+  - component: {fileID: 6811489771531603951}
   m_Layer: 0
   m_Name: Anbi
   m_TagString: Player
@@ -4966,6 +4967,20 @@ CharacterController:
   m_SkinWidth: 0.0001
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.7, z: 0}
+--- !u!114 &6811489771531603951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972303385957665439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d52d3b781c42ed4d9bcf757ed4baba0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerModel: {fileID: 0}
+  _weaponCollider: {fileID: 0}
 --- !u!1 &4975798767723616966
 GameObject:
   m_ObjectHideFlags: 0
