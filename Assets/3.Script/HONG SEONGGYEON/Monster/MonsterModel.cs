@@ -62,7 +62,7 @@ public class MonsterModel : MonoBehaviour
 
         if (state != MonsterState.AttackType_01 && state != MonsterState.Idle
             && state != MonsterState.Stun && state != MonsterState.Dead
-            && state != MonsterState.Born) ;
+            && state != MonsterState.Born)
         {
             RotateTowards(Target.position);
         }
@@ -72,15 +72,15 @@ public class MonsterModel : MonoBehaviour
             isGroggy = true;
         }
 
-        if (_currentHealth <= 0)
-        {
-            isDead = true;
-        }
+        //if (_currentHealth <= 0)
+        //{
+        //    isDead = true;
+        //}
 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            _currentHealth = 0;
-        }
+        //if (Input.GetKeyDown(KeyCode.K))
+        //{
+        //    _currentHealth = 0;
+        //}
 
 
     }
@@ -101,11 +101,13 @@ public class MonsterModel : MonoBehaviour
 
     public void TakeDamage(float playerDamage)
     {
+        Debug.Log("TakeDamage: 몬스터 대미지 피해 입음");
         _currentHealth -= playerDamage;
 
         if(_currentHealth <= 0)
         {
             Debug.Log($"{gameObject.name}: 몬스터 사망");
+            isDead = true;
             Destroy(gameObject);
         }
     }

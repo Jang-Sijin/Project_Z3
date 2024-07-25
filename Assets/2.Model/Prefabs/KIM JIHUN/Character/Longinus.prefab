@@ -4178,6 +4178,7 @@ GameObject:
   - component: {fileID: 536540521420387538}
   - component: {fileID: 2292981287140467428}
   - component: {fileID: 7935928645254678524}
+  - component: {fileID: 8382930954188863644}
   m_Layer: 8
   m_Name: Longinus
   m_TagString: Player
@@ -4279,6 +4280,20 @@ MonoBehaviour:
   foot: 0
   hasSkillLoop: 0
   hasSkillExtra: 0
+--- !u!114 &8382930954188863644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3984158867772531452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d52d3b781c42ed4d9bcf757ed4baba0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerModel: {fileID: 0}
+  _weaponCollider: {fileID: 0}
 --- !u!1 &4004501700551915611
 GameObject:
   m_ObjectHideFlags: 0
