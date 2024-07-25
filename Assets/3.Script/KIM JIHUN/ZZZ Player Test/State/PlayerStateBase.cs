@@ -17,7 +17,7 @@ public enum EPlayerState
     EvadeBackEnd,
 
     NormalAttack,
-    NormalAttakEnd,
+    NormalAttackEnd,
 
     AttackUltStart,
     AttackUlt,
