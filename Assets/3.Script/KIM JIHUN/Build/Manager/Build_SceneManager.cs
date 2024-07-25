@@ -25,7 +25,7 @@ public class Build_SceneManager : SingleMonoBase<Build_SceneManager>
         this.spawnPoint = spawnPoint;
         this.isMainCity = isMainCity;
 
-        Build_UIManager.Instance.LoadScene(sceneType);
+        UIManager.Instance.LoadScene(sceneType);
         GameManager.Instance.ChangeSceneInit(sceneType);
         //SceneManager.LoadScene(sceneName);
     }

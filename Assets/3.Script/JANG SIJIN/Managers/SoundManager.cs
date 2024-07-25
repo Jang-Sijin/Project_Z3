@@ -6,8 +6,7 @@ using UnityEngine.Audio;
 using UnityEngine.Rendering;
 
 public class SoundManager : SingletonBase<SoundManager>
-{
-    //private AudioSource[] _audioSources = new AudioSource[(int)Define.SoundType.Max];
+{    
     private AudioSource bgmSource;
     private AudioSource effectSource;
 
@@ -18,10 +17,7 @@ public class SoundManager : SingletonBase<SoundManager>
     private float bgmVolume = 0.5f;      // BGM º¼·ý
     private float effectVolume = 0.5f;   // ÀÌÆåÆ® º¼·ý
 
-    public float MasterVolume
-    {
-        get => masterVolume * 100;        
-    }
+    public float MasterVolume => masterVolume * 100;        
     public float BgmVolume => bgmVolume * 100;
     public float EffectVolume => effectVolume * 100;
 
@@ -47,15 +43,6 @@ public class SoundManager : SingletonBase<SoundManager>
 
     void LoadAudio()
     {
-        // AudioSource ÄÄÆ÷³ÍÆ® Ãß°¡ ¹× ¼³Á¤
-        //string[] soundTypeNames = System.Enum.GetNames(typeof(Define.SoundType));
-        //for (int count = 0; count < (int)Define.SoundType.Max; count++)
-        //{
-        //    GameObject go = new GameObject { name = soundTypeNames[count] };
-        //    _audioSources[count] = go.AddComponent<AudioSource>();
-        //    go.transform.parent = this.transform;
-        //}
-
         // BGM ¹× SFX¸¦ Dictionary¿¡ Ãß°¡
         bgmDictionary = new Dictionary<string, AudioClip>();
         effectDictionary = new Dictionary<string, AudioClip>();
