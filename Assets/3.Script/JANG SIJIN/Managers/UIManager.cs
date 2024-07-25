@@ -26,12 +26,6 @@ public class UIManager : SingletonBase<UIManager>
     [HideInInspector] public bool isCloseOrOpen = false;
     [HideInInspector] public bool isPause = false;
 
-    //**************************************************
-    [HideInInspector] public string nextSceneName;
-    [HideInInspector] public string introLoadingScene;
-    [HideInInspector] public string commonLoadingScene;
-    //**************************************************
-
     //KimJihun
     private bool isMainCity;
 
@@ -75,82 +69,7 @@ public class UIManager : SingletonBase<UIManager>
                 }                                                
             }
         }
-    }
-
-    private IEnumerator LoadScene_co(bool isIntro) // 디버깅용 씬 불러오는 메소드입니다.
-    {        
-        AsyncOperation op = SceneManager.LoadSceneAsync(nextSceneName);
-
-        //Debug.Log($"isIntro : {isIntro}");
-
-        op.allowSceneActivation = false;
-        float timer = 0f;
-        
-        switch (isIntro)
-        {
-            case true: // 인트로에서 로딩
-                introUI.MiddleText.text = "로딩중";
-
-                while (!op.isDone)
-                {
-                    yield return null;
-
-                    if (op.progress < 0.90f)
-                    {
-                        introUI.loadingFill.fillAmount = op.progress;
-                    }
-                    else
-                    {
-                        timer += Time.unscaledDeltaTime;
-                        introUI.loadingFill.fillAmount = Mathf.Lerp(0.9f, 1f, timer);
-
-                        if (introUI.loadingFill.fillAmount >= 1f)
-                        {
-                            introUI.MiddleText.text = "로딩 완료";
-                            op.allowSceneActivation = true;
-                            introUI.gameObject.SetActive(false);
-                            mainCityUI.gameObject.SetActive(true);
-                            yield break;
-                        }
-                    }
-                }
-                break;
-            case false: // 그냥 로딩씬
-                while (!op.isDone)
-                {
-                    yield return null;
-                    if (op.progress < 0.90f)
-                    {
-                        //Debug.Log("CommonLoadingScene");
-                        if (!commonLoadingUI.gameObject.activeSelf)
-                        {
-                            if (BelleController.INSTANCE != null)
-                                BelleController.INSTANCE.CanInput = false;
-                            else
-                                PlayerController.INSTANCE.CanInput = false;
-                            
-                            commonLoadingUI.gameObject.SetActive(true);
-                        }
-                    }
-                    if (op.progress < 0.99f)
-                    {
-                        op.allowSceneActivation = true;
-
-                        yield return new WaitForSeconds(2f); // 2초 대기
-
-                        if (BelleController.INSTANCE != null)
-                            BelleController.INSTANCE.CanInput = true;
-                        else
-                            PlayerController.INSTANCE.CanInput = true;
-                        
-                        commonLoadingUI.ActivateEndText();
-                        
-                        yield break;
-                    }
-                }
-                break;
-        }
-    }
+    }  
 
     public void OnClickGameOff()
     {

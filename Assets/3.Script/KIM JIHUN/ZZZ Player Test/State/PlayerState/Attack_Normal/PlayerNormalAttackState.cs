@@ -59,7 +59,7 @@ public class PlayerNormalAttackState : PlayerStateBase
             }
             else
             {
-                playerController.SwitchState(EPlayerState.NormalAttakEnd);
+                playerController.SwitchState(EPlayerState.NormalAttackEnd);
                 return;
             }
         }
