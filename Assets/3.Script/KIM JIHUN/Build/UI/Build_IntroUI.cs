@@ -32,7 +32,10 @@ public class Build_IntroUI : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
+        {
             UIManager.Instance.OptionUIOpenClose();
+        }
+
     }
     public void OnTVClick()
     {

@@ -1,13 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Build_Computer : Build_Interact
-{  
+{
 
     [SerializeField] private GameObject stageSelectCanvas;
     [SerializeField] private GameObject nameTag;
+
+    [SerializeField] Image stageImage;
+    [SerializeField] TextMeshProUGUI stageNameText;
+
+    private string[] stageNames =
+        {
+            "스테이지를 선택해줘!",
+            "홍성견",
+            "잃어버린 부품 찾기",
+            "나랑 함께 쓰레기 청소 할래?",
+            "전유성",
+            "김지훈"
+        };
+    [SerializeField] private Sprite[] stageImages;
 
     private Define.SceneType sceneType;
 
@@ -21,6 +36,7 @@ public class Build_Computer : Build_Interact
     {
         sceneType = Define.SceneType.Max;
         stageSelectCanvas.SetActive(true);
+        SetStageInfo(0);
         if (BelleController.INSTANCE != null)
         {
             BelleController.INSTANCE.CanInput = false;
@@ -43,6 +59,7 @@ public class Build_Computer : Build_Interact
 
     public void SelectStage(int stageIndex)
     {
+        SetStageInfo(stageIndex);
         switch (stageIndex)
         {
             case 1:
@@ -63,6 +80,12 @@ public class Build_Computer : Build_Interact
             default:
                 return;
         }
+    }
+
+    public void SetStageInfo(int stageIndex)
+    {
+        stageImage.sprite = stageImages[stageIndex];
+        stageNameText.text = stageNames[stageIndex];
     }
 
     public void ComfirmSelect()
