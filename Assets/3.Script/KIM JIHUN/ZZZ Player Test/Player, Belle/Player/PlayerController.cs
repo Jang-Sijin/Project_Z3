@@ -143,7 +143,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
             case EPlayerState.NormalAttack:
                 stateMachine.EnterState<PlayerNormalAttackState>(true);
                 break;
-            case EPlayerState.NormalAttakEnd:
+            case EPlayerState.NormalAttackEnd:
                 stateMachine.EnterState<PlayerNormalAttackEndState>();
                 break;
             #endregion
