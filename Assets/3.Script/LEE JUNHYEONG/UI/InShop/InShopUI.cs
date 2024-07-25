@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InShopUI : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
+{ 
+    public void OnClickBack()
     {
-        
+        /*
+         * 메인 씨티 로드 로직 필요
+         */
     }
-
-    // Update is called once per frame
-    void Update()
+    public void OnClickBuy()
     {
-        
+
+    }
+    public void OnClickSell()
+    {
+
     }
 }
