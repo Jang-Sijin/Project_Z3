@@ -70,7 +70,7 @@ public class Build_Computer : Build_Interact
         if (sceneType == Define.SceneType.Max)
             return;
         stageSelectCanvas.SetActive(false);
-        SceneManagerEx.INSTANCE.LoadScene(sceneType);
+        SceneManagerEx.Instance.LoadScene(sceneType);
 
     }
     private void OnTriggerEnter(Collider other)
