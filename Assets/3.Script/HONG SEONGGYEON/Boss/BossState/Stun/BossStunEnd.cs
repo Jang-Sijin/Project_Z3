@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stun_End : MonsterStateBase
+public class BossStunEnd : BossStateBase
 {
+
     public override void Enter()
     {
         base.Enter();
-        monsterController.PlayAnimation("Stun_End");
+        bossController.PlayAnimation("StunEnd");
 
     }
 
@@ -15,10 +16,10 @@ public class Stun_End : MonsterStateBase
     {
         base.Update();
 
-        if (monsterController.IsAnimationFinished("Stun_End"))
+        if (bossController.IsAnimationFinished("StunEnd"))
         {
-            monsterController.SwitchState(MonsterState.Idle);
-            monsterController.monsterModel.isGroggy = false;
+            bossController.SwitchState(BossState.Idle);
+            bossController.bossModel.isGroggy = false;
         }
 
         //공격 중에 피격 무효 추가할것
@@ -27,6 +28,7 @@ public class Stun_End : MonsterStateBase
     public override void Exit()
     {
         base.Exit();
-        monsterController.monsterModel.CurrentGroggypoint = 0;
+        bossController.bossModel.CurrentGroggypoint = 0;
     }
+
 }
