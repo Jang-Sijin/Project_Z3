@@ -1,10 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static Define;
 
-public class GameManager : SingletonBase<GameManager>
+public class GameManager : SingletonBase<GameManager>    
 {
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
     void Start()
     {
         Init();
@@ -13,7 +20,7 @@ public class GameManager : SingletonBase<GameManager>
     private void Init()
     {
         // 타이틀 씬에서 시작한다는 가정하에 호출되는 초기 설정 값 입니다.
-        ChangeSceneInit(Define.SceneType.Title);
+        ChangeSceneInit(GetCurrentSceneName());
     }
 
     /// <summary>
@@ -53,6 +60,7 @@ public class GameManager : SingletonBase<GameManager>
     // 1. 타이틀 씬에 진입했을 때, 초기화가 필요한 로직들 실행. (초기 설정 필요한 작업 집합소)
     private void InitTitle()
     {
+        UIManager.instance.Creat_UI(WhichUI.pauseMenuUI);
         SoundManager.Instance.PlayBgm(Define.SceneType.Title.ToString());
     }    
 
@@ -96,5 +104,15 @@ public class GameManager : SingletonBase<GameManager>
     private void InitBattle5()
     {
         SoundManager.Instance.PlayBgm(Define.SceneType.Battle5.ToString());
+    }
+
+    public static Define.SceneType GetCurrentSceneName()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        Define.SceneType sceneType;
+        Enum.TryParse(currentScene.name, out sceneType);
+
+        return sceneType;
     }
 }

@@ -68,7 +68,28 @@ public class MonsterModel : MonoBehaviour
         {
             isDead = true;
         }
+
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            CurrentHealth = 0;
+        }
+
+       
     }
 
     public MonsterAttributes Attributes => monster; // 속성 접근자 추가
+
+    public bool isItemDrop()
+    {
+        int DropSucces = Random.Range(0, 2);
+        if(DropSucces==1)
+        {
+            Debug.Log("아이템 드롭 성공");
+            return true;
+        }
+        Debug.Log("실패");
+        return false;
+    }
+
+
 }

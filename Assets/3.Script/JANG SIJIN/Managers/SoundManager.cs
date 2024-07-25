@@ -18,10 +18,7 @@ public class SoundManager : SingletonBase<SoundManager>
     private float bgmVolume = 0.5f;      // BGM 볼륨
     private float effectVolume = 0.5f;   // 이펙트 볼륨
 
-    public float MasterVolume
-    {
-        get => masterVolume * 100;        
-    }
+    public float MasterVolume => masterVolume * 100;        
     public float BgmVolume => bgmVolume * 100;
     public float EffectVolume => effectVolume * 100;
 
@@ -47,15 +44,6 @@ public class SoundManager : SingletonBase<SoundManager>
 
     void LoadAudio()
     {
-        // AudioSource 컴포넌트 추가 및 설정
-        //string[] soundTypeNames = System.Enum.GetNames(typeof(Define.SoundType));
-        //for (int count = 0; count < (int)Define.SoundType.Max; count++)
-        //{
-        //    GameObject go = new GameObject { name = soundTypeNames[count] };
-        //    _audioSources[count] = go.AddComponent<AudioSource>();
-        //    go.transform.parent = this.transform;
-        //}
-
         // BGM 및 SFX를 Dictionary에 추가
         bgmDictionary = new Dictionary<string, AudioClip>();
         effectDictionary = new Dictionary<string, AudioClip>();
