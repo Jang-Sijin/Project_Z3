@@ -11,6 +11,13 @@ public enum EModelFoot
     Left
 }
 
+public enum ECharacter
+{
+    Corin,
+    Longinus,
+    Anbi,
+}
+
 /// <summary>
 /// 플레이어의 스테이터스 클래스
 /// 체력, 액티브 스킬은 각 캐릭터당 할당이므로 각자
@@ -60,6 +67,7 @@ public class PlayerModel : MonoBehaviour
     [HideInInspector] public Animator animator;
     public EPlayerState currentState;
     [HideInInspector] public CharacterController characterController;
+    public ECharacter eCharacter { get; private set; }
 
     public float gravity = -9.8f;
     public CharacterInfo characterInfo;

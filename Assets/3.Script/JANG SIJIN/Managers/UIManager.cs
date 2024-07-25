@@ -13,13 +13,13 @@ public class UIManager : SingletonBase<UIManager>
 
     [SerializeField] private Build_IntroUI introUI;
     [SerializeField] private MainCityUI mainCityUI;
-    [SerializeField] private InGameUI inGameUI;
+    [SerializeField] private Build_IngameUI inGameUI;
     [SerializeField] private Build_OptionMenuUI pauseMenuUI;
     [SerializeField] private Build_CommonLoadingUI commonLoadingUI;
 
     public Build_IntroUI IntroUI => introUI;
     public MainCityUI MainCityUI => mainCityUI;
-    public InGameUI InGameUI => inGameUI;
+    public Build_IngameUI InGameUI => inGameUI;
     public Build_OptionMenuUI PauseMenuUI => pauseMenuUI;
     public Build_CommonLoadingUI CommonLoadingUI => commonLoadingUI;
 
