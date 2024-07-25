@@ -11,7 +11,7 @@ public class UIManager : SingletonBase<UIManager>
     * MainMenu씬에서 MainMenuUI를 불러옴
     */
 
-    [SerializeField] private Build_IntroUI introUI;    
+    [SerializeField] private Build_IntroUI introUI;
     [SerializeField] private MainCityUI mainCityUI;
     [SerializeField] private InGameUI inGameUI;
     [SerializeField] private Build_OptionMenuUI pauseMenuUI;
@@ -23,15 +23,15 @@ public class UIManager : SingletonBase<UIManager>
     public Build_OptionMenuUI PauseMenuUI => pauseMenuUI;
     public Build_CommonLoadingUI CommonLoadingUI => commonLoadingUI;
 
+
     [HideInInspector] public bool isCloseOrOpen = false;
     [HideInInspector] public bool isPause = false;
-
     //KimJihun
     private bool isMainCity;
 
     //JangSijin
     private bool isMainMenu = true; // 메인 메뉴 씬은 가장 먼저 호출되기 때문에 true로 설정함
- 
+
     public void OptionUIOpenClose() // 옵션 메뉴UI 를 열고 닫는 메소드입니다.
     {
         if (!isCloseOrOpen)
@@ -49,7 +49,7 @@ public class UIManager : SingletonBase<UIManager>
                 {
                     PlayerController.INSTANCE.LockMouse();
                     PlayerController.INSTANCE.CanInput = true;
-                }                
+                }
             }
             else
             {
@@ -57,23 +57,94 @@ public class UIManager : SingletonBase<UIManager>
                 StartCoroutine(pauseMenuUI.CallPauseMenu_co());
 
                 Debug.Log("Open Pause Menu");
-                if(BelleController.INSTANCE != null)
+                if (BelleController.INSTANCE != null)
                 {
                     BelleController.INSTANCE.UnlockMouse();
-                    BelleController.INSTANCE.CanInput= false;
+                    BelleController.INSTANCE.CanInput = false;
                 }
                 else if (PlayerController.INSTANCE != null)
                 {
                     PlayerController.INSTANCE.UnlockMouse();
                     PlayerController.INSTANCE.CanInput = false;
-                }                                                
+                }
             }
         }
-    }  
+    }
+
+    /// <summary>
+    /// Player의 조작을 Lock
+    /// </summary>
+    public void LockPlayer()
+    {
+        if (BelleController.INSTANCE != null)
+        {
+            BelleController.INSTANCE.UnlockMouse();
+            BelleController.INSTANCE.CanInput = false;
+        }
+        else if (PlayerController.INSTANCE != null)
+        {
+            PlayerController.INSTANCE.UnlockMouse();
+            PlayerController.INSTANCE.CanInput = false;
+        }
+    }
+
+    /// <summary>
+    /// Player의 조작을 Unlock
+    /// </summary>
+    public void UnlockPlayer()
+    {
+        if (BelleController.INSTANCE != null)
+        {
+            BelleController.INSTANCE.LockMouse();
+            BelleController.INSTANCE.CanInput = true;
+        }
+        else if (PlayerController.INSTANCE != null)
+        {
+            PlayerController.INSTANCE.LockMouse();
+            PlayerController.INSTANCE.CanInput = true;
+        }
+    }
+
+
+    public void OpenIntroUI()
+    {
+        introUI.gameObject.SetActive(true);
+    }
+    public void CloseIntroUI()
+    {
+        introUI.gameObject.SetActive(false);
+    }
+
+    public void OpenIngameUI()
+    {
+        inGameUI.gameObject.SetActive(true);
+    }
+
+    public void CloseIngameUI()
+    {
+        inGameUI.gameObject.SetActive(false);
+    }
+
+    public void OpenCityUI()
+    {
+        mainCityUI.gameObject.SetActive(true);
+    }
+
+    public void CloseCityUI()
+    {
+        mainCityUI.gameObject.SetActive(false);
+    }
 
     public void OnClickGameOff()
     {
         Application.Quit();
+    }
+
+    public void CloseAllUI()
+    {
+        CloseCityUI();
+        CloseIngameUI();
+        CloseIntroUI();
     }
 }
 

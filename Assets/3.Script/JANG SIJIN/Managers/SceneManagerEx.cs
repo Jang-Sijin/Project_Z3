@@ -19,16 +19,16 @@ public class SceneManagerEx : SingletonBase<SceneManagerEx>
     public void LoadScene(Define.SceneType sceneType) // 일반 씬 불러오는 방법입니다.
     {
         nextSceneName = sceneType.ToString();
-        SceneManager.LoadScene(Define.SceneType.LoadingScene.ToString());
-        GameManager.Instance.ChangeSceneInit(sceneType);
+        //SceneManager.LoadScene(Define.SceneType.LoadingScene.ToString());
         StartCoroutine(LoadScene_co(false));
+        GameManager.Instance.ChangeSceneInit(sceneType);
     }
 
     public void LoadScene(Define.SceneType sceneType, bool isIntro) // 인트로에서 씬 불러오는 방법입니다.
     {
         nextSceneName = sceneType.ToString();
-        GameManager.Instance.ChangeSceneInit(sceneType);
         StartCoroutine(LoadScene_co(true));
+        GameManager.Instance.ChangeSceneInit(sceneType);
     }
 
     private IEnumerator LoadScene_co(bool isIntro) // 디버깅용 씬 불러오는 메소드입니다.
