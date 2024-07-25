@@ -77,21 +77,6 @@ public class UIManager : SingletonBase<UIManager>
         }
     }
 
-    public void LoadScene(Define.SceneType sceneType) // 일반 씬 불러오는 방법입니다.
-    {
-        Debug.Log($"씬 이동: " + sceneType);
-        nextSceneName = sceneType.ToString();
-        GameManager.Instance.ChangeSceneInit(sceneType);
-        StartCoroutine(LoadScene_co(false));
-    }
-    public void LoadScene(Define.SceneType sceneType, bool isIntro) // 인트로에서 씬 불러오는 방법입니다.
-    {
-        Debug.Log($"씬 이동: " + sceneType);
-        nextSceneName = sceneType.ToString();
-        GameManager.Instance.ChangeSceneInit(sceneType);
-        StartCoroutine(LoadScene_co(true)); // 비동기 로드
-    }
-
     private IEnumerator LoadScene_co(bool isIntro) // 디버깅용 씬 불러오는 메소드입니다.
     {        
         AsyncOperation op = SceneManager.LoadSceneAsync(nextSceneName);

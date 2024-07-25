@@ -42,6 +42,6 @@ public class Build_IntroUI : MonoBehaviour
     {
         loadingBarBackGround.gameObject.SetActive(true);
 
-        UIManager.Instance.LoadScene(Define.SceneType.Home, true);
+        SceneManagerEx.Instance.LoadScene(Define.SceneType.Home, true);
     }
 }

@@ -3,13 +3,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneManagerEx : SingletonBase<SceneManagerEx>
-{
-    private string _loadingSceneName = "LoadingScene";
-
+{    
     //**************************************************
-    [SerializeField] public string nextSceneName;
-    [SerializeField] public string introLoadingScene;
-    [SerializeField] public string commonLoadingScene;
+    private string nextSceneName;
+    private string introLoadingScene;
+    private string commonLoadingScene;
     //**************************************************
 
     protected override void Awake()

@@ -8,6 +8,6 @@ public class Build_Door : Build_Interact
 
     public override void Interact()
     {
-        UIManager.Instance.LoadScene(sceneType);
+        SceneManagerEx.Instance.LoadScene(sceneType);
     }
 }
