@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class AttackType_01 : MonsterStateBase
 {
-
+    
     public override void Enter()
     {
         base.Enter();
         monsterController.PlayAnimation("AttackType_01");
-        monsterController.mon_CO.AttackingDisable();
         monsterController.monsterModel.RotateTowards(monsterController.monsterModel.Target.position);
+
 
     }
 
@@ -27,7 +27,7 @@ public class AttackType_01 : MonsterStateBase
     public override void Exit()
     {
         base.Exit();
-        monsterController.mon_CO.AttackingEnable();
+     //   monsterController.mon_CO.AttackingEnable();
     }
 
 }

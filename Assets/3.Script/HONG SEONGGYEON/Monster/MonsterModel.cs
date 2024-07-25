@@ -20,21 +20,27 @@ public enum MonsterState
 
 public class MonsterModel : MonoBehaviour
 {
+    public float MaxHealth;
+    public float Attack2;
+    public float Attack3;
+    public Transform Target;
+    public float StartGroggypoint;
+
+
     public Animator animator;
-    public MonsterState state;
-    [SerializeField] public Transform Target;
-    public float Distance;
-    [SerializeField] private float CurrentHealth = 100f;
-    [SerializeField] private float MaxHealth = 100f;
-    public float Groggypoint = 0f;
-    public bool isGroggy = false;
-    public bool isDead = false;
+    [HideInInspector] public float Distance;
+    [HideInInspector] public MonsterState state;
+    [HideInInspector] public bool isDead = false;
+    [HideInInspector] public bool isGroggy = false;
+    [HideInInspector] private float CurrentHealth;
+    [HideInInspector] public float CurrentGroggypoint = 0f;
 
     [SerializeField] public MonsterAttributes monster; // 몬스터 속성 추가
 
     private void Start()
     {
         animator.applyRootMotion = true; // 루트 모션 적용
+        CurrentHealth = MaxHealth;
     }
 
     public void RotateTowards(Vector3 targetPosition)
@@ -59,7 +65,7 @@ public class MonsterModel : MonoBehaviour
             RotateTowards(Target.position);
         }
 
-        if (Groggypoint >= 100f)
+        if (CurrentGroggypoint >=StartGroggypoint)
         {
             isGroggy = true;
         }
@@ -69,12 +75,12 @@ public class MonsterModel : MonoBehaviour
             isDead = true;
         }
 
-        if(Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             CurrentHealth = 0;
         }
 
-       
+
     }
 
     public MonsterAttributes Attributes => monster; // 속성 접근자 추가
@@ -82,7 +88,7 @@ public class MonsterModel : MonoBehaviour
     public bool isItemDrop()
     {
         int DropSucces = Random.Range(0, 2);
-        if(DropSucces==1)
+        if (DropSucces == 1)
         {
             Debug.Log("아이템 드롭 성공");
             return true;
