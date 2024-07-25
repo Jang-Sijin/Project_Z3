@@ -9,11 +9,12 @@ using UnityEngine;
 public class ButtonManager : MonoBehaviour
 {
     [SerializeField] private ButtonSelectedEff firstBtn;
+    [SerializeField] private ButtonSelectedEff secondBtn;
 
     private void Start()
     {
+        prevBtn = secondBtn;
         ClickBtn(firstBtn);
-        prevBtn = firstBtn;
     }
 
     private ButtonSelectedEff prevBtn;

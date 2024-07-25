@@ -14,7 +14,7 @@ public class ButtonSelectedEff : MonoBehaviour
     private TextMeshProUGUI buttontext;
     private Animator buttonAni;
 
-    [SerializeField] private GameObject wantShowMenu;
+    [SerializeField] private Animator wantShowMenu;
     
     private void Awake()
     {
@@ -34,13 +34,17 @@ public class ButtonSelectedEff : MonoBehaviour
 
         buttonAni.SetTrigger("Selected");
         buttontext.color = Color.black;
-        wantShowMenu.SetActive(true);
+        wantShowMenu.gameObject.SetActive(true);
+
+        wantShowMenu.SetTrigger("Open");
     }
 
     public void turnOff()
     {
         buttonAni.SetTrigger("Normal");
         buttontext.color = Color.white;
-        wantShowMenu.SetActive(false);
+        wantShowMenu.gameObject.SetActive(false);
+
+        wantShowMenu.SetTrigger("Close");
     }
 }
