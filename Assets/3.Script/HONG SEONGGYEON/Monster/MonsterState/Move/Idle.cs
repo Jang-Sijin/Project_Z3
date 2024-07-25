@@ -27,6 +27,10 @@ public class Idle : MonsterStateBase
         {
             monsterController.SwitchState(MonsterState.Stun_Start);
         }
+        else if (monsterController.monsterModel.isAttacked)
+        {
+            monsterController.SwitchState(MonsterState.Hit);
+        }
         else
         {
             // Idle 상태를 2초간 유지한 후 상태 전환을 시작

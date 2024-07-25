@@ -17,10 +17,14 @@ public class AttackType_03 : MonsterStateBase
     public override void Update()
     {
         base.Update();
+        if (monsterController.monsterModel.isAttacked)
+        {
+            monsterController.SwitchState(MonsterState.Hit);
+        }
         if (monsterController.IsAnimationFinished("AttackType_03"))
-
+        {
             monsterController.SwitchState(MonsterState.Idle);
-
+        }
     }
 
     public override void Exit()

@@ -15,7 +15,8 @@ public enum MonsterState
     Stun_Start,
     Stun,
     Stun_End,
-    Dead
+    Dead,
+    Hit
 }
 
 public class MonsterModel : MonoBehaviour
@@ -34,6 +35,7 @@ public class MonsterModel : MonoBehaviour
     [HideInInspector] public bool isGroggy = false;
     [HideInInspector] private float _currentHealth;
     [HideInInspector] public float CurrentGroggypoint = 0f;
+    [HideInInspector] public bool isAttacked = false;
 
     public float CurrentHealth => _currentHealth;
 
@@ -103,12 +105,12 @@ public class MonsterModel : MonoBehaviour
     {
         Debug.Log("TakeDamage: 몬스터 대미지 피해 입음");
         _currentHealth -= playerDamage;
-
+        isAttacked = true;
         if(_currentHealth <= 0)
         {
             Debug.Log($"{gameObject.name}: 몬스터 사망");
             isDead = true;
-            Destroy(gameObject);
+          //  Destroy(gameObject);
         }
     }
 }

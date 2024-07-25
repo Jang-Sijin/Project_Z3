@@ -21,6 +21,10 @@ public class Walk : MonsterStateBase
         {
             monsterController.SwitchState(MonsterState.Stun_Start);
         }
+        else if (monsterController.monsterModel.isAttacked)
+        {
+            monsterController.SwitchState(MonsterState.Hit);
+        }
         else
         {
             var attributes = monsterController.monsterModel.monster;
