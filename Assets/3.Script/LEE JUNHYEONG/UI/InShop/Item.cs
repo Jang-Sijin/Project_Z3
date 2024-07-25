@@ -29,6 +29,9 @@ public class Item : ScriptableObject
     [SerializeField]private Sprite ItemIcon;
     public Sprite itemIcon { get { return ItemIcon; } }
 
+    [SerializeField] private int level;
+    public int Level { get { return level; } } 
+
     public enum ItemRank
     {
         S = 0,
