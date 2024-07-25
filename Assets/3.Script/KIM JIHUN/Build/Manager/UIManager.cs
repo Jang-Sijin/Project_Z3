@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Build_UIManager : SingletonBase<Build_UIManager>
+public class UIManager : SingletonBase<UIManager>
 {
     /*
     * UI 메니저에서 씬 로드시 알맞은 UI를 Load합니다
@@ -11,11 +11,17 @@ public class Build_UIManager : SingletonBase<Build_UIManager>
     * MainMenu씬에서 MainMenuUI를 불러옴
     */
 
-    public Build_IntroUI introUI;
-    public MainCityUI mainCityUI;
-    public InGameUI inGameUI;
-    public Build_OptionMenuUI pauseMenuUI;
-    public Build_CommonLoadingUI commonLoadingUI;
+    [SerializeField] private Build_IntroUI introUI;    
+    [SerializeField] private MainCityUI mainCityUI;
+    [SerializeField] private InGameUI inGameUI;
+    [SerializeField] private Build_OptionMenuUI pauseMenuUI;
+    [SerializeField] private Build_CommonLoadingUI commonLoadingUI;
+
+    public Build_IntroUI IntroUI => introUI;
+    public MainCityUI MainCityUI => mainCityUI;
+    public InGameUI InGameUI => inGameUI;
+    public Build_OptionMenuUI PauseMenuUI => pauseMenuUI;
+    public Build_CommonLoadingUI CommonLoadingUI => commonLoadingUI;
 
     [HideInInspector] public bool isCloseOrOpen = false;
     [HideInInspector] public bool isPause = false;
