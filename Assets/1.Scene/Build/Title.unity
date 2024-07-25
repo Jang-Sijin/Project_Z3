@@ -986,7 +986,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   introUI: {fileID: 7993707811636661209}
   mainCityUI: {fileID: 6289171835827761419}
-  inGameUI: {fileID: 7184743786027712419}
+  inGameUI: {fileID: 8447579801548485315}
   pauseMenuUI: {fileID: 9005134341799291747}
   commonLoadingUI: {fileID: 5959458210320585918}
   isCloseOrOpen: 0
@@ -2750,6 +2750,7 @@ GameObject:
   - component: {fileID: 5825066160190303459}
   - component: {fileID: 8447579801548485314}
   - component: {fileID: 7184743786027712419}
+  - component: {fileID: 8447579801548485315}
   m_Layer: 5
   m_Name: InGameUI
   m_TagString: Untagged
@@ -18595,7 +18596,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 736082319095146132}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55dc1260d13ba884d9119980aeb737f5, type: 3}
   m_Name: 
@@ -21511,6 +21512,40 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8447579801548485315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736082319095146132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2eceec6a04931b749a31c1f8d31c21f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedChar: {fileID: 4425104876469521043}
+  unChar:
+  - {fileID: 779064730608294240}
+  - {fileID: 6152223102703449683}
+  unCharIMG:
+  - {fileID: 7687450501997823592}
+  - {fileID: 3855417353977058547}
+  changeEffectIMGs:
+  - {fileID: 7693293421308288783}
+  - {fileID: 6419743718522971486}
+  - {fileID: 5235149711008335477}
+  - {fileID: 2461932969465707671}
+  - {fileID: 4311476644958011660}
+  - {fileID: 5889147776765214909}
+  CharIMGData: {fileID: 11400000, guid: 44008033f5894cb49aae0bb5900f6de7, type: 2}
+  UltStat: {fileID: 297991226916046990}
+  mouseRightCool: {fileID: 2527310105717180266}
+  mouseRightText: {fileID: 1636415063789492192}
+  EbtnAni: {fileID: 7573492271993846319}
+  QbtnAni: {fileID: 2646176045342248101}
+  SpacebtnAni: {fileID: 4291705467935606748}
+  dashCoolTime: 0.5
 --- !u!224 &8470164282482655916
 RectTransform:
   m_ObjectHideFlags: 0

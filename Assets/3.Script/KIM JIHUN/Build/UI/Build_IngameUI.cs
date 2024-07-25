@@ -1,31 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEngine.ProBuilder.Shapes;
-public enum TempChar // 디버깅용
-{
-    CORIN = 0,
-    ELEVEN = 1,
-    ANBY = 2
-};
 
-public struct CharInfo // 디버깅용
+public class Build_IngameUI : MonoBehaviour
 {
-    public TempChar name;
-    public float curHP;
-    public float maxHP;
-    public float curSP;
-    public float maxSP;
-};
 
-public class InGameUI : MonoBehaviour
-{
     [SerializeField] private SelectedChar selectedChar; // 선택된 캐릭터 상태
     [SerializeField] private UnCharHpSp[] unChar; // 대기 캐릭터 2개
     [SerializeField] private Image[] unCharIMG; // 대기 캐릭터 이미지
@@ -61,40 +44,6 @@ public class InGameUI : MonoBehaviour
 
         debugchars[debugchars.Length - 1] = temp;
     }
-
-    //private void Update()
-    //{
-
-    //    if (Input.GetKeyDown(KeyCode.Space)) // 디버깅
-    //    {
-    //        DeBugshufflechar();
-    //        ChangeChar(debugchars);
-    //        Change_Effect();
-    //        Pressbtn(KeyCode.Space);
-    //    }
-
-    //    if(Input.GetMouseButtonDown(1))// 디버깅
-    //    {
-    //        Pressbtn(KeyCode.Mouse1);
-    //    }// 디버깅용입니다.
-
-    //    if (Input.GetKeyDown(KeyCode.E)) // 디버깅
-    //    {
-    //        RenewalSkillbtn(KeyCode.E);
-    //    }
-
-    //    if (Input.GetKeyDown(KeyCode.Escape)) // 디버깅
-    //    {
-    //        UIManager.Instance.OpenAndClosePause();
-    //    }
-
-    //    if(Input.GetKeyDown(KeyCode.Q))// 디버깅
-    //    {
-    //        RenewalSkillbtn(KeyCode.Q);
-    //    }
-    //    // 
-    //    //************************************************************************
-    //}
 
     public void ChangeChar(CharInfo[] tempChars) // 캐릭터를 바꾸는 메소드
     {
@@ -254,6 +203,4 @@ public class InGameUI : MonoBehaviour
             UltStat.text = ((int)curUltNum).ToString();
         }
     }
-
-    //**************************************************************************************************************************
 }

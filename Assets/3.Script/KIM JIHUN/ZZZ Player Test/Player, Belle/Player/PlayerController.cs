@@ -7,7 +7,7 @@ using Unity.VisualScripting.Dependencies.Sqlite;
 using Unity.VisualScripting;
 
 public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineOwner
-{    
+{
     [HideInInspector] public PlayerInputSystem playerInputSystem; // Input 시스템
     public PlayerModel playerModel; //현재 컨트롤중인 플레이어 모델
 
@@ -130,6 +130,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
             case EPlayerState.EvadeFront:
             case EPlayerState.EvadeBack:
                 if (evadeTimer != evadeCoolTime) return;
+                UIManager.Instance.InGameUI.Pressbtn(KeyCode.Mouse1);
 
                 stateMachine.EnterState<PlayerEvadeState>();
                 evadeTimer -= evadeCoolTime;
@@ -152,6 +153,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
                 if (currentUltPoint >= maxUltPoint)
                 {
                     currentUltPoint -= maxUltPoint;
+                    UIManager.Instance.InGameUI.Pressbtn(KeyCode.Q);
                     stateMachine.EnterState<PlayerUltStartState>();
                 }
                 break;
@@ -167,6 +169,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
                 if (playerModel.playerStatus.CurrentSkillPoint >= 50f)
                 {
                     playerModel.playerStatus.CurrentSkillPoint -= 50f;
+                    UIManager.Instance.InGameUI.Pressbtn(KeyCode.E);
                     stateMachine.EnterState<PlayerSkillState>();
                 }
                 break;
@@ -190,6 +193,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
             #endregion
             #region Switch
             case EPlayerState.SwitchInNormal:
+                UIManager.Instance.InGameUI.Pressbtn(KeyCode.Space);
                 stateMachine.EnterState<PlayerSwitchInNormalState>();
                 break;
                 #endregion
