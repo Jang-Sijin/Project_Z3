@@ -32,15 +32,17 @@ public class MonsterModel : MonoBehaviour
     [HideInInspector] public MonsterState state;
     [HideInInspector] public bool isDead = false;
     [HideInInspector] public bool isGroggy = false;
-    [HideInInspector] private float CurrentHealth;
+    [HideInInspector] private float _currentHealth;
     [HideInInspector] public float CurrentGroggypoint = 0f;
+
+    public float CurrentHealth => _currentHealth;
 
     [SerializeField] public MonsterAttributes monster; // 몬스터 속성 추가
 
     private void Start()
     {
         animator.applyRootMotion = true; // 루트 모션 적용
-        CurrentHealth = MaxHealth;
+        _currentHealth = MaxHealth;
     }
 
     public void RotateTowards(Vector3 targetPosition)
@@ -70,14 +72,14 @@ public class MonsterModel : MonoBehaviour
             isGroggy = true;
         }
 
-        if (CurrentHealth <= 0)
+        if (_currentHealth <= 0)
         {
             isDead = true;
         }
 
         if (Input.GetKeyDown(KeyCode.K))
         {
-            CurrentHealth = 0;
+            _currentHealth = 0;
         }
 
 
@@ -97,5 +99,14 @@ public class MonsterModel : MonoBehaviour
         return false;
     }
 
+    public void TakeDamage(float playerDamage)
+    {
+        _currentHealth -= playerDamage;
 
+        if(_currentHealth <= 0)
+        {
+            Debug.Log($"{gameObject.name}: 몬스터 사망");
+            Destroy(gameObject);
+        }
+    }
 }

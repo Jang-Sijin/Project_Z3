@@ -26,7 +26,7 @@ public class WeaponCollider : MonoBehaviour
     {
         // UniRx를 사용하여 OnTriggerEnter 이벤트를 Observable로 전환
         this.OnTriggerEnterAsObservable()
-            .Subscribe(_onWeaponHit) // 여기에 문제가 있었을 가능성이 큽니다.
+            .Subscribe(_onWeaponHit)
             .AddTo(this);
     }
     #endregion
