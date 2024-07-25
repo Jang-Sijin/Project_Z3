@@ -37,6 +37,6 @@ public class Build_Computer : Build_Interact
     public void SelectStage(Define.SceneType sceneType)
     {        
         stageSelectCanvas.SetActive(false);
-        Build_UIManager.Instance.LoadScene(sceneType);
+        UIManager.Instance.LoadScene(sceneType);
     }
 }

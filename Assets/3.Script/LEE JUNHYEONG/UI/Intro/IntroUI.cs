@@ -26,11 +26,11 @@ public class IntroUI : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape))
-            UIManager.instance.OpenAndClosePause();
-    }
+    //private void Update()
+    //{
+    //    if(Input.GetKeyDown(KeyCode.Escape))
+    //        UIManager.Instance.OpenAndClosePause();
+    //}
     public void OnTVClick()
     {
         TV.nextVideo(TV._player);
@@ -39,6 +39,6 @@ public class IntroUI : MonoBehaviour
     {
         loadingBarBackGround.gameObject.SetActive(true);
 
-        UIManager.instance.LoadScene(Define.SceneType.Town, false);
+        SceneManagerEx.Instance.LoadScene(Define.SceneType.Town, false);
     }
 }

@@ -45,7 +45,7 @@ public class PauseMenuUI : MonoBehaviour
     //*********************************************************************************************************
     public IEnumerator CallPauseMenu_co()
 	{
-        UIManager.instance.isCloseOrOpen = true;
+        UIManager.Instance.isCloseOrOpen = true;
         curInto_btn_Ani = startInto_btn_Ani;
         displayMenu.SetActive(true);
         soundMenu.SetActive(false); // 디스플레이 화면이 항상 먼저 나옵니다.
@@ -68,8 +68,8 @@ public class PauseMenuUI : MonoBehaviour
         Tween tween = UnderBlackBlank.rectTransform.DOAnchorPosY(70f, 0.2f).SetEase(Ease.OutQuad);
 
 		yield return tween.WaitForCompletion();
-		UIManager.instance.isCloseOrOpen = false;
-        UIManager.instance.isPause = true;
+		UIManager.Instance.isCloseOrOpen = false;
+        UIManager.Instance.isPause = true;
     }
     //************************************************************************************************************
 
@@ -87,7 +87,7 @@ public class PauseMenuUI : MonoBehaviour
 
         yield return new WaitForSeconds(0.2f);
 
-		UIManager.instance.isCloseOrOpen = false;
+		UIManager.Instance.isCloseOrOpen = false;
         gameObject.SetActive(false);
 	}
 
@@ -107,10 +107,10 @@ public class PauseMenuUI : MonoBehaviour
     //*********************************************************************************************************
     public void OnClickClose() // pause 종료메소드
 	{
-		UIManager.instance.isCloseOrOpen = true;
+		UIManager.Instance.isCloseOrOpen = true;
 		gameObject.SetActive(true);
 		StartCoroutine(ClosePauseMenu_co());
-        UIManager.instance.isPause = false;
+        UIManager.Instance.isPause = false;
     }
 
 	public void OnClickIntoButton(Animator changeCur)// 왼쪽 메뉴 선택 버튼 클릭시 발생하는 애니메이션입니다.

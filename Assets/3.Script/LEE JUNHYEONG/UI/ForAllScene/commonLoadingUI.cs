@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class commonLoadingUI : MonoBehaviour // 로딩 씬을 제어하는 스크립트로 로딩 UI에 컴포넌트로 부착합니다.
+public class CommonLoadingUI : MonoBehaviour // 로딩 씬을 제어하는 스크립트로 로딩 UI에 컴포넌트로 부착합니다.
 {
     [SerializeField] private Sprite[] backGroundSprites;
     [SerializeField] private Image backGroundIMG;
@@ -26,7 +26,7 @@ public class commonLoadingUI : MonoBehaviour // 로딩 씬을 제어하는 스크립트로 로
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            UIManager.instance.LoadScene(Define.SceneType.Town);
+            SceneManagerEx.Instance.LoadScene(Define.SceneType.Town);
         }
     }
 

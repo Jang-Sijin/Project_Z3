@@ -4,9 +4,10 @@ using UnityEngine;
 using System.Linq;
 using Cinemachine;
 using Unity.VisualScripting.Dependencies.Sqlite;
+using Unity.VisualScripting;
 
 public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineOwner
-{
+{    
     [HideInInspector] public PlayerInputSystem playerInputSystem; // Input 시스템
     public PlayerModel playerModel; //현재 컨트롤중인 플레이어 모델
 

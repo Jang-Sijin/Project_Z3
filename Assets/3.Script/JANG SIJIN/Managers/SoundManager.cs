@@ -6,8 +6,7 @@ using UnityEngine.Audio;
 using UnityEngine.Rendering;
 
 public class SoundManager : SingletonBase<SoundManager>
-{
-    //private AudioSource[] _audioSources = new AudioSource[(int)Define.SoundType.Max];
+{    
     private AudioSource bgmSource;
     private AudioSource effectSource;
 

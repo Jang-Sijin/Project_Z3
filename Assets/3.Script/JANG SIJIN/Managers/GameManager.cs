@@ -59,8 +59,7 @@ public class GameManager : SingletonBase<GameManager>
 
     // 1. 타이틀 씬에 진입했을 때, 초기화가 필요한 로직들 실행. (초기 설정 필요한 작업 집합소)
     private void InitTitle()
-    {
-        UIManager.instance.Creat_UI(WhichUI.pauseMenuUI);
+    {        
         SoundManager.Instance.PlayBgm(Define.SceneType.Title.ToString());
     }    
 

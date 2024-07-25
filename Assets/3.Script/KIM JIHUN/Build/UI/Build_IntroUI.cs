@@ -32,7 +32,7 @@ public class Build_IntroUI : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-            Build_UIManager.Instance.OptionUIOpenClose();
+            UIManager.Instance.OptionUIOpenClose();
     }
     public void OnTVClick()
     {
@@ -42,6 +42,6 @@ public class Build_IntroUI : MonoBehaviour
     {
         loadingBarBackGround.gameObject.SetActive(true);
 
-        Build_UIManager.Instance.LoadScene(Define.SceneType.Home, true);
+        UIManager.Instance.LoadScene(Define.SceneType.Home, true);
     }
 }
