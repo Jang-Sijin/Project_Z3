@@ -7,10 +7,10 @@ public class BossController : MonoBehaviour, IstateMachineOwner
 {
     public BossModel bossModel;
     protected Transform Target;
-    protected float Distance;
     protected Animator ani;
-    public MonCol_Control mon_CO;
 
+    [HideInInspector] public MonCol_Control mon_CO;
+    [HideInInspector] protected float Distance;
     protected stateMachine statemachine;
     protected NavMeshAgent nmagent;
 
@@ -44,17 +44,33 @@ public class BossController : MonoBehaviour, IstateMachineOwner
                 break;
             case BossState.Idle:
                 statemachine.EnterState<BossIdle>();
-                break;  
-            case BossState.Attack1:
-                if(bossModel.Distance<=2)  statemachine.EnterState<BossAttack1>();
-                else
-                {
-                    statemachine.EnterState<BossWalk>();
-                //  if (bossModel.Distance <= 2) statemachine.EnterState<BossAttack1>();
-                }
                 break;
             case BossState.Walk:
                 statemachine.EnterState<BossWalk>();
+                break;
+            case BossState.Attack1:
+                statemachine.EnterState<BossAttack1>();
+                break;
+            case BossState.Attack2:
+                statemachine.EnterState<BossAttack2>();
+                break;
+            case BossState.Attack3:
+                statemachine.EnterState<BossAttack3>();
+                break;
+            case BossState.Attack4:
+                statemachine.EnterState<BossAttack4>();
+                break;
+            case BossState.Attack5:
+                statemachine.EnterState<BossAttack5>();
+                break;
+            case BossState.StunStart:
+                statemachine.EnterState<BossStunStart>();
+                break;
+            case BossState.StunLoop:
+                statemachine.EnterState<BossStunLoop>();
+                break;
+            case BossState.StunEnd:
+                statemachine.EnterState<BossStunEnd>();
                 break;
 
 

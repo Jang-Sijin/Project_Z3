@@ -8,26 +8,40 @@ public enum BossState
     Idle,
     Walk,
     Run,
-    Attack1
+    Attack1,
+    Attack2,
+    Attack3,
+    Attack4,
+    Attack5,
+    StunStart,
+    StunLoop,
+    StunEnd
 }
 
 public class BossModel : MonoBehaviour
 {
+    public float MaxHealth;
+    public float Attack2;
+    public float Attack3;
+    public float Attack4;
+    public float Attack5;
+    public Transform Target;
+    public float StartGroggypoint;
+  
     public Animator animator;
-    public BossState state;
-    [SerializeField] public Transform Target;
-    public float Distance;
-    [SerializeField] private float CurrentHealth = 500f;
-    [SerializeField] private float MaxHealth = 500f;
-    public float Groggypoint = 0f;
-    public bool isGroggy = false;
-    public bool isDead = false;
+    [HideInInspector] public float Distance;
+    [HideInInspector] public BossState state;
+    [HideInInspector] public bool isDead = false;
+    [HideInInspector] public bool isGroggy = false;
+    [HideInInspector] public float CurrentHealth;
+    [HideInInspector] public float CurrentGroggypoint;
 
-   // [SerializeField] public MonsterAttributes monster; // 몬스터 속성 추가
+    // [SerializeField] public MonsterAttributes monster; // 몬스터 속성 추가
 
     private void Start()
     {
         animator.applyRootMotion = true; // 루트 모션 적용
+        CurrentHealth = MaxHealth;
     }
 
     public void RotateTowards(Vector3 targetPosition)
@@ -37,7 +51,7 @@ public class BossModel : MonoBehaviour
         if (direction != Vector3.zero)
         {
             Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 3.0f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10.0f);
         }
     }
 
@@ -45,14 +59,14 @@ public class BossModel : MonoBehaviour
     {
         Distance = Vector3.Distance(transform.position, Target.position);
 
-      //  if (state != MonsterState.AttackType_01 && state != MonsterState.Idle
-      //      && state != MonsterState.Stun && state != MonsterState.Dead
-      //      && state != MonsterState.Born) ;
-      //  {
-      //      RotateTowards(Target.position);
-      //  }
+        //  if (state != MonsterState.AttackType_01 && state != MonsterState.Idle
+        //      && state != MonsterState.Stun && state != MonsterState.Dead
+        //      && state != MonsterState.Born) ;
+        //  {
+        //      RotateTowards(Target.position);
+        //  }
 
-        if (Groggypoint >= 100f)
+        if (CurrentGroggypoint >= StartGroggypoint)
         {
             isGroggy = true;
         }
@@ -62,15 +76,15 @@ public class BossModel : MonoBehaviour
             isDead = true;
         }
 
-       // if (Input.GetKeyDown(KeyCode.K))
-       // {
-       //     CurrentHealth = 0;
-       // }
+       if (Input.GetKeyDown(KeyCode.K))
+       {
+           CurrentGroggypoint = 100;
+       }
 
 
     }
 
-  //  public MonsterAttributes Attributes => monster; // 속성 접근자 추가
+    //  public MonsterAttributes Attributes => monster; // 속성 접근자 추가
 
     public bool isItemDrop()
     {

@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class BossIdle : BossStateBase
 {
-    private float CurrentTime=0;
-    private float IdleTime;
-    private int attacktype = Random.Range(0, 6);
+    private float CurrentTime = 0;
+    private float IdleTime=0.5f;
 
     public override void Enter()
     {
         base.Enter();
+        CurrentTime = 0;
+
         bossController.PlayAnimation("Idle");
 
     }
@@ -18,22 +19,18 @@ public class BossIdle : BossStateBase
     public override void Update()
     {
         base.Update();
+        if (bossController.bossModel.isGroggy) bossController.SwitchState(BossState.StunStart);
         CurrentTime += Time.deltaTime;
-        if (CurrentTime >= IdleTime) ;
+        if (CurrentTime >= IdleTime)
         {
-            switch(attacktype)
-            {
-                case 0:
-                    bossController.SwitchState(BossState.Idle);
-                    break;
-            }
+            bossController.SwitchState(BossState.Walk);
         }
-
     }
 
     public override void Exit()
     {
         base.Exit();
         CurrentTime = 0;
+      
     }
 }
