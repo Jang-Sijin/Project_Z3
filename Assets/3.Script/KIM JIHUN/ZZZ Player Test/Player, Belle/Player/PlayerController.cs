@@ -252,7 +252,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         {
             if (UIManager.Instance != null)
             {
-                UIManager.Instance.OptionUIOpenClose();
+                UIManager.Instance.IngamePauseUI.OpenIngamePauseUI();
             }
         }
 

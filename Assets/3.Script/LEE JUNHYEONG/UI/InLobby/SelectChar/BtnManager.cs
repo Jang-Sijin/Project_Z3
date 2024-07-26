@@ -8,17 +8,6 @@ using UnityEngine;
 
 public class BtnManager : MonoBehaviour
 {
-    [SerializeField] private SelectbtnEff firstBtn;
-    [SerializeField] private SelectbtnEff secondBtn;
-
-    private void Start()
-    {
-        if (secondBtn != null)
-            prevBtn = secondBtn;
-
-        ClickBtn(firstBtn);
-    }
-
     private SelectbtnEff prevBtn;
 
     public void ClickBtn(SelectbtnEff clickedBtn)
