@@ -17,6 +17,7 @@ public class UIManager : SingletonBase<UIManager>
     [SerializeField] private Build_OptionMenuUI _pauseMenuUI;
     [SerializeField] private Build_CommonLoadingUI _commonLoadingUI;
     [SerializeField] private Build_MainCityUI _mainCityMenuUI;
+    [SerializeField] private Build_IngamePauseUI _ingamePauseUI;
 
     public Build_IntroUI IntroUI => _introUI;
     public MainCityUI MainCityUI => _mainCityUI;
@@ -24,6 +25,7 @@ public class UIManager : SingletonBase<UIManager>
     public Build_OptionMenuUI PauseMenuUI => _pauseMenuUI;
     public Build_CommonLoadingUI CommonLoadingUI => _commonLoadingUI;
     public Build_MainCityUI MainCityMenuUI => _mainCityMenuUI;
+    public Build_IngamePauseUI IngamePauseUI => _ingamePauseUI;
 
 
     [HideInInspector] public bool isCloseOrOpen = false;
