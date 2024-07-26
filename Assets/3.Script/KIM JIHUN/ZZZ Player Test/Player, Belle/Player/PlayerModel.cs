@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -26,26 +27,30 @@ public enum ECharacter
 public class PlayerStatus
 {
     // [외부에서 설정한 캐릭터 데이터 값]
-    private float _maxHealth;            // 최대 체력    
-    private float _maxSkillPoint;        // 최대 액티브 스킬 포인트 -> 최대 100이라면 50을 사용 -> 총 2번 스킬 사용 가능    
-    private float _defaultAttackDamage;  // 캐릭터 기본 공격력
-    private float[] _normalAttackDamageMultiple;
+    private float _maxHealth;                    // 최대 체력    
+    private float _maxSkillPoint;                // 최대 액티브 스킬 포인트 -> 최대 100이라면 50을 사용 -> 총 2번 스킬 사용 가능    
+    private float _defaultAttackDamage;          // 캐릭터 기본 공격력
+    public float[] NormalAttackDamageMultiple;   // 캐릭터 타수에 따라 기본 공격력 변화 값 설정
 
     // [내부(인게임)에서 설정한 캐릭터 데이터 값] - 현재 수치
     private float _currentHealth;        // 현재 체력
     private float _currentSkillPoint;    // 현재 액티브 스킬 포인트
-    private float _currentAttackDamage;  // 현재 캐릭터 공격력
+    private float _currentAttackDamage;  // 현재 캐릭터 공격력    
 
     public PlayerStatus(float maxHealth, float maxSkillPoint, float attackPoint, float[] normalAttackDamageMultiple)
     {
-        this._maxHealth = maxHealth;        
-        this._maxSkillPoint = maxSkillPoint;
-        this._defaultAttackDamage = attackPoint;
-        
+        _maxHealth = maxHealth;        
+        _maxSkillPoint = maxSkillPoint;
+        _defaultAttackDamage = attackPoint;
+
+        // 깊은 복사
+        NormalAttackDamageMultiple = new float[normalAttackDamageMultiple.Length];
+        Array.Copy(normalAttackDamageMultiple, NormalAttackDamageMultiple, normalAttackDamageMultiple.Length);
+
 
         // [내부(인게임)에서 설정한 캐릭터 데이터 값 대입]
-        this._currentHealth = maxHealth;
-        this._currentAttackDamage = _defaultAttackDamage;
+        _currentHealth = maxHealth;
+        _currentAttackDamage = _defaultAttackDamage;        
     }
 
     public float MaxHealth
@@ -74,8 +79,14 @@ public class PlayerStatus
 
     public float AtkPoint
     {
-        get { return _defaultAttackDamage;; }
+        get { return _defaultAttackDamage; }
         set { _defaultAttackDamage = value; }
+    }
+
+    public float CurrentAttackDamage
+    {
+        get { return _currentAttackDamage; }
+        set { _currentAttackDamage = value; }
     }
 }
 public class PlayerModel : MonoBehaviour
