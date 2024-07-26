@@ -25,49 +25,57 @@ public enum ECharacter
 /// </summary>
 public class PlayerStatus
 {
-    private float maxHealth; // 최대 체력
-    private float currentHealth; //현재 체력
-    private float maxSkillPoint; // 최대 액티브 스킬 포인트 -> 최대 100이라면 50을 사용 -> 총 2번 스킬 사용 가능
-    private float currentSkillPoint; // 현재 액티브 스킬 포인트
-    private float attackPoint;
+    // [외부에서 설정한 캐릭터 데이터 값]
+    private float _maxHealth;            // 최대 체력    
+    private float _maxSkillPoint;        // 최대 액티브 스킬 포인트 -> 최대 100이라면 50을 사용 -> 총 2번 스킬 사용 가능    
+    private float _defaultAttackDamage;  // 캐릭터 기본 공격력
+    private float[] _normalAttackDamageMultiple;
 
-    public PlayerStatus(float maxHealth, float currentHealth, float maxSkillPoint, float currentSkillPoint, float attackPoint)
+    // [내부(인게임)에서 설정한 캐릭터 데이터 값] - 현재 수치
+    private float _currentHealth;        // 현재 체력
+    private float _currentSkillPoint;    // 현재 액티브 스킬 포인트
+    private float _currentAttackDamage;  // 현재 캐릭터 공격력
+
+    public PlayerStatus(float maxHealth, float maxSkillPoint, float attackPoint, float[] normalAttackDamageMultiple)
     {
-        this.maxHealth = maxHealth;
-        this.currentHealth = currentHealth;
-        this.maxSkillPoint = maxSkillPoint;
-        this.currentSkillPoint = currentSkillPoint;
-        this.attackPoint = attackPoint;
+        this._maxHealth = maxHealth;        
+        this._maxSkillPoint = maxSkillPoint;
+        this._defaultAttackDamage = attackPoint;
+        
+
+        // [내부(인게임)에서 설정한 캐릭터 데이터 값 대입]
+        this._currentHealth = maxHealth;
+        this._currentAttackDamage = _defaultAttackDamage;
     }
 
     public float MaxHealth
     {
-        get { return maxHealth; }
-        set { maxHealth = value; }
+        get { return _maxHealth; }
+        set { _maxHealth = value; }
     }
 
     public float CurrentHealth
     {
-        get { return currentHealth; }
-        set { currentHealth = Mathf.Clamp(value, 0, maxHealth); }
+        get { return _currentHealth; }
+        set { _currentHealth = Mathf.Clamp(value, 0, _maxHealth); }
     }
 
     public float MaxSkillPoint
     {
-        get { return maxSkillPoint; }
-        set { maxSkillPoint = value; }
+        get { return _maxSkillPoint; }
+        set { _maxSkillPoint = value; }
     }
 
     public float CurrentSkillPoint
     {
-        get { return currentSkillPoint; }
-        set { currentSkillPoint = Mathf.Clamp(value, 0, maxSkillPoint); }
+        get { return _currentSkillPoint; }
+        set { _currentSkillPoint = Mathf.Clamp(value, 0, _maxSkillPoint); }
     }
 
     public float AtkPoint
     {
-        get { return attackPoint; }
-        set { attackPoint = value; }
+        get { return _defaultAttackDamage;; }
+        set { _defaultAttackDamage = value; }
     }
 }
 public class PlayerModel : MonoBehaviour
@@ -99,7 +107,7 @@ public class PlayerModel : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
-        playerStatus = new PlayerStatus(characterInfo.maxHealth, characterInfo.maxHealth, characterInfo.maxSkillPoint, 0f, characterInfo.attackPoint);
+        playerStatus = new PlayerStatus(characterInfo.maxHealth, characterInfo.maxSkillPoint, characterInfo.attackPoint, characterInfo.normalAttackDamageMultiple);
     }
 
 
