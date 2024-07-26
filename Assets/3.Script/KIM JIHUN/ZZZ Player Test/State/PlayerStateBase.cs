@@ -6,11 +6,14 @@ public enum EPlayerState
 {
     Idle,
     IdleAFK,
+
     Walk,
+
     Run,
     RunStart,
     RunEnd,
     TurnBack,
+
     EvadeFront,
     EvadeFrontEnd,
     EvadeBack,
@@ -31,7 +34,9 @@ public enum EPlayerState
     AttackRush,
     AttackRushEnd,
 
-    SwitchInNormal
+    SwitchInNormal,
+
+    Dead
 }
 
 public class PlayerStateBase : StateBase

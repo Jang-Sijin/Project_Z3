@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum MonsterState
 {
+    None,
     Born,
     Idle,
     Run,
@@ -16,7 +17,7 @@ public enum MonsterState
     Stun,
     Stun_End,
     Dead,
-    Hit
+    Hit    
 }
 
 public class MonsterModel : MonoBehaviour
@@ -37,9 +38,13 @@ public class MonsterModel : MonoBehaviour
     [HideInInspector] public float CurrentGroggypoint = 0f;
     [HideInInspector] public bool isAttacked = false;
 
-    public float CurrentHealth => _currentHealth;
+    public float CurrentHealth
+    {
+        get { return _currentHealth; }
+        set { _currentHealth = value; }
+    }
 
-    [SerializeField] public MonsterAttributes monster; // 몬스터 속성 추가
+        [SerializeField] public MonsterAttributes monster; // 몬스터 속성 추가
 
     private void Start()
     {
@@ -88,6 +93,7 @@ public class MonsterModel : MonoBehaviour
 
     }
 
+
     public MonsterAttributes Attributes => monster; // 속성 접근자 추가
 
     public bool isItemDrop()
@@ -102,18 +108,18 @@ public class MonsterModel : MonoBehaviour
         return false;
     }
 
-    public void TakeDamage(float playerDamage)
-    {
-        Debug.Log("TakeDamage: 몬스터 대미지 피해 입음");
-        _currentHealth -= playerDamage;
-        EnemyUIController.RefreshHealth(_currentHealth, MaxHealth);
+    //public void TakeDamage(float playerDamage)
+    //{
+    //    Debug.Log("TakeDamage: 몬스터 대미지 피해 입음");
 
-        isAttacked = true;
-        if(_currentHealth <= 0)
-        {
-            Debug.Log($"{gameObject.name}: 몬스터 사망");
-            isDead = true;
-          //  Destroy(gameObject);
-        }
-    }
+    //    _currentHealth -= playerDamage;
+    //    //   EnemyUIController.RefreshHealth(_currentHealth, MaxHealth);
+        
+    //    if(_currentHealth <= 0)
+    //    {
+    //        Debug.Log($"{gameObject.name}: 몬스터 사망");
+    //        isDead = true;
+    //        state = MonsterState.Dead;
+    //    }
+    //}
 }

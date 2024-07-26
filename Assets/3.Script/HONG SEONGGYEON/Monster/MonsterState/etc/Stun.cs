@@ -18,7 +18,7 @@ public class Stun : MonsterStateBase
     {
         base.Update();
         CurrentTime += Time.deltaTime;
-        if(CurrentTime>=CoolTime)
+        //if(CurrentTime>=CoolTime)            
         {
             monsterController.SwitchState(MonsterState.Stun_End);
         }
