@@ -118,6 +118,7 @@ public class UIManager : SingletonBase<UIManager>
     public void OpenIngameUI()
     {
         inGameUI.gameObject.SetActive(true);
+        InGameUI.SetIngameUI();
     }
 
     public void CloseIngameUI()

@@ -56,29 +56,41 @@ public class SelectedChar : MonoBehaviour
             }
         }
     }
-    public void InitSpPointer(float minumForSkill, PlayerModel playerModel) // 스킬 필요 sp 포인터 초기화 함수입니다.
+    /// <summary>
+    /// 캐릭터 할당
+    /// </summary>
+    /// <param name="playerModel"></param>
+    public void AssignCharacter(PlayerModel playerModel, Sprite portraitImg) 
     {
-        spPointer.value = minumForSkill / playerModel.playerStatus.MaxSkillPoint;
+        realHp.value = playerModel.playerStatus.CurrentHealth / playerModel.playerStatus.MaxHealth;
+        fakeHp.value = playerModel.playerStatus.CurrentHealth / playerModel.playerStatus.MaxHealth;
+        sp.value = playerModel.playerStatus.CurrentSkillPoint / playerModel.playerStatus.MaxSkillPoint;
+        playerhptext.text = $"{(int)playerModel.playerStatus.CurrentHealth} / {(int)playerModel.playerStatus.MaxHealth}";
+
+        profile.sprite = portraitImg;
+        spPointer.value = 0.5f;
     }
+
+
 
     public void RefreshHealth(PlayerModel playerModel, bool isChangeChar) // hp 갱신 : 불 값으로 fake의 갱신 효과 발생 여부를 판단합니다.
     {
-        //realHp.value = charInfo.curHP / charInfo.maxHP;
+        realHp.value = playerModel.playerStatus.CurrentHealth / playerModel.playerStatus.MaxHealth;
 
-        if(!isChangeChar)
-        Start_CountFillFakeHp();
+        if (!isChangeChar)
+            Start_CountFillFakeHp();
 
         else
         {
-        //    fakeHp.value = charInfo.curHP / charInfo.maxHP;
+            fakeHp.value = playerModel.playerStatus.CurrentHealth / playerModel.playerStatus.MaxHealth;
         }
 
-        //playerhptext.text = $"{(int)charInfo.curHP} / {(int)charInfo.maxHP}";
+        playerhptext.text = $"{(int)playerModel.playerStatus.CurrentHealth} / {(int)playerModel.playerStatus.MaxHealth}";
     }
 
     public void RefreshSp(PlayerModel playerModel) // sp 갱신
     {
-        //sp.value = charInfo.curSP / charInfo.maxSP;
+        sp.value = playerModel.playerStatus.CurrentSkillPoint / playerModel.playerStatus.MaxSkillPoint;
     }
 
     private void Start_CountFillFakeHp() // 세는 코루틴이 실행중이면 이전 코루틴 취소 후 세기

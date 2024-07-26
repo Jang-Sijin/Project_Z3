@@ -97,11 +97,12 @@ public class InGameUI : MonoBehaviour
     //    //************************************************************************
     //}
 
+    /*
     public void ChangeChar(CharInfo[] tempChars) // 캐릭터를 바꾸는 메소드
     {
-        /*
-         * 현재 캐릭터의 데이터를 갖고 와서
-         */
+        
+        // 현재 캐릭터의 데이터를 갖고 와서
+         
 
         //디버깅 용입니다.
         Change_Profile(selectedChar.Profile, tempChars[0].name);
@@ -256,5 +257,6 @@ public class InGameUI : MonoBehaviour
         }
     }
 
+*/
     //**************************************************************************************************************************
 }

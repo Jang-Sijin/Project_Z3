@@ -12,11 +12,11 @@ public class Build_IngameUI : MonoBehaviour
 
     [SerializeField] private SelectedChar selectedChar; // 선택된 캐릭터 상태
     [SerializeField] private UnCharHpSp[] unChar; // 대기 캐릭터 2개
-    [SerializeField] private Image[] unCharIMG; // 대기 캐릭터 이미지
+    //[SerializeField] private Image[] unCharIMG; // 대기 캐릭터 이미지
     [SerializeField] private Image[] changeEffectIMGs; // 바꾸는 효과 이미지
     private Tween[] fadeTween; // 효과 애니 변수
-    [SerializeField] private CharIMGData_CS CharIMGData;
     [SerializeField] private TextMeshProUGUI UltStat; // 궁극기 수치입니다.
+    [SerializeField] private Sprite[] portrait;
 
     //CharInfo[] debugchars = new CharInfo[3]; // 디버깅용 캐릭터 정보
 
@@ -55,10 +55,16 @@ public class Build_IngameUI : MonoBehaviour
     public void SetIngameUI()
     {
         //첫번째 플레이어 
-        selectedChar
+        if (PlayerController.INSTANCE == null)
+        {
+            Debug.LogError("PlayerController 없음");
+        }
+        selectedChar.AssignCharacter(PlayerController.INSTANCE.controllableModels[0], portrait[0]);
+        unChar[0].AssginCharacter(PlayerController.INSTANCE.controllableModels[1], portrait[1]);
+        unChar[1].AssginCharacter(PlayerController.INSTANCE.controllableModels[2], portrait[2]);
     }
 
-    public void ChangeChar(CharInfo[] tempChars) // 캐릭터를 바꾸는 메소드
+    public void ChangeChar() // 캐릭터를 바꾸는 메소드
     {
         /*
          * 현재 캐릭터의 데이터를 갖고 와서
@@ -77,6 +83,17 @@ public class Build_IngameUI : MonoBehaviour
         //}
         //디버깅용
 
+        selectedChar.AssignCharacter(
+            PlayerController.INSTANCE.controllableModels[PlayerController.INSTANCE.currentModelIndex], 
+            portrait[PlayerController.INSTANCE.currentModelIndex]);
+
+        unChar[0].AssginCharacter(
+            PlayerController.INSTANCE.controllableModels[(PlayerController.INSTANCE.currentModelIndex + 1) %3],
+            portrait[(PlayerController.INSTANCE.currentModelIndex + 1) % 3]);
+
+        unChar[1].AssginCharacter(
+            PlayerController.INSTANCE.controllableModels[(PlayerController.INSTANCE.currentModelIndex + 2) % 3],
+            portrait[(PlayerController.INSTANCE.currentModelIndex + 2) % 3]);
 
 
     }

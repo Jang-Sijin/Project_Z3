@@ -13,49 +13,37 @@ using UnityEngine.UI;
 
 public class UnCharHpSp : MonoBehaviour
 {
-    private Slider hpBar;
-    private Slider spBar;
-    private Slider spPointer;
+    [SerializeField]private Slider hpBar;
+    [SerializeField]private Slider spBar;
+    [SerializeField]private Slider spPointer;
+    [SerializeField] private Image profile;
 
-    
-
-    private void Start()
+    /// <summary>
+    /// 스테이지 시작시 Init
+    /// </summary>
+    /// <param name="playerModel"></param>
+    public void AssginCharacter(PlayerModel playerModel, Sprite portraitImg)
     {
+        profile.sprite = portraitImg;
 
-        Slider[] sliders = new Slider[3];
-            
-        sliders = GetComponentsInChildren<Slider>();
-        
-        for(int i=0; i < 2;i++)
-        {
-            switch(sliders[i].name)
-            {
-                case "Hp":
-                    hpBar = sliders[i];
-                    break;
 
-                case "Sp":
-                    spBar = sliders[i];
-                    break;
-
-                case "SpPointer":
-                    spPointer = sliders[i];
-                    break;
-            }
-        }
-    }
-    public void InitSpPointer(float minimumForSkill, CharInfo charInfo)
-    {
-        spPointer.value = minimumForSkill / charInfo.maxSP;
+        hpBar.value = playerModel.playerStatus.CurrentHealth / playerModel.playerStatus.MaxHealth;
+        spBar.value = playerModel.playerStatus.CurrentSkillPoint / playerModel.playerStatus.MaxHealth;
+        spPointer.value = 0.5f;
     }
 
-    public void Refresh_Hpbar(CharInfo charInfo) // 피 업데이트
+
+    /// <summary>
+    /// 캐릭터 변경시 업데이트
+    /// </summary>
+    /// <param name="playerModel"></param>
+    public void Refresh_Hpbar(PlayerModel playerModel) // 피 업데이트
     {
-        hpBar.value = charInfo.curHP / charInfo.maxHP;
+        hpBar.value = playerModel.playerStatus.CurrentHealth / playerModel.playerStatus.MaxHealth;
     }
 
-    public void Refresh_Spbar(CharInfo charInfo) // Sp 업데이트
+    public void Refresh_Spbar(PlayerModel playerModel) // Sp 업데이트
     {
-        spBar.value = charInfo.curSP / charInfo.maxSP;
+        spBar.value = playerModel.playerStatus.CurrentSkillPoint / playerModel.playerStatus.MaxSkillPoint;
     }
 }
