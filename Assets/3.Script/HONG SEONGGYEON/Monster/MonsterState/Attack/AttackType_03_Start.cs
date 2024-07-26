@@ -15,7 +15,7 @@ public class AttackType_03_Start : MonsterStateBase
     {
         base.Update();
 
-        var attributes = monsterController.monsterModel.AtackRange;
+        var attributes = monsterController.monsterModel.monster;
         var distance = monsterController.monsterModel.Distance;
         if (monsterController.monsterModel.isAttacked)
         {

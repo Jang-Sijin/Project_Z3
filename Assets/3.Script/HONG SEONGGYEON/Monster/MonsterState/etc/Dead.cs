@@ -19,7 +19,7 @@ public class Dead : MonsterStateBase
         {
             if (monsterController.monsterModel.isItemDrop())
             {
-                // 아이템 종류 골라서 드롭하는거 넣어
+            // monsterController.itemDropManager.DropItem();  아이템 떨구는 로직 추가할 것
             }
 
             monsterController.SwitchState(MonsterState.None);

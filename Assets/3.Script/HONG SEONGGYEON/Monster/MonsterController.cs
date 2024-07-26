@@ -16,6 +16,9 @@ public class MonsterController : MonoBehaviour, IstateMachineOwner
     protected NavMeshAgent nmagent;
     private Rigidbody _rigidbody;
 
+   // public ItemDropManager itemDropManager;
+    public int stageNumber;
+
     private void Awake()
     {
         ani = GetComponent<Animator>();
@@ -29,10 +32,11 @@ public class MonsterController : MonoBehaviour, IstateMachineOwner
     private void Start()
     {     
         SwitchState(MonsterState.Born);
+      //  itemDropManager.currentStage = stageNumber;
     }
     public bool IsAnimationFinished(string animationName)
     {
-        Debug.Log($"{animationName} 몬스터 애니메이션 길이가 끝에 도달함.");
+        //Debug.Log($"{animationName} 몬스터 애니메이션 길이가 끝에 도달함.");
 
         // 지정된 애니메이션 상태가 끝났는지 확인
         AnimatorStateInfo stateInfo = ani.GetCurrentAnimatorStateInfo(0);
@@ -108,7 +112,7 @@ public class MonsterController : MonoBehaviour, IstateMachineOwner
 
     public void TakeDamage(float playerDamage, Transform playerTransform)
     {
-        Debug.Log("TakeDamage: 몬스터 대미지 피해 입음");
+      //  Debug.Log("TakeDamage: 몬스터 대미지 피해 입음");
 
         if (monsterModel.CurrentHealth > 0)
         {
