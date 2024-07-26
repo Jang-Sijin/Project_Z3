@@ -21,7 +21,7 @@ public class Build_Battle5 : MonoBehaviour
             foreach (var item in _monsterList)
             {
                 item.SetActive(true);
-                item.GetComponent<Navmesh>().SetTarget();
+                //item.GetComponent<Navmesh>().SetTarget();
             }
         }
         gameObject.SetActive(false);
