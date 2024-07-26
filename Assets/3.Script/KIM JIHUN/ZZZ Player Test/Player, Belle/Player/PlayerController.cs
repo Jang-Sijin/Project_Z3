@@ -27,7 +27,11 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     [HideInInspector] public float switchTimer { get; private set; } // 캐릭터 교체 타이머
     [HideInInspector] private float switchCoolTime; // 캐릭터 교체 쿨타임
     private float maxUltPoint = 100f;
-    private float currentUltPoint = 0;
+    private float defaultUltPoint = 4f;
+    private float currentUltPoint = 0;    
+
+    public float MaxUltPoint => maxUltPoint;
+    public float DefaultUltPoint => defaultUltPoint;
 
     public float CurrentUltPoint
     {

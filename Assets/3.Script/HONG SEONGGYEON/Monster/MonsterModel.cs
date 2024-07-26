@@ -93,6 +93,7 @@ public class MonsterModel : MonoBehaviour
 
     }
 
+
     public MonsterAttributes Attributes => monster; // 속성 접근자 추가
 
     public bool isItemDrop()

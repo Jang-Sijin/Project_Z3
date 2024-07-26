@@ -3,14 +3,16 @@ using System.Linq;
 using UniRx;
 using UnityEngine.TextCore.Text;
 using UnityEngine.Playables;
+using JSJ;
 
 public class PlayerHitController : MonoBehaviour
-{
+{    
     [SerializeField] private PlayerModel _playerModel;    
     [SerializeField] private WeaponCollider _weaponCollider;
 
     private void Start()
     {
+        //_playerController = PlayerController.INSTANCE.;
         _playerModel = GetComponent<PlayerModel>();
         _weaponCollider = GetComponentInChildren<WeaponCollider>();
 
@@ -35,6 +37,28 @@ public class PlayerHitController : MonoBehaviour
                     if (enemy != null)
                     {
                         float playerDamage = GetPlayerCharacterStepAttackDamage();
+
+                        // 플레이어 궁극기 포인트 증가
+                        if (PlayerController.INSTANCE.CurrentUltPoint <= PlayerController.INSTANCE.MaxUltPoint)
+                        {
+                            PlayerController.INSTANCE.CurrentUltPoint += PlayerController.INSTANCE.DefaultUltPoint;
+                        }
+                        else
+                        {
+                            PlayerController.INSTANCE.CurrentUltPoint = PlayerController.INSTANCE.MaxUltPoint;
+                        }
+                        Debug.Log($"궁극기 게이지: {PlayerController.INSTANCE.CurrentUltPoint}");
+
+                        // 플레이어 스킬 포인트 증가
+                        if (_playerModel.playerStatus.CurrentSkillPoint <= _playerModel.playerStatus.MaxSkillPoint)
+                        {
+                            _playerModel.playerStatus.CurrentSkillPoint += _playerModel.playerStatus.SkillPoint;
+                        }
+                        else
+                        {
+                            _playerModel.playerStatus.CurrentSkillPoint = _playerModel.playerStatus.MaxSkillPoint;
+                        }
+                        Debug.Log($"스킬 게이지: {_playerModel.playerStatus.CurrentSkillPoint}");
 
                         enemy.TakeDamage(playerDamage, _playerModel.transform); // 몬스터에게 대미지 입힘 처리.
 
