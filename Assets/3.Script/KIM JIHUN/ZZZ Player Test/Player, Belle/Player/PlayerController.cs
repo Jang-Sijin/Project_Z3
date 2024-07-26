@@ -52,7 +52,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     [HideInInspector] public Vector3 directionToEnemy { get; private set; }
 
     [SerializeField] private CinemachineFreeLook cinemachineFreeLook; //카메라 쉐이크를 위한 시네머신
-    private float shakeTimer; //쉐이크 타이머
+    private float shakeTimer; // 쉐이크 타이머
 
     protected override void Awake()
     {
@@ -351,6 +351,11 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     {
 
         Vector3 playerPosition = playerModel.transform.position;
+        var enemyList = SortEnemyByDist();
+
+        if(enemyList == null || enemyList.Length == 0)
+            return null;
+
         foreach (var enemy in SortEnemyByDist())
         {
             Vector3 directionToEnemy = (enemy.transform.position - playerPosition).normalized;
@@ -375,6 +380,14 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     /// <returns></returns>
     public GameObject[] SortEnemyByDist()
     {
+        // null이거나 파괴된 GameObject를 제거합니다.
+        enemyList = enemyList.Where(go => go != null && go.transform != null).ToList();
+
+        if (enemyList == null || enemyList.Count == 0)
+        {
+            return null;
+        }
+
         Vector3 referencePosition = playerModel.transform.position;
 
         GameObject[] sortedGameObjects = enemyList
@@ -418,5 +431,5 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     {
         this.transform.position = spawnPoint;
         playerModel.transform.position = spawnPoint;
-    }
+    }    
 }
