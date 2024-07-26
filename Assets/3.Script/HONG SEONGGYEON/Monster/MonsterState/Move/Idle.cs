@@ -18,6 +18,7 @@ public class Idle : MonsterStateBase
     public override void Update()
     {
         base.Update();
+        
         currentIdleTime += Time.deltaTime;
         if (monsterController.monsterModel.isDead)
         {
@@ -36,7 +37,7 @@ public class Idle : MonsterStateBase
             // Idle 상태를 2초간 유지한 후 상태 전환을 시작
             if (currentIdleTime >= idleTime)
             {
-                var attributes = monsterController.monsterModel.monster;
+                var attributes = monsterController.monsterModel.AtackRange;
                 var distance = monsterController.monsterModel.Distance;
                 if (distance >= attributes.runRange)
                 {

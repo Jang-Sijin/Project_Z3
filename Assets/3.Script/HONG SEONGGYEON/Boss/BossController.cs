@@ -72,6 +72,10 @@ public class BossController : MonoBehaviour, IstateMachineOwner
             case BossState.StunEnd:
                 statemachine.EnterState<BossStunEnd>();
                 break;
+            case BossState.Dead:
+                statemachine.EnterState<BossDead>();
+                break;
+
 
 
 

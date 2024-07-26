@@ -29,7 +29,7 @@ public class Run : MonsterStateBase
         }
         else
         {
-            var attributes = monsterController.monsterModel.monster;
+            var attributes = monsterController.monsterModel.AtackRange;
             var distance = monsterController.monsterModel.Distance;
             if (distance <= attributes.attackRangeType1)     // 2
             {

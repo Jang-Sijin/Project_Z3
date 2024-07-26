@@ -15,7 +15,8 @@ public enum BossState
     Attack5,
     StunStart,
     StunLoop,
-    StunEnd
+    StunEnd,
+    Dead
 }
 
 public class BossModel : MonoBehaviour
@@ -27,7 +28,8 @@ public class BossModel : MonoBehaviour
     public float Attack5;
     public Transform Target;
     public float StartGroggypoint;
-  
+
+    private Navmesh BossNavi;
     public Animator animator;
     [HideInInspector] public float Distance;
     [HideInInspector] public BossState state;
@@ -42,6 +44,7 @@ public class BossModel : MonoBehaviour
     {
         animator.applyRootMotion = true; // 루트 모션 적용
         CurrentHealth = MaxHealth;
+        BossNavi = GetComponent<Navmesh>();
     }
 
     public void RotateTowards(Vector3 targetPosition)
@@ -58,7 +61,11 @@ public class BossModel : MonoBehaviour
     private void Update()
     {
         Distance = Vector3.Distance(transform.position, Target.position);
-
+        if (state == BossState.Idle || state == BossState.Dead ||
+            state == BossState.StunLoop || state == BossState.Born)
+        {
+            BossNavi.nmagent.updateRotation = false;
+        }
         //  if (state != MonsterState.AttackType_01 && state != MonsterState.Idle
         //      && state != MonsterState.Stun && state != MonsterState.Dead
         //      && state != MonsterState.Born) ;
@@ -76,10 +83,10 @@ public class BossModel : MonoBehaviour
             isDead = true;
         }
 
-       if (Input.GetKeyDown(KeyCode.K))
-       {
-           CurrentGroggypoint = 100;
-       }
+     //  if (Input.GetKeyDown(KeyCode.K))
+     //  {
+     //      CurrentGroggypoint = 100;
+     //  }
 
 
     }

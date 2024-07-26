@@ -24,8 +24,7 @@ public class MonsterController : MonoBehaviour, IstateMachineOwner
     }
 
     private void Start()
-    {
-     
+    {  
         SwitchState(MonsterState.Born);
     }
     public bool IsAnimationFinished(string animationName)

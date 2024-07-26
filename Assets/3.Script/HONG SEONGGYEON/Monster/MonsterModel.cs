@@ -39,7 +39,7 @@ public class MonsterModel : MonoBehaviour
 
     public float CurrentHealth => _currentHealth;
 
-    [SerializeField] public MonsterAttributes monster; // 몬스터 속성 추가
+    [SerializeField] public MonsterAttributes AtackRange; // 몬스터 속성 추가
 
     private void Start()
     {
@@ -67,7 +67,7 @@ public class MonsterModel : MonoBehaviour
             && state != MonsterState.Stun && state != MonsterState.Dead
             && state != MonsterState.Born&&state!=MonsterState.Hit)
         {
-            RotateTowards(Target.position);
+          //  RotateTowards(Target.position);
         }
 
         if (CurrentGroggypoint >=StartGroggypoint)
@@ -88,7 +88,7 @@ public class MonsterModel : MonoBehaviour
 
     }
 
-    public MonsterAttributes Attributes => monster; // 속성 접근자 추가
+    public MonsterAttributes Attributes => AtackRange; // 속성 접근자 추가
 
     public bool isItemDrop()
     {

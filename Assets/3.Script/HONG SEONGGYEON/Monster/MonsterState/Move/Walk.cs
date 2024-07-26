@@ -27,7 +27,7 @@ public class Walk : MonsterStateBase
         }
         else
         {
-            var attributes = monsterController.monsterModel.monster;
+            var attributes = monsterController.monsterModel.AtackRange;
             var distance = monsterController.monsterModel.Distance;
             if (distance >= attributes.runRange && CurrentCoolTime >= RunningCoolTime)
             {
