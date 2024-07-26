@@ -11,17 +11,19 @@ public class UIManager : SingletonBase<UIManager>
     * MainMenu¾À¿¡¼­ MainMenuUI¸¦ ºÒ·¯¿È
     */
 
-    [SerializeField] private Build_IntroUI introUI;
-    [SerializeField] private MainCityUI mainCityUI;
-    [SerializeField] private Build_IngameUI inGameUI;
-    [SerializeField] private Build_OptionMenuUI pauseMenuUI;
-    [SerializeField] private Build_CommonLoadingUI commonLoadingUI;
+    [SerializeField] private Build_IntroUI _introUI;
+    [SerializeField] private MainCityUI _mainCityUI;
+    [SerializeField] private Build_IngameUI _inGameUI;
+    [SerializeField] private Build_OptionMenuUI _pauseMenuUI;
+    [SerializeField] private Build_CommonLoadingUI _commonLoadingUI;
+    [SerializeField] private Build_MainCityUI _mainCityMenuUI;
 
-    public Build_IntroUI IntroUI => introUI;
-    public MainCityUI MainCityUI => mainCityUI;
-    public Build_IngameUI InGameUI => inGameUI;
-    public Build_OptionMenuUI PauseMenuUI => pauseMenuUI;
-    public Build_CommonLoadingUI CommonLoadingUI => commonLoadingUI;
+    public Build_IntroUI IntroUI => _introUI;
+    public MainCityUI MainCityUI => _mainCityUI;
+    public Build_IngameUI InGameUI => _inGameUI;
+    public Build_OptionMenuUI PauseMenuUI => _pauseMenuUI;
+    public Build_CommonLoadingUI CommonLoadingUI => _commonLoadingUI;
+    public Build_MainCityUI MainCityMenuUI => _mainCityMenuUI;
 
 
     [HideInInspector] public bool isCloseOrOpen = false;
@@ -38,7 +40,7 @@ public class UIManager : SingletonBase<UIManager>
         {
             if (isPause)
             {
-                pauseMenuUI.OnClickCloseMainUI();
+                _pauseMenuUI.OnClickCloseMainUI();
 
                 if (BelleController.INSTANCE != null)
                 {
@@ -53,8 +55,12 @@ public class UIManager : SingletonBase<UIManager>
             }
             else
             {
-                pauseMenuUI.gameObject.SetActive(true);
-                StartCoroutine(pauseMenuUI.CallPauseMenu_co());
+                if(_mainCityMenuUI.isOpened)
+                {
+                    _mainCityMenuUI.ToggleMainCityUI();
+                }
+                _pauseMenuUI.gameObject.SetActive(true);
+                StartCoroutine(_pauseMenuUI.CallPauseMenu_co());
 
                 Debug.Log("Open Pause Menu");
                 if (BelleController.INSTANCE != null)
@@ -108,32 +114,32 @@ public class UIManager : SingletonBase<UIManager>
 
     public void OpenIntroUI()
     {
-        introUI.gameObject.SetActive(true);
+        _introUI.gameObject.SetActive(true);
     }
     public void CloseIntroUI()
     {
-        introUI.gameObject.SetActive(false);
+        _introUI.gameObject.SetActive(false);
     }
 
     public void OpenIngameUI()
     {
-        inGameUI.gameObject.SetActive(true);
+        _inGameUI.gameObject.SetActive(true);
         InGameUI.SetIngameUI();
     }
 
     public void CloseIngameUI()
     {
-        inGameUI.gameObject.SetActive(false);
+        _inGameUI.gameObject.SetActive(false);
     }
 
     public void OpenCityUI()
     {
-        mainCityUI.gameObject.SetActive(true);
+        _mainCityUI.gameObject.SetActive(true);
     }
 
     public void CloseCityUI()
     {
-        mainCityUI.gameObject.SetActive(false);
+        _mainCityUI.gameObject.SetActive(false);
     }
 
     public void OnClickGameOff()

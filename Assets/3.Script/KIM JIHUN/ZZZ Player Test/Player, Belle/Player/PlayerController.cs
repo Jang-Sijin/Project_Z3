@@ -204,7 +204,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     /// <summary>
     /// 다음 캐릭터로 교체
     /// </summary>
-    public void SwitchNextModel()
+    public void SwitchNextModel(bool isDead = false)
     {
         // 스위치 쿨타임 확인
         if (switchTimer != switchCoolTime) return;
@@ -212,7 +212,8 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         //사용하던 StateMachine 초기화
         stateMachine.Clear();
 
-        playerModel.Exit();
+        if (!isDead)
+            playerModel.Exit();
 
         currentModelIndex++;
         if (currentModelIndex >= controllableModels.Count)
@@ -243,6 +244,14 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
 
     private void Update()
     {
+        if (playerInputSystem.Player.Escape.triggered)
+        {
+            if (UIManager.Instance != null)
+            {
+                UIManager.Instance.OptionUIOpenClose();
+            }
+        }
+
         #region 몬스터 타겟팅
         if (enemyList.Count != 0)
         {
