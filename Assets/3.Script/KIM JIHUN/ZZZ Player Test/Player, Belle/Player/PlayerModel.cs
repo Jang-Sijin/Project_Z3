@@ -15,8 +15,8 @@ public enum EModelFoot
 public enum ECharacter
 {
     Corin,
-    Longinus,
     Anbi,
+    Longinus
 }
 
 /// <summary>
@@ -31,17 +31,19 @@ public class PlayerStatus
     private float _maxSkillPoint;                // 최대 액티브 스킬 포인트 -> 최대 100이라면 50을 사용 -> 총 2번 스킬 사용 가능    
     private float _defaultAttackDamage;          // 캐릭터 기본 공격력
     public float[] NormalAttackDamageMultiple;   // 캐릭터 타수에 따라 기본 공격력 변화 값 설정
+    private float _exSkillDamage;                // 캐릭터 궁극기(EX) 스킬 공격 대미지
 
     // [내부(인게임)에서 설정한 캐릭터 데이터 값] - 현재 수치
     private float _currentHealth;        // 현재 체력
     private float _currentSkillPoint;    // 현재 액티브 스킬 포인트
     private float _currentAttackDamage;  // 현재 캐릭터 공격력    
 
-    public PlayerStatus(float maxHealth, float maxSkillPoint, float attackPoint, float[] normalAttackDamageMultiple)
+    public PlayerStatus(float maxHealth, float maxSkillPoint, float attackPoint, float[] normalAttackDamageMultiple, float exSkillDamage)
     {
         _maxHealth = maxHealth;        
         _maxSkillPoint = maxSkillPoint;
         _defaultAttackDamage = attackPoint;
+        _exSkillDamage = exSkillDamage;
 
         // 깊은 복사
         NormalAttackDamageMultiple = new float[normalAttackDamageMultiple.Length];
@@ -77,7 +79,7 @@ public class PlayerStatus
         set { _currentSkillPoint = Mathf.Clamp(value, 0, _maxSkillPoint); }
     }
 
-    public float AtkPoint
+    public float DefaultAttackDamage
     {
         get { return _defaultAttackDamage; }
         set { _defaultAttackDamage = value; }
@@ -88,6 +90,8 @@ public class PlayerStatus
         get { return _currentAttackDamage; }
         set { _currentAttackDamage = value; }
     }
+
+    public float ExSkillDamage => _exSkillDamage;
 }
 public class PlayerModel : MonoBehaviour
 {
@@ -118,7 +122,7 @@ public class PlayerModel : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
-        playerStatus = new PlayerStatus(characterInfo.maxHealth, characterInfo.maxSkillPoint, characterInfo.attackPoint, characterInfo.normalAttackDamageMultiple);
+        playerStatus = new PlayerStatus(characterInfo.maxHealth, characterInfo.maxSkillPoint, characterInfo.defaultAttackDamage, characterInfo.normalAttackDamageMultiple, characterInfo.exSkillDamage);
     }
 
 

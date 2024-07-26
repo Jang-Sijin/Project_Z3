@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Hit : MonsterStateBase
 {
@@ -44,6 +47,7 @@ public class Hit : MonsterStateBase
     private void RestartHitAnimation()
     {
         // 애니메이션을 처음부터 다시 재생
-        monsterController.PlayAnimation("Hit");
+        //monsterController.PlayAnimation("Hit");
+        monsterModel.animator.CrossFadeInFixedTime("Hit", 0.25f, -1, 0f);
     }
 }
