@@ -29,7 +29,7 @@ public class BtnManager : MonoBehaviour
     public void ClickEquipmentBTN()
     {
         if (prevBtn == null) return;
-        mainCityMenuUIManager.TurnOnMenuByOBJ(EquipmentUI);
+        //mainCityMenuUIManager.TurnOnMenuByOBJ(EquipmentUI);
     }
 
     public void ClickStatBTN()

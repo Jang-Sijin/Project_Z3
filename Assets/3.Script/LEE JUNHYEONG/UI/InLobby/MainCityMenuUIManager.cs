@@ -162,7 +162,7 @@ public class MainCityMenuUIManager : MonoBehaviour
                 menuState = menustate;
                 break;
 
-                case EMenuState.
+                //case EMenuState.
             default:
                 break;
         }
