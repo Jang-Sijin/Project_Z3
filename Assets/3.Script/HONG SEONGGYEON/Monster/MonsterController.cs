@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -13,6 +14,7 @@ public class MonsterController : MonoBehaviour, IstateMachineOwner
 
     protected stateMachine statemachine;
     protected NavMeshAgent nmagent;
+    private Rigidbody _rigidbody;
 
     private void Awake()
     {
@@ -21,14 +23,17 @@ public class MonsterController : MonoBehaviour, IstateMachineOwner
         mon_CO = GetComponent<MonCol_Control>();
 
         nmagent = GetComponent<NavMeshAgent>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     private void Start()
-    {  
+    {     
         SwitchState(MonsterState.Born);
     }
     public bool IsAnimationFinished(string animationName)
     {
+        Debug.Log($"{animationName} 몬스터 애니메이션 길이가 끝에 도달함.");
+
         // 지정된 애니메이션 상태가 끝났는지 확인
         AnimatorStateInfo stateInfo = ani.GetCurrentAnimatorStateInfo(0);
         return stateInfo.IsName(animationName) && stateInfo.normalizedTime >= 1.0f;
@@ -77,6 +82,9 @@ public class MonsterController : MonoBehaviour, IstateMachineOwner
             case MonsterState.Hit:
                 statemachine.EnterState<Hit>();
                 break;
+            case MonsterState.None:
+                statemachine.Stop();
+                break;
 
         }
         monsterModel.state = monsterState;
@@ -88,12 +96,33 @@ public class MonsterController : MonoBehaviour, IstateMachineOwner
         monsterModel.animator.CrossFadeInFixedTime(animationName, fixedTransitionDuration);
     }
 
-    private void Update()
+    public void RePlayAnimation(string animationName, float fixedTransitionDuration = 0.25f, int layer = -1, int single = -1)
     {
-     
-        
+        monsterModel.animator.CrossFadeInFixedTime("Hit", 0.25f, layer, single);
     }
 
-    private void OnEnable() { }
+    public void OnMonsterDead()
+    {
+        Destroy(gameObject);        
+    }
 
+    public void TakeDamage(float playerDamage, Transform playerTransform)
+    {
+        Debug.Log("TakeDamage: 몬스터 대미지 피해 입음");
+
+        if (monsterModel.CurrentHealth > 0)
+        {
+            // 몬스터 공격 받음(Hit) 상태로 변경
+            SwitchState(MonsterState.Hit);
+
+            monsterModel.CurrentHealth -= playerDamage;
+            // EnemyUIController.RefreshHealth(_currentHealth, MaxHealth);
+        }
+        else
+        {
+            Debug.Log($"{gameObject.name}: 몬스터 사망");
+            monsterModel.isDead = true;
+            SwitchState(MonsterState.Dead);
+        }
+    }
 }

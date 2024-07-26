@@ -6,32 +6,35 @@ using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 
+
 public class Build_IngameUI : MonoBehaviour
 {
 
     [SerializeField] private SelectedChar selectedChar; // 선택된 캐릭터 상태
     [SerializeField] private UnCharHpSp[] unChar; // 대기 캐릭터 2개
-    [SerializeField] private Image[] unCharIMG; // 대기 캐릭터 이미지
+    //[SerializeField] private Image[] unCharIMG; // 대기 캐릭터 이미지
     [SerializeField] private Image[] changeEffectIMGs; // 바꾸는 효과 이미지
     private Tween[] fadeTween; // 효과 애니 변수
-    [SerializeField] private CharIMGData_CS CharIMGData;
     [SerializeField] private TextMeshProUGUI UltStat; // 궁극기 수치입니다.
+    [SerializeField] private Sprite[] portrait;
 
-    CharInfo[] debugchars = new CharInfo[3]; // 디버깅용 캐릭터 정보
+    //CharInfo[] debugchars = new CharInfo[3]; // 디버깅용 캐릭터 정보
 
+    /*
     private void Start() // 디버깅용
     {
         for (int i = 0; i < debugchars.Length; i++)
         {
             debugchars[i].name = (TempChar)i;
             debugchars[i].curHP = Random.Range(600f, 1300f);
-            debugchars[i].maxHP = 1300f;
+            debugchars[i].maxHP = PlayerController.INSTANCE.playerModel.playerStatus.MaxHealth;
             debugchars[i].curSP = Random.Range(0.5f, 1f);
-            debugchars[i].maxSP = 1f;
+            debugchars[i].maxSP = PlayerController.INSTANCE.playerModel.playerStatus.MaxSkillPoint;
         }
 
         fadeTween = new Tween[changeEffectIMGs.Length];
     }
+
 
     private void DeBugshufflechar() // 디버깅용 : 캐릭터 변경을 위해 이름을 바꿔주는 메소드입니다.
     {
@@ -44,31 +47,62 @@ public class Build_IngameUI : MonoBehaviour
 
         debugchars[debugchars.Length - 1] = temp;
     }
+    */
 
-    public void ChangeChar(CharInfo[] tempChars) // 캐릭터를 바꾸는 메소드
+    /// <summary>
+    /// 스테이지 처음 시작할때 UI 세팅
+    /// </summary>
+    public void SetIngameUI()
+    {
+        //첫번째 플레이어 
+        if (PlayerController.INSTANCE == null)
+        {
+            Debug.LogError("PlayerController 없음");
+        }
+        selectedChar.AssignCharacter(PlayerController.INSTANCE.controllableModels[0], portrait[0]);
+        unChar[0].AssginCharacter(PlayerController.INSTANCE.controllableModels[1], portrait[1]);
+        unChar[1].AssginCharacter(PlayerController.INSTANCE.controllableModels[2], portrait[2]);
+    }
+
+    public void ChangeChar() // 캐릭터를 바꾸는 메소드
     {
         /*
          * 현재 캐릭터의 데이터를 갖고 와서
          */
 
         //디버깅 용입니다.
-        Change_Profile(selectedChar.Profile, tempChars[0].name);
-        selectedChar.RefreshHealth(tempChars[0], true);
-        selectedChar.RefreshSp(tempChars[0]);
-
-        for (int i = 0; i < unChar.Length; i++)
-        {
-            Change_Profile(unCharIMG[i], tempChars[i + 1].name);
-            unChar[i].Refresh_Hpbar(tempChars[i + 1]);
-            unChar[i].Refresh_Spbar(tempChars[i + 1]);
-        }
+        //Change_Profile(selectedChar.Profile, tempChars[0].name);
+        //selectedChar.RefreshHealth(tempChars[0], true);
+        //selectedChar.RefreshSp(tempChars[0]);
+        //
+        //for (int i = 0; i < unChar.Length; i++)
+        //{
+        //    Change_Profile(unCharIMG[i], tempChars[i + 1].name);
+        //    unChar[i].Refresh_Hpbar(tempChars[i + 1]);
+        //    unChar[i].Refresh_Spbar(tempChars[i + 1]);
+        //}
         //디버깅용
-    }
 
+        selectedChar.AssignCharacter(
+            PlayerController.INSTANCE.controllableModels[PlayerController.INSTANCE.currentModelIndex], 
+            portrait[PlayerController.INSTANCE.currentModelIndex]);
+
+        unChar[0].AssginCharacter(
+            PlayerController.INSTANCE.controllableModels[(PlayerController.INSTANCE.currentModelIndex + 1) %3],
+            portrait[(PlayerController.INSTANCE.currentModelIndex + 1) % 3]);
+
+        unChar[1].AssginCharacter(
+            PlayerController.INSTANCE.controllableModels[(PlayerController.INSTANCE.currentModelIndex + 2) % 3],
+            portrait[(PlayerController.INSTANCE.currentModelIndex + 2) % 3]);
+
+
+    }
+    /*
     private void Change_Profile(Image profile, TempChar charInfo) // 디버깅용입니다.
     {
         profile.sprite = CharIMGData.sprites[(int)charInfo];
     }
+    */
 
     private void Change_Effect() // 바꿀 때 생기는 UI효과를 두트윈으로 구현했습니다.
     {

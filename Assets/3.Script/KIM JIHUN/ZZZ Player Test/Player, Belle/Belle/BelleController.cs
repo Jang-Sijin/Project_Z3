@@ -111,7 +111,7 @@ public class BelleController : SingleMonoBase<BelleController>, IStateMachineOwn
         {
             if (UIManager.Instance != null)
             {
-                UIManager.Instance.OptionUIOpenClose();
+                UIManager.Instance.MainCityMenuUI.ToggleMainCityUI();
             }
         }
         inputMoveVec2 = playerInputSystem.Player.Move.ReadValue<Vector2>().normalized;

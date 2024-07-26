@@ -15,8 +15,8 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
 
     public PlayerConfig playerConfig; //현재 할당되어 있는 Player Config. 최대 3명의 캐릭터가 있음
 
-    private List<PlayerModel> controllableModels; //playerModel 변수에 사용할 수 있는 PlayerModel 배열
-    private int currentModelIndex = 0; //현재 컨트롤중인 모델 인덱스
+    public List<PlayerModel> controllableModels; //playerModel 변수에 사용할 수 있는 PlayerModel 배열
+    public int currentModelIndex = 0; //현재 컨트롤중인 모델 인덱스
 
     public Vector2 inputMoveVec2; // WASD 키보드로 입력
     public float rotationSpeed = 8f;
@@ -27,7 +27,11 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     [HideInInspector] public float switchTimer { get; private set; } // 캐릭터 교체 타이머
     [HideInInspector] private float switchCoolTime; // 캐릭터 교체 쿨타임
     private float maxUltPoint = 100f;
-    private float currentUltPoint = 0;
+    private float defaultUltPoint = 4f;
+    private float currentUltPoint = 0;    
+
+    public float MaxUltPoint => maxUltPoint;
+    public float DefaultUltPoint => defaultUltPoint;
 
     public float CurrentUltPoint
     {
@@ -52,7 +56,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     [HideInInspector] public Vector3 directionToEnemy { get; private set; }
 
     [SerializeField] private CinemachineFreeLook cinemachineFreeLook; //카메라 쉐이크를 위한 시네머신
-    private float shakeTimer; //쉐이크 타이머
+    private float shakeTimer; // 쉐이크 타이머
 
     protected override void Awake()
     {
@@ -82,6 +86,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     {
         LockMouse();
         SwitchState(EPlayerState.Idle);
+        UIManager.Instance.OpenIngameUI();
 
         //for(int i = 0; i < 3; i++)
         //{
@@ -203,7 +208,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     /// <summary>
     /// 다음 캐릭터로 교체
     /// </summary>
-    public void SwitchNextModel()
+    public void SwitchNextModel(bool isDead = false)
     {
         // 스위치 쿨타임 확인
         if (switchTimer != switchCoolTime) return;
@@ -211,7 +216,8 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         //사용하던 StateMachine 초기화
         stateMachine.Clear();
 
-        playerModel.Exit();
+        if (!isDead)
+            playerModel.Exit();
 
         currentModelIndex++;
         if (currentModelIndex >= controllableModels.Count)
@@ -226,6 +232,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         playerModel = nextModel;
         playerModel.Enter(prevPos, prevRot);
         SwitchState(EPlayerState.SwitchInNormal);
+        UIManager.Instance.InGameUI.ChangeChar();
 
     }
 
@@ -241,6 +248,14 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
 
     private void Update()
     {
+        if (playerInputSystem.Player.Escape.triggered)
+        {
+            if (UIManager.Instance != null)
+            {
+                UIManager.Instance.OptionUIOpenClose();
+            }
+        }
+
         #region 몬스터 타겟팅
         if (enemyList.Count != 0)
         {
@@ -340,6 +355,11 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     {
 
         Vector3 playerPosition = playerModel.transform.position;
+        var enemyList = SortEnemyByDist();
+
+        if(enemyList == null || enemyList.Length == 0)
+            return null;
+
         foreach (var enemy in SortEnemyByDist())
         {
             Vector3 directionToEnemy = (enemy.transform.position - playerPosition).normalized;
@@ -364,6 +384,14 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     /// <returns></returns>
     public GameObject[] SortEnemyByDist()
     {
+        // null이거나 파괴된 GameObject를 제거합니다.
+        enemyList = enemyList.Where(go => go != null && go.transform != null).ToList();
+
+        if (enemyList == null || enemyList.Count == 0)
+        {
+            return null;
+        }
+
         Vector3 referencePosition = playerModel.transform.position;
 
         GameObject[] sortedGameObjects = enemyList
@@ -407,5 +435,5 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     {
         this.transform.position = spawnPoint;
         playerModel.transform.position = spawnPoint;
-    }
+    }    
 }
