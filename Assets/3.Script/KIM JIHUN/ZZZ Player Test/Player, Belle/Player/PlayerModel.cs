@@ -28,15 +28,16 @@ public class PlayerStatus
 {
     // [외부에서 설정한 캐릭터 데이터 값]
     private float _maxHealth;                    // 최대 체력    
-    private float _maxSkillPoint;                // 최대 액티브 스킬 포인트 -> 최대 100이라면 50을 사용 -> 총 2번 스킬 사용 가능    
+    private float _maxSkillPoint;                // 최대 액티브 스킬 포인트 -> 최대 100이라면 50을 사용 -> 총 2번 스킬 사용 가능
     private float _defaultAttackDamage;          // 캐릭터 기본 공격력
     public float[] NormalAttackDamageMultiple;   // 캐릭터 타수에 따라 기본 공격력 변화 값 설정
     private float _exSkillDamage;                // 캐릭터 궁극기(EX) 스킬 공격 대미지
+    private float _skillPoint = 2f;
 
     // [내부(인게임)에서 설정한 캐릭터 데이터 값] - 현재 수치
     private float _currentHealth;        // 현재 체력
     private float _currentSkillPoint;    // 현재 액티브 스킬 포인트
-    private float _currentAttackDamage;  // 현재 캐릭터 공격력    
+    private float _currentAttackDamage;  // 현재 캐릭터 공격력        
 
     public PlayerStatus(float maxHealth, float maxSkillPoint, float attackPoint, float[] normalAttackDamageMultiple, float exSkillDamage)
     {
@@ -92,6 +93,7 @@ public class PlayerStatus
     }
 
     public float ExSkillDamage => _exSkillDamage;
+    public float SkillPoint => _skillPoint;
 }
 public class PlayerModel : MonoBehaviour
 {
