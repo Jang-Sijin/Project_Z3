@@ -6,11 +6,13 @@ using UnityEngine;
 public class SelectbtnEff : MonoBehaviour
 {
     private Animator buttonAni;
-    [SerializeField] GameObject SelectChar;
+    [SerializeField]private GameObject SelectChar;
+    public string SelectCharName;
 
     private void Awake()
     {
         buttonAni = GetComponentInChildren<Animator>();
+        SelectCharName = SelectChar.name;
     }
 
     public void OnClickButton()

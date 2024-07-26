@@ -29,13 +29,15 @@ public class MainCityMenuUIManager : MonoBehaviour
     {
         MainMenu = 0,
         CharSelect = 1,
-        Inventory = 2,
-        PauseMenu =3,
-            Shop = 4,
-            GameOff = 5
+        CharStat = 2,
+        ItemEnforce = 3,
+        Inventory = 4,
+        PauseMenu = 5,
+            Shop = 6,
+            GameOff = 7
     };
 
-    EMenuState menuState;
+    private EMenuState menuState;
 
     private void Start()
     {
@@ -94,7 +96,7 @@ public class MainCityMenuUIManager : MonoBehaviour
     #endregion
 
     #region 백그라운드UI 효과
-    private void ChangeToOtherMenuEFF() // 메뉴에서 다른 메뉴를 클릭했을 때 효과입니다. (예 : 캐릭터 선택 클릭시 -> 캐릭터 선택 UI로 이동)
+    public void ChangeToOtherMenuEFF() // 메뉴에서 다른 메뉴를 클릭했을 때 효과입니다. (예 : 캐릭터 선택 클릭시 -> 캐릭터 선택 UI로 이동)
     {
         ReturnDark_bg();
         BGFadeEFF();
@@ -149,21 +151,18 @@ public class MainCityMenuUIManager : MonoBehaviour
 
     #endregion
 
-    /*
-     *  하나의 메서드로 메뉴를 키고 하나의 메서드로 메뉴를 끊다
-     */
-
-    public void TurnOnMenuByOBJ(GameObject UI_obj)
+    public void TurnOnMenuByOBJ(EMenuState menustate)
     {
-        switch (UI_obj.name)
+        switch (menustate)
         {
-            case "CharSelectUI":
+            case EMenuState.CharSelect:
 
                 ChangeToOtherMenuEFF();
                 CharSelectUI.SetActive(true);
-                menuState = EMenuState.CharSelect;
+                menuState = menustate;
                 break;
 
+                case EMenuState.
             default:
                 break;
         }
