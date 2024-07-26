@@ -15,8 +15,8 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
 
     public PlayerConfig playerConfig; //현재 할당되어 있는 Player Config. 최대 3명의 캐릭터가 있음
 
-    private List<PlayerModel> controllableModels; //playerModel 변수에 사용할 수 있는 PlayerModel 배열
-    private int currentModelIndex = 0; //현재 컨트롤중인 모델 인덱스
+    public List<PlayerModel> controllableModels; //playerModel 변수에 사용할 수 있는 PlayerModel 배열
+    public int currentModelIndex = 0; //현재 컨트롤중인 모델 인덱스
 
     public Vector2 inputMoveVec2; // WASD 키보드로 입력
     public float rotationSpeed = 8f;
@@ -82,6 +82,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     {
         LockMouse();
         SwitchState(EPlayerState.Idle);
+        UIManager.Instance.OpenIngameUI();
 
         //for(int i = 0; i < 3; i++)
         //{
@@ -203,7 +204,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     /// <summary>
     /// 다음 캐릭터로 교체
     /// </summary>
-    public void SwitchNextModel()
+    public void SwitchNextModel(bool isDead = false)
     {
         // 스위치 쿨타임 확인
         if (switchTimer != switchCoolTime) return;
@@ -211,7 +212,8 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         //사용하던 StateMachine 초기화
         stateMachine.Clear();
 
-        playerModel.Exit();
+        if (!isDead)
+            playerModel.Exit();
 
         currentModelIndex++;
         if (currentModelIndex >= controllableModels.Count)
@@ -226,6 +228,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         playerModel = nextModel;
         playerModel.Enter(prevPos, prevRot);
         SwitchState(EPlayerState.SwitchInNormal);
+        UIManager.Instance.InGameUI.ChangeChar();
 
     }
 
@@ -241,6 +244,14 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
 
     private void Update()
     {
+        if (playerInputSystem.Player.Escape.triggered)
+        {
+            if (UIManager.Instance != null)
+            {
+                UIManager.Instance.OptionUIOpenClose();
+            }
+        }
+
         #region 몬스터 타겟팅
         if (enemyList.Count != 0)
         {
