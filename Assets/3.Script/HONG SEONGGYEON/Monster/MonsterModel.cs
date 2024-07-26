@@ -106,7 +106,7 @@ public class MonsterModel : MonoBehaviour
     {
         Debug.Log("TakeDamage: 몬스터 대미지 피해 입음");
         _currentHealth -= playerDamage;
-        EnemyUIController.RefreshHealth(_currentHealth, MaxHealth);
+     //   EnemyUIController.RefreshHealth(_currentHealth, MaxHealth);
 
         isAttacked = true;
         if(_currentHealth <= 0)
