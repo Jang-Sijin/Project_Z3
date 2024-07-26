@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 
+
 public class Build_IngameUI : MonoBehaviour
 {
 
@@ -17,21 +18,23 @@ public class Build_IngameUI : MonoBehaviour
     [SerializeField] private CharIMGData_CS CharIMGData;
     [SerializeField] private TextMeshProUGUI UltStat; // 궁극기 수치입니다.
 
-    CharInfo[] debugchars = new CharInfo[3]; // 디버깅용 캐릭터 정보
+    //CharInfo[] debugchars = new CharInfo[3]; // 디버깅용 캐릭터 정보
 
+    /*
     private void Start() // 디버깅용
     {
         for (int i = 0; i < debugchars.Length; i++)
         {
             debugchars[i].name = (TempChar)i;
             debugchars[i].curHP = Random.Range(600f, 1300f);
-            debugchars[i].maxHP = 1300f;
+            debugchars[i].maxHP = PlayerController.INSTANCE.playerModel.playerStatus.MaxHealth;
             debugchars[i].curSP = Random.Range(0.5f, 1f);
-            debugchars[i].maxSP = 1f;
+            debugchars[i].maxSP = PlayerController.INSTANCE.playerModel.playerStatus.MaxSkillPoint;
         }
 
         fadeTween = new Tween[changeEffectIMGs.Length];
     }
+
 
     private void DeBugshufflechar() // 디버깅용 : 캐릭터 변경을 위해 이름을 바꿔주는 메소드입니다.
     {
@@ -44,6 +47,16 @@ public class Build_IngameUI : MonoBehaviour
 
         debugchars[debugchars.Length - 1] = temp;
     }
+    */
+
+    /// <summary>
+    /// 스테이지 처음 시작할때 UI 세팅
+    /// </summary>
+    public void SetIngameUI()
+    {
+        //첫번째 플레이어 
+        selectedChar
+    }
 
     public void ChangeChar(CharInfo[] tempChars) // 캐릭터를 바꾸는 메소드
     {
@@ -52,23 +65,27 @@ public class Build_IngameUI : MonoBehaviour
          */
 
         //디버깅 용입니다.
-        Change_Profile(selectedChar.Profile, tempChars[0].name);
-        selectedChar.RefreshHealth(tempChars[0], true);
-        selectedChar.RefreshSp(tempChars[0]);
-
-        for (int i = 0; i < unChar.Length; i++)
-        {
-            Change_Profile(unCharIMG[i], tempChars[i + 1].name);
-            unChar[i].Refresh_Hpbar(tempChars[i + 1]);
-            unChar[i].Refresh_Spbar(tempChars[i + 1]);
-        }
+        //Change_Profile(selectedChar.Profile, tempChars[0].name);
+        //selectedChar.RefreshHealth(tempChars[0], true);
+        //selectedChar.RefreshSp(tempChars[0]);
+        //
+        //for (int i = 0; i < unChar.Length; i++)
+        //{
+        //    Change_Profile(unCharIMG[i], tempChars[i + 1].name);
+        //    unChar[i].Refresh_Hpbar(tempChars[i + 1]);
+        //    unChar[i].Refresh_Spbar(tempChars[i + 1]);
+        //}
         //디버깅용
-    }
 
+
+
+    }
+    /*
     private void Change_Profile(Image profile, TempChar charInfo) // 디버깅용입니다.
     {
         profile.sprite = CharIMGData.sprites[(int)charInfo];
     }
+    */
 
     private void Change_Effect() // 바꿀 때 생기는 UI효과를 두트윈으로 구현했습니다.
     {

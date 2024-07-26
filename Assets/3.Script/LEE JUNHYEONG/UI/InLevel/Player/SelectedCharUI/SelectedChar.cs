@@ -56,29 +56,29 @@ public class SelectedChar : MonoBehaviour
             }
         }
     }
-    public void InitSpPointer(float minumForSkill, CharInfo charInfo) // 스킬 필요 sp 포인터 초기화 함수입니다.
+    public void InitSpPointer(float minumForSkill, PlayerModel playerModel) // 스킬 필요 sp 포인터 초기화 함수입니다.
     {
-        spPointer.value = minumForSkill / charInfo.maxSP;
+        spPointer.value = minumForSkill / playerModel.playerStatus.MaxSkillPoint;
     }
 
-    public void RefreshHealth(CharInfo charInfo, bool isChangeChar) // hp 갱신 : 불 값으로 fake의 갱신 효과 발생 여부를 판단합니다.
+    public void RefreshHealth(PlayerModel playerModel, bool isChangeChar) // hp 갱신 : 불 값으로 fake의 갱신 효과 발생 여부를 판단합니다.
     {
-        realHp.value = charInfo.curHP / charInfo.maxHP;
+        //realHp.value = charInfo.curHP / charInfo.maxHP;
 
         if(!isChangeChar)
         Start_CountFillFakeHp();
 
         else
         {
-            fakeHp.value = charInfo.curHP / charInfo.maxHP;
+        //    fakeHp.value = charInfo.curHP / charInfo.maxHP;
         }
 
-        playerhptext.text = $"{(int)charInfo.curHP} / {(int)charInfo.maxHP}";
+        //playerhptext.text = $"{(int)charInfo.curHP} / {(int)charInfo.maxHP}";
     }
 
-    public void RefreshSp(CharInfo charInfo) // sp 갱신
+    public void RefreshSp(PlayerModel playerModel) // sp 갱신
     {
-        sp.value = charInfo.curSP / charInfo.maxSP;
+        //sp.value = charInfo.curSP / charInfo.maxSP;
     }
 
     private void Start_CountFillFakeHp() // 세는 코루틴이 실행중이면 이전 코루틴 취소 후 세기

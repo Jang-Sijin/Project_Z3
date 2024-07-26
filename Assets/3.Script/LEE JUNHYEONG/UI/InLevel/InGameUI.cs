@@ -8,6 +8,7 @@ using DG.Tweening;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine.ProBuilder.Shapes;
+
 public enum TempChar // µð¹ö±ë¿ë
 {
     CORIN = 0,

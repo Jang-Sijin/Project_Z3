@@ -17,6 +17,8 @@ public class UnCharHpSp : MonoBehaviour
     private Slider spBar;
     private Slider spPointer;
 
+    
+
     private void Start()
     {
 
