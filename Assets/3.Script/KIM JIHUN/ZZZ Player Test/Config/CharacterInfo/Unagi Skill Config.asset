@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e4f5d2859b7eda4ea8d2f9db8b6afa6, type: 3}
   m_Name: Unagi Skill Config
   m_EditorClassIdentifier: 
+  maxHealth: 1000
+  maxSkillPoint: 100
+  attackPoint: 10
   normalAttackDamageMultiple:
-  - 0
-  - 0
-  - 0
+  - 1
+  - 2
+  - 4

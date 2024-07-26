@@ -10,8 +10,6 @@ public class Dead : MonsterStateBase
         base.Enter();
         monsterController.PlayAnimation("Dead");
         Debug.Log(monsterController.monsterModel.isItemDrop());
-
-
     }
 
     public override void Update()
@@ -23,13 +21,16 @@ public class Dead : MonsterStateBase
             {
                 // 아이템 종류 골라서 드롭하는거 넣어
             }
-            MonoBehaviour.Destroy(monsterController.monsterModel.gameObject);
+
+            monsterController.SwitchState(MonsterState.None);
         }
 
     }
 
     public override void Exit()
     {
-        base.Exit();    
+        base.Exit();
+
+        monsterController.OnMonsterDead(); // 몬스터 사망 처리 및 삭제
     }
 }
