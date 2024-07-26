@@ -7,6 +7,6 @@ public class CharacterInfo : ScriptableObject
 {
     public float maxHealth = 1000;
     public float maxSkillPoint = 100;
-    public float atkPoint = 10;
+    public float attackPoint = 10;
     public float[] normalAttackDamageMultiple;
 }
