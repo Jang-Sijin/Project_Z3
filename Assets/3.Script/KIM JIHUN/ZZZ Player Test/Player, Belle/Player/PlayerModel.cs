@@ -29,13 +29,15 @@ public class PlayerStatus
     private float currentHealth; //현재 체력
     private float maxSkillPoint; // 최대 액티브 스킬 포인트 -> 최대 100이라면 50을 사용 -> 총 2번 스킬 사용 가능
     private float currentSkillPoint; // 현재 액티브 스킬 포인트
+    private float atkPoint;
 
-    public PlayerStatus(float maxHealth, float currentHealth, float maxSkillPoint, float currentSkillPoint)
+    public PlayerStatus(float maxHealth, float currentHealth, float maxSkillPoint, float currentSkillPoint, float atkPoint)
     {
         this.maxHealth = maxHealth;
         this.currentHealth = currentHealth;
         this.maxSkillPoint = maxSkillPoint;
         this.currentSkillPoint = currentSkillPoint;
+        this.atkPoint = atkPoint;
     }
 
     public float MaxHealth
@@ -61,13 +63,19 @@ public class PlayerStatus
         get { return currentSkillPoint; }
         set { currentSkillPoint = Mathf.Clamp(value, 0, maxSkillPoint); }
     }
+
+    public float AtkPoint
+    {
+        get { return atkPoint; }
+        set { atkPoint = value; }
+    }
 }
 public class PlayerModel : MonoBehaviour
 {
     [HideInInspector] public Animator animator;
     public EPlayerState currentState;
     [HideInInspector] public CharacterController characterController;
-    public ECharacter eCharacter { get; private set; }
+    public ECharacter eCharacter;
 
     public float gravity = -9.8f;
     public CharacterInfo characterInfo;
@@ -91,7 +99,7 @@ public class PlayerModel : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
-        playerStatus = new PlayerStatus(characterInfo.maxHealth, characterInfo.maxHealth, characterInfo.maxSkillPoint, 0f);
+        playerStatus = new PlayerStatus(characterInfo.maxHealth, characterInfo.maxHealth, characterInfo.maxSkillPoint, 0f, characterInfo.atkPoint);
     }
 
 
@@ -209,3 +217,4 @@ public class PlayerModel : MonoBehaviour
         effectPlayer.StopParticle(particleIndex);
     }
 }
+
