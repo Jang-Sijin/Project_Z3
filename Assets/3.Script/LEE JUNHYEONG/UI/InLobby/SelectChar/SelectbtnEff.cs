@@ -6,6 +6,7 @@ using UnityEngine;
 public class SelectbtnEff : MonoBehaviour
 {
     private Animator buttonAni;
+    [SerializeField] GameObject SelectChar;
 
     private void Awake()
     {
@@ -19,11 +20,13 @@ public class SelectbtnEff : MonoBehaviour
 
     private void StartAni()
     {
+        SelectChar.SetActive(true);
         buttonAni.SetTrigger("Selected");
     }
 
     public void turnOff()
     {
+        SelectChar.SetActive(false);
         buttonAni.SetTrigger("Normal");
     }
 }
