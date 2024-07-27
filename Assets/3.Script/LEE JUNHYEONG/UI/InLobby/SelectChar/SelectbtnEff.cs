@@ -7,12 +7,17 @@ public class SelectbtnEff : MonoBehaviour
 {
     private Animator buttonAni;
     [SerializeField]private GameObject SelectChar;
-    public string SelectCharName;
+    public string SelectCharName
+    {
+        get
+        {
+            return SelectChar.name;
+        }
+    }
 
     private void Awake()
     {
         buttonAni = GetComponentInChildren<Animator>();
-        SelectCharName = SelectChar.name;
     }
 
     public void OnClickButton()

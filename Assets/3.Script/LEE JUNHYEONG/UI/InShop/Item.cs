@@ -11,35 +11,35 @@ public class Item : ScriptableObject
     [SerializeField] private string Name;
     public string name_ {  get { return Name; } }
 
+    [SerializeField] private int Level;
+    public int level { get { return Level; } set { Level = value; } } 
+
     [SerializeField] private float Stat;
-    public float stat { get { return Stat; } }
+    public float stat { get { return Stat; } set { Stat = value; } }
 
     [SerializeField] private int BuyPrice;
-    public int buyPrice { get { return BuyPrice; } }
+    public int buyPrice { get { return BuyPrice; }}
 
     [SerializeField] private int SellPrice;
-    public int sellPrice { get { return SellPrice; } } 
+    public int sellPrice { get { return SellPrice; } set { SellPrice = value; } } 
 
-    [SerializeField] private ItemType _itemType;
-    public ItemType itemType { get { return _itemType; } }
+    [SerializeField] private EItemType ItemType;
+    public EItemType itemType { get { return ItemType; } }
 
-    [SerializeField] private ItemRank rank;
-    public ItemRank Rank { get { return rank; } }
+    [SerializeField] private EItemRank Rank;
+    public EItemRank rank { get { return Rank; } }
 
     [SerializeField]private Sprite ItemIcon;
     public Sprite itemIcon { get { return ItemIcon; } }
 
-    [SerializeField] private int level;
-    public int Level { get { return level; } } 
 
-    public enum ItemRank
+    public enum EItemRank
     {
-        S = 0,
-        A = 1,
-        B = 2
+        A = 0,
+        B = 1
     };
 
-    public enum ItemType
+    public enum EItemType
     {
         DAMAGE = 0,
         HEALTH = 1
