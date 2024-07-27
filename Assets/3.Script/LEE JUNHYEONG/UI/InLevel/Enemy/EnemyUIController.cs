@@ -69,7 +69,7 @@ public class EnemyUIController : MonoBehaviour
 
     private void PosByCamera() // 카메라의 거리에 따라서 포지션이 정해집니다.
     {
-        transform.localPosition = new Vector3(monster.bounds.size.x + (monster.bounds.size.x) * (0.5f) * Distance * (0.2f),
+        transform.localPosition = new Vector3(-(monster.bounds.size.x + (monster.bounds.size.x) * (0.5f) * Distance * (0.2f)),
                                               monster.bounds.size.y * (0.5f) + (monster.bounds.size.y * 0.25f) * Distance * (0.2f),
                                               0);
     }
