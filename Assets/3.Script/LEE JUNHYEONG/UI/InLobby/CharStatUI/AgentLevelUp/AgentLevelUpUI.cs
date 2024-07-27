@@ -23,9 +23,9 @@ public class AgentLevelUpUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI amountOfItemA; // A랭크 경험치 아이템 텍스트
     [SerializeField] private TextMeshProUGUI amountOfItemS; // S랭크 경험치 아이템 텍스트
 
-    private float maxEXP = 600f; // 디버깅용 : 플레이어 최대 경험치
-    private float curEXP = 0f; // 디버깅용 : 플레이어 현재 경험치
-    private float Armor = 10f; // 디버깅용 : 플레이어 방어력
+    //private float maxEXP = 600f; // 디버깅용 : 플레이어 최대 경험치
+    //private float curEXP = 0f; // 디버깅용 : 플레이어 현재 경험치
+    //private float Armor = 10f; // 디버깅용 : 플레이어 방어력
     #endregion
 
     /*
