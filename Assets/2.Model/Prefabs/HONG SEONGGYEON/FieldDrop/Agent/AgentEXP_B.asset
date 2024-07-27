@@ -9,11 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be096bea52db2174982132e0775a8952, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a05eb72e9bdefc47b0fe96488cfbc53, type: 3}
   m_Name: AgentEXP_B
   m_EditorClassIdentifier: 
-  itemName: "\uC218\uC2B5 \uC870\uC0AC\uC6D0 \uAE30\uB85D"
-  stat: 0
-  icon: {fileID: 21300000, guid: edd31e36ec1707645a8033bd859c0c7b, type: 3}
-  itemRank: 1
-  itemType: 2
+  Name: "\uC218\uC2B5 \uC870\uC0AC\uC6D0 \uAE30\uB85D"
+  Stat: 0
+  BuyPrice: 0
+  SellPrice: 0
+  _itemType: 2
+  rank: 2
+  ItemIcon: {fileID: 21300000, guid: edd31e36ec1707645a8033bd859c0c7b, type: 3}
+  level: 0
