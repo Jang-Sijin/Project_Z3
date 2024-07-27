@@ -36,7 +36,7 @@ public class BossModel : MonoBehaviour
     [HideInInspector] public bool isDead = false;
     [HideInInspector] public bool isGroggy = false;
     [HideInInspector] public float CurrentHealth;
-    [HideInInspector] public float CurrentGroggypoint;
+    [HideInInspector] public float CurrentGroggypoint=0;
 
     // [SerializeField] public MonsterAttributes monster; // 몬스터 속성 추가
 

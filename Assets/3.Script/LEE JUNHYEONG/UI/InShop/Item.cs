@@ -42,6 +42,10 @@ public class Item : ScriptableObject
     public enum ItemType
     {
         DAMAGE = 0,
-        HEALTH = 1
+        HEALTH = 1,
+        EXP_CHARACTER = 2,
+        EXP_WEAPON = 3,
+        LIMITBREAK_CHARACTER = 4,
+        LIMITBREAK_WEAPON = 5
     };
 }

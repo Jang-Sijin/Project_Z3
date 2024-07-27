@@ -98,8 +98,8 @@ public class MonsterModel : MonoBehaviour
 
     public bool isItemDrop()
     {
-        int DropSucces = Random.Range(0, 2);
-        if (DropSucces == 1)
+        int DropSucces = Random.Range(0, 1);
+        if (DropSucces == 0)
         {
             Debug.Log("아이템 드롭 성공");
             return true;
