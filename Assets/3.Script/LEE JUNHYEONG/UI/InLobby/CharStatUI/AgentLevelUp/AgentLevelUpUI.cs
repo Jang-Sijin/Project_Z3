@@ -37,5 +37,5 @@ public class AgentLevelUpUI : MonoBehaviour
      * Ã¼·Â, 
      */
 
-    private void Calculate()
+    //private void Calculate()
 }
