@@ -14,7 +14,7 @@ public class Navmesh : MonoBehaviour
         nmagent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Animator>();
         nmagent.updatePosition = false; // NavMeshAgent가 위치를 업데이트하지 않도록 설정
-      //  nmagent.updateRotation = false; // NavMeshAgent가 회전을 업데이트하지 않도록 설정
+                                        //  nmagent.updateRotation = false; // NavMeshAgent가 회전을 업데이트하지 않도록 설정
     }
 
     private void Update()
@@ -25,7 +25,7 @@ public class Navmesh : MonoBehaviour
             nmagent.SetDestination(Target.position);
         }
 
-   }
+    }
 
     private void OnAnimatorMove()
     {
