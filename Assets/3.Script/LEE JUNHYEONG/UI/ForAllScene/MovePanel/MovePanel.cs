@@ -65,7 +65,8 @@ public class MovePanel : MonoBehaviour
             tween.Kill();
         }
 
-        tween = rectTransform.DOAnchorPos(endPos, duration).SetEase(ease).SetDelay(endDelay);
+        tween = rectTransform.DOAnchorPos(endPos, duration).SetEase(ease).SetDelay(endDelay).OnComplete(
+            () => gameObject.SetActive(false));
     }
 
     private void OnDisable()

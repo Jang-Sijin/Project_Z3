@@ -52,6 +52,9 @@ public class SelectbtnEff : MonoBehaviour
     public void TurnOff()
     {
         buttonAni.SetTrigger("Normal");
-        SelectChar?.SetActive(false);
+        if (SelectChar.gameObject == null || !SelectChar.activeSelf)
+            return;
+
+        SelectChar.SetActive(false);
     }
 }

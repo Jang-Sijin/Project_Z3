@@ -14,14 +14,13 @@ public class CharStatUI : MonoBehaviour
 
 
     [Header("하위 UI들")]
-    [SerializeField] public MovePanel charLevelUpUI;
-    [SerializeField] public MovePanel charPromoteUI;
+    [SerializeField] public MovePanel charLevelUpUI; // 캐릭터 레벨업 UI
+    [SerializeField] public MovePanel charPromoteUI; // 캐릭터 돌파 UI
 
-    private int[] charLevels; // 디버깅용 : 캐릭터 레벨
-    private int[] charMaxLevels = {20, 20, 20}; // 디버깅용 : 캐릭터 최대 
+    [SerializeField] private GameObject sideUIBG; // 뒷 배경
 
-    [Header("각 텍스트들")]
     [SerializeField] private GameObject[] factions; // 출력할 세력 
+    [Header("각 텍스트들")]
     [SerializeField] private TextMeshProUGUI charNameText; // 캐릭터의 이름 출력
     [SerializeField] private TextMeshProUGUI charLevelText; // 캐릭터 레벨 출력
     [SerializeField] private TextMeshProUGUI charMaxLevelText; // 캐릭터 최대 레벨 출력
@@ -36,17 +35,12 @@ public class CharStatUI : MonoBehaviour
         "11호"
     };
 
-    private void Awake() // 디버깅용 
+    private void OnEnable()
     {
-        charLevels = new int[3];// 디버깅용
-
-        for (int i = 0; i < charLevels.Length; i++)// 디버깅용
-        {
-            charLevels[i] = 18 + i;
-        }
+        PrintCharStat();
     }
 
-    private void OnEnable()
+    private void PrintCharStat() // 캐릭터의 스탯을 출력합니다.
     {
         for (int i = 0; i < factions.Length; i++)
         {
@@ -55,14 +49,14 @@ public class CharStatUI : MonoBehaviour
 
         factions[(int)charselectBtnManager.PrevCharBtn.eCharacter].SetActive(true); // 캐릭터 팩션 출력
         charNameText.text = charkoreanName[(int)charselectBtnManager.PrevCharBtn.eCharacter]; // 캐릭터 이름 출력
-        charLevelText.text = $"LV.{charLevels[(int)charselectBtnManager.PrevCharBtn.eCharacter]}"; // 캐릭터 레벨 출력 // 디버깅용 수정 필요
-        charMaxLevelText.text = charMaxLevels[(int)charselectBtnManager.PrevCharBtn.eCharacter].ToString(); // 캐릭터 레벨 출력 // 디버깅용 수정 필요
+        charLevelText.text = $"LV.{InventoryManager.instance.debugCharInfo[(int)charselectBtnManager.PrevCharBtn.eCharacter].actualLevel}"; // 캐릭터 레벨 출력 // 디버깅용 수정 필요
+        charMaxLevelText.text = InventoryManager.instance.debugCharInfo[(int)charselectBtnManager.PrevCharBtn.eCharacter].actualMaxLevel.ToString(); // 캐릭터 레벨 출력 // 디버깅용 수정 필요
 
         charHPText.text = ((int)PlayerController.INSTANCE.
             controllableModels[(int)charselectBtnManager.PrevCharBtn.eCharacter].
             characterInfo.maxHealth).ToString(); // 체력 출력
 
-        charDefenceText.text = "12";  // 아직 info에 defence 변수 없음 디버깅용
+        charDefenceText.text = InventoryManager.instance.debugCharInfo[(int)charselectBtnManager.PrevCharBtn.eCharacter].actualDEF.ToString();  // 아직 info에 defence 변수 없음 디버깅용
 
         charDMGText.text = ((int)PlayerController.INSTANCE.controllableModels
             [(int)charselectBtnManager.PrevCharBtn.eCharacter].characterInfo.
@@ -71,10 +65,30 @@ public class CharStatUI : MonoBehaviour
 
     public void OnClickLevelUpBTN()
     {
-        charPromoteUI.gameObject.SetActive(true);
-        charPromoteUI.GoToTargetPos();
+
+        if ( //현재 레벨이 레벨 상한선과 같다면 캐릭터 진급창을 띄우기
+            InventoryManager.instance.debugCharInfo[(int)charselectBtnManager.PrevCharBtn.eCharacter].actualLevel.Equals(
+                InventoryManager.instance.debugCharInfo[(int)charselectBtnManager.PrevCharBtn.eCharacter].actualMaxLevel)
+            )
+        {
+            charPromoteUI.gameObject.SetActive(true);
+            charPromoteUI.GoToTargetPos();
         mainCityMenuUIManager.emenuState = MainCityMenuUIManager.EMenuState.CharPromteMenu;
+        }
+        
+        else
+        {
+            charLevelUpUI.gameObject.SetActive(true);
+            charLevelUpUI.GoToTargetPos();
+            mainCityMenuUIManager.emenuState = MainCityMenuUIManager.EMenuState.CharLevelUpMenu;
+        }
+        
+        sideUIBG.gameObject.SetActive(true);
     }
 
-
+    public void TurnOffSideUIBG()
+    {
+        mainCityMenuUIManager.emenuState = MainCityMenuUIManager.EMenuState.CharStatMenu;
+        sideUIBG.gameObject.SetActive(false);
+    }
 }

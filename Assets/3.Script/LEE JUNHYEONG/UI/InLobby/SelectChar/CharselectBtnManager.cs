@@ -46,7 +46,6 @@ public class CharselectBtnManager : MonoBehaviour
         mainCityMenuUIManager.ChangeToOtherMenuEFF();
         StatUI.SetActive(true);
         mainCityMenuUIManager.emenuState = MainCityMenuUIManager.EMenuState.CharStatMenu;
-        Debug.Log(mainCityMenuUIManager.emenuState);
     }
 
     private void OnDisable()
