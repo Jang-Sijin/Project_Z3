@@ -23,25 +23,30 @@ public class MainCityMenuUIManager : MonoBehaviour
     private Tween tween; // 트윈 캐싱 : 전 트위닝을 취소하기 위해서
     #endregion
 
-    [SerializeField] private GameObject CharSelectUI;
-    [SerializeField] private GameObject inVentoryUI;
+    [Header("하위 UI들")]
+    [SerializeField] private GameObject inventoryUI;
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject equipmentUI;
-    [SerializeField] private GameObject charStatUI;
+    [SerializeField] private GameObject CharSelectUI;
+    [SerializeField] private CharStatUI charStatUI;
+    [SerializeField] private MovePanel CharLevelUpUI;
+    [SerializeField] private MovePanel PromoteUI;
     public enum EMenuState
     {
         MainCity = 0,
         MainMenu = 1,
         CharSelectMenu = 2,
         CharStatMenu = 3,
-        EquipmentMenu = 4,
-        InventoryMenu = 5,
-        PauseMenu = 6,
-        ShopMenu = 7,
-        GameOffMenu = 8
+        CharPromteMenu = 4,
+        CharLevelUpMenu =5,
+        EquipmentMenu = 6,
+        InventoryMenu = 7,
+        PauseMenu = 8,
+        ShopMenu = 9,
+        GameOffMenu = 10
     };
 
-    private EMenuState menuState;
+    public EMenuState emenuState;
 
     private void Start()
     {
@@ -57,12 +62,14 @@ public class MainCityMenuUIManager : MonoBehaviour
             if (!isOpened)
             {
                 Start_bg();
-                menuState = EMenuState.MainMenu;
+                emenuState = EMenuState.MainMenu;
+                Debug.Log(emenuState);
             }
 
             else
             {
                 TurnOffMenuByMenuStateEnum();
+                Debug.Log(emenuState);
             }
         }
     }
@@ -86,7 +93,6 @@ public class MainCityMenuUIManager : MonoBehaviour
     public void End_bg() // 메뉴를 끄는 효과
     {
         isOpened = false;
-        DeactivateAllUI();
         videoPlayer.gameObject.SetActive(false);
         ReturnDark_bg();
 
@@ -157,67 +163,92 @@ public class MainCityMenuUIManager : MonoBehaviour
 
     public void TurnOffMenuByMenuStateEnum() // 메뉴를 공간 상태에 따라 이동하는 메소드입니다.
     {
-        switch (menuState)
+        switch (emenuState)
         {
             case EMenuState.MainMenu:
                 End_bg();
                 DeactivateAllUI();
                 CharSelectUI.SetActive(false);
-                menuState = EMenuState.MainCity;
+                emenuState = EMenuState.MainCity;
                 break;
 
             case EMenuState.CharSelectMenu:
                 ChangeToOtherMenuEFF();
                 CharSelectUI.SetActive(false);
-                menuState = EMenuState.MainMenu;
+                emenuState = EMenuState.MainMenu;
                 break;
 
             case EMenuState.CharStatMenu:
                 ChangeToOtherMenuEFF();
-                charStatUI.SetActive(false);
-                menuState = EMenuState.CharSelectMenu;
+                charStatUI.gameObject.SetActive(false);
+                emenuState = EMenuState.CharSelectMenu;
+                break;
+
+            case EMenuState.CharPromteMenu:
+                PromoteUI.GoToEndPos();
+                charStatUI.TurnOffSideUIBG();
+                emenuState = EMenuState.CharStatMenu;
+                break;
+
+            case EMenuState.CharLevelUpMenu:
+                CharLevelUpUI.GoToEndPos();
+                charStatUI.TurnOffSideUIBG();
+                emenuState= EMenuState.CharStatMenu;
                 break;
 
             case EMenuState.EquipmentMenu:
                 ChangeToOtherMenuEFF();
                 equipmentUI.SetActive(false);
-                menuState = EMenuState.CharSelectMenu;
+                emenuState = EMenuState.CharSelectMenu;
                 break;
             case EMenuState.InventoryMenu:
                 ChangeToOtherMenuEFF();
-                inVentoryUI.SetActive(false); 
-                menuState = EMenuState.MainMenu;
+                inventoryUI.SetActive(false); 
+                emenuState = EMenuState.MainMenu;
                 break;
 
             case EMenuState.PauseMenu:
-                menuState = EMenuState.MainMenu;
-                Debug.Log($"{menuState} 구현 필요.");
+                emenuState = EMenuState.MainMenu;
+                Debug.Log($"{emenuState} 구현 필요.");
                 break;
 
             case EMenuState.ShopMenu:
-                menuState = EMenuState.MainMenu;
-                Debug.Log($"{menuState} 구현 필요.");
+                emenuState = EMenuState.MainMenu;
+                Debug.Log($"{emenuState} 구현 필요.");
                 break;
 
             case EMenuState.GameOffMenu:
-                menuState = EMenuState.MainMenu;
-                Debug.Log($"{menuState} 구현 필요.");
+                emenuState = EMenuState.MainMenu;
+                Debug.Log($"{emenuState} 구현 필요.");
                 break;
 
             default:
-                Debug.Log($"그런 {menuState} UI 환경은 없습니다.");
+                Debug.LogWarning($"그런 {emenuState} UI 환경은 없습니다.");
                 break;
         }
+        Debug.Log(emenuState);
+    }
+
+    public void OnClickCharSelectMenuBTN()
+    {
+        ChangeToOtherMenuEFF();
+        CharSelectUI.SetActive(true);
+        emenuState = EMenuState.CharSelectMenu;
     }
 
     public void DeactivateAllUI() // 모든 UI 한 번에 끄기
     {
         CharSelectUI.SetActive(false);
-        charStatUI.SetActive(false);
-        equipmentUI.SetActive(false);
-        inVentoryUI.SetActive(false);
-        menuState = EMenuState.MainCity;
+
+        charStatUI.gameObject.SetActive(false);
+
+        //equipmentUI.SetActive(false);
+
+        //inventoryUI.SetActive(false);
+
+        emenuState = EMenuState.MainCity;
         End_bg();
+        Debug.Log(emenuState);
     }
         //******************************************************************************************
     }

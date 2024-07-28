@@ -8,6 +8,7 @@ public class SelectCharacterAnimationController : MonoBehaviour
     private Animator _animator;
     private bool _isCharacterIdleAFK;
     private float animationLength;
+    private Tween tween;
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -27,7 +28,7 @@ public class SelectCharacterAnimationController : MonoBehaviour
             _animator.Play("Idle_AFK");
 
         // DoTween을 사용하여 첫 번째 애니메이션이 끝난 후 두 번째 애니메이션을 재생합니다.
-        DOVirtual.DelayedCall(animationLength, PlaySecondAnimation);
+        tween = DOVirtual.DelayedCall(animationLength, PlaySecondAnimation);
     }
 
     void PlaySecondAnimation()
@@ -70,5 +71,10 @@ public class SelectCharacterAnimationController : MonoBehaviour
 
         Debug.LogWarning($"Animation clip with name {clipName} not found!");
         return 0f;
+    }
+
+    private void OnDisable()
+    {
+        tween?.Kill();
     }
 }

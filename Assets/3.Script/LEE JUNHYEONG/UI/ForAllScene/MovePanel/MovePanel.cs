@@ -14,13 +14,18 @@ public class MovePanel : MonoBehaviour
     [SerializeField]
     private Vector2 originPos;
 
+    [Header("종료 포지션")]
+    [SerializeField]
+    private Vector2 endPos;
+
     [Header("트위닝 기간")]
     [SerializeField]
     private float duration;
 
     [Header("딜레이 시간")]
-    [SerializeField]
-    private float delay;
+    [SerializeField] private float targetDelay;
+    [SerializeField] private float originDelay;
+    [SerializeField] private float endDelay;
 
     [SerializeField] private Ease ease;
 
@@ -28,7 +33,7 @@ public class MovePanel : MonoBehaviour
 
     Tween tween;
 
-    private void Start()
+    private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
     }
@@ -40,10 +45,8 @@ public class MovePanel : MonoBehaviour
             tween.Kill();
         }
 
-
-        tween = rectTransform.DOAnchorPos(targetPos, duration).SetEase(ease).SetDelay(delay);
+        tween = rectTransform.DOAnchorPos(targetPos, duration).SetEase(ease).SetDelay(targetDelay);
     }
-
 
     public void GoToOriginPos()
     {
@@ -52,6 +55,27 @@ public class MovePanel : MonoBehaviour
             tween.Kill();
         }
     
-        tween = rectTransform.DOAnchorPos(originPos, duration).SetEase(ease);
+        tween = rectTransform.DOAnchorPos(originPos, duration).SetEase(ease).SetDelay(originDelay);
+    }
+
+    public void GoToEndPos()
+    {
+        if (tween != null)
+        {
+            tween.Kill();
+        }
+
+        tween = rectTransform.DOAnchorPos(endPos, duration).SetEase(ease).SetDelay(endDelay).OnComplete(
+            () => gameObject.SetActive(false));
+    }
+
+    private void OnDisable()
+    {
+        if (tween != null)
+        {
+            tween.Kill();
+        }
+        
+        rectTransform.anchoredPosition = originPos;
     }
 }

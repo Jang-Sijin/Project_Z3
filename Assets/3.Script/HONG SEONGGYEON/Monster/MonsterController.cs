@@ -16,23 +16,27 @@ public class MonsterController : MonoBehaviour, IstateMachineOwner
     protected NavMeshAgent nmagent;
     private Rigidbody _rigidbody;
 
-   // public ItemDropManager itemDropManager;
+    public ItemDropManager itemDropManager;
     public int stageNumber;
-
+    public ShowItemInfo showItemInfo;
     private void Awake()
     {
         ani = GetComponent<Animator>();
         statemachine = new stateMachine(this);
         mon_CO = GetComponent<MonCol_Control>();
+        itemDropManager = FindObjectOfType<ItemDropManager>();
 
         nmagent = GetComponent<NavMeshAgent>();
         _rigidbody = GetComponent<Rigidbody>();
     }
 
     private void Start()
-    {     
+    {
         SwitchState(MonsterState.Born);
-      //  itemDropManager.currentStage = stageNumber;
+        itemDropManager.currentStage = stageNumber;
+
+        showItemInfo.HideUI();
+
     }
     public bool IsAnimationFinished(string animationName)
     {
@@ -64,7 +68,7 @@ public class MonsterController : MonoBehaviour, IstateMachineOwner
                 break;
             case MonsterState.AttackType_02:
                 statemachine.EnterState<AttackType_02>();
-                break;    
+                break;
             case MonsterState.AttackType_03_Start:
                 statemachine.EnterState<AttackType_03_Start>();
                 break;
@@ -107,12 +111,17 @@ public class MonsterController : MonoBehaviour, IstateMachineOwner
 
     public void OnMonsterDead()
     {
-        Destroy(gameObject);        
+      //  showItemInfo.HideUI();
+        Destroy(gameObject);
     }
 
     public void TakeDamage(float playerDamage, Transform playerTransform)
     {
-      //  Debug.Log("TakeDamage: 몬스터 대미지 피해 입음");
+        //  Debug.Log("TakeDamage: 몬스터 대미지 피해 입음");
+        if (monsterModel.state == MonsterState.Dead)
+        {
+            return;
+        }
 
         if (monsterModel.CurrentHealth > 0)
         {

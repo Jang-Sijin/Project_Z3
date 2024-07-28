@@ -35,13 +35,17 @@ public class Item : ScriptableObject
 
     public enum EItemRank
     {
-        A = 0,
-        B = 1
+        S = 0,
+        A = 1
     };
 
     public enum EItemType
     {
         DAMAGE = 0,
-        HEALTH = 1
+        HEALTH = 1,
+        EXP_CHARACTER = 2,
+        EXP_WEAPON = 3,
+        LIMITBREAK_CHARACTER = 4,
+        LIMITBREAK_WEAPON = 5
     };
 }
