@@ -8,5 +8,4 @@ public class Build_MonsterInfo : ScriptableObject
 {
     public float maxHealth = 1000f;
     public float defaultAttackDamage = 10f;
-    public float[] attackDamageMultiple;
 }

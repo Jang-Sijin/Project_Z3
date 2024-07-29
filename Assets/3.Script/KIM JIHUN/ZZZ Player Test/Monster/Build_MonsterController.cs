@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using JSJ;
 using UnityEngine;
 
-public class Build_MonsterController : SingleMonoBase<Build_MonsterController>, IStateMachineOwner
+public class Build_MonsterController : MonoBehaviour, IStateMachineOwner
 {
-    public Build_MonsterModel monsterModel;
+    [HideInInspector] public Build_MonsterModel monsterModel;
 
     private StateMachine stateMachine;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         stateMachine = new StateMachine(this);
+        monsterModel = GetComponent<Build_MonsterModel>();
     }
 
     private void Start()
@@ -29,14 +29,16 @@ public class Build_MonsterController : SingleMonoBase<Build_MonsterController>, 
                 stateMachine.EnterState<MonsterIdleState>();
                 break;
             case EMonsterState.Spawn:
+                stateMachine.EnterState<MonsterSpawnState>();
                 break;
             case EMonsterState.Run:
-                break;
-            case EMonsterState.Walk:
+                stateMachine.EnterState<MonsterRunState>();
                 break;
             case EMonsterState.Attack:
+                stateMachine.EnterState<MonsterAttackState>(true);
                 break;
             case EMonsterState.Die:
+                stateMachine.EnterState<MonsterDieState>();
                 break;
         }
     }

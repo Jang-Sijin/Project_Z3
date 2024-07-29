@@ -6,7 +6,6 @@ public enum EMonsterState
 {
     Idle,
     Spawn,
-    Walk,
     Run,
     Attack,
     Die
