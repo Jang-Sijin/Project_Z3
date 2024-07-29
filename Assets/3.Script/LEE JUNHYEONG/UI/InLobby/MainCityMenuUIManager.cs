@@ -24,11 +24,13 @@ public class MainCityMenuUIManager : MonoBehaviour
     #endregion
 
     [Header("하위 UI들")]
-    [SerializeField] private GameObject CharSelectUI;
     [SerializeField] private GameObject inventoryUI;
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject equipmentUI;
+    [SerializeField] private GameObject CharSelectUI;
     [SerializeField] private CharStatUI charStatUI;
+    [SerializeField] private MovePanel CharLevelUpUI;
+    [SerializeField] private MovePanel PromoteUI;
     public enum EMenuState
     {
         MainCity = 0,
@@ -183,11 +185,15 @@ public class MainCityMenuUIManager : MonoBehaviour
                 break;
 
             case EMenuState.CharPromteMenu:
-                charStatUI.charPromoteUI.gameObject.SetActive(false);
+                PromoteUI.GoToEndPos();
+                charStatUI.TurnOffSideUIBG();
+                emenuState = EMenuState.CharStatMenu;
                 break;
 
             case EMenuState.CharLevelUpMenu:
-                charStatUI.charLevelUpUI.gameObject.SetActive(false);
+                CharLevelUpUI.GoToEndPos();
+                charStatUI.TurnOffSideUIBG();
+                emenuState= EMenuState.CharStatMenu;
                 break;
 
             case EMenuState.EquipmentMenu:
@@ -228,7 +234,6 @@ public class MainCityMenuUIManager : MonoBehaviour
         ChangeToOtherMenuEFF();
         CharSelectUI.SetActive(true);
         emenuState = EMenuState.CharSelectMenu;
-        Debug.Log(emenuState);
     }
 
     public void DeactivateAllUI() // 모든 UI 한 번에 끄기
