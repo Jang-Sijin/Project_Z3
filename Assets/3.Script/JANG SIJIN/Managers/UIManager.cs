@@ -18,6 +18,7 @@ public class UIManager : SingletonBase<UIManager>
     [SerializeField] private Build_CommonLoadingUI _commonLoadingUI;
     [SerializeField] private Build_MainCityUI _mainCityMenuUI;
     [SerializeField] private Build_IngamePauseUI _ingamePauseUI;
+    [SerializeField] private Build_InventoryUI _inventoryUI;
 
     public Build_IntroUI IntroUI => _introUI;
     public MainCityUI MainCityUI => _mainCityUI;
@@ -26,6 +27,7 @@ public class UIManager : SingletonBase<UIManager>
     public Build_CommonLoadingUI CommonLoadingUI => _commonLoadingUI;
     public Build_MainCityUI MainCityMenuUI => _mainCityMenuUI;
     public Build_IngamePauseUI IngamePauseUI => _ingamePauseUI;
+    public Build_InventoryUI InventoryUI => _inventoryUI;
 
 
     [HideInInspector] public bool isCloseOrOpen = false;
@@ -57,7 +59,7 @@ public class UIManager : SingletonBase<UIManager>
             }
             else
             {
-                if(_mainCityMenuUI.isOpened)
+                if (_mainCityMenuUI.isOpened)
                 {
                     _mainCityMenuUI.ToggleMainCityUI();
                 }
@@ -112,8 +114,6 @@ public class UIManager : SingletonBase<UIManager>
             PlayerController.INSTANCE.CanInput = true;
         }
     }
-
-
     public void OpenIntroUI()
     {
         _introUI.gameObject.SetActive(true);
@@ -149,11 +149,21 @@ public class UIManager : SingletonBase<UIManager>
         Application.Quit();
     }
 
+
+    public void OpenInventoryUI()
+    {
+        _inventoryUI.OpenInventoryUI();
+    }
+    public void CloseInventoryUI()
+    {
+        _inventoryUI.gameObject.SetActive(false);
+    }
     public void CloseAllUI()
     {
         CloseCityUI();
         CloseIngameUI();
         CloseIntroUI();
+        CloseInventoryUI();
     }
 }
 

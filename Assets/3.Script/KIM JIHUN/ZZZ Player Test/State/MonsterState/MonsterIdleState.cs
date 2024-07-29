@@ -17,10 +17,12 @@ public class MonsterIdleState : EnemyStateBase
         if (monsterModel.IsPlayerInAttackRange())
         {
             monsterController.SwitchState(EMonsterState.Attack);
+            return;
         }
         if (monsterModel.IsPlayerInSight())
         {
             monsterController.SwitchState(EMonsterState.Run);
+            return;
         }
     }
 }
