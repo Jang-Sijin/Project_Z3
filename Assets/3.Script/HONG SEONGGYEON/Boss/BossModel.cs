@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum BossState
-{
+{None,
     Born,
     Idle,
     Walk,
@@ -35,15 +35,20 @@ public class BossModel : MonoBehaviour
     [HideInInspector] public BossState state;
     [HideInInspector] public bool isDead = false;
     [HideInInspector] public bool isGroggy = false;
-    [HideInInspector] public float CurrentHealth;
+    [HideInInspector] private float _currentHealth;
     [HideInInspector] public float CurrentGroggypoint=0;
+    [HideInInspector] public bool isAttacked = false;
 
     // [SerializeField] public MonsterAttributes monster; // 몬스터 속성 추가
-
+    public float CurrentHealth
+    {
+        get { return _currentHealth; }
+        set { _currentHealth = value; }
+    }
     private void Start()
     {
         animator.applyRootMotion = true; // 루트 모션 적용
-        CurrentHealth = MaxHealth;
+        _currentHealth = MaxHealth;
         BossNavi = GetComponent<Navmesh>();
     }
 
@@ -73,15 +78,15 @@ public class BossModel : MonoBehaviour
         //      RotateTowards(Target.position);
         //  }
 
-        if (CurrentGroggypoint >= StartGroggypoint)
-        {
-            isGroggy = true;
-        }
-
-        if (CurrentHealth <= 0)
-        {
-            isDead = true;
-        }
+     //   if (CurrentGroggypoint >= StartGroggypoint)
+     //   {
+     //       isGroggy = true;
+     //   }
+     //
+     //   if (CurrentHealth <= 0)
+     //   {
+     //       isDead = true;
+     //   }
 
      //  if (Input.GetKeyDown(KeyCode.K))
      //  {

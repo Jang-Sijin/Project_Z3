@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &644637239993530424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1804010647278219919}
+  - component: {fileID: 3697520061552363533}
+  m_Layer: 0
+  m_Name: ItemManager_S
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1804010647278219919
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644637239993530424}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3697520061552363533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644637239993530424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18a25e40d28f6a45a027d3b074a75ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rankSItems:
+  - {fileID: 11400000, guid: 233aee694408a134aaa7f9ff3606384c, type: 2}
+  - {fileID: 11400000, guid: e27a0347867419e429bf66a754337b61, type: 2}
+  - {fileID: 11400000, guid: a8468051a05106c44a8ba2dbe1e658da, type: 2}
+  - {fileID: 11400000, guid: fe8924bdf7c0cb5498dfec93a9b3cd40, type: 2}
+  rankBItems: []
+  weaponItems:
+  - {fileID: 11400000, guid: 0122f83438762354faabbc862df2335b, type: 2}
+  - {fileID: 11400000, guid: 9bab39a57adf5644f804c51b84b219d6, type: 2}
+  - {fileID: 11400000, guid: 0d3a30a1ab5a48f4984d2dc0a8f000bb, type: 2}
+  - {fileID: 11400000, guid: ec67ab364aaff0b4cb18bd7c63fe02e4, type: 2}
+  - {fileID: 11400000, guid: 4121fd53ff551454cbcdf0363060a880, type: 2}
+  - {fileID: 11400000, guid: ffaf0a38a4a9e9342a79f2231ed3fad2, type: 2}
+  currentStage: 3
+  itemInfo: {fileID: 0}
+  weaponDropPercent: 0
