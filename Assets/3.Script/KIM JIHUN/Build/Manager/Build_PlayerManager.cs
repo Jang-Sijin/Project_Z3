@@ -29,25 +29,21 @@ public class PlayerInfo
 {
     public ECharacter _characterName;
     private int _playerLevel;
-    private Build_Item _equipment;
+    private Build_ItemSlot _equipment;
     private int _itemLevel;
+
+    public Build_ItemSlot Equipment => _equipment;
 
     public PlayerInfo(ECharacter characterName)
     {
         this._characterName = characterName;
+        _equipment = null;
         _playerLevel = 1;
     }
 
-    public void EquipItem(Build_Item itemToEquip, int itemLevel)
+    public void EquipItem(Build_ItemSlot itemToEquip)
     {
-        // 장비가 이미 있다면 교체
-        if (_equipment != null)
-        {
-            Build_InventoryManager.INSTANCE.AddToInventory(_equipment, 1, _itemLevel);
-        }
-        // 장비가 없다면 그냥 장착
         _equipment = itemToEquip;
-        this._itemLevel = itemLevel;
     }
 
     public void UnequipItem()
