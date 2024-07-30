@@ -11,6 +11,8 @@ public class Build_Item : ScriptableObject
     public string itemName;
     public Sprite itemIcon;
     public int maxAmount;
+    [TextArea(5, 5)]
+    public string itemInfoTXT;
 
 
     [Header("아이템 가격")]

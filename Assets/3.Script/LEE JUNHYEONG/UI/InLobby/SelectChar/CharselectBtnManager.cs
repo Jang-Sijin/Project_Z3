@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CharselectBtnManager : MonoBehaviour
 {
     private SelectbtnEff prevCharBtn; // 캐릭터 선택 캐싱
-    public SelectbtnEff PrevCharBtn {  get { return prevCharBtn; } }
+    public SelectbtnEff PrevCharBtn { get { return prevCharBtn; } }
 
     private MainCityMenuUIManager mainCityMenuUIManager; // 모든 메인 메뉴의 메니저
     [SerializeField] private GameObject EquipmentUI; // 장비 UI

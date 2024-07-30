@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using System.Linq;
 using UnityEngine.Rendering;
 using UnityEngine.Video;
+using TMPro;
 
 public class Build_MainCityUI : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class Build_MainCityUI : MonoBehaviour
 
     [SerializeField] private float duration_BG;
     [SerializeField] private GameObject videoPlayer;
+
+    [SerializeField] private TextMeshProUGUI _walletTXT;
 
     private List<MovePanel> movePanels;
     public bool isOpened = false;
@@ -50,6 +53,7 @@ public class Build_MainCityUI : MonoBehaviour
 
         if (!isOpened)
         {
+            _walletTXT.text = Build_InventoryManager.INSTANCE.Wallet.ToString();
             BelleController.INSTANCE.LockCamera();
             UIManager.Instance.LockPlayer();
             UIManager.Instance.CloseCityUI();

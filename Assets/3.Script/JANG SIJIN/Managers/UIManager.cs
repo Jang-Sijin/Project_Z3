@@ -19,6 +19,7 @@ public class UIManager : SingletonBase<UIManager>
     [SerializeField] private Build_MainCityUI _mainCityMenuUI;
     [SerializeField] private Build_IngamePauseUI _ingamePauseUI;
     [SerializeField] private Build_InventoryUI _inventoryUI;
+    [SerializeField] private Build_AgentSelectUI _agentSelectUI;
 
     public Build_IntroUI IntroUI => _introUI;
     public MainCityUI MainCityUI => _mainCityUI;
@@ -28,6 +29,7 @@ public class UIManager : SingletonBase<UIManager>
     public Build_MainCityUI MainCityMenuUI => _mainCityMenuUI;
     public Build_IngamePauseUI IngamePauseUI => _ingamePauseUI;
     public Build_InventoryUI InventoryUI => _inventoryUI;
+    public Build_AgentSelectUI AgentSelectUI => _agentSelectUI;
 
 
     [HideInInspector] public bool isCloseOrOpen = false;
@@ -149,6 +151,18 @@ public class UIManager : SingletonBase<UIManager>
         Application.Quit();
     }
 
+    public void OpenAgentSelectUI()
+    {
+
+        _agentSelectUI.OpenAgentSelectUI();
+    }
+
+    public void CloseAgentSelectUI()
+    {
+
+        _agentSelectUI.CloseAgentSelectUI();
+    }
+
 
     public void OpenInventoryUI()
     {
@@ -164,6 +178,7 @@ public class UIManager : SingletonBase<UIManager>
         CloseIngameUI();
         CloseIntroUI();
         CloseInventoryUI();
+        CloseAgentSelectUI();
     }
 }
 
