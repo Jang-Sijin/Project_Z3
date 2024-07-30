@@ -2,15 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EMonsterState
-{
-    Idle,
-    Spawn,
-    Run,
-    Attack,
-    Die
-}
-
 public class EnemyStateBase : StateBase
 {
     protected Build_MonsterController monsterController;
@@ -49,11 +40,12 @@ public class EnemyStateBase : StateBase
     {
         statePlayingTime += Time.deltaTime;
 
-        //체력이 0일때 사망 상태로 변경
-        if (monsterModel.monsterStatus.CurrentHealth <= 0)
-        {
-            Debug.Log("monster Die");
-        }
+        //체력이 0일때 사망 상태로 변경 -> Build_MonsterController 스크립터의 TakeDamage 메서드에서 처리중...
+        //if (monsterModel.monsterStatus.CurrentHealth <= 0)
+        //{
+        //    monsterController.SwitchState(EMonsterState.Die);
+        //    Debug.Log("monster Die");            
+        //}
     }
 
     public bool IsAnimationEnd()

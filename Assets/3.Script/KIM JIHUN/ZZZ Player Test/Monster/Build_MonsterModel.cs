@@ -74,6 +74,9 @@ public class Build_MonsterModel : MonoBehaviour
     /// <returns>시야 거리에 있다면 True, 없다면 False</returns>
     public bool IsPlayerInSight()
     {
+        if (monsterStatus.CurrentHealth <= 0)
+            return false;
+
         float distance = Vector3.Distance(
             PlayerController.INSTANCE.playerModel.transform.position,
             this.transform.position);
@@ -90,9 +93,11 @@ public class Build_MonsterModel : MonoBehaviour
     /// <returns>공격 거리에 있다면 True, 없다면 False</returns>
     public bool IsPlayerInAttackRange()
     {
-        float distance = Vector3.Distance(
-            PlayerController.INSTANCE.playerModel.transform.position,
-            this.transform.position);
+        if (monsterStatus.CurrentHealth <= 0)
+            return false;
+
+
+        float distance = Vector3.Distance(PlayerController.INSTANCE.playerModel.transform.position, this.transform.position);
 
         if (distance <= attackRange)
             return true;
@@ -105,6 +110,6 @@ public class Build_MonsterModel : MonoBehaviour
     /// </summary>
     public void MonsterDie()
     {
-        Destroy(this);
+        Destroy(gameObject);
     }
 }

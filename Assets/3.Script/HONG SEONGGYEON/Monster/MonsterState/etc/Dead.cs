@@ -21,7 +21,7 @@ public class Dead : MonsterStateBase
         {
             if (isSuccesDrop && !hasDroppedItem)
             {
-             monsterController.itemDropManager.DropItem(); // 아이템 떨구는 로직 추가할 것
+                monsterController.itemDropManager.DropItem(); // 아이템 떨구는 로직 추가할 것
             }
             hasDroppedItem = true;
             monsterController.SwitchState(MonsterState.None);

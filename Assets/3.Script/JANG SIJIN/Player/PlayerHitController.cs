@@ -33,7 +33,7 @@ public class PlayerHitController : MonoBehaviour
                 if (collider.CompareTag("Enemy"))
                 {
                     // 利焙苞 面倒 矫 贸府 肺流
-                    var enemy = collider.GetComponent<MonsterController>();
+                    var enemy = collider.GetComponent<Build_MonsterController>();
                     if (enemy != null)
                     {
                         float playerDamage = GetPlayerCharacterStepAttackDamage();
