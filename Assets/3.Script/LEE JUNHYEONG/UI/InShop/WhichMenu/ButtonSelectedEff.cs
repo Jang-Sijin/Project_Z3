@@ -43,8 +43,7 @@ public class ButtonSelectedEff : MonoBehaviour
     {
         buttonAni.SetTrigger("Normal");
         buttontext.color = Color.white;
-        wantShowMenu.gameObject.SetActive(false);
-
         wantShowMenu.SetTrigger("Close");
+        wantShowMenu.gameObject.SetActive(false);
     }
 }

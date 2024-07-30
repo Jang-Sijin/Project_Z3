@@ -12,16 +12,16 @@ public class CharselectBtnManager : MonoBehaviour
     [SerializeField] private GameObject EquipmentUI; // 장비 UI
     [SerializeField] private GameObject StatUI; // 스탯 UI
     [SerializeField] private GameObject RawImage; // 캐릭터 이미지
+    private void OnEnable()
+    {
+        RawImage.SetActive(false);
+    }
 
     private void Start()
     {
         mainCityMenuUIManager = GetComponentInParent<MainCityMenuUIManager>();
     }
 
-    private void OnEnable()
-    {
-        RawImage.SetActive(false);
-    }
 
     public void ClickCharBtn(SelectbtnEff clickedBtn) // 캐릭터 선택 버튼 메소드
     {
