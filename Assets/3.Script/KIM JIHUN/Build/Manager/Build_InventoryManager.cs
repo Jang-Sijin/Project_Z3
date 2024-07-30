@@ -29,7 +29,8 @@ public class Build_InventoryManager : SingleMonoBase<Build_InventoryManager>
         SetInventory();
         foreach (var item in debugItem)
         {
-            AddToInventory(item, Random.Range(1, 5), Random.Range(5, 10));
+            Build_ItemSlot tmp = new Build_ItemSlot(item, Random.Range(1, 5), Random.Range(5, 10), 0);
+            AddToInventory(tmp);
         }
     }
 
@@ -40,21 +41,21 @@ public class Build_InventoryManager : SingleMonoBase<Build_InventoryManager>
         rankUpInventory = new Build_Inventory();
     }
 
-    public void AddToInventory(Build_Item itemToAdd, int amountToAdd, int level = 0)
+    public void AddToInventory(Build_ItemSlot itemToAdd)
     {
         bool successToAdd = false;
-        switch (itemToAdd.itemType)
+        switch (itemToAdd.ItemData.itemType)
         {
             case Build_Item.EItemType.EQUIPMENT:
-                successToAdd = weaponInventory.AddToInventory(itemToAdd, amountToAdd, level);
+                successToAdd = weaponInventory.AddToInventory(itemToAdd.ItemData, itemToAdd.Amount, itemToAdd.Level);
                 break;
             case Build_Item.EItemType.EXP_CHARACTER:
             case Build_Item.EItemType.EXP_WEAPON:
-                successToAdd = expInventory.AddToInventory(itemToAdd, amountToAdd, level);
+                successToAdd = expInventory.AddToInventory(itemToAdd.ItemData, itemToAdd.Amount, itemToAdd.Level);
                 break;
             case Build_Item.EItemType.LIMITBREAK_CHARACTER:
             case Build_Item.EItemType.LIMITBREAK_WEAPON:
-                successToAdd = rankUpInventory.AddToInventory(itemToAdd, amountToAdd, level);
+                successToAdd = rankUpInventory.AddToInventory(itemToAdd.ItemData, itemToAdd.Amount, itemToAdd.Level);
                 break;
         }
         if (successToAdd)
@@ -67,21 +68,21 @@ public class Build_InventoryManager : SingleMonoBase<Build_InventoryManager>
         }
     }
 
-    public void RemoveFromInventory(Build_Item itemToRemove, int amountToRemove)
+    public void RemoveFromInventory(Build_ItemSlot itemToRemove)
     {
         bool successToRemove = false;
-        switch (itemToRemove.itemType)
+        switch (itemToRemove.ItemData.itemType)
         {
             case Build_Item.EItemType.EQUIPMENT:
-                successToRemove = weaponInventory.AddToInventory(itemToRemove, amountToRemove);
+                successToRemove = weaponInventory.AddToInventory(itemToRemove.ItemData, itemToRemove.Amount);
                 break;
             case Build_Item.EItemType.EXP_CHARACTER:
             case Build_Item.EItemType.EXP_WEAPON:
-                successToRemove = expInventory.RemoveFromInventory(itemToRemove, amountToRemove);
+                successToRemove = expInventory.RemoveFromInventory(itemToRemove.ItemData, itemToRemove.Amount);
                 break;
             case Build_Item.EItemType.LIMITBREAK_CHARACTER:
             case Build_Item.EItemType.LIMITBREAK_WEAPON:
-                successToRemove = rankUpInventory.RemoveFromInventory(itemToRemove, amountToRemove);
+                successToRemove = rankUpInventory.RemoveFromInventory(itemToRemove.ItemData, itemToRemove.Amount);
                 break;
         }
         if (successToRemove)

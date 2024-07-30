@@ -20,6 +20,7 @@ public class UIManager : SingletonBase<UIManager>
     [SerializeField] private Build_IngamePauseUI _ingamePauseUI;
     [SerializeField] private Build_InventoryUI _inventoryUI;
     [SerializeField] private Build_AgentSelectUI _agentSelectUI;
+    [SerializeField] private Build_WeaponUI _weaponUI;
 
     public Build_IntroUI IntroUI => _introUI;
     public MainCityUI MainCityUI => _mainCityUI;
@@ -30,6 +31,7 @@ public class UIManager : SingletonBase<UIManager>
     public Build_IngamePauseUI IngamePauseUI => _ingamePauseUI;
     public Build_InventoryUI InventoryUI => _inventoryUI;
     public Build_AgentSelectUI AgentSelectUI => _agentSelectUI;
+    public Build_WeaponUI WeaponUI => _weaponUI;
 
 
     [HideInInspector] public bool isCloseOrOpen = false;
@@ -162,8 +164,6 @@ public class UIManager : SingletonBase<UIManager>
 
         _agentSelectUI.CloseAgentSelectUI();
     }
-
-
     public void OpenInventoryUI()
     {
         _inventoryUI.OpenInventoryUI();
@@ -171,6 +171,16 @@ public class UIManager : SingletonBase<UIManager>
     public void CloseInventoryUI()
     {
         _inventoryUI.gameObject.SetActive(false);
+    }
+
+    public void OpenWeaponUI()
+    {
+        _weaponUI.OpenWeaponUI(_agentSelectUI.SelectedCharacter);
+    }
+
+    public void CloseWeaponUI()
+    {
+        _weaponUI.CloseWeaponUI();
     }
     public void CloseAllUI()
     {
