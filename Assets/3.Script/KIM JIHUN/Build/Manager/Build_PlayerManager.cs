@@ -11,6 +11,10 @@ public class Build_PlayerManager : SingleMonoBase<Build_PlayerManager>
     public PlayerInfo Corin => _corin;
     public PlayerInfo Longinus => _longinus;
     public PlayerInfo Anbi => _anbi;
+
+    public float currentExp;
+    public int playerLevel = 1;
+
     protected override void Awake()
     {
         base.Awake();
