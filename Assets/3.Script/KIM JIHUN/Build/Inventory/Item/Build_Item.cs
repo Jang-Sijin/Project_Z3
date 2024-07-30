@@ -26,7 +26,7 @@ public class Build_Item : ScriptableObject
     public float attackStat;
     public float defenceStat;
     public float healthStat;
-
+    public float expStat;
     public enum EItemRank
     {
         S = 0,
