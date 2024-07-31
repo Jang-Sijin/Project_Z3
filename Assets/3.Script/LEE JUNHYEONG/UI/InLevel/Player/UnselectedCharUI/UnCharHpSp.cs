@@ -13,10 +13,12 @@ using UnityEngine.UI;
 
 public class UnCharHpSp : MonoBehaviour
 {
-    [SerializeField]private Slider hpBar;
-    [SerializeField]private Slider spBar;
-    [SerializeField]private Slider spPointer;
+    [SerializeField] private Slider hpBar;
+    [SerializeField] private Slider spBar;
+    [SerializeField] private Slider spPointer;
     [SerializeField] private Image profile;
+    private PlayerModel playerModel;
+    public PlayerModel PlayerModel => playerModel;
 
     /// <summary>
     /// 스테이지 시작시 Init
@@ -26,7 +28,7 @@ public class UnCharHpSp : MonoBehaviour
     {
         profile.sprite = portraitImg;
 
-
+        this.playerModel = playerModel;
         hpBar.value = playerModel.playerStatus.CurrentHealth / playerModel.playerStatus.MaxHealth;
         spBar.value = playerModel.playerStatus.CurrentSkillPoint / playerModel.playerStatus.MaxHealth;
         spPointer.value = 0.5f;

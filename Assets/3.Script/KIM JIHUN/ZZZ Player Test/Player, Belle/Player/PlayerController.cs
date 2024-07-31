@@ -28,7 +28,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     [HideInInspector] private float switchCoolTime; // 캐릭터 교체 쿨타임
     private float maxUltPoint = 100f;
     private float defaultUltPoint = 4f;
-    private float currentUltPoint = 0;    
+    private float currentUltPoint = 0;
 
     public float MaxUltPoint => maxUltPoint;
     public float DefaultUltPoint => defaultUltPoint;
@@ -248,6 +248,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
 
     private void Update()
     {
+        Debug.Log(controllableModels[currentModelIndex].eCharacter);
         if (playerInputSystem.Player.Escape.triggered)
         {
             if (UIManager.Instance != null)
@@ -357,7 +358,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         Vector3 playerPosition = playerModel.transform.position;
         var enemyList = SortEnemyByDist();
 
-        if(enemyList == null || enemyList.Length == 0)
+        if (enemyList == null || enemyList.Length == 0)
             return null;
 
         foreach (var enemy in SortEnemyByDist())
@@ -435,5 +436,5 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     {
         this.transform.position = spawnPoint;
         playerModel.transform.position = spawnPoint;
-    }    
+    }
 }
