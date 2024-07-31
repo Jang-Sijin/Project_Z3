@@ -24,7 +24,6 @@ public class HoyoverseMove : MonoBehaviour
 
         if (rectTransform.anchoredPosition.Equals(endPos))
         {
-            Debug.Log("µé¾î°¬´Ï?");
             rectTransform.anchoredPosition = startPos;
         }
     }

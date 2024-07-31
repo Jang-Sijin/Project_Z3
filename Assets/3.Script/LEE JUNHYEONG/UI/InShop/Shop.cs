@@ -17,6 +17,9 @@ public class Shop : MonoBehaviour
     [Header("구매 버튼")]
     [SerializeField]private Button purchaseBtn;
 
+    [Header("팝업창")]
+    [SerializeField] private QuestionBox questionBox;
+
     [Header("아이템 선택시 표시할 텍스트")]
     // 무기 선택 시 아이템 info 출력
     #region ChangeInfoText
@@ -85,6 +88,14 @@ public class Shop : MonoBehaviour
             return;
         }
 
+        InventoryManager.instance.RemoveMoneyFromWallet(shopItemsList[itemIndex].buyPrice);
+        InventoryManager.instance.AddItem(shopItemsList[itemIndex]);
+
+        PrintWalletAndPrice(itemIndex);
+    }
+
+    private void OnClickAccept(int itemIndex)
+    {
         InventoryManager.instance.RemoveMoneyFromWallet(shopItemsList[itemIndex].buyPrice);
         InventoryManager.instance.AddItem(shopItemsList[itemIndex]);
 
