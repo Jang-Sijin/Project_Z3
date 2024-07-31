@@ -16,11 +16,11 @@ public class Build_Computer : Build_Interact
     private string[] stageNames =
         {
             "스테이지를 선택해줘!",
-            "홍성견",
+            "간단한 몸풀기",
             "잃어버린 부품 찾기",
             "나랑 함께 쓰레기 청소 할래?",
-            "전유성",
-            "김지훈"
+            "침식 대응",
+            "공동 구역 소탕 작전"
         };
     [SerializeField] private Sprite[] stageImages;
 

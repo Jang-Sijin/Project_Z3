@@ -107,6 +107,7 @@ public class GameManager : SingletonBase<GameManager>
     // 4-1. 배틀1 씬에 진입했을 때, 초기화가 필요한 로직들 실행. (초기 설정 필요한 작업 집합소)
     private void InitBattle1()
     {
+        UIManager.Instance.CloseCityUI();
         SoundManager.Instance.PlayBgm(Define.SceneType.Battle1.ToString());
         //PlayerController를 불러오기 위해 PlayerController Start에서 호출
         //UIManager.Instance.OpenIngameUI();
@@ -115,6 +116,7 @@ public class GameManager : SingletonBase<GameManager>
     // 4-2. 배틀2 씬에 진입했을 때, 초기화가 필요한 로직들 실행. (초기 설정 필요한 작업 집합소)
     private void InitBattle2()
     {
+        UIManager.Instance.CloseCityUI();
         //PlayerController를 불러오기 위해 PlayerController Start에서 호출
         //UIManager.Instance.OpenIngameUI();
         SoundManager.Instance.PlayBgm(Define.SceneType.Battle2.ToString());
@@ -123,6 +125,7 @@ public class GameManager : SingletonBase<GameManager>
     // 4-3. 배틀3 씬에 진입했을 때, 초기화가 필요한 로직들 실행. (초기 설정 필요한 작업 집합소)
     private void InitBattle3()
     {
+        UIManager.Instance.CloseCityUI();
         //PlayerController를 불러오기 위해 PlayerController Start에서 호출
         //UIManager.Instance.OpenIngameUI();
         SoundManager.Instance.PlayBgm(Define.SceneType.Battle3.ToString());
@@ -131,6 +134,7 @@ public class GameManager : SingletonBase<GameManager>
     // 4-4. 배틀4 씬에 진입했을 때, 초기화가 필요한 로직들 실행. (초기 설정 필요한 작업 집합소)
     private void InitBattle4()
     {
+        UIManager.Instance.CloseCityUI();
         //PlayerController를 불러오기 위해 PlayerController Start에서 호출
         //UIManager.Instance.OpenIngameUI();
         SoundManager.Instance.PlayBgm(Define.SceneType.Battle4.ToString());
@@ -139,6 +143,7 @@ public class GameManager : SingletonBase<GameManager>
     // 4-5. 배틀5 씬에 진입했을 때, 초기화가 필요한 로직들 실행. (초기 설정 필요한 작업 집합소)
     private void InitBattle5()
     {
+        UIManager.Instance.CloseCityUI();
         //PlayerController를 불러오기 위해 PlayerController Start에서 호출
         //UIManager.Instance.OpenIngameUI();
         SoundManager.Instance.PlayBgm(Define.SceneType.Battle5.ToString());

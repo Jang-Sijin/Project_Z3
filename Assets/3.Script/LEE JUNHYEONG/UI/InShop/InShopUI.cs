@@ -43,9 +43,9 @@ public class InShopUI : MonoBehaviour
     public void CloseShopUI()
     {
 
-        UIManager.Instance.OpenCityUI();
         if (BelleController.INSTANCE != null)
         {
+            UIManager.Instance.OpenCityUI();
             BelleController.INSTANCE.CanInput = true;
             BelleController.INSTANCE.UnlockCamera();
             BelleController.INSTANCE.LockMouse();

@@ -7,18 +7,24 @@ public class BossController : MonoBehaviour, IstateMachineOwner
 {
     public BossModel bossModel;
     protected Transform Target;
-    protected Animator ani;
-
-    [HideInInspector] public MonCol_Control mon_CO;
     [HideInInspector] protected float Distance;
+    protected Animator ani;
+    [HideInInspector] public MonCol_Control mon_CO;
+
     protected stateMachine statemachine;
     protected NavMeshAgent nmagent;
+
+    public ItemDropManager itemDropManager;
+    public int stageNumber;
+    public ShowItemInfo showItemInfo;
+
 
     private void Awake()
     {
         ani = GetComponent<Animator>();
         statemachine = new stateMachine(this);
         mon_CO = GetComponent<MonCol_Control>();
+        itemDropManager = FindObjectOfType<ItemDropManager>();
 
         nmagent = GetComponent<NavMeshAgent>();
     }
@@ -27,6 +33,10 @@ public class BossController : MonoBehaviour, IstateMachineOwner
     {
 
         SwitchState(BossState.Born);
+
+        itemDropManager.currentStage = stageNumber;
+
+        showItemInfo.HideUI();
     }
     public bool IsAnimationFinished(string animationName)
     {
@@ -75,6 +85,9 @@ public class BossController : MonoBehaviour, IstateMachineOwner
             case BossState.Dead:
                 statemachine.EnterState<BossDead>();
                 break;
+            case BossState.None:
+                statemachine.Stop();
+                break;
 
 
 
@@ -89,6 +102,36 @@ public class BossController : MonoBehaviour, IstateMachineOwner
         bossModel.animator.CrossFadeInFixedTime(animationName, fixedTransitionDuration);
     }
 
+    public void OnMonsterDead()
+    {
+        //  showItemInfo.HideUI();
+        Destroy(gameObject);
+    }
+
+
+    public void TakeDamage(float playerDamage, Transform playerTransform)
+    {
+        //  Debug.Log("TakeDamage: 몬스터 대미지 피해 입음");
+        if (bossModel.state == BossState.Dead)
+        {
+            return;
+        }
+
+        if (bossModel.CurrentHealth > 0)
+        {
+            // 몬스터 공격 받음(Hit) 상태로 변경
+            // SwitchState(BossState.Hit);
+           // Debug.Log("맞음");
+            bossModel.CurrentHealth -= playerDamage;
+            // EnemyUIController.RefreshHealth(_currentHealth, MaxHealth);
+        }
+        else
+        {
+            Debug.Log($"{gameObject.name}: 몬스터 사망");
+            bossModel.isDead = true;
+            SwitchState(BossState.Dead);
+        }
+    }
     private void Update()
     {
 
