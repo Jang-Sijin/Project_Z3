@@ -17,8 +17,9 @@ public enum EMonsterState
 
 public class Build_MonsterController : MonoBehaviour, IStateMachineOwner
 {
-    [SerializeField] private GameObject _damageFontCanvasPrefab;
+    [SerializeField] private GameObject _damageFontCanvasPrefab;      
     [HideInInspector] public Build_MonsterModel monsterModel;
+    private EnemyUIController enemyUIController;
 
     private StateMachine stateMachine;
 
@@ -26,15 +27,16 @@ public class Build_MonsterController : MonoBehaviour, IStateMachineOwner
     {
         stateMachine = new StateMachine(this);
         monsterModel = GetComponent<Build_MonsterModel>();
+        enemyUIController = GetComponentInChildren<EnemyUIController>();
     }
 
     private void OnEnable()
     {
-        SwitchState(EMonsterState.Spawn);
+        SwitchState(EMonsterState.Spawn);     
     }
 
     private void OnDisable()
-    {
+    {        
         SwitchState(EMonsterState.Idle);
     }
 
@@ -77,10 +79,11 @@ public class Build_MonsterController : MonoBehaviour, IStateMachineOwner
     public void TakeDamage(float playerDamage, Vector3 playerWeaponPostion)
     {
         //  Debug.Log("TakeDamage: 몬스터 대미지 피해 입음");
-        if (monsterModel.currentState == EMonsterState.Die)
-        {
-            return;
-        }
+        //if (monsterModel.currentState == EMonsterState.Die)
+        //{
+        //    SwitchState(EMonsterState.Die);
+        //    return;
+        //}
 
         if (monsterModel.monsterStatus.CurrentHealth > 0)
         {
@@ -91,12 +94,14 @@ public class Build_MonsterController : MonoBehaviour, IStateMachineOwner
             // EnemyUIController.RefreshHealth(_currentHealth, MaxHealth);
 
             ShowDamageFont(playerDamage, playerWeaponPostion);
+            enemyUIController.RefreshHealth(monsterModel.monsterStatus.CurrentHealth, monsterModel.monsterStatus.MaxHealth); // 몬스터 HP Bar 갱신
+            return;
         }
         else
         {
-            Debug.Log($"{gameObject.name}: 몬스터 사망");
-            //monsterModel.isDead = true;
+            Debug.Log($"{gameObject.name}: 몬스터 사망");            
             SwitchState(EMonsterState.Die);
+            return;
         }
     }
 
@@ -112,14 +117,6 @@ public class Build_MonsterController : MonoBehaviour, IStateMachineOwner
             textMesh.text = damage.ToString();
         }
 
-        ////월드 포지션을 화면 포지션으로 변환
-        //Camera mainCamera = Camera.main;
-        //Vector3 screenPosition = mainCamera.WorldToScreenPoint(hitPosition);
-
-        //// 텍스트 박스의 RectTransform 설정
-        //RectTransform textRectTransform = textMesh.GetComponent<RectTransform>();
-        //textRectTransform.position = screenPosition;
-
         // 텍스트 박스의 RectTransform 설정
         RectTransform textRectTransform = textMesh.GetComponent<RectTransform>();
 
@@ -130,9 +127,6 @@ public class Build_MonsterController : MonoBehaviour, IStateMachineOwner
 
         // DOTween을 사용하여 애니메이션 적용
         AnimateDamageFont(textRectTransform, damageFont.transform);
-
-        //// 일정 시간 후에 데미지 폰트 오브젝트를 삭제
-        //Destroy(damageFont, 1.0f);
     }
 
     private void AnimateDamageFont(RectTransform damageFontRectTransform, Transform startPosition)    
