@@ -8,12 +8,9 @@ public class Build_ItemSlotUI : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private Image _itemIMG;
-    [SerializeField] private TextMeshProUGUI _itemAmountTXT;
-    [SerializeField] private GameObject _itemLevelFrame;
-    [SerializeField] private TextMeshProUGUI _itemLevelTXT;
     private Button button;
 
-    private Build_ItemSlot _itemSlot;
+    private Build_Item _itemSlot;
 
     private void Start()
     {
@@ -21,29 +18,10 @@ public class Build_ItemSlotUI : MonoBehaviour
         button.onClick.AddListener(ShowItemInfomation);
     }
 
-    public void RefreshSlot(Build_ItemSlot itemSlot)
+    public void RefreshSlot(Build_Item itemData)
     {
-        _itemSlot = itemSlot;
-        _itemIMG.sprite = itemSlot.ItemData.itemIcon;
-
-        if (itemSlot.Amount == 1)
-        {
-            _itemAmountTXT.text = "";
-        }
-        else
-        {
-            _itemAmountTXT.text = itemSlot.Amount.ToString();
-        }
-
-        if (itemSlot.ItemData.itemType == Build_Item.EItemType.EQUIPMENT)
-        {
-            _itemLevelFrame.SetActive(true);
-            _itemLevelTXT.text = "LV." + itemSlot.Level.ToString();
-        }
-        else
-        {
-            _itemLevelFrame.SetActive(false);
-        }
+        _itemSlot = itemData;
+        _itemIMG.sprite = itemData.itemIcon;
     }
 
     private void ShowItemInfomation()

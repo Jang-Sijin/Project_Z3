@@ -26,15 +26,12 @@ public class Build_InventoryUI : MonoBehaviour
     [Header("Show Item Infomation")]
     [SerializeField] private TextMeshProUGUI _itemNameTXT;
     [SerializeField] private Image _itemIconIMG;
-    [SerializeField] private TextMeshProUGUI _itemLevelTXT;
     [SerializeField] private TextMeshProUGUI _itemAttackTXT;
     [SerializeField] private TextMeshProUGUI _itemDefenceTXT;
     [SerializeField] private TextMeshProUGUI _itemHealthTXT;
-    [SerializeField] private TextMeshProUGUI _itemInfoTXT;
 
     [Header("무기 종류 설명 창")]
     [SerializeField] private GameObject weaponInfoObject;
-    [SerializeField] private GameObject itemInfoObject;
 
     public void OpenInventoryUI()
     {
@@ -52,9 +49,14 @@ public class Build_InventoryUI : MonoBehaviour
         }
 
         int weaponInventoryCount = Build_InventoryManager.INSTANCE.WeaponInventory.Inventory.Count;
-        int expInventoryCount = Build_InventoryManager.INSTANCE.ExpInventory.Inventory.Count;
-        int rankUpInventoryCount = Build_InventoryManager.INSTANCE.RankUpInventory.Inventory.Count;
-
+        for (int i = 0; i < weaponInventoryCount; i++)
+        {
+            Debug.Log(i);
+            itemSlots[i].gameObject.SetActive(true);
+            itemSlots[i].RefreshSlot(Build_InventoryManager.INSTANCE.WeaponInventory.Inventory[i]);
+            itemSlots[i].GetComponent<Animator>().SetTrigger("Normal");
+        }
+        /*
         if (category == EInventoryCategory.All ||
             category == EInventoryCategory.Weapon)
         {
@@ -66,6 +68,8 @@ public class Build_InventoryUI : MonoBehaviour
                 itemSlots[i].GetComponent<Animator>().SetTrigger("Normal");
             }
         }
+        */
+        /*
         if (category == EInventoryCategory.All ||
             category == EInventoryCategory.Exp)
         {
@@ -86,6 +90,7 @@ public class Build_InventoryUI : MonoBehaviour
                 itemSlots[i + weaponInventoryCount + expInventoryCount].GetComponent<Animator>().SetTrigger("Normal");
             }
         }
+        */
         /*
         switch (category)
         {
@@ -157,7 +162,7 @@ public class Build_InventoryUI : MonoBehaviour
         }
     }
 
-    public void ShowItemInfomation(Build_ItemSlot itemToShow)
+    public void ShowItemInfomation(Build_Item itemToShow)
     {
 
         if (itemToShow == null)
@@ -165,29 +170,19 @@ public class Build_InventoryUI : MonoBehaviour
             _itemNameTXT.text = "";
             _itemIconIMG.color = new Color(1, 1, 1, 0);
             weaponInfoObject.SetActive(false);
-            itemInfoObject.SetActive(false);
             return;
         }
-        _itemNameTXT.text = itemToShow.ItemData.itemName;
+        _itemNameTXT.text = itemToShow.itemName;
         _itemIconIMG.color = new Color(1, 1, 1, 1);
-        _itemIconIMG.sprite = itemToShow.ItemData.itemIcon;
+        _itemIconIMG.sprite = itemToShow.itemIcon;
 
 
-        if (itemToShow.ItemData.itemType == Build_Item.EItemType.EQUIPMENT)
+        if (itemToShow.itemType == Build_Item.EItemType.EQUIPMENT)
         {
             weaponInfoObject.SetActive(true);
-            itemInfoObject.SetActive(false);
-            _itemLevelTXT.text = $"LV.{itemToShow.Level}/{10 * itemToShow.LevelRank}";
-            _itemAttackTXT.text = (itemToShow.ItemData.attackStat * itemToShow.Level).ToString();
-            _itemDefenceTXT.text = (itemToShow.ItemData.defenceStat * itemToShow.Level).ToString();
-            _itemHealthTXT.text = (itemToShow.ItemData.healthStat * itemToShow.Level).ToString();
-        }
-        else
-        {
-            weaponInfoObject.SetActive(false);
-            itemInfoObject.SetActive(true);
-
-            _itemInfoTXT.text = itemToShow.ItemData.itemInfoTXT;
+            _itemAttackTXT.text = itemToShow.attackStat.ToString();
+            _itemDefenceTXT.text = itemToShow.defenceStat.ToString();
+            _itemHealthTXT.text = itemToShow.healthStat.ToString();
         }
     }
 }

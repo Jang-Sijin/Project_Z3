@@ -18,12 +18,11 @@ public class Build_WeaponUI : MonoBehaviour
     [SerializeField] private Sprite[] _rankSprite;
 
     [Header("WeaponPreview")]
-    private Build_ItemSlot _selectedItemSlot;
+    private Build_Item _selectedItemSlot;
     [SerializeField] private GameObject _previewWindow;
     [SerializeField] private TextMeshProUGUI _preWeaponName;
     [SerializeField] private Image _preWeaponIMG;
     [SerializeField] private Image _preWeaponRankIMG;
-    [SerializeField] private TextMeshProUGUI _preWeaponLevel;
     [SerializeField] private TextMeshProUGUI _preWeaponAttack;
     [SerializeField] private TextMeshProUGUI _preWeaponDefence;
     [SerializeField] private TextMeshProUGUI _preWeaponHealth;
@@ -32,7 +31,6 @@ public class Build_WeaponUI : MonoBehaviour
     [Header("WeaponInfo")]
     [SerializeField] private TextMeshProUGUI _weaponName;
     [SerializeField] private Image _weaponRankIMG;
-    [SerializeField] private TextMeshProUGUI _weaponLevel;
     [SerializeField] private TextMeshProUGUI _weaponAttack;
     [SerializeField] private TextMeshProUGUI _weaponDefence;
     [SerializeField] private TextMeshProUGUI _weaponHealth;
@@ -54,7 +52,7 @@ public class Build_WeaponUI : MonoBehaviour
     public void ShowEquipedWeapon()
     {
         _equipedWeaponIMG.gameObject.SetActive(false);
-        Build_ItemSlot tmp = null;
+        Build_Item tmp = null;
         switch (_selectedCharacter)
         {
             case ECharacter.Anbi:
@@ -82,21 +80,19 @@ public class Build_WeaponUI : MonoBehaviour
 
         if (tmp != null)
         {
-            _equipedWeaponIMG.sprite = tmp.ItemData.itemIcon;
-            _weaponName.text = tmp.ItemData.itemName;
+            _equipedWeaponIMG.sprite = tmp.itemIcon;
+            _weaponName.text = tmp.itemName;
             _weaponRankIMG.gameObject.SetActive(true);
-            _weaponRankIMG.sprite = _rankSprite[(int)tmp.ItemData.itemRank];
-            _weaponLevel.text = $"LV.{tmp.Level}/{10 * tmp.LevelRank}";
-            _weaponAttack.text = (tmp.ItemData.attackStat * tmp.LevelRank).ToString();
-            _weaponDefence.text = (tmp.ItemData.defenceStat * tmp.LevelRank).ToString();
-            _weaponHealth.text = (tmp.ItemData.healthStat * tmp.LevelRank).ToString();
+            _weaponRankIMG.sprite = _rankSprite[(int)tmp.itemRank];
+            _weaponAttack.text = tmp.attackStat.ToString();
+            _weaponDefence.text = tmp.defenceStat.ToString();
+            _weaponHealth.text = tmp.healthStat.ToString();
         }
         else
         {
             _equipedWeaponIMG.sprite = null;
             _weaponName.text = "404 NOT FOUND";
             _weaponRankIMG.gameObject.SetActive(false);
-            _weaponLevel.text = "NULL";
             _weaponAttack.text = "0";
             _weaponDefence.text = "0";
             _weaponHealth.text = "0";
@@ -121,20 +117,19 @@ public class Build_WeaponUI : MonoBehaviour
         ShowEquipedWeapon();
     }
 
-    public void ShowItemPreview(Build_ItemSlot itemSlot)
+    public void ShowItemPreview(Build_Item itemSlot)
     {
         if (_selectedItemSlot == itemSlot) CloseItemPreview();
         else
         {
             _selectedItemSlot = itemSlot;
             _previewWindow.SetActive(true);
-            _preWeaponName.text = itemSlot.ItemData.itemName;
-            _preWeaponIMG.sprite = itemSlot.ItemData.itemIcon;
-            _preWeaponRankIMG.sprite = _rankSprite[(int)itemSlot.ItemData.itemRank];
-            _preWeaponLevel.text = $"LV.{itemSlot.Level}/{10 * itemSlot.LevelRank}";
-            _preWeaponAttack.text = (itemSlot.ItemData.attackStat * itemSlot.LevelRank).ToString();
-            _preWeaponDefence.text = (itemSlot.ItemData.defenceStat * itemSlot.LevelRank).ToString();
-            _preWeaponHealth.text = (itemSlot.ItemData.healthStat * itemSlot.LevelRank).ToString();
+            _preWeaponName.text = itemSlot.itemName;
+            _preWeaponIMG.sprite = itemSlot.itemIcon;
+            _preWeaponRankIMG.sprite = _rankSprite[(int)itemSlot.itemRank];
+            _preWeaponAttack.text = itemSlot.attackStat.ToString();
+            _preWeaponDefence.text = itemSlot.defenceStat.ToString();
+            _preWeaponHealth.text = itemSlot.healthStat.ToString();
         }
     }
 
