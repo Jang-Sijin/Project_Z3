@@ -9,6 +9,19 @@ public class PlayerSkillState : PlayerStateBase
         base.Enter();
         playerModel.LookEnemy();
         playerController.PlayAnimation("Attack_Skill");
+
+        if (playerController.controllableModels[playerController.currentModelIndex].eCharacter == ECharacter.Anbi)
+        {
+            SoundManager.Instance.PlayEffect($"AnbiAttack_Skill_E");
+        }
+        else if (playerController.controllableModels[playerController.currentModelIndex].eCharacter == ECharacter.Longinus)
+        {
+            SoundManager.Instance.PlayEffect($"LonginusAttack_Skill_E");
+        }
+        else if (playerController.controllableModels[playerController.currentModelIndex].eCharacter == ECharacter.Corin)
+        {
+            SoundManager.Instance.PlayEffect($"CorinAttack_Skill_E");
+        }
     }
 
     public override void Update()

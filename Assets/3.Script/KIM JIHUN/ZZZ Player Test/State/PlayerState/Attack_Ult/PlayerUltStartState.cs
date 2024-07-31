@@ -17,6 +17,18 @@ public class PlayerUltStartState : PlayerStateBase
 
 
         playerController.PlayAnimation("Attack_Ult_Start", 0f);
+        if (playerController.controllableModels[playerController.currentModelIndex].eCharacter == ECharacter.Anbi)
+        {
+            SoundManager.Instance.PlayEffect($"AnbiAttack_Skill_Q");
+        }
+        else if (playerController.controllableModels[playerController.currentModelIndex].eCharacter == ECharacter.Longinus)
+        {
+            SoundManager.Instance.PlayEffect($"LonginusAttack_Skill_Q");
+        }
+        else if (playerController.controllableModels[playerController.currentModelIndex].eCharacter == ECharacter.Corin)
+        {
+            SoundManager.Instance.PlayEffect($"CorinAttack_Skill_Q");
+        }
     }
 
     public override void Update()
