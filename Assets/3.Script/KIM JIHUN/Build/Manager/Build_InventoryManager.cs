@@ -74,7 +74,7 @@ public class Build_InventoryManager : SingleMonoBase<Build_InventoryManager>
         switch (itemToRemove.ItemData.itemType)
         {
             case Build_Item.EItemType.EQUIPMENT:
-                successToRemove = weaponInventory.AddToInventory(itemToRemove.ItemData, itemToRemove.Amount);
+                successToRemove = weaponInventory.RemoveFromInventory(itemToRemove.ItemData, itemToRemove.Amount);
                 break;
             case Build_Item.EItemType.EXP_CHARACTER:
             case Build_Item.EItemType.EXP_WEAPON:
