@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using UnityEditor.ShaderGraph.Drawing.Inspector.PropertyDrawers;
 using UnityEngine.Audio;
 using TMPro;
 using UnityEditor;
@@ -14,14 +13,14 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuUI : MonoBehaviour
 {
-	/*
-	 * °¢ ¹öÆ°µéÀÇ OnClick() ½Ã ºÒ·¯¿Ã ¸Þ¼ÒµåµéÀÌ ÀÖ½À´Ï´Ù.
+    /*
+	 * ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ï¿½ OnClick() ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ï¿½ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
 	 */
 
-	private Image[] images; // Á¾·áÇÒ ¶§ fadeÇÒ ÀÌ¹ÌÁöµéÀÔ´Ï´Ù.
+    private Image[] images; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ fadeï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.
 
-	private void Awake()
-	{
+    private void Awake()
+    {
         int imagesLength = GetComponentsInChildren<Image>().Length;
 
         images = new Image[imagesLength];
@@ -30,30 +29,30 @@ public class PauseMenuUI : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    [SerializeField]private Animator startInto_btn_Ani; // ¼±ÅÃµÈ ¸Þ´ºÃ¢ÀÇ ¾Ö´Ï¸ÞÀÌ¼ÇÀ» ¹Ù²Ù±â À§ÇØ ¸¸µé¾ú½À´Ï´Ù.
-	private Animator curInto_btn_Ani;
+    [SerializeField] private Animator startInto_btn_Ani; // ï¿½ï¿½ï¿½Ãµï¿½ ï¿½Þ´ï¿½Ã¢ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½Ù²Ù±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.
+    private Animator curInto_btn_Ani;
 
-	[SerializeField]private Image UpperBlackBlank; 
-	[SerializeField]private Image UnderBlackBlank;
+    [SerializeField] private Image UpperBlackBlank;
+    [SerializeField] private Image UnderBlackBlank;
 
-	[SerializeField] private GameObject displayMenu;
-	[SerializeField] private GameObject soundMenu;
+    [SerializeField] private GameObject displayMenu;
+    [SerializeField] private GameObject soundMenu;
     [SerializeField] private GameObject quitMenu;
     [SerializeField] Animator CamDirectionAni;
 
-	//Pause¸Þ´º È°¼ºÈ­½Ã ÃÊ±â ¼¼ÆÃ
+    //Pauseï¿½Þ´ï¿½ È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½
     //*********************************************************************************************************
     public IEnumerator CallPauseMenu_co()
-	{
+    {
         UIManager.Instance.isCloseOrOpen = true;
         curInto_btn_Ani = startInto_btn_Ani;
         displayMenu.SetActive(true);
-        soundMenu.SetActive(false); // µð½ºÇÃ·¹ÀÌ È­¸éÀÌ Ç×»ó ¸ÕÀú ³ª¿É´Ï´Ù.
+        soundMenu.SetActive(false); // ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ È­ï¿½ï¿½ï¿½ï¿½ ï¿½×»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½É´Ï´ï¿½.
 
         curInto_btn_Ani.SetBool("Selected", true);
 
-		if (images == null)
-			Debug.Log("null");
+        if (images == null)
+            Debug.Log("null");
 
         for (int i = 0; i < images.Length; i++)
         {
@@ -67,32 +66,32 @@ public class PauseMenuUI : MonoBehaviour
         UpperBlackBlank.rectTransform.DOAnchorPosY(-70f, 0.2f).SetEase(Ease.OutQuad);
         Tween tween = UnderBlackBlank.rectTransform.DOAnchorPosY(70f, 0.2f).SetEase(Ease.OutQuad);
 
-		yield return tween.WaitForCompletion();
-		UIManager.Instance.isCloseOrOpen = false;
+        yield return tween.WaitForCompletion();
+        UIManager.Instance.isCloseOrOpen = false;
         UIManager.Instance.isPause = true;
     }
     //************************************************************************************************************
 
 
-	//È¯°æ¼³Á¤ ¸Þ´º Á¾·á½Ã È¿°ú ¸Þ¼Òµå
+    //È¯ï¿½æ¼³ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½ ï¿½Þ¼Òµï¿½
     //*********************************************************************************************************
     private IEnumerator ClosePauseMenu_co()
-	{
-		yield return new WaitForSeconds(0.2f);
+    {
+        yield return new WaitForSeconds(0.2f);
 
-		FadeImages();
+        FadeImages();
 
-		UpperBlackBlank.rectTransform.DOAnchorPosY(70f, 0.2f);
-		UnderBlackBlank.rectTransform.DOAnchorPosY(-70f, 0.2f);
+        UpperBlackBlank.rectTransform.DOAnchorPosY(70f, 0.2f);
+        UnderBlackBlank.rectTransform.DOAnchorPosY(-70f, 0.2f);
 
         yield return new WaitForSeconds(0.2f);
 
-		UIManager.Instance.isCloseOrOpen = false;
+        UIManager.Instance.isCloseOrOpen = false;
         gameObject.SetActive(false);
-	}
+    }
 
-	private void FadeImages()
-	{
+    private void FadeImages()
+    {
         for (int i = 0; i < images.Length; i++)
         {
             if (!images[i].CompareTag("MovingUI"))
@@ -103,54 +102,54 @@ public class PauseMenuUI : MonoBehaviour
 
 
 
-    //¿©·¯ ¹öÆ° ÇÔ¼ö
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½Ô¼ï¿½
     //*********************************************************************************************************
-    public void OnClickClose() // pause Á¾·á¸Þ¼Òµå
-	{
-		UIManager.Instance.isCloseOrOpen = true;
-		gameObject.SetActive(true);
-		StartCoroutine(ClosePauseMenu_co());
+    public void OnClickClose() // pause ï¿½ï¿½ï¿½ï¿½Þ¼Òµï¿½
+    {
+        UIManager.Instance.isCloseOrOpen = true;
+        gameObject.SetActive(true);
+        StartCoroutine(ClosePauseMenu_co());
         UIManager.Instance.isPause = false;
     }
 
-	public void OnClickIntoButton(Animator changeCur)// ¿ÞÂÊ ¸Þ´º ¼±ÅÃ ¹öÆ° Å¬¸¯½Ã ¹ß»ýÇÏ´Â ¾Ö´Ï¸ÞÀÌ¼ÇÀÔ´Ï´Ù.
-	{
-		curInto_btn_Ani.SetBool("Selected", false);
+    public void OnClickIntoButton(Animator changeCur)// ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½Ï´ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ï¿½Ô´Ï´ï¿½.
+    {
+        curInto_btn_Ani.SetBool("Selected", false);
         curInto_btn_Ani.SetTrigger("Normal");
-	
-		curInto_btn_Ani = changeCur;
-		curInto_btn_Ani.SetBool("Selected", true);
-	}
 
-	public void OnclickSound_Menu() // »ç¿îµå ¸Þ´º º¸±â
-	{
-		displayMenu.SetActive(false);
-		soundMenu.SetActive(true);
-	}
+        curInto_btn_Ani = changeCur;
+        curInto_btn_Ani.SetBool("Selected", true);
+    }
 
-	public void OnClickDisplay_Menu() // µð½ºÇÃ·¹ÀÌ ¸Þ´º º¸±â
-	{
-		soundMenu.SetActive(false);
-		displayMenu.SetActive(true);
+    public void OnclickSound_Menu() // ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½
+    {
+        displayMenu.SetActive(false);
+        soundMenu.SetActive(true);
+    }
+
+    public void OnClickDisplay_Menu() // ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½
+    {
+        soundMenu.SetActive(false);
+        displayMenu.SetActive(true);
         ChangeCamDirection(true);
-	}
+    }
 
-    public void OnClickQuit_Menu() // ±×¸¸µÎ±â ¸Þ´º ºÒ·¯¿À±â
+    public void OnClickQuit_Menu() // ï¿½×¸ï¿½ï¿½Î±ï¿½ ï¿½Þ´ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         quitMenu.SetActive(true);
     }
 
-    public void OnClickQuit() // ·¹º§¿¡¼­
+    public void OnClickQuit() // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
-        SceneManager.LoadScene("LoadingScene"); // µð¹ö±ë
+        SceneManager.LoadScene("LoadingScene"); // ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 
-    public void OnClickCancelQuit() // ±×¸¸µÎ±â ¸Þ´º ³ª°¡±â
+    public void OnClickCancelQuit() // ï¿½×¸ï¿½ï¿½Î±ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
-        quitMenu.SetActive(false); 
+        quitMenu.SetActive(false);
     }
 
-    public void OnClickExitGame() // ¸¶À»¿¡¼­
+    public void OnClickExitGame() // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         Application.Quit();
     }
@@ -167,34 +166,34 @@ public class PauseMenuUI : MonoBehaviour
             CamDirectionAni.SetBool("On", false);
         }
     }
-        //*********************************************************************************************************
+    //*********************************************************************************************************
 
 
-        //½½¶óÀÌ´õ ¼³Á¤
-        //*********************************************************************************************************
+    //ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½
+    //*********************************************************************************************************
 
-        [SerializeField]private AudioMixer masterMixer;
-	public void OnChangeSliders(Slider slider)
-	{
-		float value = slider.value;
+    [SerializeField] private AudioMixer masterMixer;
+    public void OnChangeSliders(Slider slider)
+    {
+        float value = slider.value;
 
-		TextMeshProUGUI numValue = slider.GetComponentInChildren<TextMeshProUGUI>();
+        TextMeshProUGUI numValue = slider.GetComponentInChildren<TextMeshProUGUI>();
 
-		
-		switch(slider.name)
-		{
-			//»ç¿îµå ½½¶óÀÌ´õ
-			case "MasterSound":
+
+        switch (slider.name)
+        {
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½
+            case "MasterSound":
                 numValue.text = $"{(int)((value + 40) * 2.5f)}";
                 slider.value = (int)slider.value;
                 if (value == -40f)
-					masterMixer.SetFloat("Master", -80f);
+                    masterMixer.SetFloat("Master", -80f);
 
-				else
-					masterMixer.SetFloat("Master", value);
-				break;
+                else
+                    masterMixer.SetFloat("Master", value);
+                break;
 
-			case "BGM":
+            case "BGM":
                 numValue.text = $"{(int)((value + 40) * 2.5f)}";
                 slider.value = (int)slider.value;
 
@@ -205,7 +204,7 @@ public class PauseMenuUI : MonoBehaviour
                     masterMixer.SetFloat("BGM", value);
                 break;
 
-			case "SFX":
+            case "SFX":
                 numValue.text = $"{(int)((value + 40) * 2.5f)}";
                 slider.value = (int)slider.value;
 
@@ -216,47 +215,47 @@ public class PauseMenuUI : MonoBehaviour
                     masterMixer.SetFloat("SFX", value);
                 break;
 
-				//*******************************************************************
-				//µð½ºÇÃ·¹ÀÌ ½½¶óÀÌ´õ
+            //*******************************************************************
+            //ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½
 
-			case "CameraVertical":
+            case "CameraVertical":
                 slider.value = (int)slider.value;
                 numValue.text = $"{(int)value}";
-                Debug.Log("¸¶¿ì½º °¨µµ Á¶Àý ÇÊ¿ä");
-				break;
+                Debug.Log("ï¿½ï¿½ï¿½ì½º ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½");
+                break;
 
-			case "CameraHorizontal":
+            case "CameraHorizontal":
                 slider.value = (int)slider.value;
                 numValue.text = $"{(int)value}";
-                Debug.Log("¸¶¿ì½º °¨µµ Á¶Àý ÇÊ¿ä");
-				break;
-		}
-	}
+                Debug.Log("ï¿½ï¿½ï¿½ì½º ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½");
+                break;
+        }
+    }
 
     //*********************************************************************************************************
-    //µå·Ó´Ù¿î UI ¸Þ¼ÒµåÀÔ´Ï´Ù.
+    //ï¿½ï¿½Ó´Ù¿ï¿½ UI ï¿½Þ¼Òµï¿½ï¿½Ô´Ï´ï¿½.
     public void ResolutionDropDown(int index)
     {
         switch (index)
         {
             case 0:
                 Screen.SetResolution(1920, 1080, true);
-                Debug.Log("ÇØ»óµµ¸¦ 1920x1080(ÀüÃ¼È­¸é)À¸·Î ¹Ù²ß´Ï´Ù.");
+                Debug.Log("ï¿½Ø»óµµ¸ï¿½ 1920x1080(ï¿½ï¿½Ã¼È­ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ß´Ï´ï¿½.");
                 break;
 
             case 1:
                 Screen.SetResolution(1280, 720, true);
-                Debug.Log("ÇØ»óµµ¸¦ 1280x720(ÀüÃ¼È­¸é)À¸·Î ¹Ù²ß´Ï´Ù.");
+                Debug.Log("ï¿½Ø»óµµ¸ï¿½ 1280x720(ï¿½ï¿½Ã¼È­ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ß´Ï´ï¿½.");
                 break;
 
             case 2:
                 Screen.SetResolution(1920, 1080, false);
-                Debug.Log("ÇØ»óµµ¸¦ 1920x1080(Ã¢¸ðµå)À¸·Î ¹Ù²ß´Ï´Ù.");
+                Debug.Log("ï¿½Ø»óµµ¸ï¿½ 1920x1080(Ã¢ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ß´Ï´ï¿½.");
                 break;
 
             case 3:
                 Screen.SetResolution(1280, 720, false);
-                Debug.Log("ÇØ»óµµ¸¦ 1280x720(Ã¢¸ðµå)À¸·Î ¹Ù²ß´Ï´Ù.");
+                Debug.Log("ï¿½Ø»óµµ¸ï¿½ 1280x720(Ã¢ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ß´Ï´ï¿½.");
                 break;
         }
     }

@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Search;
 using UnityEditor;
 using UnityEngine;
 
@@ -13,8 +12,8 @@ public class ButtonManager : MonoBehaviour
 
     private void Start()
     {
-        if(secondBtn != null)
-        prevBtn = secondBtn;
+        if (secondBtn != null)
+            prevBtn = secondBtn;
 
         ClickBtn(firstBtn);
     }
@@ -29,7 +28,7 @@ public class ButtonManager : MonoBehaviour
         if (prevBtn != null)
             prevBtn.turnOff();
 
-            clickedBtn.OnClickButton();
-            prevBtn = clickedBtn;
+        clickedBtn.OnClickButton();
+        prevBtn = clickedBtn;
     }
 }

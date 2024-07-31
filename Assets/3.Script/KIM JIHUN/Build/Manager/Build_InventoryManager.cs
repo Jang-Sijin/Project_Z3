@@ -67,4 +67,13 @@ public class Build_InventoryManager : SingleMonoBase<Build_InventoryManager>
         }
     }
 
+    public void IncreaseWallet(int money)
+    {
+        wallet += money;
+    }
+
+    public void DecreaseWallet(int money)
+    {
+        wallet -= money;
+    }
 }

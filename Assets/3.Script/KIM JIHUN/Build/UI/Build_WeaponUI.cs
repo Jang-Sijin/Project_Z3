@@ -82,6 +82,7 @@ public class Build_WeaponUI : MonoBehaviour
         if (tmp != null)
         {
             _equipedWeaponIMG.sprite = tmp.itemIcon;
+            _equipedWeaponIMG.SetNativeSize();
             _weaponName.text = tmp.itemName;
             _weaponRankIMG.gameObject.SetActive(true);
             _weaponRankIMG.sprite = _rankSprite[(int)tmp.itemRank];
@@ -127,6 +128,7 @@ public class Build_WeaponUI : MonoBehaviour
             _previewWindow.SetActive(true);
             _preWeaponName.text = itemSlot.itemName;
             _preWeaponIMG.sprite = itemSlot.itemIcon;
+            _preWeaponIMG.SetNativeSize();
             _preWeaponRankIMG.sprite = _rankSprite[(int)itemSlot.itemRank];
             _preWeaponAttack.text = itemSlot.attackStat.ToString();
             _preWeaponDefence.text = itemSlot.defenceStat.ToString();

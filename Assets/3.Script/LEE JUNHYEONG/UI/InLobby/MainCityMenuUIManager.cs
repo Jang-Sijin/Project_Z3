@@ -8,24 +8,23 @@ using System.Linq;
 using UnityEngine.Rendering;
 using UnityEngine.Video;
 using UnityEngine.Assertions.Must;
-using UnityEditor.EditorTools;
 using TMPro;
 
 public class MainCityMenuUIManager : MonoBehaviour
 {
 
-    #region ¸ÞÀÎ ¸Þ´º UI¸¦ À§ÇÑ º¯¼öµé
-    [SerializeField] private Image fadeImage_BG; // È­¸é ±î¸Ä°Ô ÇÏ´Â ÀÌ¹ÌÁö
-    [SerializeField] private float duration_BG; // È­¸éÀ» ±î¸Ä°Ô È¤Àº ¹à°ÔÇÏ´Â ½Ã°£
-    [SerializeField] private GameObject videoPlayer; // Àç»ýÇÒ ºñµð¿À
+    #region ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ UIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private Image fadeImage_BG; // È­ï¿½ï¿½ ï¿½ï¿½Ä°ï¿½ ï¿½Ï´ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½
+    [SerializeField] private float duration_BG; // È­ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä°ï¿½ È¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ã°ï¿½
+    [SerializeField] private GameObject videoPlayer; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     [SerializeField] private TextMeshProUGUI walletText;
 
-    private List<MovePanel> movePanels; // »çÀÌµå¿¡ ¿òÁ÷ÀÏ ÆÐ³ÎÀÔ´Ï´Ù.
-    private bool isOpened = false; // ¸ÞÀÎ ¸Þ´º UI°¡ ¿­·È´ÂÁö È®ÀÎÇÏ´Â ºÒ°ª
-    private Tween tween; // Æ®À© Ä³½Ì : Àü Æ®À§´×À» Ãë¼ÒÇÏ±â À§ÇØ¼­
+    private List<MovePanel> movePanels; // ï¿½ï¿½ï¿½Ìµå¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð³ï¿½ï¿½Ô´Ï´ï¿½.
+    private bool isOpened = false; // ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ UIï¿½ï¿½ ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ò°ï¿½
+    private Tween tween; // Æ®ï¿½ï¿½ Ä³ï¿½ï¿½ : ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½
     #endregion
 
-    [Header("ÇÏÀ§ UIµé")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ UIï¿½ï¿½")]
     [SerializeField] private GameObject inventoryUI;
     [SerializeField] private GameObject pauseUI;
     [SerializeField] private GameObject equipmentUI;
@@ -40,7 +39,7 @@ public class MainCityMenuUIManager : MonoBehaviour
         CharSelectMenu = 2,
         CharStatMenu = 3,
         CharPromteMenu = 4,
-        CharLevelUpMenu =5,
+        CharLevelUpMenu = 5,
         EquipmentMenu = 6,
         InventoryMenu = 7,
         PauseMenu = 8,
@@ -77,9 +76,9 @@ public class MainCityMenuUIManager : MonoBehaviour
         }
     }
 
-    #region ¸ÞÀÎ¸Þ´ºUI ÄÑ°í ²ô´Â ¸Þ¼Òµå
+    #region ï¿½ï¿½ï¿½Î¸Þ´ï¿½UI ï¿½Ñ°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 
-    private void Start_bg() // ¸Þ´º¸¦ ´­·¶À» °æ¿ì Ã³À½ È¿°ú ¸Þ¼Òµå
+    private void Start_bg() // ï¿½Þ´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ È¿ï¿½ï¿½ ï¿½Þ¼Òµï¿½
     {
         isOpened = true;
 
@@ -94,7 +93,7 @@ public class MainCityMenuUIManager : MonoBehaviour
 
 
 
-    public void End_bg() // ¸Þ´º¸¦ ²ô´Â È¿°ú
+    public void End_bg() // ï¿½Þ´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½
     {
         isOpened = false;
         videoPlayer.gameObject.SetActive(false);
@@ -109,23 +108,23 @@ public class MainCityMenuUIManager : MonoBehaviour
     }
     #endregion
 
-    #region ¹é±×¶ó¿îµåUI È¿°ú
-    public void ChangeToOtherMenuEFF() // ¸Þ´º¿¡¼­ ´Ù¸¥ ¸Þ´º¸¦ Å¬¸¯ÇßÀ» ¶§ È¿°úÀÔ´Ï´Ù. (¿¹ : Ä³¸¯ÅÍ ¼±ÅÃ Å¬¸¯½Ã -> Ä³¸¯ÅÍ ¼±ÅÃ UI·Î ÀÌµ¿)
+    #region ï¿½ï¿½×¶ï¿½ï¿½ï¿½UI È¿ï¿½ï¿½
+    public void ChangeToOtherMenuEFF() // ï¿½Þ´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½Þ´ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È¿ï¿½ï¿½ï¿½Ô´Ï´ï¿½. (ï¿½ï¿½ : Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ -> Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ UIï¿½ï¿½ ï¿½Ìµï¿½)
     {
         ReturnDark_bg();
         BGFadeEFF();
     }
-    private void StartClean_bg() // Clean_bg_co() ÄÚ·çÆ¾ ½ÇÇà ¸Þ¼Òµå
+    private void StartClean_bg() // Clean_bg_co() ï¿½Ú·ï¿½Æ¾ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
     {
         StartCoroutine(Clean_bg_co());
     }
 
-    private IEnumerator Clean_bg_co() // ¹è°æÀ» ÀÏÁ¤½Ã°£ ÀÌÈÄ ¾ø¾Ö±â
+    private IEnumerator Clean_bg_co() // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö±ï¿½
     {
         yield return new WaitForSeconds(duration_BG);
 
-        if(isOpened)
-        videoPlayer.gameObject.SetActive(true);
+        if (isOpened)
+            videoPlayer.gameObject.SetActive(true);
 
         yield return new WaitForSeconds(0.3f);
 
@@ -136,30 +135,30 @@ public class MainCityMenuUIManager : MonoBehaviour
             fadeImage_BG.color = color;
         }
     }
-    private void ReturnDark_bg() // ±î¸¸ È­¸éÀ¸·Î ¹Ù²Ù±â
+    private void ReturnDark_bg() // ï¿½î¸¸ È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²Ù±ï¿½
     {
         Color color = fadeImage_BG.color;
         color.a = 0.8f;
         fadeImage_BG.color = color;
     }
 
-    private void BGVisualizeEFF() // È­¸é ±î¸Ä°Ô ÇÏ´Â È¿°ú
+    private void BGVisualizeEFF() // È­ï¿½ï¿½ ï¿½ï¿½Ä°ï¿½ ï¿½Ï´ï¿½ È¿ï¿½ï¿½
     {
-            tween?.Kill();
+        tween?.Kill();
 
         tween = fadeImage_BG.DOFade(1f, duration_BG).OnComplete(StartClean_bg);
     }
 
-    private void BGFadeEFF() // È­¸é »ç¶óÁö°Ô ÇÏ´Â È¿°ú
+    private void BGFadeEFF() // È­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ È¿ï¿½ï¿½
     {
-            tween?.Kill();
+        tween?.Kill();
 
         tween = fadeImage_BG.DOFade(0f, duration_BG);
     }
 
     #endregion
 
-    public void TurnOffMenuByMenuStateEnum() // ¸Þ´º¸¦ °ø°£ »óÅÂ¿¡ µû¶ó ÀÌµ¿ÇÏ´Â ¸Þ¼ÒµåÀÔ´Ï´Ù.
+    public void TurnOffMenuByMenuStateEnum() // ï¿½Þ´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½ï¿½Ô´Ï´ï¿½.
     {
         switch (emenuState)
         {
@@ -191,7 +190,7 @@ public class MainCityMenuUIManager : MonoBehaviour
             case EMenuState.CharLevelUpMenu:
                 CharLevelUpUI.GoToEndPos();
                 charStatUI.TurnOffSideUIBG();
-                emenuState= EMenuState.CharStatMenu;
+                emenuState = EMenuState.CharStatMenu;
                 break;
 
             case EMenuState.EquipmentMenu:
@@ -201,27 +200,27 @@ public class MainCityMenuUIManager : MonoBehaviour
                 break;
             case EMenuState.InventoryMenu:
                 ChangeToOtherMenuEFF();
-                inventoryUI.SetActive(false); 
+                inventoryUI.SetActive(false);
                 emenuState = EMenuState.MainMenu;
                 break;
 
             case EMenuState.PauseMenu:
                 emenuState = EMenuState.MainMenu;
-                Debug.Log($"{emenuState} ±¸Çö ÇÊ¿ä.");
+                Debug.Log($"{emenuState} ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½.");
                 break;
 
             case EMenuState.ShopMenu:
                 emenuState = EMenuState.MainMenu;
-                Debug.Log($"{emenuState} ±¸Çö ÇÊ¿ä.");
+                Debug.Log($"{emenuState} ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½.");
                 break;
 
             case EMenuState.GameOffMenu:
                 emenuState = EMenuState.MainMenu;
-                Debug.Log($"{emenuState} ±¸Çö ÇÊ¿ä.");
+                Debug.Log($"{emenuState} ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½.");
                 break;
 
             default:
-                Debug.LogWarning($"±×·± {emenuState} UI È¯°æÀº ¾ø½À´Ï´Ù.");
+                Debug.LogWarning($"ï¿½×·ï¿½ {emenuState} UI È¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
                 break;
         }
         Debug.Log(emenuState);
@@ -234,7 +233,7 @@ public class MainCityMenuUIManager : MonoBehaviour
         emenuState = EMenuState.CharSelectMenu;
     }
 
-    public void DeactivateAllUI() // ¸ðµç UI ÇÑ ¹ø¿¡ ²ô±â
+    public void DeactivateAllUI() // ï¿½ï¿½ï¿½ UI ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         CharSelectUI.SetActive(false);
 
@@ -248,11 +247,11 @@ public class MainCityMenuUIManager : MonoBehaviour
         End_bg();
         Debug.Log(emenuState);
     }
-        //******************************************************************************************
+    //******************************************************************************************
 
     public void PrintWalletOnMainMenuUI()
     {
         walletText.text = InventoryManager.instance.Wallet.ToString();
     }
 
-    }
+}
