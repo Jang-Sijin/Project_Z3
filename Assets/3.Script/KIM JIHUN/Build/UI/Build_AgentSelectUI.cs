@@ -82,4 +82,11 @@ public class Build_AgentSelectUI : MonoBehaviour
                 break;
         }
     }
+
+    public void OpenCharacterStatusUI()
+    {
+        if (selectedCharacter == ECharacter.None) return;
+        UIManager.Instance.CharacterStatusUI.OpenCharacterStatusUI(selectedCharacter);
+        gameObject.SetActive(false);
+    }
 }

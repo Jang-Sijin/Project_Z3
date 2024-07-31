@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 public class UIManager : SingletonBase<UIManager>
 {
     /*
-    * UI ¸Þ´ÏÀú¿¡¼­ ¾À ·Îµå½Ã ¾Ë¸ÂÀº UI¸¦ LoadÇÕ´Ï´Ù
-    * Ingame¾À¿¡¼­ InGameUI¸¦ ºÒ·¯¿È
-    * Intro¾À¿¡¼­ IntroUI¸¦ ºÒ·¯¿È
-    * MainMenu¾À¿¡¼­ MainMenuUI¸¦ ºÒ·¯¿È
+    * UI ï¿½Þ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Îµï¿½ï¿½ ï¿½Ë¸ï¿½ï¿½ï¿½ UIï¿½ï¿½ Loadï¿½Õ´Ï´ï¿½
+    * Ingameï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ InGameUIï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½
+    * Introï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ IntroUIï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½
+    * MainMenuï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ MainMenuUIï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½
     */
 
     [SerializeField] private Build_IntroUI _introUI;
@@ -21,6 +21,7 @@ public class UIManager : SingletonBase<UIManager>
     [SerializeField] private Build_InventoryUI _inventoryUI;
     [SerializeField] private Build_AgentSelectUI _agentSelectUI;
     [SerializeField] private Build_WeaponUI _weaponUI;
+    [SerializeField] private Build_CharacterStatusUI _characterStatusUI;
 
     public Build_IntroUI IntroUI => _introUI;
     public MainCityUI MainCityUI => _mainCityUI;
@@ -32,6 +33,7 @@ public class UIManager : SingletonBase<UIManager>
     public Build_InventoryUI InventoryUI => _inventoryUI;
     public Build_AgentSelectUI AgentSelectUI => _agentSelectUI;
     public Build_WeaponUI WeaponUI => _weaponUI;
+    public Build_CharacterStatusUI CharacterStatusUI => _characterStatusUI;
 
 
     [HideInInspector] public bool isCloseOrOpen = false;
@@ -40,9 +42,9 @@ public class UIManager : SingletonBase<UIManager>
     private bool isMainCity;
 
     //JangSijin
-    private bool isMainMenu = true; // ¸ÞÀÎ ¸Þ´º ¾ÀÀº °¡Àå ¸ÕÀú È£ÃâµÇ±â ¶§¹®¿¡ true·Î ¼³Á¤ÇÔ
+    private bool isMainMenu = true; // ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½Ç±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ trueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-    public void OptionUIOpenClose() // ¿É¼Ç ¸Þ´ºUI ¸¦ ¿­°í ´Ý´Â ¸Þ¼ÒµåÀÔ´Ï´Ù.
+    public void OptionUIOpenClose() // ï¿½É¼ï¿½ ï¿½Þ´ï¿½UI ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ý´ï¿½ ï¿½Þ¼Òµï¿½ï¿½Ô´Ï´ï¿½.
     {
         if (!isCloseOrOpen)
         {
@@ -86,7 +88,7 @@ public class UIManager : SingletonBase<UIManager>
     }
 
     /// <summary>
-    /// PlayerÀÇ Á¶ÀÛÀ» Lock
+    /// Playerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Lock
     /// </summary>
     public void LockPlayer()
     {
@@ -103,7 +105,7 @@ public class UIManager : SingletonBase<UIManager>
     }
 
     /// <summary>
-    /// PlayerÀÇ Á¶ÀÛÀ» Unlock
+    /// Playerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Unlock
     /// </summary>
     public void UnlockPlayer()
     {
@@ -192,8 +194,8 @@ public class UIManager : SingletonBase<UIManager>
     }
 }
 
-// [·¹°Å½Ã]
-//public void Creat_UI(WhichUI ui) // UI »ý¼º ¸Þ¼Òµå ÀÔ´Ï´Ù.
+// [ï¿½ï¿½ï¿½Å½ï¿½]
+//public void Creat_UI(WhichUI ui) // UI ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ï¿½Ô´Ï´ï¿½.
 //{
 //    GameObject temp_ob;
 //    switch (ui)
@@ -201,7 +203,7 @@ public class UIManager : SingletonBase<UIManager>
 //        case WhichUI.introUI:
 //            if (introUI != null)
 //            {
-//                Debug.Log($"{ui}´Â ÀÌ¹Ì Á¸ÀçÇÕ´Ï´Ù.");
+//                Debug.Log($"{ui}ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
 //                return;
 //            }
 
@@ -212,7 +214,7 @@ public class UIManager : SingletonBase<UIManager>
 //        case WhichUI.mainCityUI:
 //            if (mainCityUI != null)
 //            {
-//                Debug.Log($"{ui}´Â ÀÌ¹Ì Á¸ÀçÇÕ´Ï´Ù.");
+//                Debug.Log($"{ui}ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
 //                return;
 //            }
 
@@ -223,7 +225,7 @@ public class UIManager : SingletonBase<UIManager>
 //        case WhichUI.pauseMenuUI:
 //            if (pauseMenuUI != null)
 //            {
-//                Debug.Log($"{ui}´Â ÀÌ¹Ì Á¸ÀçÇÕ´Ï´Ù.");
+//                Debug.Log($"{ui}ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
 //                return;
 //            }
 
@@ -234,7 +236,7 @@ public class UIManager : SingletonBase<UIManager>
 //        case WhichUI.inGameUI:
 //            if (inGameUI != null)
 //            {
-//                Debug.Log($"{ui}´Â ÀÌ¹Ì Á¸ÀçÇÕ´Ï´Ù.");
+//                Debug.Log($"{ui}ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
 //                Destroy(inGameUI.gameObject);
 //            }
 
