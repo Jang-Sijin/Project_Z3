@@ -59,10 +59,13 @@ public class PlayerHitController : MonoBehaviour
                             _playerModel.playerStatus.CurrentSkillPoint = _playerModel.playerStatus.MaxSkillPoint;
                         }
                         Debug.Log($"스킬 게이지: {_playerModel.playerStatus.CurrentSkillPoint}");
-
-                        enemy.TakeDamage(playerDamage, _playerModel.transform); // 몬스터에게 대미지 입힘 처리.
+                        
+                        enemy.TakeDamage(playerDamage, collider.transform.position); // 몬스터에게 대미지 입힘 처리.
 
                         Debug.Log($"{_playerModel.eCharacter}가 {enemy.name} 몬스터에게 대미지 {playerDamage}를 줌");
+
+                        // Player UI 갱신 처리
+                        UIManager.Instance.InGameUI.RenewalUltStat(_playerModel.playerStatus.CurrentSkillPoint);                        
                     }
                 }
             })
