@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using ExternalPropertyAttributes;
+using UniRx;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -11,16 +12,16 @@ using UnityEngine.UI;
 public class Build_MonsterStatus
 {
     private float _maxHealth;
-    private float _defaultAttackDamage;
+    private float _defaultAttackDamage;    
 
-    private float _currentHealth;
+    private ReactiveProperty<float> _currentHealth;
 
     public Build_MonsterStatus(float maxHealth, float defaultAttackDamage)
     {
         _maxHealth = maxHealth;
         _defaultAttackDamage = defaultAttackDamage;
 
-        _currentHealth = maxHealth;
+        _currentHealth = new ReactiveProperty<float>(maxHealth);
     }
 
     public float MaxHealth
@@ -35,10 +36,11 @@ public class Build_MonsterStatus
         set { _defaultAttackDamage = value; }
     }
 
-    public float CurrentHealth
+    public IReadOnlyReactiveProperty<float> CurrentHealth => _currentHealth;
+
+    public void SetCurrentHealth(float value)
     {
-        get { return _currentHealth; }
-        set { _currentHealth = value; }
+        _currentHealth.Value = value;
     }
 }
 public class Build_MonsterModel : MonoBehaviour
@@ -75,7 +77,7 @@ public class Build_MonsterModel : MonoBehaviour
     /// <returns>시야 거리에 있다면 True, 없다면 False</returns>
     public bool IsPlayerInSight()
     {
-        if (monsterStatus.CurrentHealth <= 0)
+        if (monsterStatus.CurrentHealth.Value <= 0)
             return false;
 
         float distance = Vector3.Distance(
@@ -94,7 +96,7 @@ public class Build_MonsterModel : MonoBehaviour
     /// <returns>공격 거리에 있다면 True, 없다면 False</returns>
     public bool IsPlayerInAttackRange()
     {
-        if (monsterStatus.CurrentHealth <= 0)
+        if (monsterStatus.CurrentHealth.Value <= 0)
             return false;
 
 

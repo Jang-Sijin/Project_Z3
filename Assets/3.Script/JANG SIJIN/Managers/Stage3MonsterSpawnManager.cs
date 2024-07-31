@@ -27,8 +27,7 @@ public class Stage3MonsterSpawnManager : MonoBehaviour
         for (int i = 0; i < MonsterSpawnObjects.Length; i++)
         {
             _boxColliders[i] = MonsterSpawnObjects[i].GetComponent<BoxCollider>();
-            _monsterSpawnData[i] = MonsterSpawnObjects[i].GetComponent<MonsterSpawnData>();
-
+            _monsterSpawnData[i] = MonsterSpawnObjects[i].GetComponent<MonsterSpawnData>();            
 
             // 몬스터의 오브젝트가 SetActive true일 경우, false로 초기 세팅을 진행한다.
             var monsterData = _monsterSpawnData[i];
@@ -74,5 +73,5 @@ public class Stage3MonsterSpawnManager : MonoBehaviour
                 monsterPrefab.SetActive(true);
             }
         }
-    }
+    }    
 }
