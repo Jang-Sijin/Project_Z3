@@ -674,7 +674,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 069119053c054ef4682a5698fd51a23b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AniIMG: {fileID: 0}
   SelectChar: {fileID: 2907179720213456871}
+  eCharacter: 0
 --- !u!95 &76209525
 Animator:
   serializedVersion: 5
@@ -1051,6 +1053,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b56ddc7a5426d2e42815a7683c6c5135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EquipmentUI: {fileID: 0}
+  StatUI: {fileID: 0}
+  RawImage: {fileID: 0}
 --- !u!1 &436177502
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,7 +1241,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 069119053c054ef4682a5698fd51a23b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AniIMG: {fileID: 0}
   SelectChar: {fileID: 444731430813108403}
+  eCharacter: 0
 --- !u!1 &615322571
 GameObject:
   m_ObjectHideFlags: 0
@@ -1326,7 +1333,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 069119053c054ef4682a5698fd51a23b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AniIMG: {fileID: 0}
   SelectChar: {fileID: 492176071260922087}
+  eCharacter: 0
 --- !u!95 &615322576
 Animator:
   serializedVersion: 5

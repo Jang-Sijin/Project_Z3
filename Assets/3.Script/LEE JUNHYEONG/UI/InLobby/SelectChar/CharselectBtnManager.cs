@@ -6,22 +6,22 @@ using UnityEngine.UI;
 public class CharselectBtnManager : MonoBehaviour
 {
     private SelectbtnEff prevCharBtn; // 캐릭터 선택 캐싱
-    public SelectbtnEff PrevCharBtn {  get { return prevCharBtn; } }
+    public SelectbtnEff PrevCharBtn { get { return prevCharBtn; } }
 
     private MainCityMenuUIManager mainCityMenuUIManager; // 모든 메인 메뉴의 메니저
     [SerializeField] private GameObject EquipmentUI; // 장비 UI
     [SerializeField] private GameObject StatUI; // 스탯 UI
     [SerializeField] private GameObject RawImage; // 캐릭터 이미지
+    private void OnEnable()
+    {
+        RawImage.SetActive(false);
+    }
 
     private void Start()
     {
         mainCityMenuUIManager = GetComponentInParent<MainCityMenuUIManager>();
     }
 
-    private void OnEnable()
-    {
-        RawImage.SetActive(false);
-    }
 
     public void ClickCharBtn(SelectbtnEff clickedBtn) // 캐릭터 선택 버튼 메소드
     {

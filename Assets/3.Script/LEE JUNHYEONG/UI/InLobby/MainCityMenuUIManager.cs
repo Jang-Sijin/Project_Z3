@@ -9,6 +9,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Video;
 using UnityEngine.Assertions.Must;
 using UnityEditor.EditorTools;
+using TMPro;
 
 public class MainCityMenuUIManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class MainCityMenuUIManager : MonoBehaviour
     [SerializeField] private Image fadeImage_BG; // 화면 까맣게 하는 이미지
     [SerializeField] private float duration_BG; // 화면을 까맣게 혹은 밝게하는 시간
     [SerializeField] private GameObject videoPlayer; // 재생할 비디오
+    [SerializeField] private TextMeshProUGUI walletText;
 
     private List<MovePanel> movePanels; // 사이드에 움직일 패널입니다.
     private bool isOpened = false; // 메인 메뉴 UI가 열렸는지 확인하는 불값
@@ -53,6 +55,7 @@ public class MainCityMenuUIManager : MonoBehaviour
         movePanels = new List<MovePanel>();
 
         movePanels = GetComponentsInChildren<MovePanel>().ToList();
+        InventoryManager.instance.moneyAction += PrintWalletOnMainMenuUI;
     }
 
     private void Update()
@@ -86,6 +89,7 @@ public class MainCityMenuUIManager : MonoBehaviour
         }
         StartClean_bg();
         BGVisualizeEFF();
+        PrintWalletOnMainMenuUI();
     }
 
 
@@ -141,20 +145,14 @@ public class MainCityMenuUIManager : MonoBehaviour
 
     private void BGVisualizeEFF() // 화면 까맣게 하는 효과
     {
-        if (tween != null)
-        {
-            tween.Kill();
-        }
+            tween?.Kill();
 
         tween = fadeImage_BG.DOFade(1f, duration_BG).OnComplete(StartClean_bg);
     }
 
     private void BGFadeEFF() // 화면 사라지게 하는 효과
     {
-        if (tween != null)
-        {
-            tween.Kill();
-        }
+            tween?.Kill();
 
         tween = fadeImage_BG.DOFade(0f, duration_BG);
     }
@@ -251,4 +249,10 @@ public class MainCityMenuUIManager : MonoBehaviour
         Debug.Log(emenuState);
     }
         //******************************************************************************************
+
+    public void PrintWalletOnMainMenuUI()
+    {
+        walletText.text = InventoryManager.instance.Wallet.ToString();
+    }
+
     }

@@ -40,30 +40,21 @@ public class MovePanel : MonoBehaviour
 
     public void GoToTargetPos()
     {
-        if (tween != null)
-        {
-            tween.Kill();
-        }
+            tween?.Kill();
 
         tween = rectTransform.DOAnchorPos(targetPos, duration).SetEase(ease).SetDelay(targetDelay);
     }
 
     public void GoToOriginPos()
     {
-        if (tween != null)
-        {
-            tween.Kill();
-        }
+            tween?.Kill();
     
         tween = rectTransform.DOAnchorPos(originPos, duration).SetEase(ease).SetDelay(originDelay);
     }
 
     public void GoToEndPos()
     {
-        if (tween != null)
-        {
-            tween.Kill();
-        }
+            tween?.Kill();
 
         tween = rectTransform.DOAnchorPos(endPos, duration).SetEase(ease).SetDelay(endDelay).OnComplete(
             () => gameObject.SetActive(false));
@@ -71,10 +62,7 @@ public class MovePanel : MonoBehaviour
 
     private void OnDisable()
     {
-        if (tween != null)
-        {
-            tween.Kill();
-        }
+            tween?.Kill();
         
         rectTransform.anchoredPosition = originPos;
     }
