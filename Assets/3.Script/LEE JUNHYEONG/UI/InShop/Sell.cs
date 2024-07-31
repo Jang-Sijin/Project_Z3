@@ -49,6 +49,9 @@ public class Sell : MonoBehaviour
 
         for (int i = 0; i < Build_InventoryManager.INSTANCE.WeaponInventory.Inventory.Count; i++)
         {
+            if (Build_PlayerManager.INSTANCE.Anbi.Equipment == itemSlots[i]) continue;
+            if (Build_PlayerManager.INSTANCE.Corin.Equipment == itemSlots[i]) continue;
+            if (Build_PlayerManager.INSTANCE.Longinus.Equipment == itemSlots[i]) continue;
             itemSlots[i].gameObject.SetActive(true);
             itemSlots[i].AssignItem(Build_InventoryManager.INSTANCE.WeaponInventory.Inventory[i]);
         }
@@ -104,10 +107,9 @@ public class Sell : MonoBehaviour
 
     public void OnClickSellBtn()
     {
-        //플레이어
-        //InventoryManager.instance.AddMoneyToWallet(item.sellPrice);
-        //InventoryManager.instance.RemoveItem(item);
-
+        Build_InventoryManager.INSTANCE.IncreaseWallet(itemData.sellPrice);
+        Build_InventoryManager.INSTANCE.RemoveFromInventory(itemData);
+        RefreshInventory();
         //PrintWalletAndPrice(item);
 
         //Destroy(g);
