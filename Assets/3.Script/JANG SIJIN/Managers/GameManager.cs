@@ -7,6 +7,10 @@ using static Define;
 
 public class GameManager : SingletonBase<GameManager>
 {
+    public float StageClearTime = 0f;
+    public int StageTotalExp = 0;
+    public List<Build_Item> StageGetItemList;
+
     protected override void Awake()
     {
         base.Awake();
@@ -41,18 +45,23 @@ public class GameManager : SingletonBase<GameManager>
                 InitHome();
                 break;
             case Define.SceneType.Battle1:
+                RefreshData();
                 InitBattle1();
                 break;
             case Define.SceneType.Battle2:
+                RefreshData();
                 InitBattle2();
                 break;
             case Define.SceneType.Battle3:
+                RefreshData();
                 InitBattle3();
                 break;
             case Define.SceneType.Battle4:
+                RefreshData();
                 InitBattle4();
                 break;
             case Define.SceneType.Battle5:
+                RefreshData();
                 InitBattle5();
                 break;
         }
@@ -69,7 +78,6 @@ public class GameManager : SingletonBase<GameManager>
     private void InitTown()
     {
         UIManager.Instance.OpenCityUI();
-
         SoundManager.Instance.PlayBgm(Define.SceneType.Town.ToString());
     }
 
@@ -128,5 +136,12 @@ public class GameManager : SingletonBase<GameManager>
         Enum.TryParse(currentScene.name, out sceneType);
 
         return sceneType;
+    }
+
+    private void RefreshData()
+    {
+        StageClearTime = 0f;
+        StageTotalExp = 0;
+        StageGetItemList = new List<Build_Item>();
     }
 }
