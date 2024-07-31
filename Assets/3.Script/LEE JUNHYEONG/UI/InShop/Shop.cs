@@ -11,21 +11,21 @@ public class Shop : MonoBehaviour
     [SerializeField] private List<Build_Item> shopItemsList;
     public Sprite[] itemRankIcon;
     private Button itemBtn;
-    [Header("±¸¸Å ¹öÆ°")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°")]
     [SerializeField] private Button purchaseBtn;
 
-    [Header("ÆË¾÷Ã¢")]
+    [Header("ï¿½Ë¾ï¿½Ã¢")]
     [SerializeField] private QuestionBox questionBox;
 
-    [Header("¾ÆÀÌÅÛ ¼±ÅÃ½Ã Ç¥½ÃÇÒ ÅØ½ºÆ®")]
-    // ¹«±â ¼±ÅÃ ½Ã ¾ÆÀÌÅÛ info Ãâ·Â
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ®")]
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ info ï¿½ï¿½ï¿½
     #region ChangeInfoText
-    [SerializeField] private TextMeshProUGUI WeaponNameInfo; // Å¬¸¯ÇÑ ¾ÆÀÌÅÛÀÇ ÀÌ¸§ info
+    [SerializeField] private TextMeshProUGUI WeaponNameInfo; // Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ info
     [SerializeField] private TextMeshProUGUI itemAttackStat;
     [SerializeField] private TextMeshProUGUI itemDefenceStat;
     [SerializeField] private TextMeshProUGUI itemHealthStat;
-    [SerializeField] private TextMeshProUGUI PriceInfo; //°¡°Ý Info
-    private string[] typeKorean = { "°ø°Ý·Â", "Ã¼·Â" }; // Å¸ÀÔ Info
+    [SerializeField] private TextMeshProUGUI PriceInfo; //ï¿½ï¿½ï¿½ï¿½ Info
+    private string[] typeKorean = { "ï¿½ï¿½ï¿½Ý·ï¿½", "Ã¼ï¿½ï¿½" }; // Å¸ï¿½ï¿½ Info
     #endregion
 
     [SerializeField] private Build_ShopSlotUI[] shopItemSlots;
@@ -41,6 +41,7 @@ public class Shop : MonoBehaviour
             shopItemSlots[i].gameObject.SetActive(true);
             shopItemSlots[i].AssignItem(shopItemsList[i]);
         }
+        PrintInitText();
 
         /*
         itemTemplate = shopScrollView.GetChild(0).gameObject;
@@ -58,7 +59,6 @@ public class Shop : MonoBehaviour
 
             g.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() => OnClickShopItemBtn(index)); ;
         }
-        PrintInitText();
         Destroy(itemTemplate);
         */
     }
@@ -66,7 +66,7 @@ public class Shop : MonoBehaviour
 
     private void PrintInitText()
     {
-        WeaponNameInfo.text = " ";
+        WeaponNameInfo.text = "404 NOT FOUND";
         itemAttackStat.text = " ";
         itemDefenceStat.text = " ";
         itemHealthStat.text = " ";
@@ -108,7 +108,7 @@ public class Shop : MonoBehaviour
 
         Build_InventoryManager.INSTANCE.DecreaseWallet(selectedItem.buyPrice);
         Build_InventoryManager.INSTANCE.AddToInventory(selectedItem);
-        Debug.Log($"±¸¸Å ¿Ï·á {Build_InventoryManager.INSTANCE.WeaponInventory.Inventory.Count}");
+        Debug.Log($"ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ {Build_InventoryManager.INSTANCE.WeaponInventory.Inventory.Count}");
 
         //PrintWalletAndPrice(itemIndex);
     }

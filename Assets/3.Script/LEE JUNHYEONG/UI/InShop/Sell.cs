@@ -55,6 +55,7 @@ public class Sell : MonoBehaviour
             itemSlots[i].gameObject.SetActive(true);
             itemSlots[i].AssignItem(Build_InventoryManager.INSTANCE.WeaponInventory.Inventory[i]);
         }
+        PrintInitText();
     }
 
     /*
@@ -74,7 +75,7 @@ public class Sell : MonoBehaviour
 
     protected virtual void PrintInitText()
     {
-        WeaponNameInfo.text = " ";
+        WeaponNameInfo.text = "404 NOT FOUND";
         itemAttackStat.text = " ";
         itemDefenceStat.text = " ";
         itemHealthStat.text = " ";
