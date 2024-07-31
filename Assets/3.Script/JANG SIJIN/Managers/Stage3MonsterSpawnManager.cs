@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class Stage3MonsterSpawnManager : MonoBehaviour
 {
-    public GameObject[] MonsterSpawnObjects;
+    public GameObject[] MonsterSpawnObjects;    
 
     private BoxCollider[] _boxColliders;
     private MonsterSpawnData[] _monsterSpawnData;

@@ -30,7 +30,7 @@ public class Build_PlayerManager : SingleMonoBase<Build_PlayerManager>
         _anbi = new PlayerInfo(ECharacter.Anbi);
     }
 
-    private void EarnExp(int earningExp)
+    public void EarnExp(int earningExp)
     {
         /*
         currentExp += earningExp;

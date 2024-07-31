@@ -12,17 +12,25 @@ using UnityEngine.UI;
 public class Build_MonsterStatus
 {
     private float _maxHealth;
-    private float _defaultAttackDamage;    
+    private float _defaultAttackDamage;
+    private int _exp;
 
     private ReactiveProperty<float> _currentHealth;
 
-    public Build_MonsterStatus(float maxHealth, float defaultAttackDamage)
+    public Build_MonsterStatus(float maxHealth, float defaultAttackDamage, int exp)
     {
         _maxHealth = maxHealth;
         _defaultAttackDamage = defaultAttackDamage;
 
         _currentHealth = new ReactiveProperty<float>(maxHealth);
+        _exp = exp;
     }
+
+    public int Exp
+    {
+        get { return _exp; }
+        set { _exp = value; }
+    }        
 
     public float MaxHealth
     {
@@ -62,7 +70,7 @@ public class Build_MonsterModel : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
-        monsterStatus = new Build_MonsterStatus(monsterInfo.maxHealth, monsterInfo.defaultAttackDamage);
+        monsterStatus = new Build_MonsterStatus(monsterInfo.maxHealth, monsterInfo.defaultAttackDamage, monsterInfo.exp);
     }
 
     public bool IsAnimationEnd()
@@ -109,9 +117,9 @@ public class Build_MonsterModel : MonoBehaviour
     /// </summary>
     public void MonsterDie()
     {
-        Destroy(gameObject);
-
         // InGameClearManager에 사망 알림
         InGameClearManager.Instance.OnMonsterDeath(this);
+
+        Destroy(gameObject);      
     }
 }

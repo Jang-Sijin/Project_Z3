@@ -11,6 +11,9 @@ public class GameManager : SingletonBase<GameManager>
     public int StageTotalExp = 0;
     public List<Build_Item> StageGetItemList;
 
+    public List<Build_Item> DropItemList;
+    private DateTime stageStartTime;
+
     protected override void Awake()
     {
         base.Awake();
@@ -25,6 +28,16 @@ public class GameManager : SingletonBase<GameManager>
     {
         // 타이틀 씬에서 시작한다는 가정하에 호출되는 초기 설정 값 입니다.
         ChangeSceneInit(GetCurrentSceneName());
+    }
+
+    public void SetStageStartTime()
+    {
+        stageStartTime = DateTime.Now;
+    }
+
+    public void CalculateStageClearTime()
+    {
+        StageClearTime = (float)(DateTime.Now - stageStartTime).TotalSeconds;
     }
 
     /// <summary>
@@ -63,6 +76,9 @@ public class GameManager : SingletonBase<GameManager>
             case Define.SceneType.Battle5:
                 RefreshData();
                 InitBattle5();
+                break;
+            case Define.SceneType.Clear:
+                InitClaer();
                 break;
         }
     }
@@ -128,6 +144,24 @@ public class GameManager : SingletonBase<GameManager>
         SoundManager.Instance.PlayBgm(Define.SceneType.Battle5.ToString());
     }
 
+    private void InitClaer()
+    {
+
+        // SoundManager.Instance.PlayBgm(Define.SceneType.Clear.ToString());
+    }
+
+    private void RefreshData()
+    {
+        StageClearTime = 0f;
+        StageTotalExp = 0;
+        StageGetItemList = new List<Build_Item>();
+        SetStageStartTime();  // 스테이지 시작 시간을 설정합니다.
+    }
+
+    /// <summary>
+    /// 아래부터는 외부 접근 가능 메서드
+    /// </summary>
+    /// <returns></returns>
     public static Define.SceneType GetCurrentSceneName()
     {
         Scene currentScene = SceneManager.GetActiveScene();
@@ -138,10 +172,18 @@ public class GameManager : SingletonBase<GameManager>
         return sceneType;
     }
 
-    private void RefreshData()
+    /// <summary>
+    /// DropItemList에서 무작위로 아이템을 선택합니다.
+    /// </summary>
+    /// <returns>무작위로 선택된 Build_Item</returns>
+    public Build_Item SelectRandomDropItem()
     {
-        StageClearTime = 0f;
-        StageTotalExp = 0;
-        StageGetItemList = new List<Build_Item>();
+        if (DropItemList == null || DropItemList.Count == 0)
+        {
+            throw new InvalidOperationException("DropItemList is empty or not initialized.");
+        }
+
+        int randomIndex = UnityEngine.Random.Range(0, DropItemList.Count);
+        return DropItemList[randomIndex];
     }
 }

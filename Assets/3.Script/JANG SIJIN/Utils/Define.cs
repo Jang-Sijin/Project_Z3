@@ -18,6 +18,7 @@ public class Define
         Battle4,      // 전투 4스테이지
         Battle5,      // 전투 5스테이지
         LoadingScene, // 로딩 씬
+        Clear,        // 전투 스테이지 클리어(결과) 씬
         Max
     }
 
