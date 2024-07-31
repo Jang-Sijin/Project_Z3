@@ -99,13 +99,9 @@ public class Build_MonsterModel : MonoBehaviour
         if (monsterStatus.CurrentHealth.Value <= 0)
             return false;
 
-
         float distance = Vector3.Distance(PlayerController.INSTANCE.playerModel.transform.position, this.transform.position);
 
-        if (distance <= attackRange)
-            return true;
-        else
-            return false;
+        return distance <= attackRange;
     }
 
     /// <summary>
@@ -114,5 +110,8 @@ public class Build_MonsterModel : MonoBehaviour
     public void MonsterDie()
     {
         Destroy(gameObject);
+
+        // InGameClearManager에 사망 알림
+        InGameClearManager.Instance.OnMonsterDeath(this);
     }
 }
