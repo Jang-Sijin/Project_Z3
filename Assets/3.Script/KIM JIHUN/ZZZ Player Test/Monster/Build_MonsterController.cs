@@ -85,16 +85,16 @@ public class Build_MonsterController : MonoBehaviour, IStateMachineOwner
         //    return;
         //}
 
-        if (monsterModel.monsterStatus.CurrentHealth > 0)
+        if (monsterModel.monsterStatus.CurrentHealth.Value > 0)
         {
             // 몬스터 공격 받음(Hit) 상태로 변경
             SwitchState(EMonsterState.Hit);
 
-            monsterModel.monsterStatus.CurrentHealth -= playerDamage;
+            monsterModel.monsterStatus.SetCurrentHealth(monsterModel.monsterStatus.CurrentHealth.Value - playerDamage);
             // EnemyUIController.RefreshHealth(_currentHealth, MaxHealth);
 
             ShowDamageFont(playerDamage, playerWeaponPostion);
-            enemyUIController.RefreshHealth(monsterModel.monsterStatus.CurrentHealth, monsterModel.monsterStatus.MaxHealth); // 몬스터 HP Bar 갱신
+            enemyUIController.RefreshHealth(monsterModel.monsterStatus.CurrentHealth.Value, monsterModel.monsterStatus.MaxHealth); // 몬스터 HP Bar 갱신
             return;
         }
         else

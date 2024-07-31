@@ -113,11 +113,11 @@ public class Shop : MonoBehaviour
         //PrintWalletAndPrice(itemIndex);
     }
 
-    private void OnClickAccept(int itemIndex)
-    {
-        InventoryManager.instance.RemoveMoneyFromWallet(shopItemsList[itemIndex].buyPrice);
-        InventoryManager.instance.AddItem(shopItemsList[itemIndex]);
+    //private void OnClickAccept(int itemIndex)
+    //{
+    //    InventoryManager.instance.RemoveMoneyFromWallet(shopItemsList[itemIndex].buyPrice);
+    //    InventoryManager.instance.AddItem(shopItemsList[itemIndex]);
 
-        PrintWalletAndPrice(itemIndex);
-    }
+    //    PrintWalletAndPrice(itemIndex);
+    //}
 }
