@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
+using UnityEngine.UI;
 
 public class Build_MonsterStatus
 {
@@ -41,14 +42,14 @@ public class Build_MonsterStatus
     }
 }
 public class Build_MonsterModel : MonoBehaviour
-{
+{    
     [HideInInspector] public Animator animator;
     public EMonsterState currentState;
     [HideInInspector] public Build_MonsterStatus monsterStatus;
     [HideInInspector] public CharacterController characterController;
     [HideInInspector] public float gravity = -9.8f;
     public Build_MonsterInfo monsterInfo;
-    private AnimatorStateInfo stateInfo;
+    public AnimatorStateInfo stateInfo;
 
     [Header("몬스터 타겟팅 거리")]
     public float attackRange;

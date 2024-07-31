@@ -38,51 +38,49 @@ public class EnemyUIController : MonoBehaviour
         }
     }
 
-    [SerializeField] private Collider monster; // 콜라이더의 크기 만큼 
     private Coroutine timerCoroutine; // fakehp의 다는 시간을 재기 위한 변수
     private RectTransform rect; // 캔버스의 크기 조절용
     private float originScaleX = 1f;
     private float originScaleY = 1f;
     private Vector3 originScale;
+    [SerializeField] private Transform monsterTransform; // 몬스터 오브젝트
     [SerializeField] private Camera mainCamera; // 시점에 따라 UI가 따라오기 위한 카메라
 
     private float Distance; // 거리에 따른 UI의 크기 변화를 나타냅니다.
 
     private void Start()
     {
-        monster = GetComponentInParent<Collider>();
+        mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        monsterTransform = transform.root.GetComponent<Build_MonsterController>().transform;
         rect = GetComponentInParent<RectTransform>();
         spFillImage = stun.fillRect.GetComponent<Image>();
         originScale = new Vector3(originScaleX, originScaleY);
     }
 
-    private void LateUpdate()
+    private void Update()
     {
-        PosByCamera();
-        SizeByDistance();
         LookPlayer();
+        //SizeByDistance();
     }
+
     private void LookPlayer() // 플레이어 바라보기
     {
-        transform.LookAt(transform.position + mainCamera.transform.rotation * Vector3.forward, mainCamera.transform.rotation * Vector3.up);
+        // 캔버스를 카메라가 보는 정방향으로 회전시킵니다.
+        Vector3 direction = (transform.position - mainCamera.transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = lookRotation;
     }
 
-    private void PosByCamera() // 카메라의 거리에 따라서 포지션이 정해집니다.
-    {
-        transform.localPosition = new Vector3(-(monster.bounds.size.x + (monster.bounds.size.x) * (0.5f) * Distance * (0.2f)),
-                                              monster.bounds.size.y * (0.5f) + (monster.bounds.size.y * 0.25f) * Distance * (0.2f),
-                                              0);
-    }
+    //private void SizeByDistance() // 거리에 따른 UI의 크기 변화입니다.
+    //{
+    //    Distance = Vector3.Distance(transform.position, mainCamera.transform.position);
 
-    private void SizeByDistance() // 거리에 따른 UI의 크기 변화입니다.
-    {
-        Distance = Vector3.Distance(transform.position, mainCamera.transform.position);
+    //    if (Distance > 10)
+    //    {
+    //        rect.localScale = new Vector3(Distance * 0.1f * originScaleX, Distance * 0.1f * originScaleY);
+    //    }
+    //}
 
-        if (Distance > 10)
-        {
-            rect.localScale = new Vector3(Distance * 0.1f * originScaleX, Distance * 0.1f * originScaleY);
-        }
-    }
     public void RefreshHealth(float nowHealth, float maxHealth) // hp 갱신
     {
         realHp.value = nowHealth / maxHealth;

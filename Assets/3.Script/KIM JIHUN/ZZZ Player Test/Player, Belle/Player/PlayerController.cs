@@ -5,6 +5,8 @@ using System.Linq;
 using Cinemachine;
 using Unity.VisualScripting.Dependencies.Sqlite;
 using Unity.VisualScripting;
+using DG.Tweening;
+using TMPro;
 
 public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineOwner
 {
@@ -57,6 +59,8 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
 
     [SerializeField] private CinemachineFreeLook cinemachineFreeLook; //카메라 쉐이크를 위한 시네머신
     private float shakeTimer; // 쉐이크 타이머
+
+    public GameObject damageFontCanvasPrefab;
 
     protected override void Awake()
     {
@@ -248,7 +252,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
 
     private void Update()
     {
-        Debug.Log(controllableModels[currentModelIndex].eCharacter);
+        //Debug.Log(controllableModels[currentModelIndex].eCharacter);
         if (playerInputSystem.Player.Escape.triggered)
         {
             if (UIManager.Instance != null)
@@ -436,5 +440,74 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     {
         this.transform.position = spawnPoint;
         playerModel.transform.position = spawnPoint;
+    }
+
+    public void TakeDamage(float monsterDamage, Vector3 monsterWeaponPostion)
+    {
+        if (playerModel.playerStatus.CurrentHealth > 0)
+        {
+            // 플레이어 공격 받음(Hit) 상태로 변경
+            //SwitchState(EMonsterState.Hit);
+
+            playerModel.playerStatus.CurrentHealth -= monsterDamage;
+            // EnemyUIController.RefreshHealth(_currentHealth, MaxHealth);
+
+            ShowDamageFont(monsterDamage, monsterWeaponPostion);
+            // enemyUIController.RefreshHealth(monsterModel.monsterStatus.CurrentHealth, monsterModel.monsterStatus.MaxHealth); // 플레이어 HP Bar 갱신
+            return;
+        }
+        else
+        {
+            Debug.Log($"{gameObject.name}: 플레이어 사망");
+            // #플레이어 사망 처리 추가 필요
+            return;
+        }
+    }
+
+    // 대미지 폰트를 출력합니다.
+    private void ShowDamageFont(float damage, Vector3 hitPosition)
+    {
+        // 데미지 폰트 프리팹 인스턴스화
+        GameObject damageFont = Instantiate(damageFontCanvasPrefab, hitPosition, Quaternion.identity);
+        // Canvas의 Text 요소에 접근하여 데미지 값을 설정
+        TextMeshProUGUI textMesh = damageFont.GetComponentInChildren<TextMeshProUGUI>();
+        if (textMesh != null)
+        {
+            textMesh.text = damage.ToString();
+        }
+
+        // 폰트 색상: 레드
+        textMesh.color = Color.red;
+
+        // 텍스트 박스의 RectTransform 설정
+        RectTransform textRectTransform = textMesh.GetComponent<RectTransform>();
+
+        // 월드 좌표를 스크린 좌표로 변환하고 약간의 오프셋을 추가
+        Vector3 screenPoint = Camera.main.WorldToScreenPoint(hitPosition);
+        screenPoint.x += Random.Range(-100f, 100f);
+        textRectTransform.position = screenPoint;
+
+        // DOTween을 사용하여 애니메이션 적용
+        AnimateDamageFont(textRectTransform, damageFont.transform);
+    }
+
+    private void AnimateDamageFont(RectTransform damageFontRectTransform, Transform startPosition)
+    {
+        // DOTween을 사용하여 상단으로 이동 후 빠르게 아래로 떨어지는 애니메이션 적용
+        var sequence = DOTween.Sequence();
+
+        // 상단으로 이동
+        sequence.Append(damageFontRectTransform.DOMoveY(damageFontRectTransform.position.y + 600f, 1f)
+            .SetEase(Ease.OutCubic));
+
+        // 빠르게 아래로 떨어짐
+        sequence.Append(damageFontRectTransform.DOMoveY(damageFontRectTransform.position.y - 100f, 0.3f)
+            .SetEase(Ease.InCubic));
+
+        // 투명도 감소
+        sequence.Join(damageFontRectTransform.GetComponent<TextMeshProUGUI>().DOFade(0, 0.3f)
+            .SetEase(Ease.InOutQuad));
+
+        sequence.Play().OnComplete(() => Destroy(startPosition.transform.gameObject, 1.0f)); // 일정 시간 후에 데미지 폰트 오브젝트를 삭제
     }
 }
