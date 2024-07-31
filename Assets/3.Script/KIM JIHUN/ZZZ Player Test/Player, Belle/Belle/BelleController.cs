@@ -16,9 +16,9 @@ public class BelleController : SingleMonoBase<BelleController>, IStateMachineOwn
     public float rotationSpeed = 8f;
 
     public bool toggleWalk = false;
-    [SerializeField]private CinemachineFreeLook cinemachineFreeLook;
+    [SerializeField] private CinemachineFreeLook cinemachineFreeLook;
 
-    private bool canInput = true; // ´ëÈ­, ÄÆ½Å¿¡ »ç¿ëµÉ bool°ª. Ä³¸¯ÅÍ¸¦ Á¶Á¾ÇÒ ¼ö ÀÖ´ÂÁö
+    private bool canInput = true; // ï¿½ï¿½È­, ï¿½Æ½Å¿ï¿½ ï¿½ï¿½ï¿½ï¿½ boolï¿½ï¿½. Ä³ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½
     public bool CanInput
     {
         get { return canInput; }
@@ -109,7 +109,12 @@ public class BelleController : SingleMonoBase<BelleController>, IStateMachineOwn
     {
         if (playerInputSystem.Player.Escape.triggered)
         {
-            if (UIManager.Instance != null)
+            if (UIManager.Instance.MainCityMenuUI.isOpened == false &&
+                UIManager.Instance.AgentSelectUI.gameObject.activeSelf == false &&
+                UIManager.Instance.CharacterStatusUI.gameObject.activeSelf == false &&
+                UIManager.Instance.ShopUI.gameObject.activeSelf == false &&
+                UIManager.Instance.InventoryUI.gameObject.activeSelf == false &&
+                UIManager.Instance.WeaponUI.gameObject.activeSelf == false)
             {
                 UIManager.Instance.MainCityMenuUI.ToggleMainCityUI();
             }

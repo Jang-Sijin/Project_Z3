@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Hit : MonsterStateBase
 {
@@ -18,15 +16,15 @@ public class Hit : MonsterStateBase
     {
         base.Update();
 
-        // °ø°ÝÀ» ¹ÞÀº °æ¿ì Hit »óÅÂ·Î ´Ù½Ã ÀüÈ¯
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Hit ï¿½ï¿½ï¿½Â·ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½È¯
         if (monsterController.monsterModel.isAttacked)
         {
-            monsterController.monsterModel.isAttacked = false; // ÇÃ·¡±× ÃÊ±âÈ­
+            monsterController.monsterModel.isAttacked = false; // ï¿½Ã·ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
             RestartHitAnimation();
-            // return; // »óÅÂ ÀüÈ¯ ÈÄ ´õ ÀÌ»ó Update¸¦ ÁøÇàÇÏÁö ¾ÊÀ½
+            // return; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì»ï¿½ Updateï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
 
-        // ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ ³¡³µ´ÂÁö È®ÀÎ
+        // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         if (monsterController.IsAnimationFinished("Hit"))
         {
             monsterController.SwitchState(MonsterState.Idle);
@@ -46,7 +44,7 @@ public class Hit : MonsterStateBase
 
     private void RestartHitAnimation()
     {
-        // ¾Ö´Ï¸ÞÀÌ¼ÇÀ» Ã³À½ºÎÅÍ ´Ù½Ã Àç»ý
+        // ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½
         //monsterController.PlayAnimation("Hit");
         monsterModel.animator.CrossFadeInFixedTime("Hit", 0.25f, -1, 0f);
     }

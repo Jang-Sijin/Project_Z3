@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneManagerEx : SingletonBase<SceneManagerEx>
-{    
+{
     //**************************************************
     private string nextSceneName;
     private string introLoadingScene;
@@ -70,39 +70,68 @@ public class SceneManagerEx : SingletonBase<SceneManagerEx>
                 }
                 break;
             case false: // 그냥 로딩씬
-                while (!op.isDone)
+                if (nextSceneName != "Shop")
                 {
-                    yield return null;
-                    if (op.progress < 0.90f)
+                    while (!op.isDone)
                     {
-                        //Debug.Log("CommonLoadingScene");
-                        if (!UIManager.Instance.CommonLoadingUI.gameObject.activeSelf)
+                        yield return null;
+                        if (op.progress < 0.90f)
                         {
-                            if (BelleController.INSTANCE != null)
-                                BelleController.INSTANCE.CanInput = false;
-                            else
-                                PlayerController.INSTANCE.CanInput = false;
+                            //Debug.Log("CommonLoadingScene");
+                            if (!UIManager.Instance.CommonLoadingUI.gameObject.activeSelf)
+                            {
+                                if (BelleController.INSTANCE != null)
+                                    BelleController.INSTANCE.CanInput = false;
+                                else
+                                    PlayerController.INSTANCE.CanInput = false;
 
-                            UIManager.Instance.CommonLoadingUI.gameObject.SetActive(true);
+                                UIManager.Instance.CommonLoadingUI.gameObject.SetActive(true);
+                            }
+                        }
+                        if (op.progress < 0.99f)
+                        {
+                            op.allowSceneActivation = true;
+
+                            yield return new WaitForSeconds(2f); // 2초 대기
+
+                            if (BelleController.INSTANCE != null)
+                                BelleController.INSTANCE.CanInput = true;
+                            else
+                                PlayerController.INSTANCE.CanInput = true;
+
+                            UIManager.Instance.CommonLoadingUI.ActivateEndText();
+
+                            yield break;
                         }
                     }
-                    if (op.progress < 0.99f)
-                    {
-                        op.allowSceneActivation = true;
-
-                        yield return new WaitForSeconds(2f); // 2초 대기
-
-                        if (BelleController.INSTANCE != null)
-                            BelleController.INSTANCE.CanInput = true;
-                        else
-                            PlayerController.INSTANCE.CanInput = true;
-
-                        UIManager.Instance.CommonLoadingUI.ActivateEndText();
-
-                        yield break;
-                    }
+                    break;
                 }
-                break;
+                else
+                {
+                    while (!op.isDone)
+                    {
+                        yield return null;
+                        if (op.progress < 0.90f)
+                        {
+                            //Debug.Log("CommonLoadingScene");
+                            if (!UIManager.Instance.CommonLoadingUI.gameObject.activeSelf)
+                            {
+                                UIManager.Instance.CommonLoadingUI.gameObject.SetActive(true);
+                            }
+                        }
+                        if (op.progress < 0.99f)
+                        {
+                            op.allowSceneActivation = true;
+
+                            yield return new WaitForSeconds(2f); // 2초 대기
+
+                            UIManager.Instance.CommonLoadingUI.ActivateEndText();
+
+                            yield break;
+                        }
+                    }
+                    break;
+                }
         }
     }
 }

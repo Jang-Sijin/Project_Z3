@@ -16,7 +16,6 @@ public class MonsterDieState : EnemyStateBase
         if (IsAnimationEnd())
         {
             monsterController.monsterModel.MonsterDie();
-
             return;
         }
     }

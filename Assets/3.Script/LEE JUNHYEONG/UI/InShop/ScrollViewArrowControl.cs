@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using static Item;
-using UnityEditor.MemoryProfiler;
-
 public class ScrollViewArrowControl : MonoBehaviour
 {
 
@@ -16,21 +13,21 @@ public class ScrollViewArrowControl : MonoBehaviour
     }
 
 
-    // ½ºÅ©·Ñ ºäÀÇ È¿°ú
+    // ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½
     #region ScrollViewEFF
-    private ScrollRect scrollRect; // ½ºÅ©·Ñºä ¿ÀºêÁ§Æ®ÀÇ ÃÖÇÏ´Ü È®ÀÎÀ» À§ÇØ¼­
-    [SerializeField]private GameObject downPointer; // ½ºÅ©·ÑºäÀÇ È­»ìÇ¥
+    private ScrollRect scrollRect; // ï¿½ï¿½Å©ï¿½Ñºï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½
+    [SerializeField] private GameObject downPointer; // ï¿½ï¿½Å©ï¿½Ñºï¿½ï¿½ï¿½ È­ï¿½ï¿½Ç¥
 
-    private void OnScrollValueChanged(Vector2 scrollPosition) // ÃÖÇÏ´Ü µµÂø½Ã È­»ìÇ¥¸¦ ¾ø¾Û´Ï´Ù.
+    private void OnScrollValueChanged(Vector2 scrollPosition) // ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½Û´Ï´ï¿½.
     {
-        if (scrollRect.verticalNormalizedPosition <= 0) // ÇÏ´Ü µµÂø
+        if (scrollRect.verticalNormalizedPosition <= 0) // ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½
         {
-            downPointer.SetActive(false); // ºñÈ°
+            downPointer.SetActive(false); // ï¿½ï¿½È°
         }
 
-        else // ÇÏ´ÜÀÌ ¾Æ´Ò ½Ã
+        else // ï¿½Ï´ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½
         {
-            downPointer.SetActive(true); // È°¼ºÈ­
+            downPointer.SetActive(true); // È°ï¿½ï¿½È­
         }
     }
     #endregion

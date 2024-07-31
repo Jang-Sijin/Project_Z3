@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 public class UIManager : SingletonBase<UIManager>
 {
     /*
-    * UI 메니저에서 씬 로드시 알맞은 UI를 Load합니다
-    * Ingame씬에서 InGameUI를 불러옴
-    * Intro씬에서 IntroUI를 불러옴
-    * MainMenu씬에서 MainMenuUI를 불러옴
+    * UI ????????? ?? ?ε?? ????? UI?? Load????
+    * Ingame?????? InGameUI?? ?????
+    * Intro?????? IntroUI?? ?????
+    * MainMenu?????? MainMenuUI?? ?????
     */
 
     [SerializeField] private Build_IntroUI _introUI;
@@ -21,6 +21,8 @@ public class UIManager : SingletonBase<UIManager>
     [SerializeField] private Build_InventoryUI _inventoryUI;
     [SerializeField] private Build_AgentSelectUI _agentSelectUI;
     [SerializeField] private Build_WeaponUI _weaponUI;
+    [SerializeField] private Build_CharacterStatusUI _characterStatusUI;
+    [SerializeField] private InShopUI shopUI;
 
     public Build_IntroUI IntroUI => _introUI;
     public MainCityUI MainCityUI => _mainCityUI;
@@ -32,6 +34,8 @@ public class UIManager : SingletonBase<UIManager>
     public Build_InventoryUI InventoryUI => _inventoryUI;
     public Build_AgentSelectUI AgentSelectUI => _agentSelectUI;
     public Build_WeaponUI WeaponUI => _weaponUI;
+    public Build_CharacterStatusUI CharacterStatusUI => _characterStatusUI;
+    public InShopUI ShopUI => shopUI;
 
 
     [HideInInspector] public bool isCloseOrOpen = false;
@@ -40,9 +44,9 @@ public class UIManager : SingletonBase<UIManager>
     private bool isMainCity;
 
     //JangSijin
-    private bool isMainMenu = true; // 메인 메뉴 씬은 가장 먼저 호출되기 때문에 true로 설정함
+    private bool isMainMenu = true; // ???? ??? ???? ???? ???? ????? ?????? true?? ??????
 
-    public void OptionUIOpenClose() // 옵션 메뉴UI 를 열고 닫는 메소드입니다.
+    public void OptionUIOpenClose() // ??? ???UI ?? ???? ??? ????????.
     {
         if (!isCloseOrOpen)
         {
@@ -86,7 +90,7 @@ public class UIManager : SingletonBase<UIManager>
     }
 
     /// <summary>
-    /// Player의 조작을 Lock
+    /// Player?? ?????? Lock
     /// </summary>
     public void LockPlayer()
     {
@@ -103,7 +107,7 @@ public class UIManager : SingletonBase<UIManager>
     }
 
     /// <summary>
-    /// Player의 조작을 Unlock
+    /// Player?? ?????? Unlock
     /// </summary>
     public void UnlockPlayer()
     {
@@ -182,6 +186,16 @@ public class UIManager : SingletonBase<UIManager>
     {
         _weaponUI.CloseWeaponUI();
     }
+    public void OpenShopUI()
+    {
+        shopUI.OpenShopUI();
+    }
+    public void CloseShopUI()
+    {
+        shopUI.CloseShopUI();
+        OpenCityUI();
+    }
+
     public void CloseAllUI()
     {
         CloseCityUI();
@@ -189,11 +203,12 @@ public class UIManager : SingletonBase<UIManager>
         CloseIntroUI();
         CloseInventoryUI();
         CloseAgentSelectUI();
+        CloseShopUI();
     }
 }
 
-// [레거시]
-//public void Creat_UI(WhichUI ui) // UI 생성 메소드 입니다.
+// [?????]
+//public void Creat_UI(WhichUI ui) // UI ???? ???? ????.
 //{
 //    GameObject temp_ob;
 //    switch (ui)
@@ -201,7 +216,7 @@ public class UIManager : SingletonBase<UIManager>
 //        case WhichUI.introUI:
 //            if (introUI != null)
 //            {
-//                Debug.Log($"{ui}는 이미 존재합니다.");
+//                Debug.Log($"{ui}?? ??? ????????.");
 //                return;
 //            }
 
@@ -212,7 +227,7 @@ public class UIManager : SingletonBase<UIManager>
 //        case WhichUI.mainCityUI:
 //            if (mainCityUI != null)
 //            {
-//                Debug.Log($"{ui}는 이미 존재합니다.");
+//                Debug.Log($"{ui}?? ??? ????????.");
 //                return;
 //            }
 
@@ -223,7 +238,7 @@ public class UIManager : SingletonBase<UIManager>
 //        case WhichUI.pauseMenuUI:
 //            if (pauseMenuUI != null)
 //            {
-//                Debug.Log($"{ui}는 이미 존재합니다.");
+//                Debug.Log($"{ui}?? ??? ????????.");
 //                return;
 //            }
 
@@ -234,7 +249,7 @@ public class UIManager : SingletonBase<UIManager>
 //        case WhichUI.inGameUI:
 //            if (inGameUI != null)
 //            {
-//                Debug.Log($"{ui}는 이미 존재합니다.");
+//                Debug.Log($"{ui}?? ??? ????????.");
 //                Destroy(inGameUI.gameObject);
 //            }
 

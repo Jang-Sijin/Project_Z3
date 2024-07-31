@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using static Define;
 
 public class Build_AgentSelectUI : MonoBehaviour
 {
@@ -81,5 +82,12 @@ public class Build_AgentSelectUI : MonoBehaviour
                 _longinus.SetActive(true);
                 break;
         }
+    }
+
+    public void OpenCharacterStatusUI()
+    {
+        if (selectedCharacter == ECharacter.None) return;
+        UIManager.Instance.CharacterStatusUI.OpenCharacterStatusUI(selectedCharacter);
+        gameObject.SetActive(false);
     }
 }

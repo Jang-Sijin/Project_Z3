@@ -11,11 +11,17 @@ public class Item : ScriptableObject
     [SerializeField] private string Name; // 아이템 이름
     public string name_ {  get { return Name; } }
 
-    [SerializeField] private int Level; // 아이템 레벨
+    [SerializeField] private int Level = 0; // 아이템 레벨
     public int level { get { return Level; } set { Level = value; } }
 
-    [SerializeField] private int maxLevel; // 레벨 제한
+    [SerializeField] private int maxLevel = 20; // 레벨 제한
     public int MaxLevel { get { return maxLevel; } set { maxLevel = value; } }
+
+    [SerializeField] private int ItemEXP = 0; // 아이템 경험치
+    public int itemEXP { get { return ItemEXP; } }
+
+    [SerializeField] private int maxLimit = 600; // 아이템 최대 경험치
+    public int MaxLimit { get { return maxLimit; } }
 
     [SerializeField] private float Stat; // 가중치
     public float stat { get { return Stat; } set { Stat = value; } }

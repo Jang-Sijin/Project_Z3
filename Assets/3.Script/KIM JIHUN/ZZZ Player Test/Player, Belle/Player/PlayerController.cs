@@ -5,30 +5,32 @@ using System.Linq;
 using Cinemachine;
 using Unity.VisualScripting.Dependencies.Sqlite;
 using Unity.VisualScripting;
+using DG.Tweening;
+using TMPro;
 
 public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineOwner
 {
-    [HideInInspector] public PlayerInputSystem playerInputSystem; // Input ½Ã½ºÅÛ
-    public PlayerModel playerModel; //ÇöÀç ÄÁÆ®·ÑÁßÀÎ ÇÃ·¹ÀÌ¾î ¸ðµ¨
+    [HideInInspector] public PlayerInputSystem playerInputSystem; // Input ï¿½Ã½ï¿½ï¿½ï¿½
+    public PlayerModel playerModel; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½
 
     private StateMachine stateMachine;
 
-    public PlayerConfig playerConfig; //ÇöÀç ÇÒ´çµÇ¾î ÀÖ´Â Player Config. ÃÖ´ë 3¸íÀÇ Ä³¸¯ÅÍ°¡ ÀÖÀ½
+    public PlayerConfig playerConfig; //ï¿½ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½Ç¾ï¿½ ï¿½Ö´ï¿½ Player Config. ï¿½Ö´ï¿½ 3ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    public List<PlayerModel> controllableModels; //playerModel º¯¼ö¿¡ »ç¿ëÇÒ ¼ö ÀÖ´Â PlayerModel ¹è¿­
-    public int currentModelIndex = 0; //ÇöÀç ÄÁÆ®·ÑÁßÀÎ ¸ðµ¨ ÀÎµ¦½º
+    public List<PlayerModel> controllableModels; //playerModel ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ PlayerModel ï¿½è¿­
+    public int currentModelIndex = 0; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
 
-    public Vector2 inputMoveVec2; // WASD Å°º¸µå·Î ÀÔ·Â
+    public Vector2 inputMoveVec2; // WASD Å°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½
     public float rotationSpeed = 8f;
 
     #region Player Active Cool Down
-    [HideInInspector] public float evadeTimer { get; private set; } // È¸ÇÇ Å¸ÀÌ¸Ó
-    [HideInInspector] private float evadeCoolTime; // È¸ÇÇ ÄðÅ¸ÀÓ
-    [HideInInspector] public float switchTimer { get; private set; } // Ä³¸¯ÅÍ ±³Ã¼ Å¸ÀÌ¸Ó
-    [HideInInspector] private float switchCoolTime; // Ä³¸¯ÅÍ ±³Ã¼ ÄðÅ¸ÀÓ
+    [HideInInspector] public float evadeTimer { get; private set; } // È¸ï¿½ï¿½ Å¸ï¿½Ì¸ï¿½
+    [HideInInspector] private float evadeCoolTime; // È¸ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½
+    [HideInInspector] public float switchTimer { get; private set; } // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ Å¸ï¿½Ì¸ï¿½
+    [HideInInspector] private float switchCoolTime; // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½Å¸ï¿½ï¿½
     private float maxUltPoint = 100f;
     private float defaultUltPoint = 4f;
-    private float currentUltPoint = 0;    
+    private float currentUltPoint = 0;
 
     public float MaxUltPoint => maxUltPoint;
     public float DefaultUltPoint => defaultUltPoint;
@@ -39,7 +41,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         set { currentUltPoint = Mathf.Clamp(value, 0, maxUltPoint); }
     }
 
-    private bool canInput = true; // ´ëÈ­, ÄÆ½Å¿¡ »ç¿ëµÉ bool°ª. Ä³¸¯ÅÍ¸¦ Á¶Á¾ÇÒ ¼ö ÀÖ´ÂÁö
+    private bool canInput = true; // ï¿½ï¿½È­, ï¿½Æ½Å¿ï¿½ ï¿½ï¿½ï¿½ï¿½ boolï¿½ï¿½. Ä³ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½
     public bool CanInput
     {
         get { return canInput; }
@@ -55,8 +57,10 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     [HideInInspector] public GameObject closestEnemy;
     [HideInInspector] public Vector3 directionToEnemy { get; private set; }
 
-    [SerializeField] private CinemachineFreeLook cinemachineFreeLook; //Ä«¸Þ¶ó ½¦ÀÌÅ©¸¦ À§ÇÑ ½Ã³×¸Ó½Å
-    private float shakeTimer; // ½¦ÀÌÅ© Å¸ÀÌ¸Ó
+    [SerializeField] private CinemachineFreeLook cinemachineFreeLook; //Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã³×¸Ó½ï¿½
+    private float shakeTimer; // ï¿½ï¿½ï¿½ï¿½Å© Å¸ï¿½Ì¸ï¿½
+
+    public GameObject damageFontCanvasPrefab;
 
     protected override void Awake()
     {
@@ -95,9 +99,9 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     }
 
     /// <summary>
-    /// ÇöÀç »óÅÂ¸¦ playerState·Î º¯°æ
+    /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ playerStateï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     /// </summary>
-    /// <param name="playerState">º¯°æÇÒ State</param>
+    /// <param name="playerState">ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ State</param>
     public void SwitchState(EPlayerState playerState)
     {
         if (!canInput)
@@ -206,14 +210,14 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     }
 
     /// <summary>
-    /// ´ÙÀ½ Ä³¸¯ÅÍ·Î ±³Ã¼
+    /// ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í·ï¿½ ï¿½ï¿½Ã¼
     /// </summary>
     public void SwitchNextModel(bool isDead = false)
     {
-        // ½ºÀ§Ä¡ ÄðÅ¸ÀÓ È®ÀÎ
+        // ï¿½ï¿½ï¿½ï¿½Ä¡ ï¿½ï¿½Å¸ï¿½ï¿½ È®ï¿½ï¿½
         if (switchTimer != switchCoolTime) return;
         switchTimer -= switchCoolTime;
-        //»ç¿ëÇÏ´ø StateMachine ÃÊ±âÈ­
+        //ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ StateMachine ï¿½Ê±ï¿½È­
         stateMachine.Clear();
 
         if (!isDead)
@@ -248,6 +252,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
 
     private void Update()
     {
+        //Debug.Log(controllableModels[currentModelIndex].eCharacter);
         if (playerInputSystem.Player.Escape.triggered)
         {
             if (UIManager.Instance != null)
@@ -256,10 +261,10 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
             }
         }
 
-        #region ¸ó½ºÅÍ Å¸°ÙÆÃ
+        #region ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½
         if (enemyList.Count != 0)
         {
-            //°¡Àå °¡±î¿î ¸ó½ºÅÍ ¼øÀ¸·Î -> ·¹ÀÌÄ³½ºÆ®°¡ °¡´ÉÇÑ °³Ã¼ Ã£±â
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ Ã£ï¿½ï¿½
             closestEnemy = RaycastEnemy();
             if (closestEnemy != null)
             {
@@ -275,11 +280,11 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         }
         #endregion
 
-        #region ÀÌµ¿ ¹æÇâ ÀÔ·Â
+        #region ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½
         inputMoveVec2 = playerInputSystem.Player.Move.ReadValue<Vector2>().normalized;
         #endregion
 
-        #region È¸ÇÇ ÄðÅ¸ÀÓ
+        #region È¸ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½
         if (evadeTimer < evadeCoolTime)
         {
             evadeTimer += Time.deltaTime;
@@ -289,7 +294,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         }
         #endregion
 
-        #region Ä³¸¯ÅÍ ±³Ã¼ ÄðÅ¸ÀÓ
+        #region Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½Å¸ï¿½ï¿½
         if (switchTimer < switchCoolTime)
         {
             switchTimer += Time.deltaTime;
@@ -357,7 +362,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         Vector3 playerPosition = playerModel.transform.position;
         var enemyList = SortEnemyByDist();
 
-        if(enemyList == null || enemyList.Length == 0)
+        if (enemyList == null || enemyList.Length == 0)
             return null;
 
         foreach (var enemy in SortEnemyByDist())
@@ -365,10 +370,10 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
             Vector3 directionToEnemy = (enemy.transform.position - playerPosition).normalized;
             RaycastHit hit;
 
-            // ÇÃ·¹ÀÌ¾î À§Ä¡¿¡¼­ Àû ¹æÇâÀ¸·Î ·¹ÀÌÄ³½ºÆ®
+            // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½Æ®
             if (Physics.Raycast(playerPosition, directionToEnemy, out hit))
             {
-                // È÷Æ®µÈ °´Ã¼°¡ ÀûÀÌ¶ó¸é ÇØ´ç ÀûÀ» ¹ÝÈ¯
+                // ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
                 if (hit.collider.gameObject == enemy)
                 {
                     return enemy;
@@ -379,12 +384,12 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     }
 
     /// <summary>
-    /// ÀÎ½ÄµÈ ¸ó½ºÅÍµéÀ» °¡±î¿î °Å¸®¼øÀ¸·Î Á¤·ÄÇÏ´Â ÇÔ¼ö
+    /// ï¿½Î½Äµï¿½ ï¿½ï¿½ï¿½Íµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     /// </summary>
     /// <returns></returns>
     public GameObject[] SortEnemyByDist()
     {
-        // nullÀÌ°Å³ª ÆÄ±«µÈ GameObject¸¦ Á¦°ÅÇÕ´Ï´Ù.
+        // nullï¿½Ì°Å³ï¿½ ï¿½Ä±ï¿½ï¿½ï¿½ GameObjectï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
         enemyList = enemyList.Where(go => go != null && go.transform != null).ToList();
 
         if (enemyList == null || enemyList.Count == 0)
@@ -395,10 +400,10 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         Vector3 referencePosition = playerModel.transform.position;
 
         GameObject[] sortedGameObjects = enemyList
-            .OrderBy(go => Vector3.Distance(go.transform.position, referencePosition)) // °¢ GameObjectÀÇ À§Ä¡¿Í ±âÁØ À§Ä¡ »çÀÌÀÇ °Å¸® °è»ê
-            .ToArray(); // Á¤·ÄµÈ °á°ú¸¦ ¹è¿­·Î º¯È¯
+            .OrderBy(go => Vector3.Distance(go.transform.position, referencePosition)) // ï¿½ï¿½ GameObjectï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½
+            .ToArray(); // ï¿½ï¿½ï¿½Äµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½È¯
 
-        return sortedGameObjects; // Á¤·ÄµÈ GameObject ¹è¿­ ¹ÝÈ¯
+        return sortedGameObjects; // ï¿½ï¿½ï¿½Äµï¿½ GameObject ï¿½è¿­ ï¿½ï¿½È¯
     }
 
     public void ShakeCamera(float intensity, float time)
@@ -435,5 +440,74 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     {
         this.transform.position = spawnPoint;
         playerModel.transform.position = spawnPoint;
-    }    
+    }
+
+    public void TakeDamage(float monsterDamage, Vector3 monsterWeaponPostion)
+    {
+        if (playerModel.playerStatus.CurrentHealth > 0)
+        {
+            // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(Hit) ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½
+            //SwitchState(EMonsterState.Hit);
+
+            playerModel.playerStatus.CurrentHealth -= monsterDamage;
+            // EnemyUIController.RefreshHealth(_currentHealth, MaxHealth);
+
+            ShowDamageFont(monsterDamage, monsterWeaponPostion);
+            // enemyUIController.RefreshHealth(monsterModel.monsterStatus.CurrentHealth, monsterModel.monsterStatus.MaxHealth); // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ HP Bar ï¿½ï¿½ï¿½ï¿½
+            return;
+        }
+        else
+        {
+            Debug.Log($"{gameObject.name}: ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½");
+            // #ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ ï¿½ß°ï¿½ ï¿½Ê¿ï¿½
+            return;
+        }
+    }
+
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
+    private void ShowDamageFont(float damage, Vector3 hitPosition)
+    {
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½È­
+        GameObject damageFont = Instantiate(damageFontCanvasPrefab, hitPosition, Quaternion.identity);
+        // Canvasï¿½ï¿½ Text ï¿½ï¿½Ò¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        TextMeshProUGUI textMesh = damageFont.GetComponentInChildren<TextMeshProUGUI>();
+        if (textMesh != null)
+        {
+            textMesh.text = damage.ToString();
+        }
+
+        // ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½
+        textMesh.color = Color.red;
+
+        // ï¿½Ø½ï¿½Æ® ï¿½Ú½ï¿½ï¿½ï¿½ RectTransform ï¿½ï¿½ï¿½ï¿½
+        RectTransform textRectTransform = textMesh.GetComponent<RectTransform>();
+
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ï°ï¿½ ï¿½à°£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+        Vector3 screenPoint = Camera.main.WorldToScreenPoint(hitPosition);
+        screenPoint.x += Random.Range(-100f, 100f);
+        textRectTransform.position = screenPoint;
+
+        // DOTweenï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+        AnimateDamageFont(textRectTransform, damageFont.transform);
+    }
+
+    private void AnimateDamageFont(RectTransform damageFontRectTransform, Transform startPosition)
+    {
+        // DOTweenï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+        var sequence = DOTween.Sequence();
+
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
+        sequence.Append(damageFontRectTransform.DOMoveY(damageFontRectTransform.position.y + 600f, 1f)
+            .SetEase(Ease.OutCubic));
+
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        sequence.Append(damageFontRectTransform.DOMoveY(damageFontRectTransform.position.y - 100f, 0.3f)
+            .SetEase(Ease.InCubic));
+
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        sequence.Join(damageFontRectTransform.GetComponent<TextMeshProUGUI>().DOFade(0, 0.3f)
+            .SetEase(Ease.InOutQuad));
+
+        sequence.Play().OnComplete(() => Destroy(startPosition.transform.gameObject, 1.0f)); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    }
 }

@@ -12,7 +12,7 @@ public class Build_WeaponSlotUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _itemLevelTXT;
     private Button button;
 
-    private Build_ItemSlot _itemSlot;
+    private Build_Item _itemSlot;
 
     private void Start()
     {
@@ -20,20 +20,10 @@ public class Build_WeaponSlotUI : MonoBehaviour
         button.onClick.AddListener(ShowItemPreview);
     }
 
-    public void RefreshSlot(Build_ItemSlot itemSlot)
+    public void RefreshSlot(Build_Item itemSlot)
     {
         _itemSlot = itemSlot;
-        _itemIMG.sprite = itemSlot.ItemData.itemIcon;
-
-        if (itemSlot.ItemData.itemType == Build_Item.EItemType.EQUIPMENT)
-        {
-            _itemLevelFrame.SetActive(true);
-            _itemLevelTXT.text = "LV." + itemSlot.Level.ToString();
-        }
-        else
-        {
-            _itemLevelFrame.SetActive(false);
-        }
+        _itemIMG.sprite = itemSlot.itemIcon;
     }
 
     private void ShowItemPreview()

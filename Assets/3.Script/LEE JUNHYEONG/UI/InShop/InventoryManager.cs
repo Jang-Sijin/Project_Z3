@@ -3,15 +3,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-using static UnityEditor.Progress;
 
 public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager instance = null;
 
-    [SerializeField]private Item[] equipments; //장비입니다.
-    [SerializeField]private List<Item> inventory; // 인벤토리입니다.
+    [SerializeField] private Item[] equipments; //장비입니다.
+    [SerializeField] private List<Item> inventory; // 인벤토리입니다.
     private int wallet = 300000; // 지갑입니다.  디버깅
     public Action moneyAction;
 
@@ -25,10 +23,10 @@ public class InventoryManager : MonoBehaviour
     };
 
     public DebugCharInfo[] debugCharInfo; // 디버깅용
-    
-    public Item[] Equipments { get{  return equipments;  }}
-    public List<Item> Inventory{get{  return  inventory; }}
-    public int Wallet{ get{ return wallet; }}
+
+    public Item[] Equipments { get { return equipments; } }
+    public List<Item> Inventory { get { return inventory; } }
+    public int Wallet { get { return wallet; } }
 
 
     private void Awake()

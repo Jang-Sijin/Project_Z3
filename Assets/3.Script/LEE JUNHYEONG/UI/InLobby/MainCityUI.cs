@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 
 public class MainCityUI : MonoBehaviour
@@ -15,7 +14,7 @@ public class MainCityUI : MonoBehaviour
         btnAni(KeyCode.F);
         btnAni(KeyCode.Escape);
     }
-    public void btnAni(KeyCode key) //´ÙÀ½ ¸Þ¼Òµå¸¦ ºÒ·¯ ¹öÆ° ¾Ö´Ï¸ÞÀÌ¼ÇÀ» ÀÛµ¿ÇÏ¸é µË´Ï´Ù.
+    public void btnAni(KeyCode key) //ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµå¸¦ ï¿½Ò·ï¿½ ï¿½ï¿½Æ° ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½Ûµï¿½ï¿½Ï¸ï¿½ ï¿½Ë´Ï´ï¿½.
     {
         switch (key)
         {
@@ -32,17 +31,17 @@ public class MainCityUI : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("¾ø´Â Å° ÀÔ´Ï´Ù.");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ Å° ï¿½Ô´Ï´ï¿½.");
                 break;
         }
     }
 
     private void btnAni(Animator ani, KeyCode key)
     {
-        if(Input.GetKeyDown(key))
+        if (Input.GetKeyDown(key))
             ani.SetTrigger("Press");
-            
-        else if(Input.GetKeyUp(key))
+
+        else if (Input.GetKeyUp(key))
             ani.SetTrigger("Default");
     }
 

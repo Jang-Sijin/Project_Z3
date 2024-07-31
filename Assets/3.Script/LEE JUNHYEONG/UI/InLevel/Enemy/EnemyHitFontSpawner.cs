@@ -4,12 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
-using System.Runtime.CompilerServices;
-using UnityEditor.ShaderGraph.Internal;
-using UnityEngine.Experimental.AI;
-using System.Globalization;
-using Unity.VisualScripting;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class EnemyHitFontSpawner : MonoBehaviour
 {
@@ -20,14 +14,14 @@ public class EnemyHitFontSpawner : MonoBehaviour
     private List<RectTransform> hitRect;
 
     private RectTransform canvasRect;
-    private float distance = 2f; // ºÎ¸ð¿ÍÀÇ °Å¸®
+    private float distance = 2f; // ï¿½Î¸ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
     private float height = 0f;
     [SerializeField] private Camera mainCamera;
 
     private int hitAniIndex = 0;
     [SerializeField] private int hitFontMax = 10;
     private void Awake()
-    { 
+    {
         hitAniList = new List<GameObject>();
         textList = new List<TextMeshProUGUI>();
         hitRect = new List<RectTransform>();
@@ -42,28 +36,28 @@ public class EnemyHitFontSpawner : MonoBehaviour
         }
     }
     /*
-     * ²¨Áö´Â °æ¿ìÀÇ ¼ö
-     * bound¸¦ ³Ñ¾î¼­´Â ÀÔ·ÂÀÌ ÀÖÀ» ½Ã
-     * ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ ³¡³¯ ¶§
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+     * boundï¿½ï¿½ ï¿½Ñ¾î¼­ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+     * ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
      */
 
     private void LateUpdate()
     {
-        // ÇÃ·¹ÀÌ¾î ¹æÇâ º¤ÅÍ °è»ê
+        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         Vector3 directionToPlayer = (player.transform.position - transform.parent.position).normalized;
 
-        // ºÎ¸ð °´Ã¼·ÎºÎÅÍ ÇÃ·¹ÀÌ¾î ¹æÇâÀ¸·Î ÀÏÁ¤ °Å¸®¸¸Å­ ¶³¾îÁø À§Ä¡ °è»ê
+        // ï¿½Î¸ï¿½ ï¿½ï¿½Ã¼ï¿½Îºï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½
         Vector3 targetPosition = transform.parent.position + directionToPlayer * distance;
-        targetPosition.y = transform.parent.position.y + height; // °íÁ¤µÈ ³ôÀÌ ¼³Á¤
+        targetPosition.y = transform.parent.position.y + height; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         transform.position = targetPosition;
         LookPlayer();
 
         /*
-         * ÇÃ·¹ÀÌ¾î°¡ ¹Ù¶óº¸´Â ÂÊÀ¸·Î Äµ¹ö½º À§Ä¡ ¹Ù²Ù±â
+         * ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½Ù¶óº¸´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Äµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½Ù²Ù±ï¿½
          * 
-         * ¿¹»ó ÄÚµå
-         * ÇÃ·¹ÀÌ¾îÀÇ ¹æÇâÀ¸·Î 2Á¤µµ ¿¡³Ê¹Ì¿¡¼­ ¶³¾îÁø °÷¿¡ ¶ç¿ì±â
+         * ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½
+         * ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ê¹Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
          */
     }
 
@@ -71,7 +65,7 @@ public class EnemyHitFontSpawner : MonoBehaviour
     {
         if (hitAniIndex >= hitAniList.Count)
             hitAniIndex = 0;
-        
+
         int index = hitAniIndex;
 
         hitAniList[index].gameObject.SetActive(false);

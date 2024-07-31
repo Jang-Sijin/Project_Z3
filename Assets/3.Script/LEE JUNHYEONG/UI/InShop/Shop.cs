@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using System;
+using Unity.VisualScripting;
 
 public class Shop : MonoBehaviour
 {
@@ -12,23 +13,41 @@ public class Shop : MonoBehaviour
     private GameObject g;
 
     [SerializeField] private Transform shopScrollView;
-    [SerializeField] private List<Item> shopItemsList;
+    [SerializeField] private List<Build_Item> shopItemsList;
+    public Sprite[] itemRankIcon;
     private Button itemBtn;
     [Header("구매 버튼")]
-    [SerializeField]private Button purchaseBtn;
+    [SerializeField] private Button purchaseBtn;
+
+    [Header("팝업창")]
+    [SerializeField] private QuestionBox questionBox;
 
     [Header("아이템 선택시 표시할 텍스트")]
     // 무기 선택 시 아이템 info 출력
     #region ChangeInfoText
     [SerializeField] private TextMeshProUGUI WeaponNameInfo; // 클릭한 아이템의 이름 info
-    [SerializeField] private TextMeshProUGUI itemTypeInfo; // 클릭한 아이템 종류 info
-    [SerializeField] private TextMeshProUGUI statInfo; //클릭한 아이템의  스탯 info
+    [SerializeField] private TextMeshProUGUI itemAttackStat;
+    [SerializeField] private TextMeshProUGUI itemDefenceStat;
+    [SerializeField] private TextMeshProUGUI itemHealthStat;
     [SerializeField] private TextMeshProUGUI PriceInfo; //가격 Info
     private string[] typeKorean = { "공격력", "체력" }; // 타입 Info
     #endregion
 
-    private void Start()
+    [SerializeField] private Build_ShopSlotUI[] shopItemSlots;
+    public void OpenShop()
     {
+        foreach (var item in shopItemSlots)
+        {
+            item.gameObject.SetActive(false);
+        }
+
+        for (int i = 0; i < shopItemsList.Count; i++)
+        {
+            shopItemSlots[i].gameObject.SetActive(true);
+            shopItemSlots[i].AssignItem(shopItemsList[i]);
+        }
+
+        /*
         itemTemplate = shopScrollView.GetChild(0).gameObject;
 
         int len = shopItemsList.Count;
@@ -39,35 +58,38 @@ public class Shop : MonoBehaviour
 
             g = Instantiate(itemTemplate, shopScrollView);
             g.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = shopItemsList[i].itemIcon;
-            g.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = shopItemsList[i].name_;
-            g.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite = shopItemsList[i].itemRankIcon;
+            g.transform.GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = shopItemsList[i].itemName;
+            g.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite = itemRankIcon[(int)shopItemsList[i].itemRank];
 
             g.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() => OnClickShopItemBtn(index)); ;
         }
         PrintInitText();
         Destroy(itemTemplate);
+        */
     }
 
     private void PrintInitText()
     {
         WeaponNameInfo.text = " ";
-        itemTypeInfo.text = " ";
-        statInfo.text = " ";
+        itemAttackStat.text = " ";
+        itemDefenceStat.text = " ";
+        itemHealthStat.text = " ";
         PriceInfo.text = " ";
     }
 
-    private void PrintItemStat(int itemIndex)
+    public void PrintItemStat(Build_Item item)
     {
-        Debug.Log(itemIndex);
-        WeaponNameInfo.text = shopItemsList[itemIndex].name_;
-        itemTypeInfo.text = typeKorean[(int)shopItemsList[itemIndex].itemType];
-        statInfo.text = ((int)shopItemsList[itemIndex].stat).ToString();
-        PrintWalletAndPrice(itemIndex);
+        //Debug.Log(itemIndex);
+        WeaponNameInfo.text = item.itemName;
+        itemAttackStat.text = item.attackStat.ToString();
+        itemDefenceStat.text = item.defenceStat.ToString();
+        itemHealthStat.text = item.healthStat.ToString();
+        PrintWalletAndPrice(item);
     }
 
-    private void PrintWalletAndPrice(int itemIndex)
+    private void PrintWalletAndPrice(Build_Item item)
     {
-        PriceInfo.text = $"{InventoryManager.instance.Wallet} / {shopItemsList[itemIndex].buyPrice}";
+        PriceInfo.text = $"{Build_InventoryManager.INSTANCE.Wallet} / {item.buyPrice}";
     }
 
     private void OnClickShopItemBtn(int itemIndex)
@@ -75,7 +97,7 @@ public class Shop : MonoBehaviour
         purchaseBtn.onClick.RemoveAllListeners();
         purchaseBtn.onClick.AddListener(() => OnClickBuyBtn(itemIndex));
 
-        PrintItemStat(itemIndex);
+        //PrintItemStat(itemIndex);
     }
 
     private void OnClickBuyBtn(int itemIndex)
@@ -85,6 +107,14 @@ public class Shop : MonoBehaviour
             return;
         }
 
+        Build_InventoryManager.INSTANCE.DecreaseWallet(shopItemsList[itemIndex].buyPrice);
+        Build_InventoryManager.INSTANCE.AddToInventory(shopItemsList[itemIndex]);
+
+        //PrintWalletAndPrice(itemIndex);
+    }
+
+    private void OnClickAccept(int itemIndex)
+    {
         InventoryManager.instance.RemoveMoneyFromWallet(shopItemsList[itemIndex].buyPrice);
         InventoryManager.instance.AddItem(shopItemsList[itemIndex]);
 
