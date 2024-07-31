@@ -67,6 +67,7 @@ public class Shop : MonoBehaviour
         Destroy(itemTemplate);
         */
     }
+    private Build_Item selectedItem = null;
 
     private void PrintInitText()
     {
@@ -80,6 +81,7 @@ public class Shop : MonoBehaviour
     public void PrintItemStat(Build_Item item)
     {
         //Debug.Log(itemIndex);
+        selectedItem = item;
         WeaponNameInfo.text = item.itemName;
         itemAttackStat.text = item.attackStat.ToString();
         itemDefenceStat.text = item.defenceStat.ToString();
@@ -95,29 +97,32 @@ public class Shop : MonoBehaviour
     private void OnClickShopItemBtn(int itemIndex)
     {
         purchaseBtn.onClick.RemoveAllListeners();
-        purchaseBtn.onClick.AddListener(() => OnClickBuyBtn(itemIndex));
+        //purchaseBtn.onClick.AddListener(() => OnClickBuyBtn(itemIndex));
 
         //PrintItemStat(itemIndex);
     }
 
-    private void OnClickBuyBtn(int itemIndex)
+    public void OnClickBuyBtn()
     {
-        if (InventoryManager.instance.Wallet < shopItemsList[itemIndex].buyPrice)
+        Debug.Log($"Buy");
+        if (Build_InventoryManager.INSTANCE.Wallet < selectedItem.buyPrice)
         {
             return;
         }
 
-        Build_InventoryManager.INSTANCE.DecreaseWallet(shopItemsList[itemIndex].buyPrice);
-        Build_InventoryManager.INSTANCE.AddToInventory(shopItemsList[itemIndex]);
+
+        Build_InventoryManager.INSTANCE.DecreaseWallet(selectedItem.buyPrice);
+        Build_InventoryManager.INSTANCE.AddToInventory(selectedItem);
+        Debug.Log($"구매 완료 {Build_InventoryManager.INSTANCE.WeaponInventory.Inventory.Count}");
 
         //PrintWalletAndPrice(itemIndex);
     }
 
     private void OnClickAccept(int itemIndex)
     {
-        InventoryManager.instance.RemoveMoneyFromWallet(shopItemsList[itemIndex].buyPrice);
-        InventoryManager.instance.AddItem(shopItemsList[itemIndex]);
+        //InventoryManager.instance.RemoveMoneyFromWallet(shopItemsList[itemIndex].buyPrice);
+        //InventoryManager.instance.AddItem(shopItemsList[itemIndex]);
 
-        PrintWalletAndPrice(itemIndex);
+        //PrintWalletAndPrice(itemIndex);
     }
 }

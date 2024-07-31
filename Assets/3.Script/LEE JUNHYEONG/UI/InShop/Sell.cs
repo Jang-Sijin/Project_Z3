@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Sell : MonoBehaviour
 {
-    [SerializeField]private GameObject itemTemplate;
+    [SerializeField] private GameObject itemTemplate;
 
     [SerializeField] private Transform itemScrollView;
     [Header("판매 버튼")]
@@ -17,14 +17,18 @@ public class Sell : MonoBehaviour
     #region ChangeInfoText
     [SerializeField] protected TextMeshProUGUI WeaponNameInfo; // 클릭한 아이템의 이름 info
     [SerializeField] protected TextMeshProUGUI itemTypeInfo; // 클릭한 아이템 종류 info
-    [SerializeField] protected TextMeshProUGUI statInfo; //클릭한 아이템의  스탯 info
+    [SerializeField] private TextMeshProUGUI itemAttackStat;
+    [SerializeField] private TextMeshProUGUI itemDefenceStat;
+    [SerializeField] private TextMeshProUGUI itemHealthStat;
     [SerializeField] private TextMeshProUGUI PriceInfo; //가격 Info
     protected string[] typeKorean = { "공격력", "체력" }; // 타입 Info
     #endregion
 
+
+
     protected virtual void OnEnable()
     {
-        for (int i=0; i < InventoryManager.instance.Inventory.Count;i++)
+        for (int i = 0; i < InventoryManager.instance.Inventory.Count; i++)
         {
             if (InventoryManager.instance.Inventory[i].itemType.Equals(Item.EItemType.DAMAGE) || InventoryManager.instance.Inventory[i].itemType.Equals(Item.EItemType.HEALTH))
             {
@@ -35,7 +39,7 @@ public class Sell : MonoBehaviour
         PrintInitText();
     }
 
-    public void AddItemToSellMenu(Item item) 
+    public void AddItemToSellMenu(Item item)
     {
         Debug.Log(item);
         Debug.Log(itemTemplate);
