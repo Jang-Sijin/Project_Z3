@@ -7,6 +7,7 @@ public class InShopUI : MonoBehaviour
 {
     [SerializeField] private VideoPlayer videoPlayer;
     public Shop shopScript;
+    public Sell sellScript;
     public void OnClickBack()
     {
         /*

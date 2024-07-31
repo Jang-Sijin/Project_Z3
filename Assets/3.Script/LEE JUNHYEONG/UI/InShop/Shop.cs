@@ -3,34 +3,29 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
-using System;
-using Unity.VisualScripting;
 
 public class Shop : MonoBehaviour
 {
-    private GameObject itemTemplate;
-    private GameObject g;
 
     [SerializeField] private Transform shopScrollView;
     [SerializeField] private List<Build_Item> shopItemsList;
     public Sprite[] itemRankIcon;
     private Button itemBtn;
-    [Header("±¸¸Å ¹öÆ°")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°")]
     [SerializeField] private Button purchaseBtn;
 
-    [Header("ÆË¾÷Ã¢")]
+    [Header("ï¿½Ë¾ï¿½Ã¢")]
     [SerializeField] private QuestionBox questionBox;
 
-    [Header("¾ÆÀÌÅÛ ¼±ÅÃ½Ã Ç¥½ÃÇÒ ÅØ½ºÆ®")]
-    // ¹«±â ¼±ÅÃ ½Ã ¾ÆÀÌÅÛ info Ãâ·Â
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½Ø½ï¿½Æ®")]
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ info ï¿½ï¿½ï¿½
     #region ChangeInfoText
-    [SerializeField] private TextMeshProUGUI WeaponNameInfo; // Å¬¸¯ÇÑ ¾ÆÀÌÅÛÀÇ ÀÌ¸§ info
+    [SerializeField] private TextMeshProUGUI WeaponNameInfo; // Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ info
     [SerializeField] private TextMeshProUGUI itemAttackStat;
     [SerializeField] private TextMeshProUGUI itemDefenceStat;
     [SerializeField] private TextMeshProUGUI itemHealthStat;
-    [SerializeField] private TextMeshProUGUI PriceInfo; //°¡°Ý Info
-    private string[] typeKorean = { "°ø°Ý·Â", "Ã¼·Â" }; // Å¸ÀÔ Info
+    [SerializeField] private TextMeshProUGUI PriceInfo; //ï¿½ï¿½ï¿½ï¿½ Info
+    private string[] typeKorean = { "ï¿½ï¿½ï¿½Ý·ï¿½", "Ã¼ï¿½ï¿½" }; // Å¸ï¿½ï¿½ Info
     #endregion
 
     [SerializeField] private Build_ShopSlotUI[] shopItemSlots;
@@ -46,6 +41,7 @@ public class Shop : MonoBehaviour
             shopItemSlots[i].gameObject.SetActive(true);
             shopItemSlots[i].AssignItem(shopItemsList[i]);
         }
+        PrintInitText();
 
         /*
         itemTemplate = shopScrollView.GetChild(0).gameObject;
@@ -63,14 +59,14 @@ public class Shop : MonoBehaviour
 
             g.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() => OnClickShopItemBtn(index)); ;
         }
-        PrintInitText();
         Destroy(itemTemplate);
         */
     }
+    private Build_Item selectedItem = null;
 
     private void PrintInitText()
     {
-        WeaponNameInfo.text = " ";
+        WeaponNameInfo.text = "404 NOT FOUND";
         itemAttackStat.text = " ";
         itemDefenceStat.text = " ";
         itemHealthStat.text = " ";
@@ -80,6 +76,7 @@ public class Shop : MonoBehaviour
     public void PrintItemStat(Build_Item item)
     {
         //Debug.Log(itemIndex);
+        selectedItem = item;
         WeaponNameInfo.text = item.itemName;
         itemAttackStat.text = item.attackStat.ToString();
         itemDefenceStat.text = item.defenceStat.ToString();
@@ -95,29 +92,32 @@ public class Shop : MonoBehaviour
     private void OnClickShopItemBtn(int itemIndex)
     {
         purchaseBtn.onClick.RemoveAllListeners();
-        purchaseBtn.onClick.AddListener(() => OnClickBuyBtn(itemIndex));
+        //purchaseBtn.onClick.AddListener(() => OnClickBuyBtn(itemIndex));
 
         //PrintItemStat(itemIndex);
     }
 
-    private void OnClickBuyBtn(int itemIndex)
+    public void OnClickBuyBtn()
     {
-        if (InventoryManager.instance.Wallet < shopItemsList[itemIndex].buyPrice)
+        Debug.Log($"Buy");
+        if (Build_InventoryManager.INSTANCE.Wallet < selectedItem.buyPrice)
         {
             return;
         }
 
-        Build_InventoryManager.INSTANCE.DecreaseWallet(shopItemsList[itemIndex].buyPrice);
-        Build_InventoryManager.INSTANCE.AddToInventory(shopItemsList[itemIndex]);
+
+        Build_InventoryManager.INSTANCE.DecreaseWallet(selectedItem.buyPrice);
+        Build_InventoryManager.INSTANCE.AddToInventory(selectedItem);
+        Debug.Log($"ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ {Build_InventoryManager.INSTANCE.WeaponInventory.Inventory.Count}");
 
         //PrintWalletAndPrice(itemIndex);
     }
 
     private void OnClickAccept(int itemIndex)
     {
-        InventoryManager.instance.RemoveMoneyFromWallet(shopItemsList[itemIndex].buyPrice);
-        InventoryManager.instance.AddItem(shopItemsList[itemIndex]);
+        //InventoryManager.instance.RemoveMoneyFromWallet(shopItemsList[itemIndex].buyPrice);
+        //InventoryManager.instance.AddItem(shopItemsList[itemIndex]);
 
-        PrintWalletAndPrice(itemIndex);
+        //PrintWalletAndPrice(itemIndex);
     }
 }

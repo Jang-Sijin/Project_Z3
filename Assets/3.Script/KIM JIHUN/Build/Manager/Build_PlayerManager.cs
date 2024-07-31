@@ -32,12 +32,21 @@ public class Build_PlayerManager : SingleMonoBase<Build_PlayerManager>
 
     private void EarnExp(int earningExp)
     {
+        /*
         currentExp += earningExp;
 
         // 각 레벨 * 1000이 레벨당 최대 경험치 (ex: 1->2렙은 1000, 2->3 2000경험치 필요)
         if (currentExp >= playerLevel * 1000)
         {
             currentExp -= (playerLevel * 1000);
+            playerLevel += 1;
+        }*/
+        currentExp += earningExp;
+
+        while (currentExp >= playerLevel * 1000)
+        {
+            currentExp -= (playerLevel * 1000);
+
             playerLevel += 1;
         }
     }

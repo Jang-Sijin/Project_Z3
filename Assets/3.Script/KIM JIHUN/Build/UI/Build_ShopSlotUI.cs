@@ -28,4 +28,9 @@ public class Build_ShopSlotUI : MonoBehaviour
     {
         UIManager.Instance.ShopUI.shopScript.PrintItemStat(itemData);
     }
+
+    public void ShowItemSellInfo()
+    {
+        UIManager.Instance.ShopUI.sellScript.PrintItemStat(itemData);
+    }
 }
