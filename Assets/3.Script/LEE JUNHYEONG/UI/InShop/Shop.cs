@@ -3,14 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
-using System;
-using Unity.VisualScripting;
 
 public class Shop : MonoBehaviour
 {
-    private GameObject itemTemplate;
-    private GameObject g;
 
     [SerializeField] private Transform shopScrollView;
     [SerializeField] private List<Build_Item> shopItemsList;

@@ -16,7 +16,6 @@ public class Sell : MonoBehaviour
     // 무기 선택 시 아이템 info 출력
     #region ChangeInfoText
     [SerializeField] protected TextMeshProUGUI WeaponNameInfo; // 클릭한 아이템의 이름 info
-    [SerializeField] protected TextMeshProUGUI itemTypeInfo; // 클릭한 아이템 종류 info
     [SerializeField] private TextMeshProUGUI itemAttackStat;
     [SerializeField] private TextMeshProUGUI itemDefenceStat;
     [SerializeField] private TextMeshProUGUI itemHealthStat;
@@ -24,21 +23,38 @@ public class Sell : MonoBehaviour
     protected string[] typeKorean = { "공격력", "체력" }; // 타입 Info
     #endregion
 
+    [SerializeField] private Build_ShopSlotUI[] itemSlots;
 
-
-    protected virtual void OnEnable()
-    {
-        for (int i = 0; i < InventoryManager.instance.Inventory.Count; i++)
+    /*
+        protected virtual void OnEnable()
         {
-            if (InventoryManager.instance.Inventory[i].itemType.Equals(Item.EItemType.DAMAGE) || InventoryManager.instance.Inventory[i].itemType.Equals(Item.EItemType.HEALTH))
+            for (int i = 0; i < InventoryManager.instance.Inventory.Count; i++)
             {
-                AddItemToSellMenu(InventoryManager.instance.Inventory[i]);
+                if (InventoryManager.instance.Inventory[i].itemType.Equals(Item.EItemType.DAMAGE) || InventoryManager.instance.Inventory[i].itemType.Equals(Item.EItemType.HEALTH))
+                {
+                    AddItemToSellMenu(InventoryManager.instance.Inventory[i]);
+                }
             }
+
+            PrintInitText();
+        }
+        */
+
+    public void RefreshInventory()
+    {
+        foreach (var item in itemSlots)
+        {
+            item.gameObject.SetActive(false);
         }
 
-        PrintInitText();
+        for (int i = 0; i < Build_InventoryManager.INSTANCE.WeaponInventory.Inventory.Count; i++)
+        {
+            itemSlots[i].gameObject.SetActive(true);
+            itemSlots[i].AssignItem(Build_InventoryManager.INSTANCE.WeaponInventory.Inventory[i]);
+        }
     }
 
+    /*
     public void AddItemToSellMenu(Item item)
     {
         Debug.Log(item);
@@ -51,55 +67,57 @@ public class Sell : MonoBehaviour
 
         g.transform.GetChild(0).GetComponent<Button>().onClick.AddListener(() => OnClickMyItemBtn(item, g));
     }
+    */
 
     protected virtual void PrintInitText()
     {
         WeaponNameInfo.text = " ";
-        itemTypeInfo.text = " ";
-        statInfo.text = " ";
-        PriceInfo.text = " ";
+        itemAttackStat.text = " ";
+        itemDefenceStat.text = " ";
+        itemHealthStat.text = " ";
     }
 
-    protected virtual void PrintItemStat(Item item)
+    private Build_Item itemData;
+    public void PrintItemStat(Build_Item item)
     {
-        Debug.Log(item.name_);
-        WeaponNameInfo.text = item.name_;
-        itemTypeInfo.text = typeKorean[(int)item.itemType];
-        statInfo.text = ((int)item.stat).ToString();
+        itemData = item;
+        //Debug.Log(item.name_);
+        WeaponNameInfo.text = itemData.itemName;
+        itemAttackStat.text = itemData.attackStat.ToString();
+        itemDefenceStat.text = itemData.defenceStat.ToString();
+        itemHealthStat.text = itemData.healthStat.ToString();
         PrintWalletAndPrice(item);
     }
 
-    private void PrintWalletAndPrice(Item item)
+    private void PrintWalletAndPrice(Build_Item item)
     {
-        PriceInfo.text = $"{InventoryManager.instance.Wallet} / {item.sellPrice}";
+        PriceInfo.text = $"{item.sellPrice}";
     }
 
     private void OnClickMyItemBtn(Item item, GameObject g)
     {
         sellBtn.onClick.RemoveAllListeners();
-        sellBtn.onClick.AddListener(() => OnClickSellBtn(item, g));
+        //sellBtn.onClick.AddListener(() => OnClickSellBtn(item, g));
 
-        PrintItemStat(item);
+        //PrintItemStat(item);
     }
 
-    private void OnClickSellBtn(Item item, GameObject g)
+    public void OnClickSellBtn()
     {
-        if (g == null)
-            return;
+        //플레이어
+        //InventoryManager.instance.AddMoneyToWallet(item.sellPrice);
+        //InventoryManager.instance.RemoveItem(item);
 
-        InventoryManager.instance.AddMoneyToWallet(item.sellPrice);
-        InventoryManager.instance.RemoveItem(item);
+        //PrintWalletAndPrice(item);
 
-        PrintWalletAndPrice(item);
-
-        Destroy(g);
+        //Destroy(g);
     }
 
     private void OnDisable()
     {
         foreach (Transform child in itemScrollView)
         {
-            Destroy(child.gameObject);
+            //Destroy(child.gameObject);
         }
     }
 }
