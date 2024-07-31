@@ -101,7 +101,7 @@ public class PlayerModel : MonoBehaviour
     [HideInInspector] public Animator animator;
     public EPlayerState currentState;
     [HideInInspector] public CharacterController characterController;
-    public ECharacter eCharacter;
+    public ECharacter eCharacter;    
 
     public float gravity = -9.8f;
     public CharacterInfo characterInfo;

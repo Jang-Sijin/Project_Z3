@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static Define;
 
 public class Build_WeaponUI : MonoBehaviour
 {

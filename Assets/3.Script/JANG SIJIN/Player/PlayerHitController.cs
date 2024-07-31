@@ -1,9 +1,7 @@
 using UnityEngine;
 using System.Linq;
 using UniRx;
-using UnityEngine.TextCore.Text;
-using UnityEngine.Playables;
-using JSJ;
+using static Define;
 
 public class PlayerHitController : MonoBehaviour
 {    

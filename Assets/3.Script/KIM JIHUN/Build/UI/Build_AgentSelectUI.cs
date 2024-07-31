@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using static Define;
 
 public class Build_AgentSelectUI : MonoBehaviour
 {
