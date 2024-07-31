@@ -30,13 +30,14 @@ public class AgentPrmoteUI : MonoBehaviour
     private readonly float addDMG = 10f; // 돌파시 데미지 10추가
     private readonly float addDEF = 10f; // 돌파시 방어력 10추가
     private readonly int addMaxLevel = 10; // 돌파시 레벨 제한 10추가
-    private readonly int cost = 1000; // 진급 화폐
+    private readonly int cost = 5000; // 진급 화폐
 
     private readonly int[] amountOfRequireItem = { 2, 4, 4, 6 }; // 진급시 필요한 아이템 수
-                                                                 // 20레벨 : A아이템 2개
-                                                                 // 30레벨 : A아이템 4개
-                                                                 // 40레벨 : S아이템 4개
-                                                                 // 50레벨 : S아이템 6개
+    // 20레벨 : A아이템 2개
+    // 30레벨 : A아이템 4개
+    // 40레벨 : S아이템 4개
+    // 50레벨 : S아이템 6개
+
     private int requireIndex;
 
     [Header ("돌파 아이템")]
