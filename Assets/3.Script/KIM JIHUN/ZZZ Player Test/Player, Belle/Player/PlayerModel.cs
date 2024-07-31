@@ -16,44 +16,45 @@ public enum ECharacter
 {
     Corin,
     Anbi,
-    Longinus
+    Longinus,
+    None
 }
 
 /// <summary>
-/// ÇÃ·¹ÀÌ¾îÀÇ ½ºÅ×ÀÌÅÍ½º Å¬·¡½º
-/// Ã¼·Â, ¾×Æ¼ºê ½ºÅ³Àº °¢ Ä³¸¯ÅÍ´ç ÇÒ´çÀÌ¹Ç·Î °¢ÀÚ
-/// ±Ã °ÔÀÌÁö´Â ¸ðµç Ä³¸¯ÅÍ°¡ ÅëÇÕÇØ¼­ °ü¸® -> playerController·Î
+/// ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½
+/// Ã¼ï¿½ï¿½, ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í´ï¿½ ï¿½Ò´ï¿½ï¿½Ì¹Ç·ï¿½ ï¿½ï¿½ï¿½ï¿½
+/// ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ -> playerControllerï¿½ï¿½
 /// </summary>
 public class PlayerStatus
 {
-    // [¿ÜºÎ¿¡¼­ ¼³Á¤ÇÑ Ä³¸¯ÅÍ µ¥ÀÌÅÍ °ª]
-    private float _maxHealth;                    // ÃÖ´ë Ã¼·Â    
-    private float _maxSkillPoint;                // ÃÖ´ë ¾×Æ¼ºê ½ºÅ³ Æ÷ÀÎÆ® -> ÃÖ´ë 100ÀÌ¶ó¸é 50À» »ç¿ë -> ÃÑ 2¹ø ½ºÅ³ »ç¿ë °¡´É
-    private float _defaultAttackDamage;          // Ä³¸¯ÅÍ ±âº» °ø°Ý·Â
-    public float[] NormalAttackDamageMultiple;   // Ä³¸¯ÅÍ Å¸¼ö¿¡ µû¶ó ±âº» °ø°Ý·Â º¯È­ °ª ¼³Á¤
-    private float _exSkillDamage;                // Ä³¸¯ÅÍ ±Ã±Ø±â(EX) ½ºÅ³ °ø°Ý ´ë¹ÌÁö
+    // [ï¿½ÜºÎ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½]
+    private float _maxHealth;                    // ï¿½Ö´ï¿½ Ã¼ï¿½ï¿½    
+    private float _maxSkillPoint;                // ï¿½Ö´ï¿½ ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½Æ® -> ï¿½Ö´ï¿½ 100ï¿½Ì¶ï¿½ï¿½ 50ï¿½ï¿½ ï¿½ï¿½ï¿½ -> ï¿½ï¿½ 2ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private float _defaultAttackDamage;          // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½âº» ï¿½ï¿½ï¿½Ý·ï¿½
+    public float[] NormalAttackDamageMultiple;   // Ä³ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½âº» ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½È­ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private float _exSkillDamage;                // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½Ã±Ø±ï¿½(EX) ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
     private float _skillPoint = 2f;
 
-    // [³»ºÎ(ÀÎ°ÔÀÓ)¿¡¼­ ¼³Á¤ÇÑ Ä³¸¯ÅÍ µ¥ÀÌÅÍ °ª] - ÇöÀç ¼öÄ¡
-    private float _currentHealth;        // ÇöÀç Ã¼·Â
-    private float _currentSkillPoint;    // ÇöÀç ¾×Æ¼ºê ½ºÅ³ Æ÷ÀÎÆ®
-    private float _currentAttackDamage;  // ÇöÀç Ä³¸¯ÅÍ °ø°Ý·Â        
+    // [ï¿½ï¿½ï¿½ï¿½(ï¿½Î°ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½] - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+    private float _currentHealth;        // ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½
+    private float _currentSkillPoint;    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½Æ®
+    private float _currentAttackDamage;  // ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½        
 
     public PlayerStatus(float maxHealth, float maxSkillPoint, float attackPoint, float[] normalAttackDamageMultiple, float exSkillDamage)
     {
-        _maxHealth = maxHealth;        
+        _maxHealth = maxHealth;
         _maxSkillPoint = maxSkillPoint;
         _defaultAttackDamage = attackPoint;
         _exSkillDamage = exSkillDamage;
 
-        // ±íÀº º¹»ç
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         NormalAttackDamageMultiple = new float[normalAttackDamageMultiple.Length];
         Array.Copy(normalAttackDamageMultiple, NormalAttackDamageMultiple, normalAttackDamageMultiple.Length);
 
 
-        // [³»ºÎ(ÀÎ°ÔÀÓ)¿¡¼­ ¼³Á¤ÇÑ Ä³¸¯ÅÍ µ¥ÀÌÅÍ °ª ´ëÀÔ]
+        // [ï¿½ï¿½ï¿½ï¿½(ï¿½Î°ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½]
         _currentHealth = maxHealth;
-        _currentAttackDamage = _defaultAttackDamage;        
+        _currentAttackDamage = _defaultAttackDamage;
     }
 
     public float MaxHealth
@@ -100,14 +101,14 @@ public class PlayerModel : MonoBehaviour
     [HideInInspector] public Animator animator;
     public EPlayerState currentState;
     [HideInInspector] public CharacterController characterController;
-    public ECharacter eCharacter;
+    public ECharacter eCharacter;    
 
     public float gravity = -9.8f;
     public CharacterInfo characterInfo;
     [HideInInspector] public int currentNormalAttakIndex = 1;
 
-    public GameObject skillUltStartShot; // ±Ã±Ø±â ½ÃÀÛ ÄÆ½Å
-    public GameObject skillUltShot; // ±Ã±Ø±â ÄÆ½Å
+    public GameObject skillUltStartShot; // ï¿½Ã±Ø±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ½ï¿½
+    public GameObject skillUltShot; // ï¿½Ã±Ø±ï¿½ ï¿½Æ½ï¿½
 
     private AnimatorStateInfo stateInfo;
 
@@ -177,7 +178,7 @@ public class PlayerModel : MonoBehaviour
     }
 
     /// <summary>
-    /// Ä³¸¯ÅÍ ¸ðµ¨ ¿Þ¹ß ÇØÁ¦
+    /// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Þ¹ï¿½ ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     public void SetOutLeftFoot()
     {
@@ -185,7 +186,7 @@ public class PlayerModel : MonoBehaviour
     }
 
     /// <summary>
-    /// Ä³¸¯ÅÍ ¸ðµ¨ ¿À¸¥¹ß ÇØÁ¦
+    /// Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     public void SetOutRightFoot()
     {
@@ -193,7 +194,7 @@ public class PlayerModel : MonoBehaviour
     }
 
     /// <summary>
-    /// °¡Àå °¡±î¿î Enemy ¹Ù¶óº¸±â
+    /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Enemy ï¿½Ù¶óº¸±ï¿½
     /// </summary>
     public void LookEnemy()
     {
@@ -205,8 +206,8 @@ public class PlayerModel : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇØ´ç Trigger°¡ ONÀÌ¶ó¸é °ø°Ý ÆÇÁ¤ ON
-    /// ÇØ´ç Trigger°¡ OFFÀÌ¶ó¸é °ø°Ý ÆÇÁ¤ OFF
+    /// ï¿½Ø´ï¿½ Triggerï¿½ï¿½ ONï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ON
+    /// ï¿½Ø´ï¿½ Triggerï¿½ï¿½ OFFï¿½Ì¶ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ OFF
     /// </summary>
     public void SetWeaponTrigger(int value)
     {

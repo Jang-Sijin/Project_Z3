@@ -8,13 +8,13 @@ public class Build_InventoryManager : SingleMonoBase<Build_InventoryManager>
     public Build_Item[] debugItem;
 
     private Build_Inventory weaponInventory;
-    private Build_Inventory expInventory;
-    private Build_Inventory rankUpInventory;
+    //private Build_Inventory expInventory;
+    //private Build_Inventory rankUpInventory;
     private int wallet; //지갑
 
     public Build_Inventory WeaponInventory => weaponInventory;
-    public Build_Inventory ExpInventory => expInventory;
-    public Build_Inventory RankUpInventory => rankUpInventory;
+    //public Build_Inventory ExpInventory => expInventory;
+    //public Build_Inventory RankUpInventory => rankUpInventory;
     public int Wallet => wallet;
 
 
@@ -29,34 +29,20 @@ public class Build_InventoryManager : SingleMonoBase<Build_InventoryManager>
         SetInventory();
         foreach (var item in debugItem)
         {
-            AddToInventory(item, Random.Range(1, 5), Random.Range(5, 10));
+            Build_Item tmp = item;
+            AddToInventory(tmp);
         }
     }
 
     private void SetInventory()
     {
         weaponInventory = new Build_Inventory();
-        expInventory = new Build_Inventory();
-        rankUpInventory = new Build_Inventory();
     }
 
-    public void AddToInventory(Build_Item itemToAdd, int amountToAdd, int level = 0)
+    public void AddToInventory(Build_Item itemToAdd)
     {
         bool successToAdd = false;
-        switch (itemToAdd.itemType)
-        {
-            case Build_Item.EItemType.EQUIPMENT:
-                successToAdd = weaponInventory.AddToInventory(itemToAdd, amountToAdd, level);
-                break;
-            case Build_Item.EItemType.EXP_CHARACTER:
-            case Build_Item.EItemType.EXP_WEAPON:
-                successToAdd = expInventory.AddToInventory(itemToAdd, amountToAdd, level);
-                break;
-            case Build_Item.EItemType.LIMITBREAK_CHARACTER:
-            case Build_Item.EItemType.LIMITBREAK_WEAPON:
-                successToAdd = rankUpInventory.AddToInventory(itemToAdd, amountToAdd, level);
-                break;
-        }
+        successToAdd = weaponInventory.AddToInventory(itemToAdd);
         if (successToAdd)
         {
             //추가 성공
@@ -67,23 +53,10 @@ public class Build_InventoryManager : SingleMonoBase<Build_InventoryManager>
         }
     }
 
-    public void RemoveFromInventory(Build_Item itemToRemove, int amountToRemove)
+    public void RemoveFromInventory(Build_Item itemToRemove)
     {
         bool successToRemove = false;
-        switch (itemToRemove.itemType)
-        {
-            case Build_Item.EItemType.EQUIPMENT:
-                successToRemove = weaponInventory.AddToInventory(itemToRemove, amountToRemove);
-                break;
-            case Build_Item.EItemType.EXP_CHARACTER:
-            case Build_Item.EItemType.EXP_WEAPON:
-                successToRemove = expInventory.RemoveFromInventory(itemToRemove, amountToRemove);
-                break;
-            case Build_Item.EItemType.LIMITBREAK_CHARACTER:
-            case Build_Item.EItemType.LIMITBREAK_WEAPON:
-                successToRemove = rankUpInventory.RemoveFromInventory(itemToRemove, amountToRemove);
-                break;
-        }
+        successToRemove = weaponInventory.RemoveFromInventory(itemToRemove);
         if (successToRemove)
         {
             //Remove 성공

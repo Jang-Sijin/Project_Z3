@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using static Define;
 
 public class AgentPrmoteUI : MonoBehaviour
 {

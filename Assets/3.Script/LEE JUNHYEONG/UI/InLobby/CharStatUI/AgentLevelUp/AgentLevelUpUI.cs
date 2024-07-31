@@ -6,6 +6,7 @@ using DG.Tweening;
 using TMPro;
 using Unity.VisualScripting;
 using static InventoryManager;
+using static Define;
 
 public class AgentLevelUpUI : MonoBehaviour
 {

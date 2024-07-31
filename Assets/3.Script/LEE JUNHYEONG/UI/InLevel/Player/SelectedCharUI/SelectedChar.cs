@@ -13,6 +13,8 @@ public class SelectedChar : MonoBehaviour
     [SerializeField] private Slider spPointer;
     [SerializeField] private Image profile;
     [SerializeField] private TextMeshProUGUI playerhptext;
+    private PlayerModel playerModel;
+    public PlayerModel PlayerModel => playerModel;
 
     public Image Profile
     {
@@ -60,8 +62,9 @@ public class SelectedChar : MonoBehaviour
     /// 캐릭터 할당
     /// </summary>
     /// <param name="playerModel"></param>
-    public void AssignCharacter(PlayerModel playerModel, Sprite portraitImg) 
+    public void AssignCharacter(PlayerModel playerModel, Sprite portraitImg)
     {
+        this.playerModel = playerModel;
         realHp.value = playerModel.playerStatus.CurrentHealth / playerModel.playerStatus.MaxHealth;
         fakeHp.value = playerModel.playerStatus.CurrentHealth / playerModel.playerStatus.MaxHealth;
         sp.value = playerModel.playerStatus.CurrentSkillPoint / playerModel.playerStatus.MaxSkillPoint;

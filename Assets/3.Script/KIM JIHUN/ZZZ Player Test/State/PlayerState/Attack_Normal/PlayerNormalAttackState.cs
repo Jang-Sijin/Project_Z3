@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Define;
 
 public class PlayerNormalAttackState : PlayerStateBase
 {
@@ -14,6 +15,20 @@ public class PlayerNormalAttackState : PlayerStateBase
         playerModel.LookEnemy();
 
         playerController.PlayAnimation($"Attack_Normal_{playerModel.currentNormalAttakIndex}");
+
+        Debug.Log($"{playerController.controllableModels[playerController.currentModelIndex].eCharacter}");
+        if (playerController.controllableModels[playerController.currentModelIndex].eCharacter == ECharacter.Anbi)
+        {            
+            SoundManager.Instance.PlayEffect($"AnbiAttack_{playerModel.currentNormalAttakIndex}");
+        }
+        else if (playerController.controllableModels[playerController.currentModelIndex].eCharacter == ECharacter.Longinus)
+        {
+            SoundManager.Instance.PlayEffect($"LonginusAttack_{playerModel.currentNormalAttakIndex}");
+        }
+        else if (playerController.controllableModels[playerController.currentModelIndex].eCharacter == ECharacter.Corin)
+        {
+            SoundManager.Instance.PlayEffect($"CorinAttack_{playerModel.currentNormalAttakIndex}");
+        }
     }
 
     public override void Update()

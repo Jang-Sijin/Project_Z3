@@ -1,9 +1,7 @@
 using UnityEngine;
 using System.Linq;
 using UniRx;
-using UnityEngine.TextCore.Text;
-using UnityEngine.Playables;
-using JSJ;
+using static Define;
 
 public class PlayerHitController : MonoBehaviour
 {    
@@ -33,7 +31,7 @@ public class PlayerHitController : MonoBehaviour
                 if (collider.CompareTag("Enemy"))
                 {
                     // 적군과 충돌 시 처리 로직
-                    var enemy = collider.GetComponent<MonsterController>();
+                    var enemy = collider.GetComponent<Build_MonsterController>();
                     if (enemy != null)
                     {
                         float playerDamage = GetPlayerCharacterStepAttackDamage();
@@ -59,10 +57,13 @@ public class PlayerHitController : MonoBehaviour
                             _playerModel.playerStatus.CurrentSkillPoint = _playerModel.playerStatus.MaxSkillPoint;
                         }
                         Debug.Log($"스킬 게이지: {_playerModel.playerStatus.CurrentSkillPoint}");
-
-                        enemy.TakeDamage(playerDamage, _playerModel.transform); // 몬스터에게 대미지 입힘 처리.
+                        
+                        enemy.TakeDamage(playerDamage, collider.transform.position); // 몬스터에게 대미지 입힘 처리.
 
                         Debug.Log($"{_playerModel.eCharacter}가 {enemy.name} 몬스터에게 대미지 {playerDamage}를 줌");
+
+                        // Player UI 갱신 처리
+                        UIManager.Instance.InGameUI.RenewalUltStat(_playerModel.playerStatus.CurrentSkillPoint);                        
                     }
                 }
             })

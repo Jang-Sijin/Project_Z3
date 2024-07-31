@@ -20,4 +20,16 @@ public class Define
         LoadingScene, // ·Îµù ¾À
         Max
     }
+
+    public enum AnbiAttackVoice
+    {
+        AnbiAttack_1,
+        AnbiAttack_2,
+        AnbiAttack_3,
+        AnbiAttack_Skill_E,
+        AnbiAttack_Skill_Q,
+        AnbiHit_1,
+        AnbiHit_2,
+        Max
+    }
 }
