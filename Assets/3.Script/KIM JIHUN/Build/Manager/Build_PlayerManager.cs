@@ -12,7 +12,8 @@ public class Build_PlayerManager : SingleMonoBase<Build_PlayerManager>
     public PlayerInfo Longinus => _longinus;
     public PlayerInfo Anbi => _anbi;
 
-    public float currentExp;
+
+    public int currentExp;
     public int playerLevel = 1;
 
     protected override void Awake()
@@ -26,6 +27,18 @@ public class Build_PlayerManager : SingleMonoBase<Build_PlayerManager>
         _corin = new PlayerInfo(ECharacter.Corin);
         _longinus = new PlayerInfo(ECharacter.Longinus);
         _anbi = new PlayerInfo(ECharacter.Anbi);
+    }
+
+    private void EarnExp(int earningExp)
+    {
+        currentExp += earningExp;
+
+        // 각 레벨 * 1000이 레벨당 최대 경험치 (ex: 1->2렙은 1000, 2->3 2000경험치 필요)
+        if (currentExp >= playerLevel * 1000)
+        {
+            currentExp -= (playerLevel * 1000);
+            playerLevel += 1;
+        }
     }
 }
 
