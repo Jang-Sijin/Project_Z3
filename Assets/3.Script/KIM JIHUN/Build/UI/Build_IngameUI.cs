@@ -84,18 +84,18 @@ public class Build_IngameUI : MonoBehaviour
         //디버깅용
 
         selectedChar.AssignCharacter(
-            PlayerController.INSTANCE.controllableModels[PlayerController.INSTANCE.currentModelIndex], 
+            PlayerController.INSTANCE.controllableModels[PlayerController.INSTANCE.currentModelIndex],
             portrait[PlayerController.INSTANCE.currentModelIndex]);
 
         unChar[0].AssginCharacter(
-            PlayerController.INSTANCE.controllableModels[(PlayerController.INSTANCE.currentModelIndex + 1) %3],
+            PlayerController.INSTANCE.controllableModels[(PlayerController.INSTANCE.currentModelIndex + 1) % 3],
             portrait[(PlayerController.INSTANCE.currentModelIndex + 1) % 3]);
 
         unChar[1].AssginCharacter(
             PlayerController.INSTANCE.controllableModels[(PlayerController.INSTANCE.currentModelIndex + 2) % 3],
             portrait[(PlayerController.INSTANCE.currentModelIndex + 2) % 3]);
 
-
+        RefreshIngameUI();
     }
     /*
     private void Change_Profile(Image profile, TempChar charInfo) // 디버깅용입니다.
@@ -235,6 +235,30 @@ public class Build_IngameUI : MonoBehaviour
         else
         {
             UltStat.text = ((int)curUltNum).ToString();
+        }
+    }
+
+    public void RefreshIngameUI()
+    {
+        //체력바 갱신
+        //체력 텍스트 갱신
+        selectedChar.RefreshHealth(selectedChar.PlayerModel, false);
+        unChar[0].Refresh_Hpbar(unChar[0].PlayerModel);
+        unChar[1].Refresh_Hpbar(unChar[1].PlayerModel);
+
+        //스킬 바 갱신
+        selectedChar.RefreshSp(selectedChar.PlayerModel);
+        unChar[0].Refresh_Spbar(unChar[0].PlayerModel);
+        unChar[1].Refresh_Spbar(unChar[1].PlayerModel);
+
+        //스킬 버튼 갱신
+        if (selectedChar.PlayerModel.playerStatus.CurrentSkillPoint >= 50)
+        {
+            RenewalSkillbtn(KeyCode.E);
+        }
+        if (PlayerController.INSTANCE.CurrentUltPoint == PlayerController.INSTANCE.MaxUltPoint)
+        {
+            RenewalSkillbtn(KeyCode.Q);
         }
     }
 }
