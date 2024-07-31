@@ -5,10 +5,10 @@ using UnityEngine.SceneManagement;
 public class UIManager : SingletonBase<UIManager>
 {
     /*
-    * UI �޴������� �� �ε�� �˸��� UI�� Load�մϴ�
-    * Ingame������ InGameUI�� �ҷ���
-    * Intro������ IntroUI�� �ҷ���
-    * MainMenu������ MainMenuUI�� �ҷ���
+    * UI ????????? ?? ?��?? ????? UI?? Load????
+    * Ingame?????? InGameUI?? ?????
+    * Intro?????? IntroUI?? ?????
+    * MainMenu?????? MainMenuUI?? ?????
     */
 
     [SerializeField] private Build_IntroUI _introUI;
@@ -22,6 +22,7 @@ public class UIManager : SingletonBase<UIManager>
     [SerializeField] private Build_AgentSelectUI _agentSelectUI;
     [SerializeField] private Build_WeaponUI _weaponUI;
     [SerializeField] private Build_CharacterStatusUI _characterStatusUI;
+    [SerializeField] private InShopUI shopUI;
 
     public Build_IntroUI IntroUI => _introUI;
     public MainCityUI MainCityUI => _mainCityUI;
@@ -34,6 +35,7 @@ public class UIManager : SingletonBase<UIManager>
     public Build_AgentSelectUI AgentSelectUI => _agentSelectUI;
     public Build_WeaponUI WeaponUI => _weaponUI;
     public Build_CharacterStatusUI CharacterStatusUI => _characterStatusUI;
+    public InShopUI ShopUI => shopUI;
 
 
     [HideInInspector] public bool isCloseOrOpen = false;
@@ -42,9 +44,9 @@ public class UIManager : SingletonBase<UIManager>
     private bool isMainCity;
 
     //JangSijin
-    private bool isMainMenu = true; // ���� �޴� ���� ���� ���� ȣ��Ǳ� ������ true�� ������
+    private bool isMainMenu = true; // ???? ??? ???? ???? ???? ????? ?????? true?? ??????
 
-    public void OptionUIOpenClose() // �ɼ� �޴�UI �� ���� �ݴ� �޼ҵ��Դϴ�.
+    public void OptionUIOpenClose() // ??? ???UI ?? ???? ??? ????????.
     {
         if (!isCloseOrOpen)
         {
@@ -88,7 +90,7 @@ public class UIManager : SingletonBase<UIManager>
     }
 
     /// <summary>
-    /// Player�� ������ Lock
+    /// Player?? ?????? Lock
     /// </summary>
     public void LockPlayer()
     {
@@ -105,7 +107,7 @@ public class UIManager : SingletonBase<UIManager>
     }
 
     /// <summary>
-    /// Player�� ������ Unlock
+    /// Player?? ?????? Unlock
     /// </summary>
     public void UnlockPlayer()
     {
@@ -184,6 +186,16 @@ public class UIManager : SingletonBase<UIManager>
     {
         _weaponUI.CloseWeaponUI();
     }
+    public void OpenShopUI()
+    {
+        shopUI.OpenShopUI();
+    }
+    public void CloseShopUI()
+    {
+        shopUI.CloseShopUI();
+        OpenCityUI();
+    }
+
     public void CloseAllUI()
     {
         CloseCityUI();
@@ -191,11 +203,12 @@ public class UIManager : SingletonBase<UIManager>
         CloseIntroUI();
         CloseInventoryUI();
         CloseAgentSelectUI();
+        CloseShopUI();
     }
 }
 
-// [���Ž�]
-//public void Creat_UI(WhichUI ui) // UI ���� �޼ҵ� �Դϴ�.
+// [?????]
+//public void Creat_UI(WhichUI ui) // UI ???? ???? ????.
 //{
 //    GameObject temp_ob;
 //    switch (ui)
@@ -203,7 +216,7 @@ public class UIManager : SingletonBase<UIManager>
 //        case WhichUI.introUI:
 //            if (introUI != null)
 //            {
-//                Debug.Log($"{ui}�� �̹� �����մϴ�.");
+//                Debug.Log($"{ui}?? ??? ????????.");
 //                return;
 //            }
 
@@ -214,7 +227,7 @@ public class UIManager : SingletonBase<UIManager>
 //        case WhichUI.mainCityUI:
 //            if (mainCityUI != null)
 //            {
-//                Debug.Log($"{ui}�� �̹� �����մϴ�.");
+//                Debug.Log($"{ui}?? ??? ????????.");
 //                return;
 //            }
 
@@ -225,7 +238,7 @@ public class UIManager : SingletonBase<UIManager>
 //        case WhichUI.pauseMenuUI:
 //            if (pauseMenuUI != null)
 //            {
-//                Debug.Log($"{ui}�� �̹� �����մϴ�.");
+//                Debug.Log($"{ui}?? ??? ????????.");
 //                return;
 //            }
 
@@ -236,7 +249,7 @@ public class UIManager : SingletonBase<UIManager>
 //        case WhichUI.inGameUI:
 //            if (inGameUI != null)
 //            {
-//                Debug.Log($"{ui}�� �̹� �����մϴ�.");
+//                Debug.Log($"{ui}?? ??? ????????.");
 //                Destroy(inGameUI.gameObject);
 //            }
 

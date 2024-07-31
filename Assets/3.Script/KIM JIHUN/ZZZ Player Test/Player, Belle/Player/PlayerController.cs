@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Cinemachine;
-using Unity.VisualScripting.Dependencies.Sqlite;
-using Unity.VisualScripting;
 
 public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineOwner
 {
@@ -223,7 +221,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
         if (currentModelIndex >= controllableModels.Count)
             currentModelIndex = 0;
         PlayerModel nextModel = controllableModels[currentModelIndex];
-        nextModel.gameObject.SetActive(true);        
+        nextModel.gameObject.SetActive(true);
 
         Vector3 prevPos = playerModel.transform.position;
         Quaternion prevRot = playerModel.transform.rotation;
@@ -339,7 +337,7 @@ public class PlayerController : SingleMonoBase<PlayerController>, IStateMachineO
     {
         currentModelIndex = index;
         controllableModels[currentModelIndex].gameObject.SetActive(true);
-        playerModel = controllableModels[currentModelIndex];       
+        playerModel = controllableModels[currentModelIndex];
     }
 
     public void AddEnemy(GameObject enemyToAdd)
