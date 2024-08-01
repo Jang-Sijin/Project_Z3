@@ -120,6 +120,8 @@ public class Build_MonsterModel : MonoBehaviour
         // InGameClearManager에 사망 알림
         InGameClearManager.Instance.OnMonsterDeath(this);
 
+        gameObject.SetActive(false);
+
         Destroy(gameObject);      
     }
 }

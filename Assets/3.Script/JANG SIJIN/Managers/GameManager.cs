@@ -1,18 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using static Define;
+using System.Collections.Generic;
+using System;
+using UnityEngine.SceneManagement;
+using UnityEngine;
 
 public class GameManager : SingletonBase<GameManager>
 {
     public float StageClearTime = 0f;
+    private DateTime stageStartTime;
     public int StageTotalExp = 0;
     public List<Build_Item> StageGetItemList;
-
     public List<Build_Item> DropItemList;
-    private DateTime stageStartTime;
 
     protected override void Awake()
     {
@@ -33,16 +31,15 @@ public class GameManager : SingletonBase<GameManager>
     public void SetStageStartTime()
     {
         stageStartTime = DateTime.Now;
+        Debug.Log("Stage started at: " + stageStartTime);
     }
 
     public void CalculateStageClearTime()
     {
         StageClearTime = (float)(DateTime.Now - stageStartTime).TotalSeconds;
+        Debug.Log("Stage cleared in: " + StageClearTime + " seconds");
     }
 
-    /// <summary>
-    /// 씬이 변경될 때 초기화가 필요한 작업을 수행합니다.
-    /// </summary>
     public void ChangeSceneInit(SceneType sceneType)
     {
         UIManager.Instance.CloseAllUI();
@@ -78,26 +75,24 @@ public class GameManager : SingletonBase<GameManager>
                 InitBattle5();
                 break;
             case Define.SceneType.Clear:
-                InitClaer();
+                CalculateStageClearTime();
+                InitClear();
                 break;
         }
     }
 
-    // 1. 타이틀 씬에 진입했을 때, 초기화가 필요한 로직들 실행. (초기 설정 필요한 작업 집합소)
     private void InitTitle()
     {
         UIManager.Instance.OpenIntroUI();
         SoundManager.Instance.PlayBgm(Define.SceneType.Title.ToString());
     }
 
-    // 2. 마을 씬에 진입했을 때, 초기화가 필요한 로직들 실행. (초기 설정 필요한 작업 집합소)
     private void InitTown()
     {
         UIManager.Instance.OpenCityUI();
         SoundManager.Instance.PlayBgm(Define.SceneType.Town.ToString());
     }
 
-    // 3. 홈(비디오) 씬에 진입했을 때, 초기화가 필요한 로직들 실행. (초기 설정 필요한 작업 집합소)
     private void InitHome()
     {
         Cursor.visible = false;
@@ -106,52 +101,42 @@ public class GameManager : SingletonBase<GameManager>
         SoundManager.Instance.PlayBgm(Define.SceneType.Home.ToString());
     }
 
-    // 4-1. 배틀1 씬에 진입했을 때, 초기화가 필요한 로직들 실행. (초기 설정 필요한 작업 집합소)
     private void InitBattle1()
     {
         UIManager.Instance.CloseCityUI();
         SoundManager.Instance.PlayBgm(Define.SceneType.Battle1.ToString());
-        //PlayerController를 불러오기 위해 PlayerController Start에서 호출
-        //UIManager.Instance.OpenIngameUI();
+        SetStageStartTime();
     }
 
-    // 4-2. 배틀2 씬에 진입했을 때, 초기화가 필요한 로직들 실행. (초기 설정 필요한 작업 집합소)
     private void InitBattle2()
     {
         UIManager.Instance.CloseCityUI();
-        //PlayerController를 불러오기 위해 PlayerController Start에서 호출
-        //UIManager.Instance.OpenIngameUI();
         SoundManager.Instance.PlayBgm(Define.SceneType.Battle2.ToString());
+        SetStageStartTime();
     }
 
-    // 4-3. 배틀3 씬에 진입했을 때, 초기화가 필요한 로직들 실행. (초기 설정 필요한 작업 집합소)
     private void InitBattle3()
     {
         UIManager.Instance.CloseCityUI();
-        //PlayerController를 불러오기 위해 PlayerController Start에서 호출
-        //UIManager.Instance.OpenIngameUI();
         SoundManager.Instance.PlayBgm(Define.SceneType.Battle3.ToString());
+        SetStageStartTime();
     }
 
-    // 4-4. 배틀4 씬에 진입했을 때, 초기화가 필요한 로직들 실행. (초기 설정 필요한 작업 집합소)
     private void InitBattle4()
     {
         UIManager.Instance.CloseCityUI();
-        //PlayerController를 불러오기 위해 PlayerController Start에서 호출
-        //UIManager.Instance.OpenIngameUI();
         SoundManager.Instance.PlayBgm(Define.SceneType.Battle4.ToString());
+        SetStageStartTime();
     }
 
-    // 4-5. 배틀5 씬에 진입했을 때, 초기화가 필요한 로직들 실행. (초기 설정 필요한 작업 집합소)
     private void InitBattle5()
     {
         UIManager.Instance.CloseCityUI();
-        //PlayerController를 불러오기 위해 PlayerController Start에서 호출
-        //UIManager.Instance.OpenIngameUI();
         SoundManager.Instance.PlayBgm(Define.SceneType.Battle5.ToString());
+        SetStageStartTime();
     }
 
-    private void InitClaer()
+    private void InitClear()
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -166,10 +151,6 @@ public class GameManager : SingletonBase<GameManager>
         SetStageStartTime();  // 스테이지 시작 시간을 설정합니다.
     }
 
-    /// <summary>
-    /// 아래부터는 외부 접근 가능 메서드
-    /// </summary>
-    /// <returns></returns>
     public static Define.SceneType GetCurrentSceneName()
     {
         Scene currentScene = SceneManager.GetActiveScene();
@@ -180,10 +161,6 @@ public class GameManager : SingletonBase<GameManager>
         return sceneType;
     }
 
-    /// <summary>
-    /// DropItemList에서 무작위로 아이템을 선택합니다.
-    /// </summary>
-    /// <returns>무작위로 선택된 Build_Item</returns>
     public Build_Item SelectRandomDropItem()
     {
         if (DropItemList == null || DropItemList.Count == 0)
