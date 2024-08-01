@@ -24,7 +24,12 @@ public class PlayerHitController : MonoBehaviour
             .Where(collider => _playerModel.currentState == EPlayerState.NormalAttack ||
                                _playerModel.currentState == EPlayerState.NormalAttackEnd ||
                                _playerModel.currentState == EPlayerState.AttackSkillEx ||
-                               _playerModel.currentState == EPlayerState.AttackSkillEnd)  // 플레이어가 공격 상태일 때만 처리
+                               _playerModel.currentState == EPlayerState.AttackSkill ||
+                               _playerModel.currentState == EPlayerState.AttackSkillLoop ||                               
+                               _playerModel.currentState == EPlayerState.AttackSkillEnd ||
+                               _playerModel.currentState == EPlayerState.AttackUltStart ||
+                               _playerModel.currentState == EPlayerState.AttackUlt ||
+                               _playerModel.currentState == EPlayerState.AttackUltEnd)  // 플레이어가 공격 상태일 때만 처리
             .Subscribe(collider =>
             {
                 Debug.Log("무기 콜라이더에 충돌 이벤트 발생!");
