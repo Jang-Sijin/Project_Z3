@@ -21,10 +21,10 @@ public class NPCInteraction : MonoBehaviour
         // NPC 대화 내용을 설정
         npcDialogues = new Dictionary<int, string[]>
         {
-            { 1, new string[] { "Hello! I'm NPC 1.", "What can I do for you?", "Have a great day!" } },
-            { 2, new string[] { "Greetings from NPC 2!", "Looking for something?", "Goodbye!" } },
-            { 3, new string[] { "Hi, I'm NPC 3!", "Need any help?", "See you later!" } },
-            { 4, new string[] { "Hello there, NPC 4!", "Feel free to ask me anything.", "Take care!" } }
+            { 1, new string[] { "멍멍멍", "(뭐라고 하는지 모르겠다..)", "멍멍멍멍!" } },
+            { 2, new string[] { "오랜만이야!", "라면하나 먹고 갈래?"} },
+            { 3, new string[] { "어딜보는거야!"} },
+            { 4, new string[] { "커피향기가 참 좋지 않나요?", "들어와서 커피한잔 하고 가지않으면", "난 춤을 출꺼에요" } }
         };
 
         npcScenes = new Dictionary<int, string>
