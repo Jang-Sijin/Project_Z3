@@ -15448,6 +15448,51 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 222d145a8d71ea142ab1119b9679274a, type: 3}
+--- !u!1 &1316252470
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1316252472}
+  - component: {fileID: 1316252471}
+  m_Layer: 0
+  m_Name: InGameClearManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1316252471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316252470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7157f5b1ee068f4fa749713df14eeb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LastMonster: {fileID: 2676756393026274652}
+--- !u!4 &1316252472
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316252470}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1326079699 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ec6c20dc66632fe4db46682bc8a0c56e, type: 3}
@@ -26575,6 +26620,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossModel: {fileID: 6408388871408786301}
   mon_CO: {fileID: 0}
+  itemDropManager: {fileID: 0}
+  stageNumber: 0
+  showItemInfo: {fileID: 0}
 --- !u!224 &219663272089484481
 RectTransform:
   m_ObjectHideFlags: 0
@@ -78962,8 +79010,8 @@ MonoBehaviour:
   state: 0
   isDead: 0
   isGroggy: 0
-  CurrentHealth: 500
   CurrentGroggypoint: 0
+  isAttacked: 0
 --- !u!1 &6411958638004336435
 GameObject:
   m_ObjectHideFlags: 0
@@ -102926,6 +102974,7 @@ SceneRoots:
   - {fileID: 565579097}
   - {fileID: 309557583}
   - {fileID: 796553333}
+  - {fileID: 1316252472}
   - {fileID: 1567256746}
   - {fileID: 862900839}
   - {fileID: 586414333}

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,9 +16,8 @@ public class ClearSceneResultController : MonoBehaviour
     public TextMeshProUGUI CanvasLevelText;
     public TextMeshProUGUI CanvasClearTime;
 
-    private int initialExp;
-    private int targetExp;
-    private int currentExp;
+    private ReactiveProperty<int> currentExp = new ReactiveProperty<int>();    
+    private int targetExp;    
     private int playerLevel;
     private int expMax;
 
@@ -32,14 +32,19 @@ public class ClearSceneResultController : MonoBehaviour
         // 초기화
         playerLevel = Build_PlayerManager.INSTANCE.playerLevel;
         expMax = playerLevel * 1000;
-        initialExp = Build_PlayerManager.INSTANCE.currentExp;
-        targetExp = initialExp + GameManager.Instance.StageTotalExp;
-        currentExp = initialExp;
+        currentExp.Value = Build_PlayerManager.INSTANCE.currentExp;
+        targetExp = currentExp.Value + GameManager.Instance.StageTotalExp;        
 
         // 현재 플레이어 상태를 UI에 반영
-        CanvasLevelText.text = Build_PlayerManager.INSTANCE.playerLevel.ToString();
-        CanvasExpText.text = Build_PlayerManager.INSTANCE.currentExp.ToString();
-        CanvasExpMaxText.text = (Build_PlayerManager.INSTANCE.playerLevel * 1000).ToString();
+        CanvasLevelText.text = playerLevel.ToString();
+        CanvasExpText.text = currentExp.ToString();
+        CanvasExpMaxText.text = expMax.ToString();
+
+        // 경험치 변화 감지
+        currentExp
+            .Where(exp => exp >= expMax)
+            .Subscribe(_ => LevelUp())
+            .AddTo(this); // AddTo는 해당 컴포넌트가 파괴될 때 자동으로 구독을 해제합니다.
 
         // 획득한 경험치 애니메이션
         AnimateExp();
@@ -50,38 +55,37 @@ public class ClearSceneResultController : MonoBehaviour
 
     private void AnimateExp()
     {
-        DOTween.To(() => currentExp, x =>
-        {
-            currentExp = x;
-            UpdateExpDisplay(currentExp);
-
-        }, targetExp, 2f).SetEase(Ease.Linear).OnUpdate(() =>
-        {
-            if (currentExp >= expMax)
-            {
-                currentExp -= expMax;
-                LevelUp();
-            }
-        });
-    }
-
-    private void UpdateExpDisplay(int currentExp)
-    {
-        int displayedExp = currentExp % expMax;
-
-        CanvasGetExpText.text = Mathf.Floor(currentExp).ToString();
-        CanvasExpText.text = Mathf.Floor(displayedExp).ToString();
+        DOTween.To(() => currentExp.Value, x => currentExp.Value = x, targetExp, 2f)
+            .SetEase(Ease.Linear);
     }
 
     private void LevelUp()
     {
+        // 현재 경험치 및 목표 경험치 갱신
+        currentExp.Value -= expMax;
+        targetExp -= expMax;
+
+        // 플레이어 레벨업
         playerLevel++;
         Build_PlayerManager.INSTANCE.playerLevel = playerLevel;
+
+        // 최대 경험치량 갱신
         expMax = playerLevel * 1000;
 
+        // UI 갱신
         CanvasLevelText.text = playerLevel.ToString();
         CanvasExpMaxText.text = expMax.ToString();
+
+        // 애니메이션 재시작
         AnimateExp();
+    }
+
+    private void UpdateExpDisplay(int currentExp)
+    {
+        int displayedExp = currentExp;
+
+        CanvasGetExpText.text = Mathf.Floor(currentExp).ToString();
+        CanvasExpText.text = Mathf.Floor(displayedExp).ToString();
     }
 
     private void AnimateClearTime(float clearTime)

@@ -100,6 +100,8 @@ public class GameManager : SingletonBase<GameManager>
     // 3. 홈(비디오) 씬에 진입했을 때, 초기화가 필요한 로직들 실행. (초기 설정 필요한 작업 집합소)
     private void InitHome()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         UIManager.Instance.OpenCityUI();
         SoundManager.Instance.PlayBgm(Define.SceneType.Home.ToString());
     }
@@ -151,7 +153,8 @@ public class GameManager : SingletonBase<GameManager>
 
     private void InitClaer()
     {
-
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         // SoundManager.Instance.PlayBgm(Define.SceneType.Clear.ToString());
     }
 
