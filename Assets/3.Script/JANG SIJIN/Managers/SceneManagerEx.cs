@@ -26,6 +26,7 @@ public class SceneManagerEx : SingletonBase<SceneManagerEx>
 
     public void LoadScene(Define.SceneType sceneType, bool isIntro) // 인트로에서 씬 불러오는 방법입니다.
     {
+        UIManager.Instance.CloseAllUI();
         nextSceneName = sceneType.ToString();
         StartCoroutine(LoadScene_co(true));
         GameManager.Instance.ChangeSceneInit(sceneType);

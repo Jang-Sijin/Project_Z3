@@ -41,8 +41,7 @@ public class GameManager : SingletonBase<GameManager>
     }
 
     public void ChangeSceneInit(SceneType sceneType)
-    {
-        UIManager.Instance.CloseAllUI();
+    {        
         switch (sceneType)
         {
             case Define.SceneType.Title:
