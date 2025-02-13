@@ -43,8 +43,8 @@ public class Build_IntroUI : MonoBehaviour
     }
     public void OnClickGameStart() // debug:ÁØÇü
     {
-        loadingBarBackGround.gameObject.SetActive(true);
+        //loadingBarBackGround.gameObject.SetActive(true);
 
-        SceneManagerEx.Instance.LoadScene(Define.SceneType.Home, true);
+        //SceneManagerEx.Instance.LoadScene(Define.SceneType.Home, true);
     }
 }
