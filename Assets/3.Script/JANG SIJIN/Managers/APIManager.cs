@@ -4,6 +4,7 @@ using UnityEngine.Networking;
 using System.Text;
 using Newtonsoft.Json;
 using Cysharp.Threading.Tasks;
+using System;
 
 public class APIManager : MonoBehaviour
 {
@@ -39,8 +40,16 @@ public class APIManager : MonoBehaviour
             Password = password      
         };
 
-        string jsonData = JsonConvert.SerializeObject(registerData);        
-        return await PostRequest($"{BASE_URL}/register", jsonData);
+        string jsonData = JsonConvert.SerializeObject(registerData);
+        string response = await PostRequest($"{BASE_URL}/register", jsonData);
+
+        // API 응답이 "Error:"로 시작하면 예외가 발생된 것.
+        if(response.StartsWith("Error:"))
+        {
+            throw new Exception(response);
+        }
+
+        return response; // 정상 응답 반환
     }
 
     /// <summary>
@@ -56,7 +65,15 @@ public class APIManager : MonoBehaviour
 
 
         string jsonData = JsonConvert.SerializeObject(loginData);
-        return await PostRequest($"{BASE_URL}/login", jsonData);
+        string response = await PostRequest($"{BASE_URL}/login", jsonData);
+
+        // API 응답이 "Error:"로 시작하면 예외가 발생된 것.
+        if (response.StartsWith("Error:"))
+        {
+            throw new Exception(response);
+        }
+
+        return response; // 정상 응답 반환
     }
 
     /// <summary>
@@ -82,7 +99,7 @@ public class APIManager : MonoBehaviour
             else
             {
                 string responseBody = request.downloadHandler.text;
-                return $"Error: {request.responseCode} {request.error}\n" + $"Response: {responseBody}";
+                return $"Error: {request.responseCode} {request.error}"; // 오류 상세 명세는 우측 코드를 추가하여 확인이 필요합니다. + $"Response: {responseBody}"
             }
         }
     }

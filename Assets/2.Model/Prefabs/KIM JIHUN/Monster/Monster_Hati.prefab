@@ -2264,6 +2264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3387e9ab77467c4087f6b5b971d16c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damageFontCanvasPrefab: {fileID: 0}
   monsterModel: {fileID: 0}
 --- !u!65 &2755214238327518441
 BoxCollider:
@@ -2284,7 +2285,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5, y: 1.5, z: 1.5}
+  m_Size: {x: 1.5, y: 10, z: 1.5}
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &6157882385182190241
 Rigidbody:
@@ -2308,7 +2309,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116

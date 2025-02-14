@@ -86,7 +86,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damageFontCanvasPrefab: {fileID: 888438362293338034, guid: 65b3c048aa3c0d348b40962a35e9e86c, type: 3}
   monsterModel: {fileID: 0}
-  enemyUIController: {fileID: 0}
 --- !u!114 &361477964818381289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,7 +124,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5, y: 1.5, z: 1.5}
+  m_Size: {x: 1.5, y: 10, z: 1.5}
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &872973737518040775
 Rigidbody:
@@ -149,7 +148,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
