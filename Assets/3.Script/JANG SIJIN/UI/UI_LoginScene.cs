@@ -50,7 +50,7 @@ public class UI_LoginScene : MonoBehaviour
         {
             await APIManager.Instance.Login(_emailInputField.text, _passwordInputField.text);
 
-            SceneManagerEx.Instance.LoadScene(Define.SceneType.Home, true);
+            SceneManagerEx.Instance.LoadScene(Define.SceneType.Home);
         }
         catch (Exception ex)
         {           

@@ -23,6 +23,7 @@ public class UIManager : SingletonBase<UIManager>
     [SerializeField] private Build_WeaponUI _weaponUI;
     [SerializeField] private Build_CharacterStatusUI _characterStatusUI;
     [SerializeField] private InShopUI shopUI;
+    [SerializeField] private UI_Loading _uiLoading;
 
     public Build_IntroUI IntroUI => _introUI;
     public MainCityUI MainCityUI => _mainCityUI;
@@ -36,6 +37,7 @@ public class UIManager : SingletonBase<UIManager>
     public Build_WeaponUI WeaponUI => _weaponUI;
     public Build_CharacterStatusUI CharacterStatusUI => _characterStatusUI;
     public InShopUI ShopUI => shopUI;
+    public UI_Loading UI_Loading => _uiLoading;
 
 
     [HideInInspector] public bool isCloseOrOpen = false;

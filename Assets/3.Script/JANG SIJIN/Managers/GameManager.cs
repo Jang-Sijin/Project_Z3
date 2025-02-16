@@ -88,6 +88,7 @@ public class GameManager : SingletonBase<GameManager>
 
     private void InitTown()
     {
+        UIManager.Instance.CloseIngameUI();
         UIManager.Instance.OpenCityUI();
         SoundManager.Instance.PlayBgm(Define.SceneType.Town.ToString());
     }

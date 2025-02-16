@@ -18,6 +18,7 @@ public class SceneManagerEx : SingletonBase<SceneManagerEx>
 
     public void LoadScene(Define.SceneType sceneType) // 일반 씬 불러오는 방법입니다.
     {
+        UIManager.Instance.CloseAllUI();
         nextSceneName = sceneType.ToString();
         //SceneManager.LoadScene(Define.SceneType.LoadingScene.ToString());
         StartCoroutine(LoadScene_co(false));
@@ -41,6 +42,7 @@ public class SceneManagerEx : SingletonBase<SceneManagerEx>
         op.allowSceneActivation = false;
         float timer = 0f;
 
+        UIManager.Instance.UI_Loading.ShowUI();
         switch (isIntro)
         {
             case true: // 인트로에서 로딩
@@ -64,8 +66,7 @@ public class SceneManagerEx : SingletonBase<SceneManagerEx>
                             UIManager.Instance.IntroUI.MiddleText.text = "로딩 완료";
                             op.allowSceneActivation = true;
                             UIManager.Instance.IntroUI.gameObject.SetActive(false);
-                            UIManager.Instance.MainCityUI.gameObject.SetActive(true);
-                            yield break;
+                            UIManager.Instance.MainCityUI.gameObject.SetActive(true);                            
                         }
                     }
                 }
@@ -81,11 +82,6 @@ public class SceneManagerEx : SingletonBase<SceneManagerEx>
                             //Debug.Log("CommonLoadingScene");
                             if (!UIManager.Instance.CommonLoadingUI.gameObject.activeSelf)
                             {
-                                if (BelleController.INSTANCE != null)
-                                    BelleController.INSTANCE.CanInput = false;
-                                else
-                                    PlayerController.INSTANCE.CanInput = false;
-
                                 UIManager.Instance.CommonLoadingUI.gameObject.SetActive(true);
                             }
                         }
@@ -95,14 +91,7 @@ public class SceneManagerEx : SingletonBase<SceneManagerEx>
 
                             yield return new WaitForSeconds(2f); // 2초 대기
 
-                            if (BelleController.INSTANCE != null)
-                                BelleController.INSTANCE.CanInput = true;
-                            else
-                                PlayerController.INSTANCE.CanInput = true;
-
                             UIManager.Instance.CommonLoadingUI.ActivateEndText();
-
-                            yield break;
                         }
                     }
                     break;
@@ -127,12 +116,11 @@ public class SceneManagerEx : SingletonBase<SceneManagerEx>
                             yield return new WaitForSeconds(2f); // 2초 대기
 
                             UIManager.Instance.CommonLoadingUI.ActivateEndText();
-
-                            yield break;
                         }
                     }
                     break;
                 }
         }
+        UIManager.Instance.UI_Loading.HideUI();
     }
 }
