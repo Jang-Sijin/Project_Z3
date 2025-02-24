@@ -117,11 +117,12 @@ public class Build_MonsterModel : MonoBehaviour
     /// </summary>
     public void MonsterDie()
     {
-        // InGameClearManager에 사망 알림
-        InGameClearManager.Instance.OnMonsterDeath(this);
+        GetComponentInChildren<ToonShader.Dissolve>().StartDissolve(()=>
+        {
+            // InGameClearManager에 사망 알림
+            InGameClearManager.Instance.OnMonsterDeath(this);
+        });
 
-        gameObject.SetActive(false);
-
-        Destroy(gameObject);      
+        GetComponentInChildren<EnemyUIController>().StartDissolveUI();
     }
 }

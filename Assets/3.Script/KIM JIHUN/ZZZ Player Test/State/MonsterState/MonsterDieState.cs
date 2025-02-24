@@ -19,7 +19,7 @@ public class MonsterDieState : EnemyStateBase
         {
             // 몬스터 경험치 획득
             GameManager.Instance.StageTotalExp += monsterController.monsterModel.monsterStatus.Exp;
-            // 몬스터 아이템 획득: 20% 확률
+            // 몬스터 아이템 획득: 30% 확률
             bool gotItem = TryGetItem();
             if (gotItem) 
             {
@@ -34,6 +34,6 @@ public class MonsterDieState : EnemyStateBase
     private bool TryGetItem()
     {
         int chance = random.Next(0, 100); // 0부터 99까지의 숫자 중 하나를 무작위로 생성
-        return chance < 20; // 0부터 29까지는 아이템을 획득 (20% 확률)
+        return chance < 30; // 0부터 29까지는 아이템을 획득 (30% 확률)
     }
 }

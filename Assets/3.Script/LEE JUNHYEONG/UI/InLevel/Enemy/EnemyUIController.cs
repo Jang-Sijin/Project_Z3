@@ -19,10 +19,12 @@ public class EnemyUIController : MonoBehaviour
     [SerializeField] private Slider fakeHp; // 일정시간 이후 수치가 감소하는 hp
     [SerializeField] private Slider stun; // 스턴 수치 슬라이더
 
-    [Header ("SP origin & Repaint Color")]
+    [Header("SP origin & Repaint Color")]
     [SerializeField] private Color originStunColor; // 원본 스턴 컬러
     [SerializeField] private Color restunColor; // 스턴 발생 시 적용할 컬러
     private Image spFillImage; // 컬러를 바꿀 fill 이미지
+
+    [SerializeField] private RectMask2D _rectMask2D;
 
     private float stunTime = 5f; // 스턴 시간
     public float StunTime
@@ -88,7 +90,7 @@ public class EnemyUIController : MonoBehaviour
     }
 
     public void RefreshStun(float nowStun, float maxStun) // stun 갱신
-    { 
+    {
         if (isStunReducing)
             return;
 
@@ -131,5 +133,45 @@ public class EnemyUIController : MonoBehaviour
     private void Refresh_fakeHp() // 지정된 피까지 스무스하게 줄어듦
     {
         fakeHp.DOValue(realHp.value, 1.5f, false).SetEase(Ease.OutExpo);
+    }
+
+    public void StartDissolveUI(MonsterType monsterType)
+    {
+        float duration = 0.5f;
+
+        // 기존 패딩 값 가져오기
+        Vector4 padding = _rectMask2D.padding;
+
+        switch (monsterType)
+        {
+            case MonsterType.Claymore:
+                // DOTween을 사용하여 left 값 959 → 961으로 변경
+                DOTween.To(() => padding.x, x =>
+                {
+                    padding.x = x;
+                    _rectMask2D.padding = padding;
+                }, 961f, duration);
+                break;
+            case MonsterType.Giant:
+                // 40 > 60
+                DOTween.To(() => padding.x, x =>
+                {
+                    padding.x = x;
+                    _rectMask2D.padding = padding;
+                }, 60f, duration);
+                break;
+            case MonsterType.Goblin:
+                break;
+            case MonsterType.Hati:
+                break;
+        }        
+    }
+
+    public enum MonsterType
+    {
+        Claymore,
+        Giant,
+        Goblin,
+        Hati
     }
 }

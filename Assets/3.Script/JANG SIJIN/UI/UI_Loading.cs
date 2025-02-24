@@ -9,8 +9,7 @@ public class UI_Loading : MonoBehaviour
 {
     [SerializeField] private Image _helpChracterProfileImage;
     [SerializeField] private TextMeshProUGUI _helpTextMesh;
-    [SerializeField] private RectMask2D _helpRectMask;
-    [SerializeField] private Image _captureImage;
+    [SerializeField] private RectMask2D _helpRectMask;    
 
 
     [SerializeField] private Sprite[] _helpCharacterImages;
@@ -23,16 +22,12 @@ public class UI_Loading : MonoBehaviour
     };
 
     public void ShowUI()
-    {
-        StartCoroutine(CaptureCoroutine());
-        _captureImage.gameObject.SetActive(true);
-
-
+    {                
         int randomIndex = Random.Range(0, 4);        
 
         _helpChracterProfileImage.sprite = _helpCharacterImages[randomIndex];
         _helpTextMesh.text = helpTexts[randomIndex];
-        _helpRectMask.padding = new Vector4(0, 0, 1920, 0);
+        _helpRectMask.padding = new Vector4(0, 0, 0, 0);
         gameObject.SetActive(true);
 
 
@@ -49,9 +44,7 @@ public class UI_Loading : MonoBehaviour
     }
 
     public void HideUI()
-    {        
-        _captureImage.gameObject.SetActive(false);
-
+    {                
         // 현재 패딩을 가져오기        
         DOTween.To(() => _helpRectMask.padding.x, x =>
         {
@@ -67,38 +60,5 @@ public class UI_Loading : MonoBehaviour
 
             gameObject.SetActive(false);
         });
-    }
-
-    private IEnumerator CaptureCoroutine()
-    {
-        Camera captureCamera = Camera.main;
-
-        yield return new WaitForEndOfFrame();
-
-        // 현재 화면 크기 가져오기
-        int width = Screen.width;
-        int height = Screen.height;
-
-        // RenderTexture 생성
-        RenderTexture renderTexture = new RenderTexture(width, height, 24);
-        captureCamera.targetTexture = renderTexture;
-        captureCamera.Render();
-
-        // Texture2D로 변환
-        Texture2D screenTexture = new Texture2D(width, height, TextureFormat.RGB24, false);
-        RenderTexture.active = renderTexture;
-        screenTexture.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-        screenTexture.Apply();
-
-        // 리소스 정리
-        captureCamera.targetTexture = null;
-        RenderTexture.active = null;
-        Destroy(renderTexture);
-
-        // Texture2D를 Sprite로 변환
-        Sprite capturedSprite = Sprite.Create(screenTexture, new Rect(0, 0, width, height), new Vector2(0.5f, 0.5f));
-
-        // UI Image에 적용
-        _captureImage.sprite = capturedSprite;
     }
 }

@@ -206,6 +206,7 @@ GameObject:
   - component: {fileID: 8196574893589441397}
   - component: {fileID: 7226262290023761561}
   - component: {fileID: 8265552091699632167}
+  - component: {fileID: 6506972687794085106}
   m_Layer: 0
   m_Name: Monster_Giant_Model
   m_TagString: Enemy
@@ -233,6 +234,7 @@ Transform:
   - {fileID: 3357595922428875912}
   - {fileID: 3710838053244928383}
   - {fileID: 4962032299972305361}
+  - {fileID: 721779775861075290}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!95 &5496658276323105044
@@ -374,6 +376,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _monsterModel: {fileID: 1827488764962020063}
   _monsterweaponCollider: {fileID: 3962077055039547790}
+--- !u!114 &6506972687794085106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2676756391901839752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 968372a77464edb468c3a233f17283f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolveTime: 3
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.21681614
+      value: 0.993873
+      inSlope: 2.6159208
+      outSlope: 2.6159208
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.49997252
+      value: 0.0017127991
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 0
+    m_RotationOrder: 4
+  m_EmissionRate: 2
 --- !u!1 &3068435355558697908
 GameObject:
   m_ObjectHideFlags: 0
@@ -1529,6 +1578,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1257119123480603020}
   - component: {fileID: 398341498498481563}
+  - component: {fileID: 1646760800831766342}
   m_Layer: 0
   m_Name: Monster_Giant_1
   m_TagString: Untagged
@@ -1638,6 +1688,19 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.03673619, y: 1.2248085, z: -0.020673513}
     m_Extent: {x: 1.9047587, y: 1.9677007, z: 2.9714653}
   m_DirtyAABB: 0
+--- !u!114 &1646760800831766342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8027724711583192895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 764f74415c2747c40bd182521fa53188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolveMaterial: {fileID: 2100000, guid: 5c138f1361b034f409499dc3c013b630, type: 2}
 --- !u!1 &9063254844797752702
 GameObject:
   m_ObjectHideFlags: 0
@@ -1736,6 +1799,80 @@ SkinnedMeshRenderer:
     m_Center: {x: -1.1318054, y: 0.5400907, z: -0.36583507}
     m_Extent: {x: 1.7527754, y: 1.9593374, z: 1.9098555}
   m_DirtyAABB: 0
+--- !u!1001 &1454644507245955710
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6252946740259547505}
+    m_Modifications:
+    - target: {fileID: 2174017720312194852, guid: a05c483fc7e2c954caa6913fa552e5e4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2174017720312194852, guid: a05c483fc7e2c954caa6913fa552e5e4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2174017720312194852, guid: a05c483fc7e2c954caa6913fa552e5e4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2174017720312194852, guid: a05c483fc7e2c954caa6913fa552e5e4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2174017720312194852, guid: a05c483fc7e2c954caa6913fa552e5e4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2174017720312194852, guid: a05c483fc7e2c954caa6913fa552e5e4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2174017720312194852, guid: a05c483fc7e2c954caa6913fa552e5e4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2174017720312194852, guid: a05c483fc7e2c954caa6913fa552e5e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2174017720312194852, guid: a05c483fc7e2c954caa6913fa552e5e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2174017720312194852, guid: a05c483fc7e2c954caa6913fa552e5e4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5846449672574338372, guid: a05c483fc7e2c954caa6913fa552e5e4, type: 3}
+      propertyPath: ShapeModule.m_UseMeshColors
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5846449672574338372, guid: a05c483fc7e2c954caa6913fa552e5e4, type: 3}
+      propertyPath: ShapeModule.m_SkinnedMeshRenderer
+      value: 
+      objectReference: {fileID: 398341498498481563}
+    - target: {fileID: 5846449672574338372, guid: a05c483fc7e2c954caa6913fa552e5e4, type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 65.53128
+      objectReference: {fileID: 0}
+    - target: {fileID: 6820065133541774315, guid: a05c483fc7e2c954caa6913fa552e5e4, type: 3}
+      propertyPath: m_Name
+      value: DissolveParticles
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a05c483fc7e2c954caa6913fa552e5e4, type: 3}
+--- !u!4 &721779775861075290 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2174017720312194852, guid: a05c483fc7e2c954caa6913fa552e5e4, type: 3}
+  m_PrefabInstance: {fileID: 1454644507245955710}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4155841671789406179
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1744,6 +1881,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6252946740259547505}
     m_Modifications:
+    - target: {fileID: 1034209209594395009, guid: 3f6fae0f0e4f4e24795a63416b9f0dfa, type: 3}
+      propertyPath: m_Padding.x
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 1404277345642383375, guid: 3f6fae0f0e4f4e24795a63416b9f0dfa, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

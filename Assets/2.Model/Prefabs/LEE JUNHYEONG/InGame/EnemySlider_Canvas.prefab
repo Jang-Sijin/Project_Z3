@@ -274,6 +274,7 @@ GameObject:
   - component: {fileID: 2831663900351884509}
   - component: {fileID: 3172508358263288632}
   - component: {fileID: 5371900834324151632}
+  - component: {fileID: 1034209209594395009}
   m_Layer: 5
   m_Name: EnemySlider_Canvas
   m_TagString: Untagged
@@ -384,9 +385,24 @@ MonoBehaviour:
   stun: {fileID: 5303209929364223774}
   originStunColor: {r: 1, g: 0.8627451, b: 0, a: 1}
   restunColor: {r: 0, g: 0.362041, b: 1, a: 1}
-  monster: {fileID: 0}
+  _rectMask2D: {fileID: 1034209209594395009}
+  monsterTransform: {fileID: 0}
   mainCamera: {fileID: 0}
   isStunReducing: 0
+--- !u!114 &1034209209594395009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4247496680427121890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: 959, y: 0, z: 0, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &4901428100346858861
 GameObject:
   m_ObjectHideFlags: 0

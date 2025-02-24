@@ -32,7 +32,7 @@ public class Build_MonsterController : MonoBehaviour, IStateMachineOwner
 
     private void OnEnable()
     {
-        SwitchState(EMonsterState.Spawn);     
+        SwitchState(EMonsterState.Spawn);        
     }
 
     private void OnDisable()
@@ -94,18 +94,17 @@ public class Build_MonsterController : MonoBehaviour, IStateMachineOwner
             // EnemyUIController.RefreshHealth(_currentHealth, MaxHealth);
 
             ShowDamageFont(playerDamage, playerWeaponPostion);
-            enemyUIController.RefreshHealth(monsterModel.monsterStatus.CurrentHealth.Value, monsterModel.monsterStatus.MaxHealth); // 몬스터 HP Bar 갱신
-            return;
+            enemyUIController.RefreshHealth(monsterModel.monsterStatus.CurrentHealth.Value, monsterModel.monsterStatus.MaxHealth); // 몬스터 HP Bar 갱신            
         }
-        else
+        
+        if(monsterModel.monsterStatus.CurrentHealth.Value <= 0)
         {
             // 몬스터 사망 이펙트, 로직을 처리합니다.
 
             GetComponent<Rigidbody>().isKinematic = false;
             Debug.Log($"{gameObject.name}: 몬스터 사망");
             enemyUIController.RefreshHealth(monsterModel.monsterStatus.CurrentHealth.Value, monsterModel.monsterStatus.MaxHealth); // 몬스터 HP Bar 갱신
-            SwitchState(EMonsterState.Die);
-            return;
+            SwitchState(EMonsterState.Die);            
         }
     }
 
