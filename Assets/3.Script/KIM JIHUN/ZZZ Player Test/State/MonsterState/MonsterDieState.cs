@@ -6,16 +6,18 @@ using UnityEngine;
 public class MonsterDieState : EnemyStateBase
 {
     private static System.Random random = new System.Random();
+    private bool _dieFlag;
 
     public override void Enter()
-    {
+    {        
         base.Enter();
+        _dieFlag = false;
         monsterController.PlayAnimation("Die");
     }
     public override void Update()
     {
         base.Update();
-        if (IsAnimationEnd())
+        if (IsAnimationEnd() && !_dieFlag)
         {
             // ∏ÛΩ∫≈Õ ∞Ê«Ëƒ° »πµÊ
             GameManager.Instance.StageTotalExp += monsterController.monsterModel.monsterStatus.Exp;
@@ -27,6 +29,7 @@ public class MonsterDieState : EnemyStateBase
             }
 
             monsterController.monsterModel.MonsterDie();
+            _dieFlag = true;
             return;
         }
     }

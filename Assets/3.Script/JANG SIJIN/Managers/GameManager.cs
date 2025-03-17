@@ -26,6 +26,8 @@ public class GameManager : SingletonBase<GameManager>
     {
         // 타이틀 씬에서 시작한다는 가정하에 호출되는 초기 설정 값 입니다.
         ChangeSceneInit(GetCurrentSceneName());
+
+        StageGetItemList = new List<Build_Item>();        
     }
 
     public void SetStageStartTime()

@@ -19586,6 +19586,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ef01ab9deadd7694bb6e030b9d8b3181, type: 3}
   m_PrefabInstance: {fileID: 612855839}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1463833184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1463833185}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1463833185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463833184}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1465546637
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22036,7 +22067,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 647739076326949856, guid: 769b1b52b2ea5b8429cbcdfb82d6d0de, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.00000047683716
       objectReference: {fileID: 0}
     - target: {fileID: 647739076326949856, guid: 769b1b52b2ea5b8429cbcdfb82d6d0de, type: 3}
       propertyPath: m_LocalPosition.z
@@ -22044,11 +22075,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 647739076326949856, guid: 769b1b52b2ea5b8429cbcdfb82d6d0de, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.97062856
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 647739076326949856, guid: 769b1b52b2ea5b8429cbcdfb82d6d0de, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.24058327
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 647739076326949856, guid: 769b1b52b2ea5b8429cbcdfb82d6d0de, type: 3}
       propertyPath: m_LocalRotation.y
@@ -22060,7 +22091,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1140160434052997988, guid: 769b1b52b2ea5b8429cbcdfb82d6d0de, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.00000047683716
       objectReference: {fileID: 0}
     - target: {fileID: 1140160434052997988, guid: 769b1b52b2ea5b8429cbcdfb82d6d0de, type: 3}
       propertyPath: m_LocalRotation.w
@@ -22160,11 +22191,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2511997532425797954, guid: 769b1b52b2ea5b8429cbcdfb82d6d0de, type: 3}
       propertyPath: m_FollowOffset.y
-      value: 1.114916
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2511997532425797954, guid: 769b1b52b2ea5b8429cbcdfb82d6d0de, type: 3}
       propertyPath: m_FollowOffset.z
-      value: -4.475928
+      value: -3.2
       objectReference: {fileID: 0}
     - target: {fileID: 2640177493655090226, guid: 769b1b52b2ea5b8429cbcdfb82d6d0de, type: 3}
       propertyPath: m_Name
@@ -22176,15 +22207,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6022600974465549424, guid: 769b1b52b2ea5b8429cbcdfb82d6d0de, type: 3}
       propertyPath: m_FollowOffset.y
-      value: 1.114916
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6022600974465549424, guid: 769b1b52b2ea5b8429cbcdfb82d6d0de, type: 3}
       propertyPath: m_FollowOffset.z
-      value: -4.475928
+      value: -3.2
       objectReference: {fileID: 0}
     - target: {fileID: 7589396931542750371, guid: 769b1b52b2ea5b8429cbcdfb82d6d0de, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.00000047683716
       objectReference: {fileID: 0}
     - target: {fileID: 7589396931542750371, guid: 769b1b52b2ea5b8429cbcdfb82d6d0de, type: 3}
       propertyPath: m_LocalRotation.w
@@ -73180,6 +73211,7 @@ MonoBehaviour:
   originStunColor: {r: 1, g: 0.8627451, b: 0, a: 1}
   restunColor: {r: 0, g: 0.362041, b: 1, a: 1}
   _rectMask2D: {fileID: 0}
+  _monsterType: 0
   monsterTransform: {fileID: 0}
   mainCamera: {fileID: 0}
   isStunReducing: 0
@@ -73201,6 +73233,7 @@ MonoBehaviour:
   originStunColor: {r: 1, g: 0.8627451, b: 0, a: 1}
   restunColor: {r: 0, g: 0.362041, b: 1, a: 1}
   _rectMask2D: {fileID: 0}
+  _monsterType: 0
   monsterTransform: {fileID: 0}
   mainCamera: {fileID: 0}
   isStunReducing: 0
@@ -73222,6 +73255,7 @@ MonoBehaviour:
   originStunColor: {r: 1, g: 0.8627451, b: 0, a: 1}
   restunColor: {r: 0, g: 0.362041, b: 1, a: 1}
   _rectMask2D: {fileID: 0}
+  _monsterType: 0
   monsterTransform: {fileID: 0}
   mainCamera: {fileID: 0}
   isStunReducing: 0
@@ -94824,6 +94858,7 @@ MonoBehaviour:
   originStunColor: {r: 1, g: 0.8627451, b: 0, a: 1}
   restunColor: {r: 0, g: 0.362041, b: 1, a: 1}
   _rectMask2D: {fileID: 0}
+  _monsterType: 0
   monsterTransform: {fileID: 0}
   mainCamera: {fileID: 0}
   isStunReducing: 0
@@ -94845,6 +94880,7 @@ MonoBehaviour:
   originStunColor: {r: 1, g: 0.8627451, b: 0, a: 1}
   restunColor: {r: 0, g: 0.362041, b: 1, a: 1}
   _rectMask2D: {fileID: 0}
+  _monsterType: 0
   monsterTransform: {fileID: 0}
   mainCamera: {fileID: 0}
   isStunReducing: 0
@@ -94866,6 +94902,7 @@ MonoBehaviour:
   originStunColor: {r: 1, g: 0.8627451, b: 0, a: 1}
   restunColor: {r: 0, g: 0.362041, b: 1, a: 1}
   _rectMask2D: {fileID: 0}
+  _monsterType: 0
   monsterTransform: {fileID: 0}
   mainCamera: {fileID: 0}
   isStunReducing: 0
@@ -94887,6 +94924,7 @@ MonoBehaviour:
   originStunColor: {r: 1, g: 0.8627451, b: 0, a: 1}
   restunColor: {r: 0, g: 0.362041, b: 1, a: 1}
   _rectMask2D: {fileID: 0}
+  _monsterType: 0
   monsterTransform: {fileID: 0}
   mainCamera: {fileID: 0}
   isStunReducing: 0
@@ -94908,6 +94946,7 @@ MonoBehaviour:
   originStunColor: {r: 1, g: 0.8627451, b: 0, a: 1}
   restunColor: {r: 0, g: 0.362041, b: 1, a: 1}
   _rectMask2D: {fileID: 0}
+  _monsterType: 0
   monsterTransform: {fileID: 0}
   mainCamera: {fileID: 0}
   isStunReducing: 0
@@ -99733,6 +99772,7 @@ MonoBehaviour:
   originStunColor: {r: 1, g: 0.8627451, b: 0, a: 1}
   restunColor: {r: 0, g: 0.362041, b: 1, a: 1}
   _rectMask2D: {fileID: 0}
+  _monsterType: 0
   monsterTransform: {fileID: 0}
   mainCamera: {fileID: 0}
   isStunReducing: 0
@@ -102890,6 +102930,7 @@ MonoBehaviour:
   originStunColor: {r: 1, g: 0.8627451, b: 0, a: 1}
   restunColor: {r: 0, g: 0.362041, b: 1, a: 1}
   _rectMask2D: {fileID: 0}
+  _monsterType: 0
   monsterTransform: {fileID: 0}
   mainCamera: {fileID: 0}
   isStunReducing: 0
@@ -102911,6 +102952,7 @@ MonoBehaviour:
   originStunColor: {r: 1, g: 0.8627451, b: 0, a: 1}
   restunColor: {r: 0, g: 0.362041, b: 1, a: 1}
   _rectMask2D: {fileID: 0}
+  _monsterType: 0
   monsterTransform: {fileID: 0}
   mainCamera: {fileID: 0}
   isStunReducing: 0
@@ -102932,6 +102974,7 @@ MonoBehaviour:
   originStunColor: {r: 1, g: 0.8627451, b: 0, a: 1}
   restunColor: {r: 0, g: 0.362041, b: 1, a: 1}
   _rectMask2D: {fileID: 0}
+  _monsterType: 0
   monsterTransform: {fileID: 0}
   mainCamera: {fileID: 0}
   isStunReducing: 0
@@ -102953,6 +102996,7 @@ MonoBehaviour:
   originStunColor: {r: 1, g: 0.8627451, b: 0, a: 1}
   restunColor: {r: 0, g: 0.362041, b: 1, a: 1}
   _rectMask2D: {fileID: 0}
+  _monsterType: 0
   monsterTransform: {fileID: 0}
   mainCamera: {fileID: 0}
   isStunReducing: 0
@@ -107295,6 +107339,7 @@ SceneRoots:
   - {fileID: 2045762301}
   - {fileID: 399862382}
   - {fileID: 565579097}
+  - {fileID: 1463833185}
   - {fileID: 309557583}
   - {fileID: 796553333}
   - {fileID: 1316252472}

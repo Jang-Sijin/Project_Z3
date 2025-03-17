@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
 using System.Threading.Tasks;
@@ -17,22 +18,31 @@ public class UI_RegistUser : MonoBehaviour
     [SerializeField] private TMP_InputField _passwordConfirmInputField;
 
     [SerializeField] private GameObject _uiErrorPannel;
-    [SerializeField] private GameObject _uiLoadingPannel;    
+    [SerializeField] private GameObject _uiLoadingPannel;
 
     private void Start()
-    {       
-        _acceptButton.onClick.AddListener(() => OnClickAcceptButtonAsync().ConfigureAwait(false));
-        _cancleButton.onClick.AddListener(OnClickCancleButton);
-    }   
-
-    private async Task OnClickAcceptButtonAsync()
     {
-        gameObject.SetActive(false);        
+        _acceptButton.onClick.AddListener(() => OnClickAcceptButtonAsync().Forget());
+        _cancleButton.onClick.AddListener(OnClickCancleButton);
+    }
+
+    private async UniTask OnClickAcceptButtonAsync()
+    {
+        // 로딩 패널 표시
+        _uiLoadingPannel.gameObject.SetActive(true);
+        gameObject.SetActive(false);
+
         try
         {
-            await APIManager.Instance.Register(_idInputField.text, _nickNameInputField.text, _phoneNumberInputField.text, _passwordInputField.text);
+            await APIManager.Instance.Register(_idInputField.text, _nickNameInputField.text, _phoneNumberInputField.text, _passwordInputField.text,
+                async () =>
+                {                    
+                    await UniTask.Yield();
+        
+                    _uiErrorPannel.GetComponent<UI_ConfirmPannel>()
+                    .ShowMessageBoxText("회원가입 완료", "정상적으로 회원가입이 완료되었습니다.\n가입한 이메일로 로그인하세요.");
+                });
 
-            _uiErrorPannel.GetComponent<UI_ConfirmPannel>().ShowMessageBoxText("회원가입 완료", "정상적으로 회원가입이 완료되었습니다.\n가입한 이메일로 로그인하세요.");
         }
         catch (Exception ex)
         {
@@ -40,7 +50,7 @@ public class UI_RegistUser : MonoBehaviour
         }
         finally
         {
-            _uiLoadingPannel.gameObject.SetActive(false);            
+            _uiLoadingPannel.gameObject.SetActive(false);
             CloseUI();
         }
     }

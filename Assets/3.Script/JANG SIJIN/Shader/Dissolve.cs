@@ -96,12 +96,10 @@ namespace ToonShader
                 Debug.Log("파티클 종료 대기 중...");
                 yield return new WaitForSeconds(m_ParticleSystem.main.startLifetime.constant);
             }
-
-            gameObject.SetActive(false); // 오브젝트 비활성화
+            
             isDissolving = false;
-            Debug.Log("디졸브 완료");
-
             _onDissolveComplete?.Invoke();
+            Debug.Log("디졸브 완료");            
         }
     }
 }

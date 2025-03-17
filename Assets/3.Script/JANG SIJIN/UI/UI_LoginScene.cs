@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System;
 using System.Collections;
@@ -31,7 +32,7 @@ public class UI_LoginScene : MonoBehaviour
     private void Start()
     {
         _registUserButton.onClick.AddListener(OnClickRegistUserButton);
-        _loginUserButton.onClick.AddListener(OnClickLoginButton);
+        _loginUserButton.onClick.AddListener(() => OnClickLoginButton().Forget());
     }
 
     private void OnClickRegistUserButton()
@@ -42,23 +43,25 @@ public class UI_LoginScene : MonoBehaviour
         }
     }
 
-    private async void OnClickLoginButton()
+    private async UniTask OnClickLoginButton()
     {
         _uiLoadingPannel.gameObject.SetActive(true);
 
-        try
-        {
-            await APIManager.Instance.Login(_emailInputField.text, _passwordInputField.text);
+        SceneManagerEx.Instance.LoadScene(Define.SceneType.Home);
 
-            SceneManagerEx.Instance.LoadScene(Define.SceneType.Home);
-        }
-        catch (Exception ex)
-        {           
-            _uiErrorPannel.GetComponent<UI_ConfirmPannel>().ShowMessageBoxText("로그인 실패", ex.Message);            
-        }
-        finally
-        {            
-            _uiLoadingPannel.gameObject.SetActive(false);
-        }
+        //try
+        //{
+        //    await APIManager.Instance.Login(_emailInputField.text, _passwordInputField.text);
+
+        //    SceneManagerEx.Instance.LoadScene(Define.SceneType.Home);
+        //}
+        //catch (Exception ex)
+        //{           
+        //    _uiErrorPannel.GetComponent<UI_ConfirmPannel>().ShowMessageBoxText("로그인 실패", ex.Message);            
+        //}
+        //finally
+        //{            
+        //    _uiLoadingPannel.gameObject.SetActive(false);
+        //}
     }
 }

@@ -30,7 +30,8 @@ public class APIManager : MonoBehaviour
     /// <summary>
     /// 회원가입 API 요청
     /// </summary>
-    public async UniTask<string> Register(string email, string nickName, string phoneNumber, string password)
+    public async UniTask<string> Register(string email, string nickName, 
+        string phoneNumber, string password, Func<UniTask> callback)
     {
         var registerData = new
         {            
@@ -42,12 +43,14 @@ public class APIManager : MonoBehaviour
 
         string jsonData = JsonConvert.SerializeObject(registerData);
         string response = await PostRequest($"{BASE_URL}/register", jsonData);
-
-        // API 응답이 "Error:"로 시작하면 예외가 발생된 것.
+        
         if(response.StartsWith("Error:"))
         {
             throw new Exception(response);
         }
+        
+        if (callback != null)
+            await callback();
 
         return response; // 정상 응답 반환
     }
@@ -75,10 +78,8 @@ public class APIManager : MonoBehaviour
 
         return response; // 정상 응답 반환
     }
-
-    /// <summary>
-    /// 공통 POST 요청 메서드
-    /// </summary>
+    
+    /// 공통 POST 요청 메서드    
     private async UniTask<string> PostRequest(string url, string jsonData)
     {
         using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
@@ -99,9 +100,8 @@ public class APIManager : MonoBehaviour
             else
             {
                 string responseBody = request.downloadHandler.text;
-                return $"Error: {request.responseCode} {request.error}"; // 오류 상세 명세는 우측 코드를 추가하여 확인이 필요합니다. + $"Response: {responseBody}"
+                return $"Error: {request.responseCode} {request.error}";
             }
         }
     }
-
 }

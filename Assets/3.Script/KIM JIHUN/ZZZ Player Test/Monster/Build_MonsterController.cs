@@ -103,7 +103,7 @@ public class Build_MonsterController : MonoBehaviour, IStateMachineOwner
 
             GetComponent<Rigidbody>().isKinematic = false;
             Debug.Log($"{gameObject.name}: 몬스터 사망");
-            enemyUIController.RefreshHealth(monsterModel.monsterStatus.CurrentHealth.Value, monsterModel.monsterStatus.MaxHealth); // 몬스터 HP Bar 갱신
+            enemyUIController.RefreshHealth(monsterModel.monsterStatus.CurrentHealth.Value, monsterModel.monsterStatus.MaxHealth); // 몬스터 HP Bar 갱신            
             SwitchState(EMonsterState.Die);            
         }
     }

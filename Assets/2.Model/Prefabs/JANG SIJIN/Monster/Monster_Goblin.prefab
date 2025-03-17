@@ -1472,7 +1472,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1247061258410682977}
   - component: {fileID: 4576735464293396999}
-  - component: {fileID: 509376001693237701}
   m_Layer: 0
   m_Name: Goblin_Body
   m_TagString: Untagged
@@ -1584,19 +1583,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.0710634, y: 0.19940972, z: -0.0000022649765}
     m_Extent: {x: 1.213533, y: 0.97022736, z: 1.0325295}
   m_DirtyAABB: 0
---- !u!114 &509376001693237701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4796524492936954498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 764f74415c2747c40bd182521fa53188, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dissolveMaterial: {fileID: 2100000, guid: 2fd41cd1284b72e4980414b025fa9e3a, type: 2}
 --- !u!1 &5150241004665987514
 GameObject:
   m_ObjectHideFlags: 0
@@ -2565,6 +2551,10 @@ PrefabInstance:
     - target: {fileID: 4247496680427121890, guid: 3f6fae0f0e4f4e24795a63416b9f0dfa, type: 3}
       propertyPath: m_Name
       value: EnemySlider_Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5371900834324151632, guid: 3f6fae0f0e4f4e24795a63416b9f0dfa, type: 3}
+      propertyPath: _monsterType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8373895149094988692, guid: 3f6fae0f0e4f4e24795a63416b9f0dfa, type: 3}
       propertyPath: m_AnchorMax.x

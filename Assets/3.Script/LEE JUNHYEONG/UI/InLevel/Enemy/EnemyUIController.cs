@@ -26,6 +26,8 @@ public class EnemyUIController : MonoBehaviour
 
     [SerializeField] private RectMask2D _rectMask2D;
 
+    [SerializeField] private MonsterType _monsterType;
+
     private float stunTime = 5f; // 스턴 시간
     public float StunTime
     {
@@ -135,14 +137,14 @@ public class EnemyUIController : MonoBehaviour
         fakeHp.DOValue(realHp.value, 1.5f, false).SetEase(Ease.OutExpo);
     }
 
-    public void StartDissolveUI(MonsterType monsterType)
+    public void StartDissolveUI()
     {
         float duration = 0.5f;
 
         // 기존 패딩 값 가져오기
         Vector4 padding = _rectMask2D.padding;
 
-        switch (monsterType)
+        switch (_monsterType)
         {
             case MonsterType.Claymore:
                 // DOTween을 사용하여 left 값 959 → 961으로 변경
@@ -153,16 +155,14 @@ public class EnemyUIController : MonoBehaviour
                 }, 961f, duration);
                 break;
             case MonsterType.Giant:
+            case MonsterType.Goblin:
+            case MonsterType.Hati:
                 // 40 > 60
                 DOTween.To(() => padding.x, x =>
                 {
                     padding.x = x;
                     _rectMask2D.padding = padding;
                 }, 60f, duration);
-                break;
-            case MonsterType.Goblin:
-                break;
-            case MonsterType.Hati:
                 break;
         }        
     }

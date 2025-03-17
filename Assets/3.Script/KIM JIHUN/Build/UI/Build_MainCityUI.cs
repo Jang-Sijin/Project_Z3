@@ -66,7 +66,7 @@ public class Build_MainCityUI : MonoBehaviour
             BelleController.INSTANCE.UnlockCamera();
             UIManager.Instance.OpenCityUI();
             UIManager.Instance.UnlockPlayer();
-            End_bg();
+            //End_bg();
         }
     }
 
@@ -79,10 +79,10 @@ public class Build_MainCityUI : MonoBehaviour
             tween.Kill();
         }
 
-        foreach (MovePanel movePanel in movePanels)
-        {
-            movePanel.GoToTargetPos();
-        }
+        //foreach (MovePanel movePanel in movePanels)
+        //{
+        //    movePanel.GoToTargetPos();
+        //}
 
         tween = image_BG.DOFade(1f, duration_BG).OnComplete(StartClean_bg);
     }
